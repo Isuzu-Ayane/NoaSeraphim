@@ -1,0 +1,179 @@
+/* Dark Secret Theme */
+:root {
+    --bg-color: #0d0d12;
+    --card-bg: #1a1a24;
+    --text-main: #e0e0f0;
+    --text-sub: #8888aa;
+    --accent: #9370db;
+    /* Medium Purple */
+    --accent-glow: rgba(147, 112, 219, 0.4);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg-color);
+    color: var(--text-main);
+    min-height: 100vh;
+}
+
+/* Glass Panel Utility */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+}
+
+/* LOGIN GATE */
+.gate-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, #1a1a24 0%, #000 100%);
+}
+
+.login-box {
+    padding: 40px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 0 30px var(--accent-glow);
+}
+
+.login-box h2 {
+    color: var(--accent);
+    margin-top: 0;
+    letter-spacing: 2px;
+}
+
+.login-box input {
+    width: 80%;
+    padding: 10px;
+    margin: 20px 0;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #444;
+    color: white;
+    text-align: center;
+    font-size: 1.1rem;
+    border-radius: 5px;
+}
+
+.login-box button {
+    padding: 10px 30px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.login-box button:hover {
+    box-shadow: 0 0 15px var(--accent);
+}
+
+.error-text {
+    color: #ff5555;
+    min-height: 1.2em;
+}
+
+.back-link {
+    display: block;
+    margin-top: 20px;
+    color: var(--text-sub);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.back-link:hover {
+    color: white;
+}
+
+/* BLOG CONTENT */
+.blog-header {
+    background: rgba(0, 0, 0, 0.8);
+    border-bottom: 1px solid #333;
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.blog-header h1 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: var(--accent);
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: var(--text-sub);
+    margin-left: 15px;
+}
+
+.home-btn {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    border: 1px solid #555;
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+
+/* POSTS */
+.posts-grid {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.post-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #333;
+}
+
+/* The actual blog content is the Image */
+.post-image {
+    width: 100%;
+    display: block;
+    /* Maintain aspect ratio */
+}
+
+.post-meta {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-sub);
+    font-size: 0.85rem;
+    border-top: 1px solid #2a2a35;
+    background: #15151e;
+}
+
+.post-date {
+    font-family: monospace;
+}
+
+footer {
+    text-align: center;
+    padding: 40px;
+    color: #444;
+}

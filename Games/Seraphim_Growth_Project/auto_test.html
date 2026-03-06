@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Auto-Test Runner v5.0 (PDCA)</title>
+    <link rel="stylesheet" href="css/style.css?v=test5">
+    <style>
+        body {
+            background: #111;
+            color: #fff;
+            font-family: monospace;
+            padding: 20px;
+        }
+
+        #test-report {
+            background: #222;
+            padding: 20px;
+            border: 1px solid #444;
+            white-space: pre-wrap;
+        }
+
+        .pass {
+            color: #0f0;
+        }
+
+        .fail {
+            color: #f00;
+            font-weight: bold;
+        }
+
+        .info {
+            color: #aaa;
+        }
+
+        #status-overlay {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 20px;
+            font-size: 2em;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🤖 PDCA Virtual Verification Agent v5.0</h1>
+    <div id="status-overlay" style="background:orange; color:black;">RUNNING...</div>
+    <div id="test-report">Initializing Test...</div>
+
+    <!-- Game Container with correct IDs -->
+    <div class="game-container"
+        style="opacity: 0.5; transform: scale(0.8); transform-origin: top left; pointer-events: none;">
+        <main class="main-view">
+            <div class="image-area"><img id="main-img">
+                <div id="placeholder">
+                    <div id="ph-title"></div>
+                    <div id="ph-sub"></div>
+                </div>
+            </div>
+            <div id="msg-box"></div>
+        </main>
+        <aside class="stats-panel">
+            <h2 id="age-display"></h2>
+            <div id="month-display"></div>
+            <!-- Stats -->
+            <span id="val-int">20</span>
+            <div id="bar-int"></div>
+            <span id="val-sta">20</span>
+            <div id="bar-sta"></div>
+            <span id="val-lif">20</span>
+            <div id="bar-lif"></div>
+            <span id="val-aff">20</span>
+            <div id="bar-aff"></div>
+            <span id="val-eng">20</span>
+            <div id="bar-eng"></div>
+        </aside>
+    </div>
+    <div id="ending-modal">
+        <h2 id="end-title"></h2><img id="end-img">
+        <div id="end-fallback"></div>
+        <p id="end-desc"></p>
+    </div>
+
+    <script src="js/script.js?v=test5"></script>
+    <script>
+        const report = document.getElementById('test-report');
+        const status = document.getElementById('status-overlay');
+
+        function log(msg, type = 'info') {
+            report.innerHTML += `<div class="${type}">[${type.toUpperCase()}] ${msg}</div>`;
+        }
+
+        async function runTests() {
+            try {
+                // Wait for Init
+                await new Promise(r => setTimeout(r, 1000));
+
+                log("--- TEST START v5.0 ---");
+
+                // 1. Verify Global Object
+                if (!window.NoaGame) throw new Error("NoaGame Global Object is undefined");
+                log("NoaGame Object Found", "pass");
+
+                // 2. Verify Initial State
+                const s = window.NoaGame.state.stats;
+                log(`Initial State: INT=${s.int}, ENG=${s.eng}`);
+                if (s.int !== 50 || s.eng !== 100) throw new Error(`Initial state mismatch. Expected 50/100, got ${s.int}/${s.eng}`);
+                log("Initial Stat Logic: PASS", "pass");
+
+                // 3. Verify DOM Reflection (Initial)
+                const domInt = document.getElementById('val-int').textContent;
+                const domEng = document.getElementById('val-eng').textContent;
+
+                // Wait, if Init ran, it should be 50 / 100.
+                if (domInt !== "50") throw new Error(`DOM Initial INT mismatch. Expected "50", got "${domInt}" (Is init() running?)`);
+                if (domEng !== "100") throw new Error(`DOM Initial ENG mismatch. Expected "100", got "${domEng}"`);
+                log("Initial DOM Reflection: PASS", "pass");
+
+                // 4. Simulate Action (Study)
+                log("Simulating Action: STUDY...");
+                window.NoaGame.act('study');
+
+                // Sync Render check (No RAF, so we can check immediately or small delay)
+                await new Promise(r => setTimeout(r, 100));
+
+                // 5. Verify Post-Action State
+                const s2 = window.NoaGame.state.stats;
+                // Int should be 50 + 10 = 60
+                // Eng should be 100 - 10 = 90
+                log(`Post-Action State: INT=${s2.int}, ENG=${s2.eng}`);
+                if (s2.int !== 60) throw new Error("INT did not increase by 10!");
+                if (s2.eng !== 90) throw new Error("ENG did not decrease by 10!");
+                log("Action Logic: PASS", "pass");
+
+                // 6. Verify Post-Action DOM
+                const domInt2 = document.getElementById('val-int').textContent;
+                const barInt2 = document.getElementById('bar-int').style.width;
+                log(`Post-Action DOM: INT=${domInt2}, Bar=${barInt2}`);
+
+                if (domInt2 !== "60") throw new Error(`DOM Update Mismatch. Expected "60", got "${domInt2}"`);
+                if (barInt2 !== "60%") throw new Error(`Bar Width Mismatch. Expected "60%", got "${barInt2}"`);
+                log("UI Update: PASS", "pass");
+
+                // Success
+                status.innerText = "TEST PASSED";
+                status.style.background = "#0f0";
+
+            } catch (e) {
+                console.error(e);
+                log(e.message, "fail");
+                status.innerText = "TEST FAILED";
+                status.style.background = "#f00";
+            }
+        }
+
+        window.addEventListener('load', () => {
+            log("Window Loaded. Checking Init...");
+            // Manual Failsafe
+            setTimeout(() => {
+                if (window.NoaGame && document.getElementById('val-int').textContent === "20") {
+                    log("Triggering explicit NoaGame.init() (Auto-Corrector)...", "info");
+                    window.NoaGame.init();
+                }
+                runTests();
+            }, 500);
+        });
+    </script>
+</body>
+
+</html>

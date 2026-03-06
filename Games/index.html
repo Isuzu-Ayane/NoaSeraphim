@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seraphim Game Collection</title>
+    <style>
+        :root {
+            --primary: #00d2ff;
+            --secondary: #ff69b4;
+            --bg: #0f172a;
+            --glass: rgba(255, 255, 255, 0.1);
+            --border: rgba(255, 255, 255, 0.2);
+            --text: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            padding: 40px 0;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 3rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
+        }
+
+        p.subtitle {
+            margin-top: 10px;
+            color: #94a3b8;
+            font-size: 1.2rem;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            padding-bottom: 50px;
+        }
+
+        .game-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.2);
+            border-color: var(--primary);
+        }
+
+        .card-image {
+            height: 200px;
+            background-color: #1e293b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Mockup Backgrounds */
+        .card-bg-1 {
+            background: linear-gradient(45deg, #111, #333);
+        }
+
+        .card-bg-2 {
+            background: linear-gradient(45deg, #001f3f, #0074D9);
+        }
+
+        .card-bg-3 {
+            background: linear-gradient(45deg, #F012BE, #FF69B4);
+        }
+
+        .card-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .card-desc {
+            font-size: 0.95rem;
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .play-btn {
+            margin-top: auto;
+            padding: 12px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .game-card:hover .play-btn {
+            background: var(--primary);
+            color: #000;
+        }
+
+        .back-link {
+            margin-top: 20px;
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            transition: all 0.2s;
+        }
+
+        .back-link:hover {
+            background: white;
+            color: black;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Seraphim Game Collection</h1>
+        <p class="subtitle">Enter the world of Noa Seraphim</p>
+    </header>
+
+    <div class="container">
+        <!-- Game 1: RPG -->
+        <a href="./future-city-game/index.html" class="game-card">
+            <div class="card-image card-bg-1">
+                👾
+            </div>
+            <div class="card-content">
+                <div class="card-title">AI RPG: Code Seraphim</div>
+                <div class="card-desc">
+                    Explore the data-corrupted Sector 7, battle anomalous bugs, and uncover the truth. A turn-based RPG
+                    experience.
+                </div>
+                <div class="play-btn">PLAY NOW ➤</div>
+            </div>
+        </a>
+
+        <!-- Game 2: SERAPHIM PRO -->
+        <a href="./future-city-game_pro/index.html" class="game-card">
+            <div class="card-image card-bg-2">
+                🌌
+            </div>
+            <div class="card-content">
+                <div class="card-title">Code: SERAPHIM -Ark-</div>
+                <div class="card-desc">
+                    A visual novel adventure. Guide Noa through the Cyber Ark and make choices that determine the fate
+                    of the world.
+                </div>
+                <div class="play-btn">PLAY NOW ➤</div>
+            </div>
+        </a>
+
+        <!-- Game 3: Growth Project -->
+        <a href="./Seraphim_Growth_Project/index.html" class="game-card">
+            <div class="card-image card-bg-3">
+                👼
+            </div>
+            <div class="card-content">
+                <div class="card-title">Seraphim Growth Project</div>
+                <div class="card-desc">
+                    Raise Noa from age 6 to 18. Manage stats, schedule activities, and unlock multiple endings in this
+                    simulation game.
+                </div>
+                <div class="play-btn">PLAY NOW ➤</div>
+            </div>
+        </a>
+    </div>
+
+    <a href="../index.html" class="back-link">← Back to Hub</a>
+
+</body>
+
+</html>

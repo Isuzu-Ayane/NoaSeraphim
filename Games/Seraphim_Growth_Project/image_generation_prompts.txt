@@ -1,0 +1,91 @@
+Noa Seraphim Growth Project - Image Assets List & Prompts for NanoBanana
+
+[General Appearance]
+Character: Noa Seraphim
+Hair: Silver/White, medium length, slightly messy but soft.
+Eyes: Light Blue/Clear.
+Vibe: Angelic, innocent, but with a hidden maturity/strength. Seraphim wings (white, glowing) visible in some shots.
+Style: Sci-fi/Fantasy blend. White dresses with cybernetic/holographic accents.
+
+[File Naming Convention]
+age{AGE}_{ACTION}.png
+Example: age6_study.png
+
+--- Age 6 (Childhood) ---
+1. age6_neutral.png
+Prompt: anime style, full body, small child angel, 6 years old, silver hair, white dress, standing pose, neutral expression, soft lighting, sci-fi room background, masterpiece, high quality.
+
+2. age6_study.png
+Prompt: anime style, 6 year old angel child, reading a holographic book, floating symbols, concentrated expression, library background, sci-fi details.
+
+3. age6_exercise.png
+Prompt: anime style, 6 year old angel child, running or stretching, energetic, outdoors fastasy garden, bright sunlight, dynamic pose.
+
+4. age6_life.png
+Prompt: anime style, 6 year old angel child, holding a broom or watering plants, helpful, gentle smile, domestic sci-fi setting.
+
+5. age6_socialize.png
+Prompt: anime style, 6 year old angel child, talking to viewer, happy smile, blushing slightly, close up.
+
+6. age6_rest.png
+Prompt: anime style, 6 year old angel child, sleeping in a futuristic capsule bed, peaceful, wings wrapped around body.
+
+--- Age 12 (Early Teen) ---
+(Repeat similar prompts but change age to "12 year old", "adolescent girl", taller, slightly more mature outfit)
+
+7. age12_neutral.png
+8. age12_study.png
+9. age12_exercise.png
+10. age12_life.png
+11. age12_socialize.png
+12. age12_rest.png
+
+--- Age 15 (Mid Teen) ---
+(Change age to "15 year old", "teenager", developing distinct features)
+
+13. age15_neutral.png
+14. age15_study.png
+15. age15_exercise.png
+16. age15_life.png
+17. age15_socialize.png
+18. age15_rest.png
+
+--- Age 18 (Adult/Ending) ---
+(Change age to "18 year old", "young woman", "beautiful", "goddess-like")
+
+19. age18_neutral.png
+
+[Endings]
+20. ending_archangel.png
+Prompt: masterpiece, 18 year old angel goddess, 6 wings spreading wide, glowing aura, divine power, commanding presence, holding a staff of light, space background.
+
+21. ending_scholar.png
+Prompt: masterpiece, 18 year old angel scholar, glasses, surrounded by floating data screens, library, intellectual look, lab coat over angel dress.
+
+22. ending_warrior.png
+Prompt: masterpiece, 18 year old angel warrior, holding a sword of light, battle armor, determination, dynamic combat pose, battlefield background.
+
+23. ending_partner.png
+Prompt: masterpiece, 18 year old angel, reaching hand out to viewer, loving expression, wedding dress style angel outfit, romantic atmosphere, sunset.
+
+24. ending_human.png
+Prompt: masterpiece, 18 year old girl, no wings (or hidden), casual modern clothes, cooking or relaxing in a cozy room, peaceful everyday life.
+
+25. ending_fragile.png
+Prompt: masterpiece, 18 year old angel, lying in bed, pale, weak, fading away, feathers falling, sad atmosphere.
+
+26. ending_fallen.png
+Prompt: masterpiece, 18 year old fallen angel, black wings, dark dress, sorrowful expression, ruins background, rain.
+
+27. ending_leader.png
+Prompt: masterpiece, 18 year old angel, standing on a podium, speaking to a crowd, charismatic, leadership, bright future.
+
+28. ending_adventurer.png
+Prompt: masterpiece, 18 year old angel, flying high in the sky, looking at horizon, goggles, travel gear, sense of freedom.
+
+29. ending_departure.png
+Prompt: masterpiece, 18 year old angel, back view, walking away into light, waving goodbye, bittersweet.
+
+[Special]
+30. age{N}_sick.png (For 6, 12, 15, 18)
+Prompt: anime style, angel girl, sick in bed, feverish, worried expression, medical monitor.

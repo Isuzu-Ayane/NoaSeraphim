@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ノラ・セラフィムのつぶやき</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- 1. LOGIN GATE -->
+    <div id="login-gate" class="gate-container">
+        <div class="glass-panel login-box">
+            <h2>SECRET GATE</h2>
+            <p>これより先はプライベート領域です。<br>合言葉を入力してください。</p>
+            <input type="password" id="pass-input" placeholder="Password">
+            <button id="login-btn" onclick="tryLogin()">UNLOCK</button>
+            <p id="error-msg" class="error-text"></p>
+            <a href="../index.html" class="back-link">← Return to Hub</a>
+        </div>
+    </div>
+
+    <!-- 2. BLOG CONTENT (Hidden by default) -->
+    <div id="blog-container" class="blog-container" style="display: none;">
+        <header class="blog-header">
+            <div class="header-inner">
+                <h1>ノラ・セラフィムのつぶやき</h1>
+                <p class="subtitle">Nora Seraphim's Mumble</p>
+                <a href="../index.html" class="home-btn">HUB</a>
+            </div>
+        </header>
+
+        <main id="posts-area" class="posts-grid">
+            <!-- Posts injected by JS -->
+        </main>
+
+        <footer>
+            <p>&copy; Noa Seraphim Project</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

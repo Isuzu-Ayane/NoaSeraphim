@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ノア・セラフィム育成計画 v6.0 (Final)</title>
+    <link rel="stylesheet" href="css/style.css?v=6.1">
+    <style>
+        #debug-console {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: #ff5555;
+            font-family: monospace;
+            padding: 10px;
+            z-index: 9999;
+            display: none;
+            white-space: pre-wrap;
+            border-bottom: 2px solid red;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+    <script>
+        window.onerror = function (msg, url, lineNo, columnNo, error) {
+            const console = document.getElementById('debug-console');
+            if (console) {
+                console.style.display = 'block';
+                console.innerHTML += `[ERROR] ${msg} (Line: ${lineNo})\n`;
+            }
+            return false;
+        };
+        // Safety Check for Game Load
+        window.addEventListener('load', function () {
+            setTimeout(() => {
+                if (!window.NoaGame) {
+                    const console = document.getElementById('debug-console');
+                    if (console) {
+                        console.style.display = 'block';
+                        console.innerHTML += `[SYSTEM FATAL] NoaGame Object Not Found. script.js failed to load or run.\n`;
+                    }
+                } else {
+                    // Manual trigger if init didn't fire
+                    if (!window.NoaGame.state) {
+                        window.NoaGame.init();
+                    }
+                }
+            }, 1000);
+        });
+    </script>
+</head>
+
+<body>
+    <div id="debug-console"></div>
+
+    <div class="game-container">
+        <!-- Left: Main View -->
+        <main class="main-view">
+            <div class="image-area" id="image-container">
+                <img id="main-img" class="character-img" src="" alt="Noa">
+
+                <!-- Fallback Div -->
+                <div id="placeholder" class="placeholder-overlay">
+                    <div class="placeholder-text" id="ph-title">Loading...</div>
+                    <div class="placeholder-sub" id="ph-sub">Image Generating...</div>
+                </div>
+            </div>
+
+            <div class="message-box" id="msg-box">
+                ノア・セラフィム育成計画、始動。<br>
+                6歳の誕生日を迎えたノアは、あなたの指示を待っています。
+            </div>
+        </main>
+
+        <!-- Right: Stats & Controls -->
+        <aside class="stats-panel">
+            <div class="status-header">
+                <h2 id="age-display">Age: 6</h2>
+                <div id="month-display">Month: 1</div>
+            </div>
+
+            <!-- Stats with Safety Defaults (20) -->
+            <div>
+                <div class="stat-row">
+                    <span class="stat-label">知力 (INT)</span>
+                    <span class="stat-val" id="val-int">20</span>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-fill" id="bar-int" style="width: 20%"></div>
+                </div>
+            </div>
+
+            <div>
+                <div class="stat-row">
+                    <span class="stat-label">体力 (STA)</span>
+                    <span class="stat-val" id="val-sta">20</span>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-fill" id="bar-sta" style="width: 20%"></div>
+                </div>
+            </div>
+
+            <div>
+                <div class="stat-row">
+                    <span class="stat-label">生活力 (LIF)</span>
+                    <span class="stat-val" id="val-lif">20</span>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-fill" id="bar-lif" style="width: 20%"></div>
+                </div>
+            </div>
+
+            <div>
+                <div class="stat-row">
+                    <span class="stat-label">好感度 (AFF)</span>
+                    <span class="stat-val" id="val-aff">20</span>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-fill" id="bar-aff" style="width: 20%"></div>
+                </div>
+            </div>
+
+            <div>
+                <div class="stat-row">
+                    <span class="stat-label">元気 (ENERGY)</span>
+                    <span class="stat-val" id="val-eng">200</span>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-fill bar-energy" id="bar-eng" style="width: 100%"></div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="action-grid">
+                <button class="btn-action" onclick="NoaGame.act('study')">📚 勉強</button>
+                <button class="btn-action" onclick="NoaGame.act('exercise')">⚔️ 運動</button>
+                <button class="btn-action" onclick="NoaGame.act('life')">🧹 生活</button>
+                <button class="btn-action" onclick="NoaGame.act('socialize')">💬 交流</button>
+                <button class="btn-action btn-rest" onclick="NoaGame.act('rest')">🛏️ 休憩</button>
+            </div>
+
+            <div class="system-actions" style="margin-top: 15px; display: flex; gap: 10px;">
+                <button class="btn-action" style="background:#444; border-color:#888;" onclick="NoaGame.saveGame()">💾
+                    SAVE</button>
+                <button class="btn-action" style="background:#444; border-color:#888;" onclick="NoaGame.loadGame()">📂
+                    LOAD</button>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Ending Modal -->
+    <div id="ending-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="end-title">Ending</h2>
+            <img id="end-img" src="" alt="Ending"
+                onerror="this.style.display='none'; document.getElementById('end-fallback').style.display='block'">
+            <div id="end-fallback" style="display:none; padding:20px; background:#333; color:gold;">
+                (End Image Missing)
+            </div>
+            <p id="end-desc">Description</p>
+            <button class="btn-action" onclick="location.reload()">Replay</button>
+        </div>
+    </div>
+
+    <script src="js/script.js?v=6.6"></script>
+
+</body>
+
+</html>

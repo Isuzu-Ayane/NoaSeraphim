@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIが作る天使の世界 - RPG 2.0</title>
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;700&family=Zen+Kurenaido&family=VT323&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00d2ff;
+            --accent: #ff0055;
+            --bg: #0d0d15;
+            --panel-bg: #050510;
+            --text: #e0e0e0;
+            --font-main: 'M PLUS Rounded 1c', sans-serif;
+            --font-mono: 'VT323', monospace;
+        }
+
+        /* Layout Reset */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            font-family: var(--font-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #app {
+            width: 1000px;
+            height: 750px;
+            background: var(--bg);
+            border: 1px solid #333;
+            display: grid;
+            grid-template-rows: 50px 450px 250px;
+            /* Header, Visuals, Console */
+        }
+
+        /* Header */
+        header {
+            background: #111;
+            border-bottom: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            color: white;
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+        }
+
+        /* Visual Area */
+        #visual-viewport {
+            position: relative;
+            background-color: #000;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 0.5s;
+        }
+
+        #visual-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        /* Sprites */
+        #enemy-sprite {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 300px;
+            filter: drop-shadow(0 0 10px red);
+            transition: opacity 0.3s;
+        }
+
+        #player-sprite {
+            /* For event scenes */
+            position: absolute;
+            bottom: 0;
+            left: 20%;
+            height: 350px;
+            filter: drop-shadow(0 0 10px cyan);
+        }
+
+        /* Map UI Overlay (When Exploring) */
+        #map-ui {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            font-family: var(--font-mono);
+        }
+
+        /* Console Area (Split Layout) */
+        #console-area {
+            background: var(--panel-bg);
+            border-top: 2px solid var(--primary);
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            /* Stats vs Log/Controls */
+        }
+
+        /* Left Panel: Status */
+        #status-panel {
+            padding: 20px;
+            border-right: 1px solid #333;
+            color: white;
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .hp-bar-container {
+            width: 100%;
+            height: 10px;
+            background: #333;
+            margin-bottom: 10px;
+        }
+
+        .hp-bar-fill {
+            height: 100%;
+            background: #00ff66;
+            width: 100%;
+            transition: width 0.2s;
+        }
+
+        /* Right Panel: Log & Action */
+        #action-panel {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        #game-log {
+            height: 120px;
+            overflow-y: auto;
+            border: 1px solid #333;
+            background: #000;
+            padding: 10px;
+            color: #ccc;
+            font-family: var(--font-main);
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .log-entry {
+            margin-bottom: 4px;
+            border-bottom: 1px dashed #222;
+        }
+
+        .log-important {
+            color: yellow;
+        }
+
+        .log-damage {
+            color: #ff5555;
+        }
+
+        .log-heal {
+            color: #55ff55;
+        }
+
+        #controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            background: #333;
+            border: 1px solid white;
+            color: white;
+            padding: 10px 20px;
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex: 1;
+        }
+
+        button:hover {
+            background: var(--primary);
+            color: black;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .anim-shake {
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translateX(-50%) translate(1px, 1px) rotate(0deg);
+            }
+
+            10% {
+                transform: translateX(-50%) translate(-1px, -2px) rotate(-1deg);
+            }
+
+            20% {
+                transform: translateX(-50%) translate(-3px, 0px) rotate(1deg);
+            }
+
+            30% {
+                transform: translateX(-50%) translate(3px, 2px) rotate(0deg);
+            }
+
+            40% {
+                transform: translateX(-50%) translate(1px, -1px) rotate(1deg);
+            }
+
+            50% {
+                transform: translateX(-50%) translate(-1px, 2px) rotate(-1deg);
+            }
+
+            60% {
+                transform: translateX(-50%) translate(-3px, 1px) rotate(0deg);
+            }
+
+            70% {
+                transform: translateX(-50%) translate(3px, 1px) rotate(-1deg);
+            }
+
+            80% {
+                transform: translateX(-50%) translate(-1px, -1px) rotate(1deg);
+            }
+
+            90% {
+                transform: translateX(-50%) translate(1px, 2px) rotate(0deg);
+            }
+
+            100% {
+                transform: translateX(-50%) translate(1px, -2px) rotate(-1deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <header>
+            <span>AI RPG: Code Seraphim</span>
+            <span id="location-text">Area: Sector 7</span>
+        </header>
+
+        <div id="visual-viewport">
+            <!-- Visuals -->
+            <div id="visual-overlay">
+                <!-- Enemies and Effects appear here -->
+                <img id="enemy-sprite" class="hidden" src="">
+                <img id="player-sprite" class="hidden" src="./assets/images/char_noa_combat.png">
+            </div>
+
+            <!-- Map UI -->
+            <div id="map-ui" class="hidden">
+                <div>FLOOR: <span id="map-floor">1</span></div>
+                <div>COORDS: <span id="map-coords">0,0</span></div>
+                <div>DANGER: <span id="map-danger" style="color:red">HIGH</span></div>
+            </div>
+        </div>
+
+        <div id="console-area">
+            <div id="status-panel">
+                <div style="font-size:1.4rem; color:var(--primary); margin-bottom:10px;">NOA (Lv.<span
+                        id="stat-lv">1</span>)</div>
+
+                <div class="stat-row">
+                    <span>HP</span>
+                    <span id="stat-hp-text">100/100</span>
+                </div>
+                <div class="hp-bar-container">
+                    <div id="stat-hp-bar" class="hp-bar-fill"></div>
+                </div>
+
+                <div class="stat-row">
+                    <span>EXP</span>
+                    <span id="stat-exp-text">0/100</span>
+                </div>
+                <div class="hp-bar-container" style="height:4px;">
+                    <div id="stat-exp-bar" class="hp-bar-fill" style="background:cyan; width:0%"></div>
+                </div>
+
+                <hr style="border-color:#333; margin: 10px 0;">
+
+                <div class="stat-row"><span>ATK (攻撃)</span> <span id="stat-atk">15</span></div>
+                <div class="stat-row"><span>MAG (魔力)</span> <span id="stat-mag">10</span></div>
+                <div class="stat-row"><span>DEF (防御)</span> <span id="stat-def">5</span></div>
+                <div class="stat-row"><span>EVA (回避)</span> <span id="stat-eva">5%</span></div>
+            </div>
+
+            <div id="action-panel">
+                <div id="game-log"></div>
+                <div id="controls">
+                    <!-- Dynamically filled buttons -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * RPG 2.0 Engine
+         * Features: Map Moving, Stats, Leveling, Turn-based Battle
+         */
+
+        // --- Data ---
+        const MONSTERS = [
+            { id: 'bug', name: 'Data Bug', hp: 50, atk: 10, exp: 20, img: 'monster_bug' },
+            { id: 'drone', name: 'Sec-Drone', hp: 80, atk: 15, exp: 35, img: 'monster_security_drone' },
+            { id: 'slime', name: 'Glitch Slime', hp: 120, atk: 20, exp: 50, img: 'monster_glitch_slime' },
+            { id: 'mage', name: 'Corrupted Mage', hp: 150, atk: 30, exp: 80, img: 'monster_corrupted_mage' },
+            { id: 'dragon', name: 'Cyber Dragon', hp: 300, atk: 50, exp: 200, img: 'monster_cyber_dragon' },
+            { id: 'boss', name: 'Seraph Clone', hp: 500, atk: 60, exp: 1000, img: 'monster_seraph_clone' } // Final Boss
+        ];
+
+        class Player {
+            constructor() {
+                this.lv = 1;
+                this.maxHp = 100;
+                this.hp = 100;
+                this.exp = 0;
+                this.nextExp = 100;
+
+                // Stats
+                this.atk = 15;
+                this.mag = 10;
+                this.def = 5;
+                this.eva = 10; // Percent
+            }
+
+            gainExp(amount) {
+                this.exp += amount;
+                if (this.exp >= this.nextExp) {
+                    this.levelUp();
+                }
+                return amount;
+            }
+
+            levelUp() {
+                this.lv++;
+                this.exp -= this.nextExp;
+                this.nextExp = Math.floor(this.nextExp * 1.5);
+
+                // Stat Growth
+                this.maxHp += 20;
+                this.hp = this.maxHp;
+                this.atk += 3;
+                this.mag += 2;
+                this.def += 1;
+                this.eva += 1;
+
+                return true; // Leveled up
+            }
+        }
+
+        class GameEngine {
+            constructor() {
+                this.player = new Player();
+                this.state = 'START'; // START, MAP, BATTLE, EVENT
+                this.mapCoords = { x: 0, y: 0 };
+                this.floor = 1;
+                this.danger = 0;
+                this.currentEnemy = null;
+            }
+
+            // --- Core System ---
+            init() {
+                this.log("System Initialized.", "log-important");
+                this.updateStatsUI();
+                this.showEvent("INTRO");
+            }
+
+            log(msg, type = '') {
+                const logBox = document.getElementById('game-log');
+                const entry = document.createElement('div');
+                entry.className = 'log-entry ' + type;
+                entry.innerHTML = msg;
+                logBox.appendChild(entry);
+                logBox.scrollTop = logBox.scrollHeight;
+            }
+
+            setControls(buttons) {
+                const cPanel = document.getElementById('controls');
+                cPanel.innerHTML = '';
+                buttons.forEach(btn => {
+                    const b = document.createElement('button');
+                    b.innerText = btn.label;
+                    b.onclick = btn.action;
+                    cPanel.appendChild(b);
+                });
+            }
+
+            setBackground(img) {
+                document.getElementById('visual-viewport').style.backgroundImage = `url('./assets/images/${img}.png')`;
+            }
+
+            showSprite(id, imgName) {
+                const el = document.getElementById(id);
+                if (imgName) el.src = `./assets/images/${imgName}.png`;
+                el.classList.remove('hidden');
+            }
+
+            hideSprite(id) {
+                document.getElementById(id).classList.add('hidden');
+            }
+
+            // --- Game Logic ---
+            showEvent(id) {
+                this.state = 'EVENT';
+                document.getElementById('map-ui').classList.add('hidden');
+
+                if (id === "INTRO") {
+                    this.setBackground('eden_city');
+                    this.showSprite('player-sprite', 'char_noa_combat');
+                    this.log("Noa: 'Scanning sector... anomalous signals detected.'");
+                    this.setControls([
+                        { label: "Start Mission", action: () => this.startExploration() }
+                    ]);
+                }
+                if (id === "BOSS_ENCOUNTER") {
+                    this.setBackground('sanctuary_core');
+                    this.showSprite('player-sprite', 'char_noa_dark');
+                    this.log("WARNING: BOSS DETECTED", "log-important");
+                    this.setControls([
+                        { label: "FIGHT!", action: () => this.startBattle('boss') }
+                    ]);
+                }
+            }
+
+            startExploration() {
+                this.state = 'MAP';
+                this.hideSprite('player-sprite');
+                this.hideSprite('enemy-sprite');
+                document.getElementById('map-ui').classList.remove('hidden');
+                this.setBackground('bg_sector7');
+                this.log("Entered Exploration Mode. Use controls to move.");
+                this.updateMapUI();
+            }
+
+            updateMapUI() {
+                document.getElementById('map-coords').innerText = `${this.mapCoords.x},${this.mapCoords.y}`;
+                document.getElementById('map-floor').innerText = this.floor;
+
+                const actions = [
+                    { label: "Move Forward", action: () => this.moveMap() },
+                    { label: "Search Area", action: () => this.searchMap() },
+                    { label: "Rest", action: () => this.rest() }
+                ];
+
+                // Boss trigger at Floor 5
+                if (this.floor >= 5) {
+                    actions.push({ label: "BOSS ROOM", action: () => this.showEvent("BOSS_ENCOUNTER") });
+                }
+
+                this.setControls(actions);
+            }
+
+            moveMap() {
+                this.mapCoords.x += 1;
+                this.danger += 10;
+                this.log(`Moved to coordinates ${this.mapCoords.x},${this.mapCoords.y}. Danger rising.`);
+                this.checkEncounter();
+                this.updateMapUI();
+            }
+
+            searchMap() {
+                this.log("Searching area...");
+                this.danger += 20; // High risk
+                if (Math.random() > 0.5) {
+                    this.log("Found potion! (Auto-used: HP +20)", "log-heal");
+                    this.player.hp = Math.min(this.player.maxHp, this.player.hp + 20);
+                    this.updateStatsUI();
+                } else {
+                    this.log("Nothing found.");
+                }
+                this.checkEncounter();
+            }
+
+            rest() {
+                this.log("Resting...");
+                this.player.hp = Math.min(this.player.maxHp, this.player.hp + 10);
+                this.updateStatsUI();
+                this.danger = Math.max(0, this.danger - 10); // Lower danger
+                // Slight chance of ambush
+                if (Math.random() > 0.8) this.checkEncounter(true);
+            }
+
+            checkEncounter(force = false) {
+                const roll = Math.random() * 100;
+                if (force || roll < this.danger) {
+                    this.danger = 0; // Reset danger on fight
+                    this.startBattle();
+                }
+            }
+
+            // --- Battle Logic ---
+            startBattle(fixedId = null) {
+                this.state = 'BATTLE';
+                document.getElementById('map-ui').classList.add('hidden');
+
+                // Pick enemy
+                let enemyData;
+                if (fixedId) {
+                    enemyData = MONSTERS.find(m => m.id === fixedId);
+                } else {
+                    // Random based on level
+                    const candidates = MONSTERS.filter(m => m.id !== 'boss'); // No random bosses
+                    enemyData = candidates[Math.floor(Math.random() * candidates.length)];
+                }
+
+                this.currentEnemy = { ...enemyData, maxHp: enemyData.hp }; // Clone
+                this.setBackground('eden_glitch');
+                this.showSprite('enemy-sprite', this.currentEnemy.img);
+
+                this.log(`Encountered ${this.currentEnemy.name}!`, "log-important");
+                this.battleTurnPlayer();
+            }
+
+            battleTurnPlayer() {
+                this.setControls([
+                    { label: "Attack", action: () => this.doAction('attack') },
+                    { label: "Magic", action: () => this.doAction('magic') },
+                    { label: "Heal", action: () => this.doAction('heal') },
+                    { label: "Run", action: () => this.doAction('run') }
+                ]);
+            }
+
+            doAction(act) {
+                if (act === 'run') {
+                    if (Math.random() > 0.3) {
+                        this.log("Escaped successfully.");
+                        this.startExploration();
+                    } else {
+                        this.log("Failed to escape!");
+                        this.battleTurnEnemy();
+                    }
+                    return;
+                }
+
+                if (act === 'heal') {
+                    const amount = Math.floor(this.player.maxHp * 0.4);
+                    this.player.hp = Math.min(this.player.maxHp, this.player.hp + amount);
+                    this.log(`Recovered ${amount} HP.`, "log-heal");
+                    this.updateStatsUI();
+                    this.battleTurnEnemy();
+                    return;
+                }
+
+                // Damage Calculation
+                let dmg = 0;
+                if (act === 'attack') {
+                    dmg = Math.floor(this.player.atk * (1 + Math.random() * 0.2));
+                    this.log(`Slash attack! ${dmg} damage to enemy.`);
+                } else if (act === 'magic') {
+                    dmg = Math.floor(this.player.mag * 1.5);
+                    this.log(`Magic burst! ${dmg} damage to enemy.`);
+                }
+
+                // Apply Dmg
+                this.currentEnemy.hp -= dmg;
+                this.flashEnemy();
+
+                if (this.currentEnemy.hp <= 0) {
+                    this.winBattle();
+                } else {
+                    setTimeout(() => this.battleTurnEnemy(), 800);
+                }
+            }
+
+            battleTurnEnemy() {
+                const enemy = this.currentEnemy;
+                // Hit check
+                if (Math.random() * 100 < this.player.eva) {
+                    this.log(`${enemy.name}'s attack missed!`, "log-important");
+                } else {
+                    // Low variance dmg
+                    let dmg = Math.max(1, enemy.atk - Math.floor(this.player.def / 2));
+                    dmg = Math.floor(dmg * (0.8 + Math.random() * 0.4));
+                    this.player.hp -= dmg;
+                    this.log(`${enemy.name} attacks! taken ${dmg} damage.`, "log-damage");
+                    this.updateStatsUI();
+                }
+
+                if (this.player.hp <= 0) {
+                    this.log("NOA HAS FALLEN...", "log-important");
+                    alert("GAME OVER");
+                    location.reload();
+                } else {
+                    this.battleTurnPlayer();
+                }
+            }
+
+            winBattle() {
+                this.log(`Defeated ${this.currentEnemy.name}!`, "log-important");
+                this.player.gainExp(this.currentEnemy.exp);
+
+                if (this.currentEnemy.id === 'boss') {
+                    alert("CONGRATULATIONS! YOU SAVED THE WORLD!");
+                    // Maybe scene transition
+                    this.startExploration();
+                    return;
+                }
+
+                // Drop / Growth?
+                this.floor++;
+                this.log(`Advanced to Floor ${this.floor}.`);
+                this.startExploration(); // Back to map
+                this.updateStatsUI();
+            }
+
+            flashEnemy() {
+                const el = document.getElementById('enemy-sprite');
+                el.classList.add('anim-shake');
+                setTimeout(() => el.classList.remove('anim-shake'), 500);
+            }
+
+            updateStatsUI() {
+                const p = this.player;
+                document.getElementById('stat-lv').innerText = p.lv;
+                document.getElementById('stat-hp-text').innerText = `${p.hp}/${p.maxHp}`;
+                document.getElementById('stat-hp-bar').style.width = `${(p.hp / p.maxHp) * 100}%`;
+                document.getElementById('stat-exp-text').innerText = `${p.exp}/${p.nextExp}`;
+                document.getElementById('stat-exp-bar').style.width = `${(p.exp / p.nextExp) * 100}%`;
+
+                document.getElementById('stat-atk').innerText = p.atk;
+                document.getElementById('stat-mag').innerText = p.mag;
+                document.getElementById('stat-def').innerText = p.def;
+                document.getElementById('stat-eva').innerText = `${p.eva}%`;
+            }
+        }
+
+        // Start Game
+        const game = new GameEngine();
+        window.onload = () => game.init();
+
+    </script>
+</body>
+
+</html>

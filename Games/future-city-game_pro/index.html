@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code: SERAPHIM -電脳の箱舟-</title>
+    <style>
+        /* CSS Reset & Basic Setup */
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+            color: white;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Game Container */
+        #game-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            max-width: 1280px;
+            background: #111;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        /* Screens */
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            /* Hidden by default */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            z-index: 10;
+        }
+
+        .screen.active {
+            display: flex;
+            /* Shown when active */
+            z-index: 100;
+        }
+
+        /* Title Screen Specifics */
+        #title-screen {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./assets/images/title_screen.png');
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: #00f3ff;
+            text-shadow: 0 0 10px #bc13fe;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 2rem;
+            letter-spacing: 0.5rem;
+        }
+
+        /* Start Button */
+        #start-btn {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00f3ff;
+            color: #00f3ff;
+            padding: 20px 60px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            z-index: 200;
+            /* Highest priority click */
+        }
+
+        #start-btn:hover {
+            background: #00f3ff;
+            color: black;
+        }
+
+        /* Game Screen Layers */
+        #background-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+
+        #character-layer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        #character-layer img {
+            max-height: 90%;
+            filter: drop-shadow(0 0 10px rgba(0, 243, 255, 0.3));
+        }
+
+        /* Dialogue Box */
+        #dialogue-box {
+            position: absolute;
+            bottom: 50px;
+            width: 80%;
+            left: 10%;
+            min-height: 150px;
+            background: rgba(0, 20, 40, 0.85);
+            border: 1px solid #00f3ff;
+            border-radius: 10px;
+            padding: 20px 40px;
+            z-index: 50;
+            cursor: pointer;
+        }
+
+        #name-box {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #00f3ff;
+            color: black;
+            padding: 2px 15px;
+            font-weight: bold;
+        }
+
+        #dialogue-text {
+            font-size: 1.4rem;
+            line-height: 1.6;
+        }
+
+        /* Choices */
+        #choices-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 60;
+        }
+
+        .choice-btn {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #bc13fe;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            min-width: 300px;
+        }
+
+        .choice-btn:hover {
+            background: #bc13fe;
+        }
+
+        /* Ending Screen */
+        #ending-screen {
+            background-color: black;
+            text-align: center;
+        }
+
+        .ending-box {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 50px;
+            border: 1px solid white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="game-container">
+        <!-- Title Screen -->
+        <div id="title-screen" class="screen active">
+            <h1>Code: SERAPHIM</h1>
+            <h2>-電脳の箱舟-</h2>
+            <button id="start-btn" onclick="startGame()">START GAME</button>
+            <p style="margin-top:20px; font-size: 0.8rem; color: #666;">Status: System Ready</p>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <div id="background-layer"></div>
+            <div id="character-layer"></div>
+
+            <div id="dialogue-box" onclick="advanceStory()">
+                <div id="name-box">NOA</div>
+                <p id="dialogue-text"></p>
+            </div>
+
+            <div id="choices-container"></div>
+        </div>
+
+        <!-- Ending Screen -->
+        <div id="ending-screen" class="screen">
+            <div class="ending-box">
+                <h2 id="ending-title">ENDING</h2>
+                <p id="ending-desc"></p>
+                <button class="choice-btn" onclick="location.reload()">Return to Title</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Scenario Data - Explicit Paths
+        const scenario = [
+            { id: '1', text: "……システム起動。コードネーム『セラフィム』。", bg: './assets/images/bg_sector7.png' },
+            { id: '2', text: "【警告：第7セクタにて大規模なデータ汚染を確認】", bg: './assets/images/bg_sector7.png' },
+            { id: '3', text: "ノア「ここは……？ 空が、赤い……」", bg: './assets/images/bg_sector7.png' },
+            { id: '4', text: "ガイドAI『おはようございます、ノア。状況は深刻です。フォールンが迫っています。』", bg: './assets/images/bg_sector7.png' },
+
+            // Encounter
+            { id: '5', text: "ノア「あれが……フォールン？ データのバグの塊……」", bg: './assets/images/bg_sector7.png', char: './assets/images/enemy_fallen.png' },
+            {
+                id: '6', text: "ガイドAI『戦闘モードを推奨します。浄化しますか？』", bg: './assets/images/bg_sector7.png', char: './assets/images/enemy_fallen.png',
+                choices: [
+                    { text: "はい（浄化する）", next: '7' },
+                    { text: "いいえ（様子を見る）", next: 'bad_end' }
+                ]
+            },
+
+            // Win
+            { id: '7', text: "ノア「リライト……完了！ この翼なら、戦える！」", bg: './assets/images/bg_sector7.png' },
+            { id: '8', text: "（数々のエリアを浄化し、ノアはサーバーの深層へと進んでいく……）", bg: './assets/images/bg_sanctuary.png' },
+            { id: '9', text: "ノア「ここが、コア・サンクチュアリ……。なんて綺麗な場所。」", bg: './assets/images/bg_sanctuary.png' },
+
+            // Climax
+            { id: '10', text: "謎の声『この世界はもう終わっている。永遠の停滞か、未知なる死か。選ぶのはお前だ』", bg: './assets/images/bg_sanctuary.png' },
+            {
+                id: '11', text: "ノア「私が……決めるの？ 人類の未来を……」", bg: './assets/images/bg_sanctuary.png',
+                choices: [
+                    { text: "世界を維持する", next: 'end_A' },
+                    { text: "箱舟として旅立つ", next: 'end_B' }
+                ]
+            },
+
+            // Endings
+            { id: 'bad_end', text: "ノアは躊躇した。その隙にノイズが彼女を飲み込んだ。\nBAD END", customEnd: true, title: "BAD END" },
+            { id: 'end_A', text: "ノアは自らを犠牲にし、世界に永遠の平和をもたらした。\nENDING A: 永遠の揺り籠", customEnd: true, title: "ENDING A" },
+            { id: 'end_B', text: "ノアは新たな世界へと旅立った。\nENDING B: 星の海への航海", customEnd: true, title: "ENDING B" }
+        ];
+
+        let currentIndex = 0;
+        let isTyping = false;
+
+        // Preload
+        window.onload = function () {
+            console.log("Assets and Logic Loaded");
+        };
+
+        function startGame() {
+            console.log("Game Started");
+            document.getElementById('title-screen').classList.remove('active');
+            document.getElementById('game-screen').classList.add('active');
+
+            currentIndex = 0;
+            loadScene(0);
+        }
+
+        function loadScene(index) {
+            if (index >= scenario.length) return;
+
+            const scene = scenario[index];
+            console.log("Loading scene:", scene.id);
+
+            // Update BG
+            if (scene.bg) {
+                document.getElementById('background-layer').style.backgroundImage = `url('${scene.bg}')`;
+            }
+
+            // Update Char
+            const charLayer = document.getElementById('character-layer');
+            charLayer.innerHTML = '';
+            if (scene.char) {
+                const img = document.createElement('img');
+                img.src = scene.char;
+                charLayer.appendChild(img);
+            }
+
+            // Default UI Reset
+            document.getElementById('dialogue-text').innerHTML = '';
+            document.getElementById('choices-container').innerHTML = '';
+
+            // Custom End Check
+            if (scene.customEnd) {
+                document.getElementById('game-screen').classList.remove('active');
+                document.getElementById('ending-screen').classList.add('active');
+                document.getElementById('ending-title').innerText = scene.title || "ENDING";
+                document.getElementById('ending-desc').innerText = scene.text;
+                return;
+            }
+
+            // Typing Effect
+            typeText(scene.text, () => {
+                if (scene.choices) {
+                    const cContainer = document.getElementById('choices-container');
+                    scene.choices.forEach(c => {
+                        const btn = document.createElement('button');
+                        btn.className = 'choice-btn';
+                        btn.innerText = c.text;
+                        btn.onclick = (e) => {
+                            e.stopPropagation(); // prevent advance
+                            const nextIndex = scenario.findIndex(s => s.id === c.next);
+                            if (nextIndex !== -1) {
+                                currentIndex = nextIndex;
+                                loadScene(currentIndex);
+                            }
+                        };
+                        cContainer.appendChild(btn);
+                    });
+                }
+            });
+        }
+
+        function advanceStory() {
+            if (isTyping) return; // Wait for type
+            const scene = scenario[currentIndex];
+
+            if (scene.choices || scene.customEnd) return; // Block advance if choice needed or end
+
+            if (currentIndex + 1 < scenario.length) {
+                currentIndex++;
+                loadScene(currentIndex);
+            }
+        }
+
+        function typeText(text, callback) {
+            const textBox = document.getElementById('dialogue-text');
+            let i = 0;
+            isTyping = true;
+
+            function type() {
+                if (i < text.length) {
+                    const char = text.charAt(i);
+                    textBox.innerHTML += (char === '\n') ? '<br>' : char;
+                    i++;
+                    setTimeout(type, 30);
+                } else {
+                    isTyping = false;
+                    if (callback) callback();
+                }
+            }
+            type();
+        }
+    </script>
+
+</body>
+
+</html>
