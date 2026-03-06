@@ -269,18 +269,16 @@
         <!-- Gallery Section -->
         <section id="gallery">
             <h2>Stable Diffusion LoRA Gallery</h2>
-            <p class="subtitle" style="margin-left:0; margin-bottom: 25px;">A collection of AI generated images
+            <p class="subtitle" style="margin-left:0; margin-bottom: 10px;">A collection of AI generated images
                 exploring specific LoRA models and various anime AI models.</p>
+            <p
+                style="color: var(--accent); font-weight: 600; margin-bottom: 25px; border-left: 3px solid #0ea5e9; padding-left: 10px;">
+                ■ 7th_anime_v3_Aが好きなので、7th_anime_v3_Aを使用して各LoRAの効き方を確認しました。
+            </p>
 
             <div class="gallery-container">
-                <div class="gallery-grid" id="auto-gallery">
+                <div id="lora-gallery-root">
                     <!-- Images will be injected here automatically by the JavaScript below -->
-
-                    <div class="gallery-instruction" id="upload-instruction">
-                        <strong>Developer Note:</strong> To display images automatically, place them in the
-                        <code>images/</code> folder and name them sequentially (e.g. <code>1.jpg</code>,
-                        <code>2.png</code>, <code>3.webp</code>). The script will automatically detect and load them.
-                    </div>
                 </div>
             </div>
         </section>
@@ -298,69 +296,64 @@
         </div>
     </footer>
 
+    <!-- Load LoRA Data -->
+    <script src="gallery_data.js"></script>
+
     <!-- Dynamic Gallery Loader Script -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const gallery = document.getElementById('auto-gallery');
-            const instruction = document.getElementById('upload-instruction');
+            const galleryRoot = document.getElementById('lora-gallery-root');
 
-            // Expected file extensions
-            const extensions = ['jpg', 'png', 'webp', 'jpeg'];
-            let currentIndex = 1;
-            let imagesLoaded = 0;
+            if (typeof loraData !== 'undefined' && loraData.length > 0) {
+                // Generate UI for each LoRA
+                loraData.forEach(lora => {
+                    if (!lora.files || lora.files.length === 0) return;
 
-            function loadNextImage() {
-                // Safeguard against infinite loops: stop after checking 100 images
-                if (currentIndex > 100) return;
+                    // Folder Container
+                    const folderSection = document.createElement('div');
+                    folderSection.style.marginBottom = '40px';
+                    folderSection.style.background = 'rgba(30, 41, 59, 0.5)';
+                    folderSection.style.padding = '20px';
+                    folderSection.style.borderRadius = '12px';
+                    folderSection.style.border = '1px solid rgba(56, 189, 248, 0.1)';
 
-                let extIndex = 0;
+                    // Folder Title
+                    const folderTitle = document.createElement('h3');
+                    folderTitle.textContent = lora.name;
+                    folderTitle.style.color = 'var(--text-main)';
+                    folderTitle.style.marginTop = '0';
+                    folderTitle.style.marginBottom = '15px';
+                    folderTitle.style.fontSize = '1.4rem';
+                    folderTitle.style.borderBottom = '1px solid rgba(56, 189, 248, 0.3)';
+                    folderTitle.style.paddingBottom = '8px';
+                    folderSection.appendChild(folderTitle);
 
-                function tryExtension() {
-                    // Base case: if all extensions failed, assumed end of images or skipping a number
-                    if (extIndex >= extensions.length) {
-                        // We will allow skipping up to 3 numbers just in case files are named 1, 2, 5...
-                        // But for a lightweight static site, stopping on the first missing file is most efficient.
-                        // Let's stop.
-                        return;
-                    }
+                    // Image Grid specifically for 4 images
+                    const imgGrid = document.createElement('div');
+                    imgGrid.style.display = 'grid';
+                    imgGrid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(200px, 1fr))';
+                    imgGrid.style.gap = '15px';
 
-                    const img = new Image();
-                    const src = `images/${currentIndex}.${extensions[extIndex]}`;
-
-                    img.onload = () => {
-                        // Hide instruction if at least one image loads
-                        if (instruction) instruction.style.display = 'none';
-                        imagesLoaded++;
-
-                        const item = document.createElement('div');
-                        item.className = 'gallery-item';
+                    lora.files.forEach(fileName => {
+                        const itemWrapper = document.createElement('div');
+                        itemWrapper.className = 'gallery-item';
 
                         const renderImg = document.createElement('img');
-                        renderImg.src = src;
-                        renderImg.alt = `AI illustration generation example ${currentIndex} - ComfyUI tools & Stable Diffusion LoRA`;
+                        // Path points to the actual deep folder relative to the html file
+                        renderImg.src = `../NoaSeraphim_AI/image/LoRA/${encodeURIComponent(lora.name)}/${encodeURIComponent(fileName)}`;
+                        renderImg.alt = `${lora.name} - AI illustration generation example`;
                         renderImg.loading = 'lazy';
 
-                        item.appendChild(renderImg);
-                        gallery.appendChild(item);
+                        itemWrapper.appendChild(renderImg);
+                        imgGrid.appendChild(itemWrapper);
+                    });
 
-                        currentIndex++;
-                        loadNextImage(); // Load the next sequential number
-                    };
-
-                    img.onerror = () => {
-                        // Try the next file extension (.jpg -> .png -> .webp)
-                        extIndex++;
-                        tryExtension();
-                    };
-
-                    img.src = src;
-                }
-
-                tryExtension();
+                    folderSection.appendChild(imgGrid);
+                    galleryRoot.appendChild(folderSection);
+                });
+            } else {
+                galleryRoot.innerHTML = '<p style="color:var(--text-muted); text-align:center;">No LoRA image data found.</p>';
             }
-
-            // Start loading sequence
-            loadNextImage();
         });
     </script>
 </body>
