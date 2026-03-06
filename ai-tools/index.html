@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Illustration Tools & LoRA Gallery | Noa Seraphim</title>
+
+    <!-- SEO & Meta Tags -->
+    <meta name="description"
+        content="Explore our collection of AI illustration tools, ComfyUI workflows, and Stable Diffusion LoRA gallery. Get resources for AI image generation, AI prompt generator guides, and research on SDXL anime models and 7th anime models.">
+    <meta name="keywords"
+        content="ComfyUI tools, Stable Diffusion, AI illustration, AI image generation, LoRA gallery, Stable Diffusion LoRA, AI prompt generator, anime AI model, 7th anime model, SDXL anime model, AI art tools">
+    <meta name="author" content="Noa Seraphim Project">
+
+    <!-- OpenGraph & Social Sharing Meta Tags -->
+    <meta property="og:title" content="AI Illustration Tools & LoRA Gallery | Noa Seraphim">
+    <meta property="og:description"
+        content="Explore AI illustration tools, ComfyUI workflows, and our Stable Diffusion LoRA gallery. Featuring SDXL anime models and AI image generation techniques.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI Illustration Tools & LoRA Gallery | Noa Seraphim">
+    <meta name="twitter:description"
+        content="Discover AI art tools, ComfyUI setups, and LoRA galleries for anime AI models.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.4);
+            --gradient: linear-gradient(135deg, #0284c7, #38bdf8);
+            --border-glow: #0ea5e9;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Container & Layout */
+        header {
+            text-align: center;
+            padding: 80px 20px 60px;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 0 0 20px 0;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 8px var(--accent-glow));
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--text-main);
+            border-left: 4px solid var(--accent);
+            padding-left: 15px;
+            margin-top: 60px;
+            margin-bottom: 30px;
+        }
+
+        /* Tools Section */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .tool-card {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--accent-glow);
+            border-color: var(--accent);
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tool-card:hover::before {
+            opacity: 1;
+        }
+
+        .tool-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .tool-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Gallery Grid */
+        .gallery-container {
+            margin-top: 20px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #1e293b;
+            aspect-ratio: 1 / 1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-instruction {
+            grid-column: 1 / -1;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px dashed var(--accent);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 80px;
+            padding: 40px 20px;
+            background-color: var(--bg-card);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        .footer-seo-text {
+            font-size: 0.8rem;
+            color: #475569;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            line-height: 1.5;
+        }
+
+        .footer-copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            header {
+                padding: 60px 20px 40px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <h1>AI Tools & LoRA Gallery</h1>
+            <p class="subtitle">Showcasing experiments in AI illustration tools, Stable Diffusion LoRA models, and
+                advanced ComfyUI workflows for anime AI image generation.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Tools Section -->
+        <section id="tools">
+            <h2>AI Art Tools & Workflows</h2>
+            <div class="tools-grid">
+
+                <div class="tool-card">
+                    <h3 class="tool-title">ComfyUI Workflows</h3>
+                    <p class="tool-desc">Optimized ComfyUI tools and node setups designed for high-quality anime AI
+                        models. Features specialized pipelines for upscaling and fine-tuning SDXL anime models.</p>
+                </div>
+
+                <div class="tool-card">
+                    <h3 class="tool-title">Stable Diffusion Checkpoints</h3>
+                    <p class="tool-desc">Research and comparisons between base checkpoints, including the renowned 7th
+                        anime model and modern SDXL architectures for AI illustration.</p>
+                </div>
+
+                <div class="tool-card">
+                    <h3 class="tool-title">AI Prompt Generator</h3>
+                    <p class="tool-desc">Utility scripts and language models acting as an AI prompt generator to craft
+                        the perfect tags for Stable Diffusion and LoRA integration.</p>
+                </div>
+
+                <div class="tool-card">
+                    <h3 class="tool-title">LoRA Training Utilities</h3>
+                    <p class="tool-desc">Scripts and dataset tagging tools to build your own Stable Diffusion LoRA
+                        models, focusing on character consistency and style transfer.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery">
+            <h2>Stable Diffusion LoRA Gallery</h2>
+            <p class="subtitle" style="margin-left:0; margin-bottom: 25px;">A collection of AI generated images
+                exploring specific LoRA models and various anime AI models.</p>
+
+            <div class="gallery-container">
+                <div class="gallery-grid" id="auto-gallery">
+                    <!-- Images will be injected here automatically by the JavaScript below -->
+
+                    <div class="gallery-instruction" id="upload-instruction">
+                        <strong>Developer Note:</strong> To display images automatically, place them in the
+                        <code>images/</code> folder and name them sequentially (e.g. <code>1.jpg</code>,
+                        <code>2.png</code>, <code>3.webp</code>). The script will automatically detect and load them.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p class="footer-seo-text">
+                This website documents experiments with Stable Diffusion, ComfyUI workflows, AI illustration tools, LoRA
+                models and anime AI image generation techniques. We showcase various AI art tools, including advanced
+                SDXL anime models and the classic 7th anime model. Explore our LoRA gallery to see the latest
+                developments in AI prompt generators and Stable Diffusion LoRA applications.
+            </p>
+            <p class="footer-copyright">&copy; 2026 Noa Seraphim Project - AI Research & Dev</p>
+        </div>
+    </footer>
+
+    <!-- Dynamic Gallery Loader Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const gallery = document.getElementById('auto-gallery');
+            const instruction = document.getElementById('upload-instruction');
+
+            // Expected file extensions
+            const extensions = ['jpg', 'png', 'webp', 'jpeg'];
+            let currentIndex = 1;
+            let imagesLoaded = 0;
+
+            function loadNextImage() {
+                // Safeguard against infinite loops: stop after checking 100 images
+                if (currentIndex > 100) return;
+
+                let extIndex = 0;
+
+                function tryExtension() {
+                    // Base case: if all extensions failed, assumed end of images or skipping a number
+                    if (extIndex >= extensions.length) {
+                        // We will allow skipping up to 3 numbers just in case files are named 1, 2, 5...
+                        // But for a lightweight static site, stopping on the first missing file is most efficient.
+                        // Let's stop.
+                        return;
+                    }
+
+                    const img = new Image();
+                    const src = `images/${currentIndex}.${extensions[extIndex]}`;
+
+                    img.onload = () => {
+                        // Hide instruction if at least one image loads
+                        if (instruction) instruction.style.display = 'none';
+                        imagesLoaded++;
+
+                        const item = document.createElement('div');
+                        item.className = 'gallery-item';
+
+                        const renderImg = document.createElement('img');
+                        renderImg.src = src;
+                        renderImg.alt = `AI illustration generation example ${currentIndex} - ComfyUI tools & Stable Diffusion LoRA`;
+                        renderImg.loading = 'lazy';
+
+                        item.appendChild(renderImg);
+                        gallery.appendChild(item);
+
+                        currentIndex++;
+                        loadNextImage(); // Load the next sequential number
+                    };
+
+                    img.onerror = () => {
+                        // Try the next file extension (.jpg -> .png -> .webp)
+                        extIndex++;
+                        tryExtension();
+                    };
+
+                    img.src = src;
+                }
+
+                tryExtension();
+            }
+
+            // Start loading sequence
+            loadNextImage();
+        });
+    </script>
+</body>
+
+</html>

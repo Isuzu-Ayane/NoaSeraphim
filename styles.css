@@ -1,21 +1,21 @@
 :root {
-    --primary-pink: #ff69b4;
-    /* Hot Pink */
-    --primary-light-pink: #ffb6c1;
-    /* Light Pink */
-    --primary-cyan: #ff1493;
-    /* Deep Pink (replacing cyan) */
+    --primary-pink: #00d2ff;
+    /* Light Blue */
+    --primary-light-pink: #8fe3ff;
+    /* Lighter Blue */
+    --primary-cyan: #3a7bd5;
+    /* Deep Blue */
     --accent-gold: #ffd700;
-    --bg-dark: #2e0b1a;
-    --glass-bg: rgba(255, 240, 245, 0.1);
+    --bg-dark: #001f3f;
+    --glass-bg: rgba(240, 248, 255, 0.1);
     --text-white: #ffffff;
 }
 
 body {
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #ffe6f2, #ffc0cb);
-    color: #4a0e2e;
+    background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+    color: #0f172a;
     /* Darker text for light bg */
     font-family: 'Nunito', sans-serif;
     min-height: 100vh;
@@ -57,7 +57,7 @@ body {
 }
 
 .nav-links a {
-    color: #db7093;
+    color: #0284c7;
     text-decoration: none;
     font-weight: 800;
     font-size: 1.1rem;
@@ -133,7 +133,7 @@ body {
 .bounce-text {
     font-size: 2.2rem;
     margin: 0;
-    background: linear-gradient(to right, #ff69b4, #ff1493);
+    background: linear-gradient(to right, #00d2ff, #3a7bd5);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-family: 'M PLUS Rounded 1c', sans-serif;
@@ -143,7 +143,7 @@ body {
 
 .hero-subtitle {
     font-size: 1rem;
-    color: #db7093;
+    color: #3b82f6;
     margin-bottom: 10px;
     font-weight: bold;
 }
@@ -169,7 +169,7 @@ body {
     height: 250px;
     border-radius: 15px;
     background: #000;
-    border: 3px solid #ffb6c1;
+    border: 3px solid #8fe3ff;
     overflow: hidden;
     position: relative;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -244,7 +244,7 @@ body {
     max-width: 100%;
     /* Ensure doesn't overflow */
     width: auto;
-    filter: drop-shadow(0 5px 15px rgba(255, 105, 180, 0.4));
+    filter: drop-shadow(0 5px 15px rgba(0, 210, 255, 0.4));
     margin-bottom: -10px;
 }
 
@@ -274,7 +274,7 @@ body {
     margin-bottom: 15px;
     border-left: 8px solid var(--primary-pink);
     padding-left: 15px;
-    color: #c71585;
+    color: #0077b6;
     background: linear-gradient(to right, rgba(255, 255, 255, 0.5), transparent);
     padding-top: 5px;
     padding-bottom: 5px;
@@ -324,7 +324,7 @@ body {
 .game-hub-card:hover {
     transform: translateY(-8px);
     border-color: var(--primary-pink);
-    box-shadow: 0 15px 35px rgba(255, 105, 180, 0.4);
+    box-shadow: 0 15px 35px rgba(0, 210, 255, 0.4);
 }
 
 .card-bg {
@@ -338,10 +338,10 @@ body {
 
 .construction-bg {
     background: repeating-linear-gradient(45deg,
-            #ffb6c1,
-            #ffb6c1 10px,
-            #ff69b4 10px,
-            #ff69b4 20px);
+            #8fe3ff,
+            #8fe3ff 10px,
+            #00d2ff 10px,
+            #00d2ff 20px);
 }
 
 .music-bg {
@@ -357,7 +357,7 @@ body {
     bottom: 0;
     width: 100%;
     padding: 20px;
-    background: linear-gradient(to top, rgba(255, 20, 147, 0.9), transparent);
+    background: linear-gradient(to top, rgba(0, 119, 182, 0.9), transparent);
     z-index: 2;
 }
 
@@ -382,9 +382,9 @@ body {
 }
 
 .love-badge {
-    background: #ff69b4;
+    background: #00d2ff;
     color: white;
-    box-shadow: 0 0 5px #ff1493;
+    box-shadow: 0 0 5px #3a7bd5;
 }
 
 .game-hub-card h3 {
@@ -453,10 +453,10 @@ body {
     background: white;
     border-radius: 12px;
     text-decoration: none;
-    color: #db7093;
+    color: #3b82f6;
     transition: background 0.3s, transform 0.2s;
     font-weight: bold;
-    border: 1px solid #ffe6f2;
+    border: 1px solid #e0f2fe;
 }
 
 .social-row:hover {
@@ -467,7 +467,7 @@ body {
 
 .active-games h4 {
     margin-bottom: 10px;
-    color: #db7093;
+    color: #0077b6;
 }
 
 .game-tags span {
@@ -478,15 +478,15 @@ body {
     font-size: 0.85rem;
     margin-bottom: 5px;
     margin-right: 5px;
-    color: #ff69b4;
-    border: 1px solid #ffb6c1;
+    color: #00d2ff;
+    border: 1px solid #8fe3ff;
 }
 
 footer {
     text-align: center;
     padding: 30px;
     font-size: 0.9rem;
-    color: #db7093;
+    color: #3b82f6;
 }
 
 /* Glass Panel Utility */
@@ -598,7 +598,7 @@ footer {
 }
 
 .dropdown-content a {
-    color: #db7093;
+    color: #3b82f6;
     padding: 12px 20px;
     text-decoration: none;
     display: flex;
@@ -607,7 +607,7 @@ footer {
     font-size: 0.9rem;
     font-weight: bold;
     transition: all 0.2s;
-    border-bottom: 1px solid rgba(255, 182, 193, 0.3);
+    border-bottom: 1px solid rgba(143, 227, 255, 0.3);
 }
 
 .dropdown-content a:last-child {
@@ -615,8 +615,8 @@ footer {
 }
 
 .dropdown-content a:hover {
-    background-color: #ffe6f2;
-    color: #ff1493;
+    background-color: #e0f2fe;
+    color: #005f99;
     padding-left: 25px;
 }
 
@@ -653,7 +653,7 @@ footer {
     font-weight: bold;
     min-width: 100px;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(255, 105, 180, 0.3);
+    box-shadow: 0 2px 5px rgba(0, 210, 255, 0.3);
 }
 
 .data-text {
