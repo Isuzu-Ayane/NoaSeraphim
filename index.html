@@ -361,8 +361,47 @@
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2026 Noa Seraphim Project.</p>
+    <footer
+        style="padding: 40px 20px; background-color: var(--bg-card); border-top: 1px solid rgba(255, 255, 255, 0.05); text-align: left; max-width: 800px; margin: 40px auto 0 auto; border-radius: 12px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.8;">
+        <h4
+            style="color: var(--accent); margin-top: 0; margin-bottom: 10px; border-bottom: 1px dashed rgba(56, 189, 248, 0.3); padding-bottom: 5px;">
+            About Stable Diffusion LoRA Test</h4>
+        <p>このサイトは、Stable Diffusion LoRA Testをおこなったり。<br>
+            各種LoRAのテストをするために This page documents LoRA tests using the <strong>7th_anime</strong> checkpoint.
+            を行っております。<br>
+            LoRAのテストは The goal is to compare how different LoRA models affect image generation. です</p>
+
+        <p>テスト環境は以下の通り。<br>
+            <strong>Test environment</strong>
+        </p>
+        <ul style="margin-top: 0; margin-bottom: 15px;">
+            <li>Stable Diffusion</li>
+            <li>ComfyUI workflow</li>
+            <li>7th_anime checkpoint</li>
+            <li>fixed prompt</li>
+        </ul>
+
+        <p>サンプルプロンプトも設置予定です。<br>
+            Each LoRA is tested with the same prompt to observe style differences.</p>
+
+        <p>This page includes:</p>
+        <ul style="margin-top: 0; margin-bottom: 15px;">
+            <li>LoRA comparison results</li>
+            <li>style differences</li>
+            <li>prompt compatibility</li>
+            <li>generation examples</li>
+        </ul>
+
+        <p><strong>Models tested</strong></p>
+        <ul style="margin-top: 0; margin-bottom: 25px;">
+            <li>7th_anime</li>
+            <li>NoobAI</li>
+            <li>JANKUTrainedNoobaiRouwei_v69</li>
+        </ul>
+
+        <p
+            style="text-align: center; font-size: 0.85rem; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 20px;">
+            &copy; 2026 Noa Seraphim Project.</p>
     </footer>
 
     <script src="script.js"></script>
