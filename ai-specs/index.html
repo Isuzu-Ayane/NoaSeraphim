@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIに必要なスペックとは？ | Noa Seraphim</title>
+
+    <!-- SEO & Meta Tags -->
+    <meta name="description"
+        content="ローカル環境でStable Diffusion、LLM、画像生成AIを動かすために必要なPCスペックを初心者向けに解説。メモリ、GPU、VRAMの重要性を詳しく説明します。">
+    <meta name="keywords" content="AI スペック, PC スペック, Stable Diffusion, LLM, 画像生成AI, VRAM, GPU, ローカルAI">
+    <meta name="author" content="Noa Seraphim Project">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HFB5ECR6DM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-HFB5ECR6DM');
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&family=Nunito:wght@400;800&display=swap"
+        rel="stylesheet">
+
+
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-terminal: #0a0f18;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-terminal: #10b981;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.4);
+            --gradient: linear-gradient(135deg, #0284c7, #38bdf8);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'M PLUS Rounded 1c', 'Nunito', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.8;
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(2, 132, 199, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(56, 189, 248, 0.1) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px var(--accent-glow));
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 12px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .section-card {
+            background-color: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+            opacity: 0.8;
+        }
+
+        .section-title {
+            color: var(--accent);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .number-badge {
+            background: var(--gradient);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .highlight-box {
+            background: rgba(56, 189, 248, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .vram-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .vram-table th {
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent);
+            padding: 12px;
+            text-align: left;
+        }
+
+        .vram-table td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .terminal-card {
+            background-color: var(--bg-terminal);
+            border-radius: 12px;
+            padding: 25px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            color: var(--text-terminal);
+            margin-top: 50px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(16, 185, 129, 0.05);
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed rgba(16, 185, 129, 0.3);
+            color: #6ee7b7;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot.r {
+            background: #ef4444;
+        }
+
+        .dot.y {
+            background: #eab308;
+        }
+
+        .dot.g {
+            background: #22c55e;
+        }
+
+        .term-category {
+            color: #3b82f6;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .term-key {
+            color: #facc15;
+        }
+
+        .term-label {
+            color: #a78bfa;
+        }
+
+        .nav-pill {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 25px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: background 0.2s, transform 0.2s;
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+
+        .nav-pill:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 30px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="header-section">
+            <h1>AIに必要なスペックとは？</h1>
+            <a href="../index.html" class="nav-pill">← HOMEに戻る</a>
+        </div>
+
+        <div class="intro-text">
+            ローカル環境で <strong>Stable Diffusion・LLM・画像生成AI</strong> を動かすために、必ずしもハイエンドPCは必要ありません。<br><br>
+            「Stable Diffusionの必要スペックは？」<br>
+            「ローカルAIを動かすPCスペックは？」<br><br>
+            といった疑問を持つ方も多いですが、実際には以下のような構成でも十分にAIを動かすことが可能です。<br>
+            重要度の高い順に説明します。
+        </div>
+
+        <div class="section-card">
+            <h2 class="section-title"><span class="number-badge">1</span>メモリ（RAM）</h2>
+            <p><strong>最も重要です。</strong></p>
+            <p>AI処理では、Stable Diffusion / LLM / 画像生成AI のモデルやデータを、メモリに大量展開します。</p>
+            <div class="highlight-box">
+                そのため<br>
+                <strong>最低32GB</strong>、できれば <strong>64GB以上</strong> あると快適に動作します。
+            </div>
+        </div>
+
+        <div class="section-card">
+            <h2 class="section-title"><span class="number-badge">2</span>GPU（グラフィックボード）</h2>
+            <p>ローカルAIでは <strong>NVIDIA GPU</strong> が推奨です。<br>重要なのは <strong>VRAM（GPUメモリ）容量</strong> です。</p>
+
+            <table class="vram-table">
+                <tr>
+                    <th>VRAMの目安</th>
+                    <th>AI用途</th>
+                </tr>
+                <tr>
+                    <td><strong>8GB</strong></td>
+                    <td>画像生成AI（Stable Diffusion 1.5系など）</td>
+                </tr>
+                <tr>
+                    <td><strong>12GB</strong></td>
+                    <td>SDXL / LoRA学習</td>
+                </tr>
+                <tr>
+                    <td><strong>16GB 以上</strong></td>
+                    <td>LLM / 大規模AI</td>
+                </tr>
+            </table>
+            <p style="margin-top: 15px; color: var(--text-muted); font-size: 0.95rem;">
+                ※GPUは必ずしも最新モデルである必要はありません。世代よりもVRAM容量が優先されるケースが多いです。</p>
+        </div>
+
+        <div class="section-card">
+            <h2 class="section-title"><span class="number-badge">3</span>CPU</h2>
+            <p>AI処理ではあくまで <strong>GPUが主役</strong> です。</p>
+            <div class="highlight-box">
+                そのためCPUは<br>
+                <strong>Core i5</strong> や <strong>Ryzen 5</strong> クラスでも問題なく動作します。
+            </div>
+        </div>
+
+        <div class="section-card">
+            <h2 class="section-title"><span class="number-badge">4</span>ストレージ</h2>
+            <p>AIモデルはサイズが非常に大きくなります。</p>
+            <div class="highlight-box">
+                推奨： <strong>NVMe SSD</strong>
+            </div>
+            <p>ただし、高速なSSDの容量が足りない場合は、<br>
+                「HDDにモデル保管」＋「シンボリックリンク」<br>
+                で運用することで、NVMeの空き容量を節約するテクニックもあります。</p>
+        </div>
+
+        <!-- Terminal System Info -->
+        <div style="text-align: center; margin-bottom: 20px;">
+            <a href="../Tools/index.html"
+                style="display: inline-block; padding: 12px 25px; background: rgba(16, 185, 129, 0.15); color: #10b981; text-decoration: none; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.4); font-weight: bold; transition: all 0.2s; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1);">
+                📥 AI適正スペックツール（Python）のダウンロードはこちら
+            </a>
+        </div>
+        <div class="terminal-card">
+            <div class="terminal-header">
+                <div class="dot r"></div>
+                <div class="dot y"></div>
+                <div class="dot g"></div>
+                <span style="margin-left:auto;">Noa SeraphimのAI環境 - <span
+                        style="color: var(--text-main);">このスペックでも動きます</span></span>
+            </div>
+            <pre style="margin: 0; white-space: pre-wrap;">
+<span class="term-label">===== AI SYSTEM INFO =====</span>
+
+<span class="term-category">=== SYSTEM ===</span>
+Manufacturer : Thirdwave Corporation
+Model        : RL7C-R46-5N
+Serial       : 73370264
+BIOS Version : N.1.05THW05
+
+<span class="term-category">=== OS ===</span>
+OS           : Windows 11 Pro
+Version      : 25H2
+Build        : 26200
+
+<span class="term-category">=== CPU ===</span>
+Vendor       : Intel
+Model        : i7-13620H
+Cores        : 10
+Threads      : 16
+Base Clock   : 2400 MHz
+
+<span class="term-category">=== MEMORY ===</span>
+Total RAM    : <span class="term-key">63.74 GB</span>
+Manufacturer      PartNumber           Speed    Capacity
+------------      ----------           -----    --------
+Micron Technology CT32G56C46S5.M16D1    5600    <span class="term-key">32GB</span>
+Micron Technology CT32G56C46S5.M16D1    5600    <span class="term-key">32GB</span>
+
+<span class="term-category">=== GPU ===</span>
+Model        : NVIDIA GeForce RTX 4060 Laptop GPU
+Detected VRAM: <span class="term-key">8 GB</span>
+Compute Cap. : 8.9
+
+<span class="term-category">=== STORAGE (Mounted volumes) ===</span>
+C:\   1862 GB (NVMe SSD) - Used: 44.4%
+D:\    954 GB (SSD) - Used: 85.0%
+E:\    932 GB (USB SSD) - Used: 68.1%
+K:\   5589 GB (HDD) - Used: 60.9%
+L:\   5589 GB (HDD) - Used: 97.2%
+
+<span class="term-category">=== CUDA ==</span>
+Driver       : 591.86
+CUDA Version : 13.1 (Driver) / 12.1 (PyTorch)
+CUDA Avail.  : <span class="term-key">True</span>
+
+<span class="term-category">=== AI SPECS ===</span>
+あなたのPCでの得意分野は
+画像生成    : <span class="term-key">◎</span>
+SDXL        : <span class="term-key">○</span>
+LoRA学習    : <span class="term-key">○</span>
+LLM 7B      : <span class="term-key">○</span>
+LLM 13B     : <span style="color:#f97316;">△</span>
+
+<span class="term-category">=== VRAM EVALUATION ===</span>
+<span style="color:#6ee7b7;">VRAM ≥ 24GB → High-End AI</span>
+<span style="color:#6ee7b7;">VRAM ≥ 12GB → Advanced</span>
+VRAM ≥ 8GB  → Midrange   <span style="color:#eab308;">&lt;-- 現在地</span>
+<span style="color:#ef4444;">VRAM &lt; 8GB  → Entry</span>
+
+あなたのスペックは：「 <span class="term-key">Midrange</span> 」です
+
+<span class="term-label">===== END =====</span>
+</pre>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Noa Seraphim Project.</p>
+        </footer>
+
+    </div>
+</body>
+
+</html>
