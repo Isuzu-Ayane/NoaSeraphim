@@ -167,6 +167,58 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
+            cursor: pointer;
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 900px;
+            animation-name: zoom;
+            animation-duration: 0.3s;
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .modal-close:hover,
+        .modal-close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
         }
 
         .gallery-item:hover img {
@@ -224,15 +276,21 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HFB5ECR6DM"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-      gtag('config', 'G-HFB5ECR6DM');
+        gtag('config', 'G-HFB5ECR6DM');
     </script>
 </head>
 
 <body>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <span class="modal-close" id="modalClose">&times;</span>
+        <img class="modal-content" id="modalImg">
+    </div>
 
     <header>
         <div class="container">
@@ -278,8 +336,12 @@
         <!-- Gallery Section -->
         <section id="gallery">
             <h2>Stable Diffusion LoRA Gallery</h2>
-            <p class="subtitle" style="margin-left:0; margin-bottom: 10px;">A collection of AI generated images
+            <p class="subtitle" style="margin-left:0; margin-bottom: 5px;">A collection of AI generated images
                 exploring specific LoRA models and various anime AI models.</p>
+            <p style="color: #fbbf24; font-size: 0.9rem; margin-top: 0; margin-bottom: 15px; font-weight: 600;">
+                ※ 各モデル名の横に表示されているリンク先はAIで自動検索した結果のため、間違っている可能性が高いです。<br>
+                　（見つからなかったものは「リンク不明」と表示されます）
+            </p>
             <p
                 style="color: var(--accent); font-weight: 600; margin-bottom: 25px; border-left: 3px solid #0ea5e9; padding-left: 10px;">
                 ■ 7th_anime_v3_Aが好きなので、7th_anime_v3_Aを使用して各LoRAの効き方を確認しました。
@@ -328,13 +390,27 @@
 
                     // Folder Title
                     const folderTitle = document.createElement('h3');
-                    folderTitle.textContent = lora.name;
                     folderTitle.style.color = 'var(--text-main)';
                     folderTitle.style.marginTop = '0';
                     folderTitle.style.marginBottom = '15px';
                     folderTitle.style.fontSize = '1.4rem';
                     folderTitle.style.borderBottom = '1px solid rgba(56, 189, 248, 0.3)';
                     folderTitle.style.paddingBottom = '8px';
+                    folderTitle.style.display = 'flex';
+                    folderTitle.style.justifyContent = 'space-between';
+                    folderTitle.style.alignItems = 'center';
+
+                    let linkHtml = '';
+                    if (lora.url) {
+                        if (lora.url === '不明') {
+                            linkHtml = '<span style="font-size: 0.85rem; color: var(--text-muted); background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 4px;">リンク不明</span>';
+                        } else {
+                            const domain = lora.url.includes('civitai.com') ? 'Civitai' : (lora.url.includes('huggingface.co') ? 'HuggingFace' : 'Link');
+                            linkHtml = `<a href="${lora.url}" target="_blank" rel="noopener noreferrer" style="font-size: 0.9rem; color: #fff; background: var(--gradient); padding: 4px 12px; border-radius: 4px; text-decoration: none; border: 1px solid rgba(255,255,255,0.2); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1">${domain} ↗</a>`;
+                        }
+                    }
+
+                    folderTitle.innerHTML = `<span>${lora.name}</span> <div style="font-weight: normal;">${linkHtml}</div>`;
                     folderSection.appendChild(folderTitle);
 
                     // Image Grid specifically for 4 images
@@ -353,6 +429,14 @@
                         renderImg.alt = `${lora.name} - AI illustration generation example`;
                         renderImg.loading = 'lazy';
 
+                        // Add click event for modal popup
+                        renderImg.addEventListener('click', () => {
+                            const modal = document.getElementById('imageModal');
+                            const modalImg = document.getElementById('modalImg');
+                            modal.style.display = 'block';
+                            modalImg.src = renderImg.src;
+                        });
+
                         itemWrapper.appendChild(renderImg);
                         imgGrid.appendChild(itemWrapper);
                     });
@@ -363,9 +447,22 @@
             } else {
                 galleryRoot.innerHTML = '<p style="color:var(--text-muted); text-align:center;">No LoRA image data found.</p>';
             }
+
+            // Modal close logic
+            const modal = document.getElementById('imageModal');
+            const span = document.getElementById('modalClose');
+            if (modal && span) {
+                span.onclick = function () {
+                    modal.style.display = 'none';
+                }
+                window.onclick = function (event) {
+                    if (event.target == modal) {
+                        modal.style.display = 'none';
+                    }
+                }
+            }
         });
     </script>
 </body>
 
 </html>
-
