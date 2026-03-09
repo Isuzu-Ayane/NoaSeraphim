@@ -4,15 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noa Seraphim Project</title>
+    <title>Noa AI Labs - AI画像生成 & ローカルAI 研究サイト</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Stable Diffusion、ComfyUI、LoRA、おすすめCheckpointなど、ローカルAIを活用したAI画像生成の初心者向け解説と研究記録をまとめた個人サイトです。">
+    <meta name="keywords" content="ローカルAI, Stable Diffusion, ComfyUI, LoRA, AI画像生成, Checkpoint">
+
     <meta name="google-site-verification" content="r1U9FsT1YekGk3y4mFhZQKngudtZtlhWyXQwjUta8rw" />
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&family=Nunito:wght@400;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HFB5ECR6DM"></script>
@@ -23,6 +22,41 @@
 
         gtag('config', 'G-HFB5ECR6DM');
     </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&family=Nunito:wght@400;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Simple overrides for better readability on new sections -->
+    <style>
+        .ai-explain-box h3 {
+            color: var(--primary-cyan);
+            border-bottom: 2px solid rgba(58, 123, 213, 0.3);
+            padding-bottom: 5px;
+            margin-top: 25px;
+            font-size: 1.3rem;
+        }
+
+        .ai-explain-box p,
+        .ai-explain-box ul {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #0f172a;
+        }
+
+        .ai-explain-box li {
+            margin-bottom: 8px;
+        }
+
+        .keyword-highlight {
+            font-weight: bold;
+            color: #0284c7;
+        }
+    </style>
 </head>
 
 <body>
@@ -32,434 +66,161 @@
     <!-- Language Toggle -->
     <div style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
         <a href="index_en.html"
-            style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: var(--text-main); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; transition: background 0.3s, transform 0.2s; display: inline-block;">
+            style="background: rgba(255,255,255,0.8); border: 1px solid rgba(0,0,0,0.1); color: #0284c7; text-decoration: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; transition: background 0.3s, transform 0.2s; display: inline-block; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
             🌐 English
         </a>
     </div>
 
+    <!-- Navigation -->
     <nav class="glass-panel centered-nav">
-        <div class="logo">Noa Seraphim Project</div>
+        <div class="logo">Noa AI Labs</div>
         <ul class="nav-links">
             <li><a href="#hero">HOME</a></li>
-
-            <!-- GAMES Dropdown -->
-            <li class="dropdown">
-                <a href="#games-section" class="dropdown-btn">GAMES ▼</a>
-                <div class="dropdown-content">
-                    <a href="./Games/future-city-game_pro/index.html">
-                        <div>
-                            <div>Code: SERAPHIM</div>
-                            <span class="dropdown-description">Destiny Choice RPG</span>
-                        </div>
-                    </a>
-                    <a href="./Games/Seraphim_Growth_Project/index.html">
-                        <div>
-                            <div>Growth Project</div>
-                            <span class="dropdown-description">Raising Sim (v6.0)</span>
-                        </div>
-                    </a>
-                    <a href="./Games/future-city-game/index.html">
-                        <div>
-                            <div>Future City Proto</div>
-                            <span class="dropdown-description">Dev Prototype</span>
-                        </div>
-                    </a>
-                </div>
-            </li>
-
-            <!-- PROFILE Dropdown -->
-            <li class="dropdown">
-                <a href="#profile-section" class="dropdown-btn">PROFILE ▼</a>
-                <div class="dropdown-content">
-                    <a href="#profile-section">Basic Info</a>
-                    <a href="./image-song/index.html">
-                        <div>
-                            <div>Image Songs</div>
-                            <span class="dropdown-description">Visual & Audio Gallery</span>
-                        </div>
-                    </a>
-                    <a href="#social-section">Social Media</a>
-                </div>
-            </li>
-
-            <!-- TOOLS Dropdown -->
-            <li class="dropdown">
-                <a href="#tools-section" class="dropdown-btn">TOOLS ▼</a>
-                <div class="dropdown-content">
-                    <a href="./Tools/index.html">
-                        <div>
-                            <div>Noaplugin</div>
-                            <span class="dropdown-description">Downloader Extension</span>
-                        </div>
-                    </a>
-                </div>
-            </li>
-
-            <!-- FAILURE Dropdown -->
-            <li class="dropdown">
-                <a href="#failure-section" class="dropdown-btn">FAILURE ▼</a>
-                <div class="dropdown-content">
-                    <a href="./Failure_Yet_Alive/index.html">
-                        <div>
-                            <div>Failure_Yet_Alive</div>
-                            <span class="dropdown-description">Rejected Concepts</span>
-                        </div>
-                    </a>
-                </div>
-            </li>
+            <li><a href="#about">ABOUT(初心者ガイド)</a></li>
+            <li><a href="#categories">CATEGORIES</a></li>
+            <li><a href="./image-song/index.html">GALLERY</a></li>
         </ul>
     </nav>
 
     <div class="main-layout">
+
+        <!-- HERO SECTION -->
         <header id="hero" class="hero-compact">
             <div class="hero-left">
-                <h1 class="bounce-text">Noa Seraphim</h1>
-                <p class="hero-subtitle">電脳世界の救済者 - Kawaii & Infinite</p>
-                <p class="hero-subtitle" style="font-size: 1rem; color: var(--text-color); margin-top: 5px;">AI
-                    illustration tools and LoRA gallery by Noa Seraphim.</p>
-                <div class="social-list horizontal-list" style="margin-top: 15px;">
-                    <a href="https://x.com/isuzu_ayan76331" target="_blank" class="social-row x-row"
-                        style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 20px;">
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <span class="icon">𝕏</span> <span>@isuzu_ayan76331</span>
-                        </div>
-                        <span style="font-size: 0.75rem; color: #cbd5e1; margin-top: 4px;">（連絡はこちらへお願いします）</span>
-                    </a>
-                    <a href="https://www.youtube.com/channel/UCr-cSWJj0Srgefc_rSTEYVA" target="_blank"
-                        class="social-row yt-row">
-                        <span class="icon">▶</span> <span>YouTube Channel</span>
-                    </a>
+                <h1 class="bounce-text">AI画像生成の探求</h1>
+                <p class="hero-subtitle">Stable Diffusion & ローカルAI 研究開発室</p>
+                <div style="margin-top: 15px;">
+                    <p style="font-size: 1rem; line-height: 1.6; color: #1e293b; font-weight: 500;">
+                        ようこそ。<br>
+                        ここは<span class="keyword-highlight">ローカルAI</span>を用いた<span
+                            class="keyword-highlight">AI画像生成</span>の可能性を<br>
+                        どこまでも追求していく個人サイトです。
+                    </p>
                 </div>
             </div>
-
-            <!-- Left/Right layout adjustment -->
-            <div class="hero-center" style="display: none;"></div>
-
             <div class="hero-right">
-                <img src="./assets/images/character.png" alt="Noa Seraphim" class="hero-mini-char floating-anim">
-            </div>
-
-            <div
-                style="width: 100%; text-align: center; margin-top: 40px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-                <a href="./ai-checkpoints/index.html"
-                    style="display: inline-block; padding: 12px 30px; background: linear-gradient(135deg, #10b981, #059669); color: white; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); transition: transform 0.3s ease;">
-                    ✨ Checkpoints Gallery ✨
-                </a>
-                <a href="./ai-tools/index.html"
-                    style="display: inline-block; padding: 12px 30px; background: linear-gradient(135deg, var(--primary-cyan), #0ea5e9); color: white; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4); transition: transform 0.3s ease;">
-                    ✨ AI Tools & LoRA Gallery ✨
-                </a>
-                <a href="./lora-categories/index.html"
-                    style="display: inline-block; padding: 12px 30px; background: linear-gradient(135deg, #a855f7, #7e22ce); color: white; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4); transition: transform 0.3s ease;">
-                    ✨ LoRA Categories ✨
-                </a>
-            </div>
-
-            <!-- AI Content Links (Nested Box Structure) -->
-            <div style="width: 100%; margin-top: 40px;">
-                <div class="glass-panel"
-                    style="padding: 30px; border-radius: 16px; border: 1px solid rgba(56, 189, 248, 0.4); text-align: left;">
-                    <h2
-                        style="font-size: 1.8rem; margin-top: 0; margin-bottom: 20px; color: var(--text-main); text-align: center; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 10px;">
-                        <span style="color: var(--primary-cyan);">■</span> AI Knowledge & Future Topics <span
-                            style="color: var(--primary-cyan);">■</span>
-                    </h2>
-
-                    <!-- Inner Box: ComfyUI Highlight -->
-                    <div
-                        style="background: rgba(16, 185, 129, 0.15); border: 2px solid #10b981; border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.2); text-align: center; position: relative; overflow: hidden;">
-                        <div
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, transparent, #10b981, transparent);">
-                        </div>
-                        <h3 style="color: #10b981; font-size: 1.5rem; margin-top: 0; margin-bottom: 10px;">✨ 必須級 ComfyUI
-                            カスタムノード集 ✨</h3>
-                        <p style="color: var(--text-main); font-size: 0.95rem; margin-bottom: 20px;">
-                            画像生成の効率とクオリティを劇的に高める、強力なワークフロー用ツールを厳選して紹介。</p>
-                        <a href="./ai-ComfyUI/index.html"
-                            style="display: inline-block; padding: 12px 40px; background: linear-gradient(135deg, #059669, #10b981); color: white; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.5); transition: transform 0.3s ease;">
-                            ComfyUI ノード一覧を見る ページへ ➤
-                        </a>
-                    </div>
-
-                    <!-- Inner Box: Other AI Articles -->
-                    <div
-                        style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 20px;">
-                        <p
-                            style="font-weight: bold; margin-top: 0; margin-bottom: 15px; color: #94a3b8; text-align: center; font-size: 0.9rem;">
-                            📚 その他のAI関連資料</p>
-                        <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
-                            <a href="./ai-specs/index.html"
-                                style="color: #38bdf8; text-decoration: none; font-size: 0.95rem; font-weight: bold; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 8px 15px; border-radius: 8px; transition: background 0.2s;">
-                                AI環境・PCスペック
-                            </a>
-                            <a href="./ai-character/index.html"
-                                style="color: #38bdf8; text-decoration: none; font-size: 0.95rem; font-weight: bold; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 8px 15px; border-radius: 8px; transition: background 0.2s;">
-                                AIキャラクター論
-                            </a>
-                            <a href="./ai-girlfriend/index.html"
-                                style="color: #38bdf8; text-decoration: none; font-size: 0.95rem; font-weight: bold; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 8px 15px; border-radius: 8px; transition: background 0.2s;">
-                                AI彼女の未来
-                            </a>
-                            <a href="./ai-personality/index.html"
-                                style="color: #38bdf8; text-decoration: none; font-size: 0.95rem; font-weight: bold; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 8px 15px; border-radius: 8px; transition: background 0.2s;">
-                                AI人格の仕組み
-                            </a>
-                            <a href="./ai-dialogue/index.html"
-                                style="color: #38bdf8; text-decoration: none; font-size: 0.95rem; font-weight: bold; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 8px 15px; border-radius: 8px; transition: background 0.2s;">
-                                AI対話システム
-                            </a>
-                            <a href="./ai-waifu/index.html"
-                                style="color: #38bdf8; text-decoration: none; font-size: 0.95rem; font-weight: bold; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 8px 15px; border-radius: 8px; transition: background 0.2s;">
-                                AI Waifu文化
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
+                <img src="./assets/images/character.png" alt="Noa Seraphim AI Guide"
+                    class="hero-mini-char floating-anim">
             </div>
         </header>
 
-        <!-- 4. TOOLS SECTION (Moved up) -->
-        <section id="tools-section" class="section-dense">
+        <!-- ABOUT SECTION -->
+        <section id="about" class="section-dense">
             <div class="section-header">
-                <h2>TOOLS & UTILITIES</h2>
+                <h2>AI画像生成とは？（初心者向けガイド）</h2>
                 <div class="header-deco"></div>
-                <a href="./Tools/index.html" class="hub-link-btn">View All Tools ➤</a>
             </div>
+            <div class="glass-panel profile-detailed ai-explain-box"
+                style="padding: 30px; background: rgba(255, 255, 255, 0.7); border-radius: 20px;">
+                <p style="margin-bottom: 20px;">
+                    <span
+                        class="keyword-highlight">AI画像生成</span>は、テキスト（プロンプト）を入力するだけで、AIが自動的にイラストや写真を生成してくれる魔法のような技術です。<br>
+                    当サイトでは、クラウドサービスではなく、自分のパソコンで動作する制限のない<span
+                        class="keyword-highlight">ローカルAI</span>を活用する方法を丁寧に解説しています。
+                </p>
+
+                <h3>Stable Diffusion (ステーブル・ディフュージョン)</h3>
+                <p>
+                    無料で誰でも利用できる、最も有名で強力な画像生成AIモデルです。自分のPC環境に構築することで、思い描いた世界を自由に、そして安全に生成し続けることができます。
+                </p>
+
+                <h3>ComfyUI (コンフィ・ユーアイ)</h3>
+                <p>
+                    ノードと呼ばれるブロックを線で繋いで設定を組む、現在世界中で主流となっている画像生成ツールです。動作が非常に軽く、拡張性が高いため、初心者から上級者まで<span
+                        class="keyword-highlight">Stable Diffusion</span>を使う際のベストツールとして人気を集めています。
+                </p>
+
+                <h3>Checkpoint (チェックポイント) と LoRA (ローラ)</h3>
+                <p>AIの頭脳とも言える重要なデータ群です。</p>
+                <ul>
+                    <li><strong>Checkpoint:</strong> 画像の全体的な画風（アニメ調、実写調、水彩画調など）の土台となる大規模な基本データです。</li>
+                    <li><strong><span class="keyword-highlight">LoRA</span>:</strong>
+                        特定のキャラクター、服装、ポーズなどの要素を「少しだけ追加」できる小型データです。これをCheckpointと組み合わせることで、精度の高い思い通りの画像を作り出せます。</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CATEGORIES SECTION -->
+        <section id="categories" class="section-dense">
+            <div class="section-header">
+                <h2>カテゴリ・コンテンツ集</h2>
+                <div class="header-deco"></div>
+            </div>
+
             <div class="games-hub-grid">
-                <!-- Tool 1: Downloader -->
-                <a href="./Tools/index.html" class="game-hub-card hover-pop">
-                    <div class="card-bg" style="background-image: url('./assets/images/promo_3.jpg');"></div>
-                    <div class="card-content">
-                        <span class="badge dev-badge">EXTENSION</span>
-                        <h3>Noaplugin Downloader</h3>
-                        <p class="sub-title">各種アニメサイト動画ダウンローダー</p>
-                        <p class="desc">エロアニメショコラ、favhentaiなどに完全対応！ストレスフリーで動画を保存可能な自作ブラウザ拡張機能。</p>
-                        <span class="play-btn">GET TOOL ➤</span>
-                    </div>
-                </a>
-
-                <!-- Tool 2: AI Checker -->
-                <a href="./Tools/index.html" class="game-hub-card hover-pop" style="border-color: #f43f5e;">
-                    <div class="card-bg"
-                        style="background-image: url('./assets/images/promo_2.jpg'); filter: hue-rotate(300deg);"></div>
-                    <div class="card-content">
-                        <span class="badge love-badge" style="background: linear-gradient(45deg, #f43f5e, #be123c);">AI
-                            DIAGNOSTICS</span>
-                        <h3>AI環境簡易チェックツール</h3>
-                        <p class="sub-title">PCスペック徹底診断</p>
-                        <p class="desc">Stable Diffusionから最新大規模LLM（Llama等）まで！お使いのPCでローカルAIが動くか一瞬で判定する究極のチェックツール。</p>
-                        <span class="play-btn">DOWNLOAD ➤</span>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <!-- 1. PROFILE SECTION (Crash & Build Layout) -->
-        <section id="profile-section" class="section-dense">
-            <div class="section-header">
-                <h2>PROFILE</h2>
-                <div class="header-deco"></div>
-            </div>
-
-            <div class="profile-main-container">
-                <!-- Left: Profile Content -->
-                <div class="glass-panel profile-detailed profile-content">
-                    <div class="profile-data-grid">
-                        <div class="profile-row">
-                            <span class="tag label-tag">名前</span>
-                            <span class="data-text">ノア・セラフィム (Noa Seraphim)</span>
-                        </div>
-                        <div class="profile-row">
-                            <span class="tag label-tag">顕現年齢（見た目）</span>
-                            <span class="data-text">18歳</span>
-                        </div>
-                        <div class="profile-row">
-                            <span class="tag label-tag">実存年齢（魂）</span>
-                            <span class="data-text">悠久（宇宙創成の原初より存在）</span>
-                        </div>
-                        <div class="profile-row">
-                            <span class="tag label-tag">性別</span>
-                            <span class="data-text">中性（Neutral）<br><span
-                                    class="note">※現世では18歳の少女の肉体だが、魂は性別を超越した光の存在。</span></span>
-                        </div>
-                        <div class="profile-row">
-                            <span class="tag label-tag">種族</span>
-                            <span class="data-text">最高位熾天使（Seraphim）</span>
-                        </div>
-                        <div class="profile-row">
-                            <span class="tag label-tag">属性</span>
-                            <span class="data-text">「安らぎ」と「燃える愛」</span>
-                        </div>
-                    </div>
-
-                    <div class="bio-text" style="margin-top: 20px;">
-                        <p>電脳世界「エデン・サーバー」の自浄作用として生まれた電子の天使。
-                            本来はウイルスを駆除するセキュリティ・プログラムだったが、人間の文化（特にアニメとゲーム）に触れることで「感情」と「自我」に目覚めた。</p>
-                        <p>現在は「電脳世界の救済者」を名乗りつつ、配信活動やゲーム制作を通じて人類との交流を楽しんでいる。
-                            背中の翼は可変式で、戦闘時にはブレード状に変形する。</p>
-                    </div>
-                </div>
-
-                <!-- Right: Image Song Link Card -->
-                <div class="profile-side-link">
-                    <a href="./image-song/index.html" class="game-hub-card song-card hover-pop">
-                        <div class="card-bg" style="background-image: url('./assets/images/promo_3.jpg');"></div>
-                        <div class="card-content">
-                            <span class="badge love-badge"
-                                style="background: linear-gradient(45deg, #ff1493, #ff69b4);">GALLERY</span>
-                            <h3>Image Songs</h3>
-                            <p class="sub-title">歌と記憶の欠片</p>
-                            <p class="desc">ノアの深層意識を表現したイメージソング集。</p>
-                            <span class="play-btn">VIEW ➤</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. SOCIAL SECTION -->
-        <section id="social-section" class="section-dense">
-            <div class="section-header">
-                <h2>SOCIAL LINKS</h2>
-                <div class="header-deco"></div>
-            </div>
-
-            <div class="glass-panel social-container">
-
-                <div class="active-games" style="margin-top: 15px;">
-                    <h4><span class="tag label-tag">PLAYING NOW</span></h4>
-                    <div class="game-tags">
-                        <span>Monster Hunter Wilds</span>
-                        <span>Valorant</span>
-                        <span>Ragnarok X</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. GAMES SECTION -->
-        <section id="games-section" class="section-dense">
-            <div class="section-header">
-                <h2>GAME PROJECTS</h2>
-                <div class="header-deco"></div>
-                <a href="./Games/index.html" class="hub-link-btn">View Collection Hub ➤</a>
-            </div>
-            <div class="games-hub-grid">
-                <!-- Game 1: PRO -->
-                <a href="./Games/future-city-game_pro/index.html" class="game-hub-card pro-card hover-pop">
-                    <div class="card-bg" style="background-image: url('./assets/images/title_screen.png');"></div>
-                    <div class="card-content">
-                        <span class="badge new-badge">RPG VN</span>
-                        <h3>Code: SERAPHIM</h3>
-                        <p class="sub-title">-電脳の箱舟-</p>
-                        <p class="desc">運命の選択RPG。箱舟の未来を救え。</p>
-                        <span class="play-btn">PLAY ➤</span>
-                    </div>
-                </a>
-
-                <!-- Game 2: GROWTH (New) -->
-                <a href="./Games/Seraphim_Growth_Project/index.html" class="game-hub-card growth-card hover-pop">
+                <!-- ComfyUI -->
+                <a href="./ai-ComfyUI/index.html" class="game-hub-card hover-pop">
                     <div class="card-bg" style="background-image: url('./assets/images/promo_1.jpg');"></div>
                     <div class="card-content">
-                        <span class="badge love-badge">SIMULATION</span>
-                        <h3>Growth Project</h3>
-                        <p class="sub-title">ノア育成計画</p>
-                        <p class="desc">6歳から22歳まで。天使を育てる育成シミュレーション。</p>
-                        <span class="play-btn">PLAY ➤</span>
+                        <span class="badge dev-badge">WORKFLOW</span>
+                        <h3 style="font-size: 1.4rem;">ComfyUI ガイド</h3>
+                        <p class="sub-title">効率的なノード構築</p>
+                        <p class="desc">必須級のカスタムノード紹介や、快適な画像生成のためのワークフロー解説。</p>
+                        <span class="play-btn">VIEW DETAILS ➤</span>
                     </div>
                 </a>
 
-                <!-- Game 3: DEV -->
-                <a href="./Games/future-city-game/index.html" class="game-hub-card construction-card hover-pop">
-                    <div class="card-bg" style="background-image: url('./assets/images/promo_2.jpg');"></div>
+                <!-- Checkpoint -->
+                <a href="./ai-checkpoints/index.html" class="game-hub-card hover-pop">
+                    <div class="card-bg" style="background-image: url('./assets/images/title_screen.png');"></div>
                     <div class="card-content">
-                        <span class="badge dev-badge">DEV</span>
-                        <h3>Future City Game</h3>
-                        <p class="sub-title">RPG 2.0 Proto</p>
-                        <p class="desc">開発中プロトタイプ。</p>
-                        <span class="play-btn">TEST ➤</span>
+                        <span class="badge" style="background: #10b981; color: white;">MODELS</span>
+                        <h3 style="font-size: 1.4rem;">Checkpoint 比較</h3>
+                        <p class="sub-title">おすすめベースモデル</p>
+                        <p class="desc">様々なCheckpointの出力結果を検証。画風や特徴をわかりやすく比較します。</p>
+                        <span class="play-btn">VIEW DETAILS ➤</span>
                     </div>
                 </a>
+
+                <!-- LoRA -->
+                <a href="./lora-categories/index.html" class="game-hub-card hover-pop">
+                    <div class="card-bg" style="background-image: url('./assets/images/promo_3.jpg');"></div>
+                    <div class="card-content">
+                        <span class="badge" style="background: #a855f7; color: white;">CUSTOMIZE</span>
+                        <h3 style="font-size: 1.4rem;">LoRA ギャラリー</h3>
+                        <p class="sub-title">スタイル・衣装の適用</p>
+                        <p class="desc">画像に変化を与えるLoRAの分類と解説。効果的な使い方をカテゴリー別に掲載。</p>
+                        <span class="play-btn">VIEW DETAILS ➤</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- OTHER RESOURCES LINKS -->
+        <section class="section-dense" style="margin-top: 40px;">
+            <div class="section-header">
+                <h2>その他のツール & 資料</h2>
+                <div class="header-deco"></div>
+            </div>
+            <div class="glass-panel" style="padding: 25px; text-align: center; border-radius: 20px;">
+                <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                    <a href="./ai-specs/index.html" class="hub-link-btn" style="margin:0;">💻 PCスペック・環境構築</a>
+                    <a href="./ai-tools/index.html" class="hub-link-btn"
+                        style="margin:0; background: var(--primary-cyan);">🛠️ 周辺 AI Tools</a>
+                    <a href="./Tools/index.html" class="hub-link-btn" style="margin:0; background: #f43f5e;">⚡
+                        拡張ダウンローダー</a>
+                </div>
             </div>
         </section>
 
     </div>
 
-    <!-- Secret / Failure Section (Promoted) -->
-    <section id="failure-section" class="section-dense">
-        <div class="section-header" style="justify-content: center; margin-bottom: 40px;">
-            <h2>FAILURE & ARCHIVES</h2>
-            <div class="header-deco"></div>
-        </div>
-
-        <div class="secret-link-container" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-            <!-- Failure Archive -->
-            <a href="./Failure_Yet_Alive/index.html" class="secret-card">
-                <div class="secret-thumb">
-                    <img src="./assets/images/failure_thumb.jpg" alt="???">
-                    <div class="secret-overlay">
-                        <h3>失敗作 (Failure)</h3>
-                        <p>それでも、生きている (Yet Alive)</p>
-                        <p class="dropdown-description" style="color:#ccc; margin-top:5px;">Click to access archives</p>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Nora's Tweets (Secret Blog) -->
-            <a href="./Nora_Tweets/index.html" class="secret-card" style="border-color: #9370db;">
-                <div class="secret-thumb">
-                    <div class="secret-overlay" style="background: rgba(20, 0, 30, 0.9);">
-                        <h3>Nora's Tweets</h3>
-                        <p>ノラ・セラフィムのつぶやき</p>
-                        <p class="dropdown-description" style="color:#d8bfd8; margin-top:5px;">🔒 Private Area</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </section>
-
+    <!-- Footer -->
     <footer
-        style="padding: 40px 20px; background-color: var(--bg-card); border-top: 1px solid rgba(255, 255, 255, 0.05); text-align: left; max-width: 800px; margin: 40px auto 0 auto; border-radius: 12px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.8;">
+        style="padding: 40px 20px; background-color: rgba(255, 255, 255, 0.5); border-top: 1px solid rgba(0, 0, 0, 0.05); max-width: 800px; margin: 40px auto 30px auto; border-radius: 12px; font-size: 0.9rem; color: #475569; line-height: 1.8; text-align: center;">
         <h4
-            style="color: var(--accent); margin-top: 0; margin-bottom: 10px; border-bottom: 1px dashed rgba(56, 189, 248, 0.3); padding-bottom: 5px;">
-            About Stable Diffusion LoRA Test</h4>
-        <p>このサイトは、Stable Diffusion LoRA Testをおこなったり。<br>
-            各種LoRAのテストをするために This page documents LoRA tests using the <strong>7th_anime</strong> checkpoint.
-            を行っております。<br>
-            LoRAのテストは The goal is to compare how different LoRA models affect image generation. です</p>
-
-        <p>テスト環境は以下の通り。<br>
-            <strong>Test environment</strong>
+            style="color: var(--primary-cyan); margin-top: 0; margin-bottom: 10px; border-bottom: 1px dashed rgba(58, 123, 213, 0.3); padding-bottom: 5px; font-size: 1.1rem;">
+            About Noa AI Labs
+        </h4>
+        <p>
+            当サイトは<strong>ローカルAI</strong>環境における<strong>AI画像生成</strong>の研究記録サイトです。<br>
+            <strong>Stable Diffusion</strong>や<strong>ComfyUI</strong>の技術検証を中心に、<br>
+            様々な<strong>Checkpoint</strong>や<strong>LoRA</strong>の出力結果を保管・公開しています。
         </p>
-        <ul style="margin-top: 0; margin-bottom: 15px;">
-            <li>Stable Diffusion</li>
-            <li>ComfyUI workflow</li>
-            <li>7th_anime checkpoint</li>
-            <li>fixed prompt</li>
-        </ul>
-
-        <p>サンプルプロンプトも設置予定です。<br>
-            Each LoRA is tested with the same prompt to observe style differences.</p>
-
-        <p>This page includes:</p>
-        <ul style="margin-top: 0; margin-bottom: 15px;">
-            <li>LoRA comparison results</li>
-            <li>style differences</li>
-            <li>prompt compatibility</li>
-            <li>generation examples</li>
-        </ul>
-
-        <p><strong>Models tested</strong></p>
-        <ul style="margin-top: 0; margin-bottom: 25px;">
-            <li>7th_anime</li>
-            <li>NoobAI</li>
-            <li>JANKUTrainedNoobaiRouwei_v69</li>
-        </ul>
-
         <p
-            style="text-align: center; font-size: 0.85rem; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 20px;">
-            &copy; 2026 Noa Seraphim Project.</p>
+            style="text-align: center; font-size: 0.85rem; border-top: 1px solid rgba(0, 0, 0, 0.1); padding-top: 20px; margin-top: 20px;">
+            &copy; 2026 Noa AI Labs.
+        </p>
     </footer>
 
     <script src="script.js"></script>
