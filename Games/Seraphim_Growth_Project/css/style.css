@@ -1,0 +1,261 @@
+/* --- Zero-Complexity Style Core v6.1 (Recovery) --- */
+
+/* 1. Global Reset & Variables */
+:root {
+    --primary-color: #ff69b4;
+    /* Hot Pink */
+    --secondary-color: #ff1493;
+    /* Deep Pink */
+    --accent-color: #ffc0cb;
+    /* Light Pink */
+    --bg-dark: #2d0a15;
+    /* Dark Pinkish BG */
+    --glass-bg: rgba(255, 182, 193, 0.15);
+    /* Pink Tint Glass */
+    --glass-border: rgba(255, 105, 180, 0.4);
+    --text-color: #fff0f5;
+    /* Lavender Blush */
+    --font-main: 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-main);
+    background: radial-gradient(circle at center, #1a202c 0%, #000000 100%);
+    color: var(--text-color);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* Prevent scrolling */
+}
+
+/* 2. Main Layout Container */
+.game-container {
+    width: 95%;
+    max-width: 1200px;
+    height: 90vh;
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    /* Left: Main, Right: Stats */
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    background: rgba(45, 10, 21, 0.85);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 0 50px rgba(255, 105, 180, 0.2);
+}
+
+/* 3. Main View (Left Side) */
+.main-view {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+    overflow: hidden;
+}
+
+.image-area {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 16px;
+    position: relative;
+    border: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.character-img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    transition: opacity 0.3s;
+}
+
+/* Fallback/Loading Overlay */
+.placeholder-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #2d3748;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #a0aec0;
+    display: none;
+    /* Hidden by default */
+    z-index: 10;
+}
+
+/* Message Box */
+.message-box {
+    height: 150px;
+    min-height: 150px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 20px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    overflow-y: auto;
+}
+
+/* 4. Stats Panel (Right Side) */
+.stats-panel {
+    background: var(--glass-bg);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    overflow-y: auto;
+}
+
+.status-header {
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+}
+
+.status-header h2 {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+}
+
+/* Stat Bars */
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.bar-container {
+    width: 100%;
+    height: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--primary-color);
+    transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.bar-energy {
+    background: linear-gradient(90deg, #00ff87 0%, #60efff 100%);
+}
+
+/* 5. Action Buttons */
+.action-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: auto;
+    /* Push to bottom */
+}
+
+.btn-action {
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.btn-action:hover {
+    background: rgba(255, 105, 180, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-action:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-rest {
+    grid-column: span 2;
+    background: rgba(147, 112, 219, 0.3);
+}
+
+/* 6. Modal (CRITICAL FIX) */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: none;
+    /* MUST BE HIDDEN BY DEFAULT */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    /* Top level */
+}
+
+.modal-content {
+    background: #1a202c;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
+}
+
+.modal img {
+    max-width: 80%;
+    border-radius: 10px;
+    margin: 20px 0;
+    border: 2px solid white;
+}
+
+/* 7. Mobile Responsive */
+@media (max-width: 768px) {
+    .game-container {
+        grid-template-columns: 1fr;
+        height: 100vh;
+        /* Full viewport on mobile */
+        border-radius: 0;
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .image-area {
+        height: 40vh;
+        /* Fixed height for image */
+        flex: none;
+    }
+
+    .message-box {
+        flex: 1;
+        /* Take remaining space */
+        min-height: 0;
+    }
+
+    .stats-panel {
+        max-height: 40vh;
+        /* Limit height */
+    }
+}

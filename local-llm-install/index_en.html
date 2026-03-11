@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy for anyone! How to run local LLM on your own PC (LM Studio edition) - Noa AI Labs</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&family=Nunito:wght@400;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .guide-container {
+            max-width: 900px;
+            margin: 120px auto 40px auto;
+            padding: 0 20px;
+        }
+
+        .guide-header {
+            text-align: center;
+            margin-bottom: 50px;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .guide-header h1 {
+            font-size: 2.2rem;
+            color: #0f172a;
+            margin-bottom: 20px;
+            line-height: 1.4;
+            text-shadow: 1px 1px 0 rgba(255, 255, 255, 1);
+        }
+
+        .guide-header p {
+            font-size: 1.1rem;
+            color: #334155;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            border-color: rgba(16, 185, 129, 0.5);
+        }
+
+        .step-badge {
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 800;
+            padding: 8px 25px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .step-card h2 {
+            margin-top: 10px;
+            color: #0f172a;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 2px dashed rgba(16, 185, 129, 0.3);
+            padding-bottom: 15px;
+        }
+
+        .step-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #334155;
+            margin-bottom: 15px;
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin: 15px 0;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-download:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+            color: white;
+        }
+
+        .important-point {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .important-point strong {
+            color: #166534;
+            font-size: 1.15rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .important-point i {
+            color: #22c55e;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #10b981;
+            text-decoration: none;
+            font-weight: bold;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(16, 185, 129, 0.2);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Language Toggle -->
+    <div style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
+        <a href="../index.html"
+            style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: var(--text-main); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; transition: background 0.3s, transform 0.2s; display: inline-block;">
+            🌐 Japanese
+        </a>
+    </div>
+
+    <nav class="glass-panel centered-nav">
+        <div class="logo">Noa AI Labs</div>
+        <ul class="nav-links">
+            <li><a href="../index.html">HOME</a></li>
+        </ul>
+    </nav>
+
+    <div class="guide-container">
+        <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Return to top page</a>
+
+        <div class="guide-header">
+            <h1 style="color: #047857;"><i class="fas fa-robot"
+                    style="color:#10b981;"></i>Easy for anyone! Run local LLM on your own PC<br>Method (LM Studio edition)</h1>
+            <p>"I'd like to chat with an AI on my PC, but programming and operating a black screen (command prompt) seem difficult..."</p>
+            <p>Don't you think so? actually<strong>「LM
+                    Studio」</strong>Using this free tool, you can surprisingly easily introduce local LLM (AI that can be completed within your own PC) just by installing one piece of software.</p>
+            <p style="margin-top: 20px; font-weight: bold; font-size: 1.25rem; color: #059669;">
+                This time, we will explain step-by-step everything from downloading to chatting with AI to "tricks to make things easier!"
+            </p>
+        </div>
+
+        <div class="step-card">
+            <div class="step-badge">Step 1</div>
+            <h2>Download LM Studio</h2>
+            <ol style="font-size: 1.1rem; line-height: 2; padding-left: 20px; color: #334155;">
+                <li>First of all, the official website (<a href="https://lmstudio.ai/" target="_blank"
+                        style="color: #10b981; font-weight: bold;">https://lmstudio.ai/</a>).</li>
+                <li>Click "Download LM Studio for Windows" in the middle of the screen to download the installer. (For Mac or Linux users, please select from the corresponding button)
+                </li>
+            </ol>
+            <div style="text-align: center; margin-top: 15px;">
+                <a href="https://lmstudio.ai/" target="_blank" class="btn-download"><i class="fas fa-download"></i> LM
+                    Go to Studio official website</a>
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-badge">Step 2</div>
+            <h2>install</h2>
+            <ol style="font-size: 1.1rem; line-height: 2; padding-left: 20px; color: #334155;">
+                <li>Downloaded file (<code>LM-Studio-*.exe</code>) to run it.</li>
+                <li>The installation will proceed automatically and LM Studio will start up when it is complete. That's all! There are no troublesome initial settings.</li>
+            </ol>
+        </div>
+
+        <div class="step-card">
+            <div class="step-badge">Step 3</div>
+            <h2>Find and download your favorite AI model</h2>
+            <p>LM Studio has a convenient feature that allows you to search for and download AI models from all over the world directly from within the app.</p>
+            <ol style="font-size: 1.1rem; line-height: 2; padding-left: 20px; color: #334155;">
+                <li>Open the home screen (magnifying glass mark 🔍) from the left menu of the app.</li>
+                <li>Search by entering the name of the model you are interested in in the search window. (We recommend a lighter model to start with)</li>
+                <li>Click on the search results that will appear on the left.</li>
+                <li>A list of files will be displayed on the right. at the end of the file name<strong>「Q4_K_M」</strong>The key is to choose the one with this written on it! (This is the format with the best balance of lightness and cleverness.)
+                </li>
+                <li>Press the "Download" button and wait for the download to finish.</li>
+            </ol>
+        </div>
+
+        <div class="step-card">
+            <div class="step-badge">Step 4</div>
+            <h2>Let's chat with AI!</h2>
+            <p>Once the download is complete, it's time to chat with the AI.</p>
+            <ol style="font-size: 1.1rem; line-height: 2; padding-left: 20px; color: #334155;">
+                <li>Click the "speech bubble mark 💬 (Chat)" from the menu on the left.</li>
+                <li>Click "Select a model to load" at the top of the screen and select the model you downloaded earlier.</li>
+                <li>Once the model is loaded, please enter a message saying "Hello!" in the input field at the bottom and send it.</li>
+            </ol>
+            <p style="font-size: 1.2rem; font-weight: bold; color: #10b981; text-align: center; margin-top: 20px;">
+                Your own local AI environment is now complete!
+            </p>
+        </div>
+
+        <div class="step-card" style="border: 2px solid #f59e0b; background: #fffbeb;">
+            <div class="step-badge"
+                style="background: linear-gradient(135deg, #f59e0b, #d97706); left: 50%; transform: translateX(-50%); white-space: nowrap;">
+                <i class="fas fa-lightbulb"></i> Must see! Settings to make it extremely fast using graphics card (GPU)
+            </div>
+            <p style="margin-top: 30px;">If your PC is equipped with a graphics board, just a few changes to the settings panel on the right will dramatically speed up the generation!</p>
+
+            <ol style="font-size: 1.1rem; line-height: 2; padding-left: 20px; color: #334155;">
+                <li>in the right panel <strong>「GPU Offload」</strong> Try increasing the value. This is the "ratio (number of layers) of leaving part of the calculation to Grabo."</li>
+                <li>
+                    <div class="important-point" style="background: #fef3c7; border-color: #fcd34d;">
+                        <strong><i class="fas fa-bolt"></i> If you are using a graphics card with 8GB of VRAM:</strong>
+                        Increase the offload value little by little (10 to 15, etc.) until the "GPU" of the Estimated Memory Usage displayed at the top is
+                        <strong>7.0GB〜7.5GB</strong> The best trick is to adjust it so that it fits within this range.
+                    </div>
+                </li>
+            </ol>
+            <p
+                style="font-size: 1.15rem; font-weight: bold; color: #b45309; margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.7); border-radius: 8px;">
+                together <strong>「Context Length」</strong> from 4096 <strong>2048</strong> If you reduce it a little to something like , you can save even more VRAM and speed it up!
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer
+        style="padding: 40px 20px; background-color: rgba(255, 255, 255, 0.5); border-top: 1px solid rgba(0, 0, 0, 0.05); max-width: 800px; margin: 40px auto 30px auto; border-radius: 12px; font-size: 0.9rem; color: #475569; line-height: 1.8; text-align: center;">
+        <h4
+            style="color: var(--primary-cyan); margin-top: 0; margin-bottom: 10px; border-bottom: 1px dashed rgba(58, 123, 213, 0.3); padding-bottom: 5px; font-size: 1.1rem;">
+            About Noa AI Labs
+        </h4>
+        <p>
+            This site is<strong>local AI</strong>in the environment<strong>AI image generation</strong>This is a research record site.<br>
+            <strong>Stable Diffusion</strong>や<strong>ComfyUI</strong>Focusing on technical verification of<br>
+            various<strong>Checkpoint</strong>や<strong>LoRA</strong>The output results are stored and published.
+        </p>
+        <p
+            style="text-align: center; font-size: 0.85rem; border-top: 1px solid rgba(0, 0, 0, 0.1); padding-top: 20px; margin-top: 20px;">
+            &copy; 2026 Noa AI Labs.
+        </p>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>

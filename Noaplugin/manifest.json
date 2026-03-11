@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "動画ダウンローダー",
+  "version": "1.38",
+  "description": "広告の後に読み込まれる動画(.mp4)を検出してダウンロードします。バージョン 1.38",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "all_frames": true,
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
+  "permissions": [
+    "downloads",
+    "webRequest",
+    "activeTab",
+    "scripting",
+    "storage",
+    "declarativeNetRequest",
+    "offscreen"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ]
+}

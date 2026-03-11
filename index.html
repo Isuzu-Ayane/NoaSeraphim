@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noa AI Labs - AI画像生成 & ローカルAI 研究サイト</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Stable Diffusion、ComfyUI、LoRA、おすすめCheckpointなど、ローカルAIを活用したAI画像生成の初心者向け解説と研究記録をまとめた個人サイトです。">
+    <meta name="keywords" content="ローカルAI, Stable Diffusion, ComfyUI, LoRA, AI画像生成, Checkpoint">
+
+    <meta name="google-site-verification" content="r1U9FsT1YekGk3y4mFhZQKngudtZtlhWyXQwjUta8rw" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HFB5ECR6DM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-HFB5ECR6DM');
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&family=Nunito:wght@400;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Simple overrides for better readability on new sections -->
+    <style>
+        .ai-explain-box h3 {
+            color: var(--primary-cyan);
+            border-bottom: 2px solid rgba(58, 123, 213, 0.3);
+            padding-bottom: 5px;
+            margin-top: 25px;
+            font-size: 1.3rem;
+        }
+
+        .ai-explain-box p,
+        .ai-explain-box ul {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #0f172a;
+        }
+
+        .ai-explain-box li {
+            margin-bottom: 8px;
+        }
+
+        .keyword-highlight {
+            font-weight: bold;
+            color: #0284c7;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Language Toggle -->
+    <div style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
+        <a href="./index_en.html"
+            style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: var(--text-main, #333); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; transition: background 0.3s, transform 0.2s; display: inline-block;">
+            🌐 English
+        </a>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="glass-panel centered-nav">
+        <div class="logo">Noa AI Labs</div>
+        <ul class="nav-links">
+            <li><a href="#hero">HOME</a></li>
+            <li><a href="#about">ABOUT(初心者ガイド)</a></li>
+            <li><a href="#categories">CATEGORIES</a></li>
+            <li><a href="./image-song/index.html">GALLERY</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-layout">
+
+        <!-- HERO SECTION -->
+        <header id="hero" class="hero-compact">
+            <div class="hero-left">
+                <h1 class="bounce-text">AI画像生成の探求</h1>
+                <p class="hero-subtitle">Stable Diffusion & ローカルAI 研究開発室</p>
+                <div style="margin-top: 15px;">
+                    <p style="font-size: 1rem; line-height: 1.6; color: #1e293b; font-weight: 500;">
+                        ようこそ。<br>
+                        ここは<span class="keyword-highlight">ローカルAI</span>を用いた<span
+                            class="keyword-highlight">AI画像生成</span>の可能性を<br>
+                        どこまでも追求していく個人サイトです。
+                    </p>
+                </div>
+            </div>
+            <div class="hero-right">
+                <img src="./assets/images/character.png" alt="Noa Seraphim AI Guide"
+                    class="hero-mini-char floating-anim">
+            </div>
+        </header>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="section-dense">
+            <div class="section-header">
+                <h2>AI画像生成とは？（初心者向けガイド）</h2>
+                <div class="header-deco"></div>
+            </div>
+            <div class="glass-panel profile-detailed ai-explain-box"
+                style="padding: 30px; background: rgba(255, 255, 255, 0.7); border-radius: 20px;">
+                <p style="margin-bottom: 20px;">
+                    <span
+                        class="keyword-highlight">AI画像生成</span>は、テキスト（プロンプト）を入力するだけで、AIが自動的にイラストや写真を生成してくれる魔法のような技術です。<br>
+                    当サイトでは、クラウドサービスではなく、自分のパソコンで動作する制限のない<span
+                        class="keyword-highlight">ローカルAI</span>を活用する方法を丁寧に解説しています。
+                </p>
+
+                <h3>Stable Diffusion (ステーブル・ディフュージョン)</h3>
+                <p>
+                    無料で誰でも利用できる、最も有名で強力な画像生成AIモデルです。自分のPC環境に構築することで、思い描いた世界を自由に、そして安全に生成し続けることができます。
+                </p>
+                <div style="margin-top: 15px; margin-bottom: 30px;">
+                    <a href="./sd-install/index.html"
+                        style="display: inline-block; background: linear-gradient(135deg, #3b82f6, #0284c7); color: white; padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4); transition: transform 0.2s, box-shadow 0.2s;"
+                        onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(2, 132, 199, 0.6)';"
+                        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(2, 132, 199, 0.4)';"><i
+                            class="fas fa-magic"></i> はじめてのStable Diffusion インストール方法はこちら</a>
+                </div>
+
+                <h3>ComfyUI (コンフィ・ユーアイ)</h3>
+                <p>
+                    ノードと呼ばれるブロックを線で繋いで設定を組む、現在世界中で主流となっている画像生成ツールです。動作が非常に軽く、拡張性が高いため、初心者から上級者まで<span
+                        class="keyword-highlight">Stable Diffusion</span>を使う際のベストツールとして人気を集めています。
+                </p>
+                <div style="margin-top: 15px; margin-bottom: 30px;">
+                    <a href="./comfyui-install/index.html"
+                        style="display: inline-block; background: linear-gradient(135deg, #a855f7, #7e22ce); color: white; padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4); transition: transform 0.2s, box-shadow 0.2s;"
+                        onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(168, 85, 247, 0.6)';"
+                        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(168, 85, 247, 0.4)';"><i
+                            class="fas fa-project-diagram"></i> 一番簡単なComfyUI インストール方法はこちら</a>
+                </div>
+
+                <h3>Checkpoint (チェックポイント) と LoRA (ローラ)</h3>
+                <p>AIの頭脳とも言える重要なデータ群です。</p>
+                <ul>
+                    <li><strong>Checkpoint:</strong> 画像の全体的な画風（アニメ調、実写調、水彩画調など）の土台となる大規模な基本データです。</li>
+                    <li><strong><span class="keyword-highlight">LoRA</span>:</strong>
+                        特定のキャラクター、服装、ポーズなどの要素を「少しだけ追加」できる小型データです。これをCheckpointと組み合わせることで、精度の高い思い通りの画像を作り出せます。</li>
+                </ul>
+
+                <h3>ローカルLLM (大規模言語モデル) とは？</h3>
+                <p>
+                    画像生成だけでなく、文章の作成やチャットができるAI（LLM）も自分のパソコンで動かすことができます。「LM
+                    Studio」を使えば、プログラミング不要で誰でも簡単にローカルでAIと対話する環境を作れます。
+                </p>
+                <div style="margin-top: 15px; margin-bottom: 15px;">
+                    <a href="./local-llm-install/index.html"
+                        style="display: inline-block; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); transition: transform 0.2s, box-shadow 0.2s;"
+                        onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(16, 185, 129, 0.6)';"
+                        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(16, 185, 129, 0.4)';"><i
+                            class="fas fa-robot"></i> 誰でも簡単！ローカルLLMのインストール方法はこちら</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORIES SECTION -->
+        <section id="categories" class="section-dense">
+            <div class="section-header">
+                <h2>カテゴリ・コンテンツ集</h2>
+                <div class="header-deco"></div>
+            </div>
+
+            <div class="games-hub-grid">
+                <!-- ComfyUI -->
+                <a href="./ai-ComfyUI/index.html" class="game-hub-card hover-pop">
+                    <div class="card-bg" style="background-image: url('./assets/images/promo_1.jpg');"></div>
+                    <div class="card-content">
+                        <span class="badge dev-badge">WORKFLOW</span>
+                        <h3 style="font-size: 1.4rem;">ComfyUI ガイド</h3>
+                        <p class="sub-title">効率的なノード構築</p>
+                        <p class="desc">必須級のカスタムノード紹介や、快適な画像生成のためのワークフロー解説。</p>
+                        <span class="play-btn">VIEW DETAILS ➤</span>
+                    </div>
+                </a>
+
+                <!-- Checkpoint -->
+                <a href="./ai-checkpoints/index.html" class="game-hub-card hover-pop">
+                    <div class="card-bg" style="background-image: url('./assets/images/title_screen.png');"></div>
+                    <div class="card-content">
+                        <span class="badge" style="background: #10b981; color: white;">MODELS</span>
+                        <h3 style="font-size: 1.4rem;">Checkpoint 比較</h3>
+                        <p class="sub-title">おすすめベースモデル</p>
+                        <p class="desc">様々なCheckpointの出力結果を検証。画風や特徴をわかりやすく比較します。</p>
+                        <span class="play-btn">VIEW DETAILS ➤</span>
+                    </div>
+                </a>
+
+                <!-- LoRA -->
+                <a href="./lora-categories/index.html" class="game-hub-card hover-pop">
+                    <div class="card-bg" style="background-image: url('./assets/images/promo_3.jpg');"></div>
+                    <div class="card-content">
+                        <span class="badge" style="background: #a855f7; color: white;">CUSTOMIZE</span>
+                        <h3 style="font-size: 1.4rem;">LoRA ギャラリー</h3>
+                        <p class="sub-title">スタイル・衣装の適用</p>
+                        <p class="desc">画像に変化を与えるLoRAの分類と解説。効果的な使い方をカテゴリー別に掲載。</p>
+                        <span class="play-btn">VIEW DETAILS ➤</span>
+                    </div>
+                </a>
+
+                <!-- Embeddings -->
+                <a href="./ai-embeddings/index.html" class="game-hub-card hover-pop">
+                    <div class="card-bg" style="background-image: url('./assets/images/promo_2.jpg');"></div>
+                    <div class="card-content">
+                        <span class="badge" style="background: #ec4899; color: white;">MAGIC TOOL</span>
+                        <h3 style="font-size: 1.4rem;">Embeddings おすすめ</h3>
+                        <p class="sub-title">1単語で長文呪文を圧縮</p>
+                        <p class="desc">手の崩れ防止や画風変更など、プロンプト入力を劇的に楽にする便利アイテム集。</p>
+                        <span class="play-btn">VIEW DETAILS ➤</span>
+                    </div>
+                </a>
+
+                <!-- VAE -->
+                <a href="./ai-vae/index.html" class="game-hub-card hover-pop">
+                    <div class="card-bg" style="background-image: url('./assets/images/promo_1.jpg');"></div>
+                    <div class="card-content">
+                        <span class="badge" style="background: #0ea5e9; color: white;">COLOR & TONE</span>
+                        <h3 style="font-size: 1.4rem;">VAE リファレンス</h3>
+                        <p class="sub-title">透明感と密度を操る</p>
+                        <p class="desc">色かぶりやNaNエラーを解決する、ベースモデル別のおすすめVAE一覧表。</p>
+                        <span class="play-btn">VIEW DETAILS ➤</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- OTHER RESOURCES LINKS -->
+        <section class="section-dense" style="margin-top: 40px;">
+            <div class="section-header">
+                <h2>その他のツール & 資料</h2>
+                <div class="header-deco"></div>
+            </div>
+            <div class="glass-panel" style="padding: 25px; text-align: center; border-radius: 20px;">
+                <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                    <a href="./ai-specs/index.html" class="hub-link-btn" style="margin:0;">💻 PCスペック・環境構築</a>
+                    <a href="./ai-tools/index.html" class="hub-link-btn"
+                        style="margin:0; background: var(--primary-cyan);">🛠️ 周辺 AI Tools</a>
+                    <a href="./Tools/index.html" class="hub-link-btn" style="margin:0; background: #f43f5e;">⚡
+                        拡張ダウンローダー</a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer
+        style="padding: 40px 20px; background-color: rgba(255, 255, 255, 0.5); border-top: 1px solid rgba(0, 0, 0, 0.05); max-width: 800px; margin: 40px auto 30px auto; border-radius: 12px; font-size: 0.9rem; color: #475569; line-height: 1.8; text-align: center;">
+        <h4
+            style="color: var(--primary-cyan); margin-top: 0; margin-bottom: 10px; border-bottom: 1px dashed rgba(58, 123, 213, 0.3); padding-bottom: 5px; font-size: 1.1rem;">
+            About Noa AI Labs
+        </h4>
+        <p>
+            当サイトは<strong>ローカルAI</strong>環境における<strong>AI画像生成</strong>の研究記録サイトです。<br>
+            <strong>Stable Diffusion</strong>や<strong>ComfyUI</strong>の技術検証を中心に、<br>
+            様々な<strong>Checkpoint</strong>や<strong>LoRA</strong>の出力結果を保管・公開しています。
+        </p>
+
+        <!-- SEO Keywords (Subtle) -->
+        <div style="font-size: 0.75rem; color: rgba(15, 23, 42, 0.4); margin-top: 15px;">
+            Stable Diffusion初心者向け | ComfyUI初心者向け | Stable Diffusionインストール | ComfyUIインストール
+        </div>
+
+        <p
+            style="text-align: center; font-size: 0.85rem; border-top: 1px solid rgba(0, 0, 0, 0.1); padding-top: 20px; margin-top: 20px;">
+            &copy; 2026 Noa AI Labs.
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

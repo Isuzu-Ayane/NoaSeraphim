@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[For beginners] Stable Diffusion installation guide - Noa AI Labs</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&family=Nunito:wght@400;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .guide-container {
+            max-width: 900px;
+            margin: 120px auto 40px auto;
+            padding: 0 20px;
+        }
+
+        .guide-header {
+            text-align: center;
+            margin-bottom: 50px;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(56, 189, 248, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .guide-header h1 {
+            font-size: 2.2rem;
+            color: #0f172a;
+            margin-bottom: 20px;
+            line-height: 1.4;
+            text-shadow: 1px 1px 0 rgba(255, 255, 255, 1);
+        }
+
+        .guide-header p {
+            font-size: 1.1rem;
+            color: #334155;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .spec-box {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            color: #f8fafc;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-left: 5px solid #38bdf8;
+        }
+
+        .spec-box h3 {
+            color: #38bdf8;
+            margin-top: 0;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .spec-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .spec-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.1rem;
+        }
+
+        .spec-list li:last-child {
+            border-bottom: none;
+        }
+
+        .spec-list li i {
+            color: #10b981;
+            margin-right: 10px;
+        }
+
+        .spec-highlight {
+            color: #fca5a5;
+            font-weight: bold;
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            border-color: rgba(56, 189, 248, 0.5);
+        }
+
+        .step-badge {
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 800;
+            padding: 8px 25px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+        }
+
+        .step-card h2 {
+            margin-top: 10px;
+            color: #0f172a;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 2px dashed rgba(14, 165, 233, 0.3);
+            padding-bottom: 15px;
+        }
+
+        .step-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #334155;
+            margin-bottom: 15px;
+        }
+
+        .alert-box {
+            background: #fff1f2;
+            border-left: 4px solid #f43f5e;
+            padding: 15px 20px;
+            color: #9f1239;
+            font-weight: bold;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.05rem;
+        }
+
+        .important-point {
+            background: #f0fdf4;
+            border: 2px solid #4ade80;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .important-point strong {
+            color: #166534;
+            font-size: 1.15rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin: 15px 0;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-download:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+            color: white;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1rem;
+            position: relative;
+            margin: 20px 0;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+            overflow-x: auto;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .code-block .copy-hint {
+            position: absolute;
+            top: 5px;
+            right: 15px;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            font-family: sans-serif;
+        }
+
+        .conclusion {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            margin-top: 60px;
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .conclusion h2 {
+            color: #059669;
+            margin-top: 0;
+            font-size: 2rem;
+        }
+
+        .conclusion p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #334155;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--primary-cyan);
+            text-decoration: none;
+            font-weight: bold;
+            background: rgba(56, 189, 248, 0.1);
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(56, 189, 248, 0.2);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Language Toggle -->
+    <div style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
+        <a href="../index.html"
+            style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: var(--text-main); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; transition: background 0.3s, transform 0.2s; display: inline-block;">
+            🌐 Japanese
+        </a>
+    </div>
+
+    <nav class="glass-panel centered-nav">
+        <div class="logo">Noa AI Labs</div>
+        <ul class="nav-links">
+            <li><a href="../index.html">HOME</a></li>
+        </ul>
+    </nav>
+
+    <div class="guide-container">
+        <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Return to top page</a>
+
+        <div class="guide-header">
+            <h1 style="color: #0284c7;"><i class="fas fa-sparkles"
+                    style="color:#f59e0b;"></i>[For super beginners]<br>Generate images completely free of charge!<br>Summary of simple local installation methods for Stable Diffusion</h1>
+            <p>"I want to create my own illustrations using AI, but I don't know where to start..."</p>
+            <p>"I gave up because the installation seemed difficult..."</p>
+            <p style="margin-top: 20px; font-weight: bold; font-size: 1.25rem; color: #0284c7;">
+                For those of you, this time I will run it on my own PC.<br>
+                <span
+                    style="background: linear-gradient(120deg, #dbeafe 0%, #bfdbfe 100%); padding: 5px 10px; border-radius: 8px;">"Stable"
+                    Diffusion WebUI (AUTOMATIC1111 version)”</span><br>
+                We will show you how to install it in a way that is easier to understand than anywhere else!
+            </p>
+            <p style="margin-top: 20px;">
+                Once you have created the environment, you can create as many images as you want completely free of charge.<br>If you follow the steps, you can definitely do it, so let's try it together!
+            </p>
+        </div>
+
+        <div class="spec-box">
+            <h3><i class="fas fa-desktop"></i> Things to prepare (required specs)</h3>
+            <p style="margin-bottom: 15px;">To run Stable Diffusion smoothly, you need a little bit of PC power.</p>
+            <ul class="spec-list">
+                <li><i class="fab fa-windows"></i> <strong>OS:</strong> Windows 10 or 11</li>
+                <li><i class="fas fa-microchip"></i> <strong>Graphics board (GPU):</strong> <span
+                        class="spec-highlight">NVIDIA (GeForce RTX 3060, 4060, etc.) is required!</span></li>
+                <li><i class="fas fa-memory"></i> <strong>VRAM (grabo memory):</strong> 8GB or more recommended (12GB is best)</li>
+                <li><i class="fas fa-hdd"></i> <strong>Storage:</strong> to SSD <strong>50GB
+                        That's all</strong>Free space (because it increases as you add more models)</li>
+            </ul>
+        </div>
+
+        <div class="step-card">
+            <div class="step-badge">STEP 1</div>
+            <h2>Let's install Python</h2>
+            <p>It is a programming language that is the foundation for running AI.</p>
+
+            <div class="alert-box">
+                <i class="fas fa-exclamation-triangle" style="font-size: 1.5rem;"></i>
+                <div>
+                    Note: Be sure to<strong>「3.10.6」</strong>Please enter the version.<br>
+                    If you use the latest version, you will get an error!
+                </div>
+            </div>
+
+            <ol style="font-size: 1.1rem; line-height: 2; padding-left: 20px; color: #334155;">
+                <li>Access the official page from the button below, and click at the bottom. <strong>Windows installer (64-bit)</strong> Download.<br>
+                    <a href="https://www.python.org/downloads/release/python-3106/" target="_blank"
+                        class="btn-download"><i class="fas fa-download"></i> Go to Python 3.10.6 official page</a>
+                </li>
+                <li>Open the downloaded file.</li>
+                <li>
+                    <div class="important-point">
+                        <strong><i class="fas fa-star" style="color:#f59e0b;"></i> [This is the most important part! ]</strong>
+                        at the bottom of the installation screen <strong>「Add Python 3.10 to PATH」</strong>
+                        In the checkbox called<strong>Be sure to check</strong>please.
+                    </div>
+                </li>
+                <li>Click "Install Now" to complete.</li>
+            </ol>
+        </div>
+
+        <div class="step-card">
+            <div class="step-badge">STEP 2</div>
+            <h2>Let's install Git</h2>
+            <p>This is a tool for downloading the complete Stable Diffusion system.</p>
+
+            <ol style="font-size: 1.1rem; line-height: 2; padding-left: 20px; color: #334155;">
+                <li>Access the official page from the button below, <strong>64-bit Git for Windows Setup</strong> Download.<br>
+                    <a href="https://git-scm.com/download/win" target="_blank" class="btn-download"
+                        style="background: linear-gradient(135deg, #f97316, #ea580c);"><i class="fas fa-download"></i>
+                        Go to Git official page</a>
+                </li>
+                <li>Open the downloaded file.</li>
+                <li>Many English screens appear, but all<strong>Hit "Next" repeatedly</strong>It's OK to do so. Finally, press "Install" and you're done!</li>
+            </ol>
+        </div>
+
+        <div class="step-card">
+            <div class="step-badge">STEP 3</div>
+            <h2>Download Stable Diffusion WebUI</h2>
+            <p>It's finally time to download the main unit! It may look difficult, but don't worry, it's just a matter of copying and pasting a magic spell.</p>
+
+            <ol style="font-size: 1.1rem; line-height: 2; padding-left: 20px; color: #334155;">
+                <li>Where you want to install it (directly under the C drive, etc.)<strong>Create a new folder.</strong>(example: <code>AI_Projects</code> etc.)</li>
+                <li>Open the folder you created and click at the top of the screen.<strong>address bar</strong>(where the path is displayed) <code>cmd</code> Type and press Enter.</li>
+                <li>A black screen (command prompt) will open.</li>
+                <li>Copy and paste the following characters on the black screen (right click) and press Enter.</li>
+            </ol>
+
+            <div class="code-block">
+                <div class="copy-hint"><i class="far fa-copy"></i> copy and paste</div>
+                git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
+            </div>
+
+            <p>Wait a few seconds and the download will be completed, and you will find it in the folder. <strong><code>stable-diffusion-webui</code></strong> If you have created a new folder called ``, it's a great success!''</p>
+        </div>
+
+        <div class="step-card">
+            <div class="step-badge">STEP 4</div>
+            <h2>Finally launched!</h2>
+            <p>Now, you're ready. Let's wake up the AI!</p>
+
+            <ol style="font-size: 1.1rem; line-height: 2; padding-left: 20px; color: #334155;">
+                <li>Just finished it <code>stable-diffusion-webui</code> Open the folder.</li>
+                <li>It's at the bottom <strong><code>webui-user.bat</code></strong> Double-click the file. (*Depending on settings) <code>.bat</code>
+                    can't see <code>webui-user</code> is displayed)</li>
+                <li>A black screen will appear and downloading of the necessary data will begin automatically.</li>
+            </ol>
+
+            <div style="background: #f1f5f9; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <i class="fas fa-coffee" style="color: #8b5cf6;"></i>
+                <strong>The first time, several GB of data will be dropped, so it will take about 10 to 30 minutes depending on your line. Grab some coffee and wait patiently!</strong>
+            </div>
+
+            <p style="margin-top:20px;">to a black screen <code>Running on local URL: http://127.0.0.1:7860</code> When it is displayed, it is a signal that preparation is complete!
+            </p>
+        </div>
+
+        <div class="step-card">
+            <div class="step-badge">STEP 5</div>
+            <h2>Open it in your browser and create an image!</h2>
+
+            <ol style="font-size: 1.1rem; line-height: 2; padding-left: 20px; color: #334155;">
+                <li>Open your favorite browser (Chrome, Edge, etc.).</li>
+                <li>in the address bar <strong><code>http://127.0.0.1:7860</code></strong> Type and press Enter.</li>
+                <li>The Stable Diffusion operation screen opens!</li>
+                <li>Enter what you want to create in English in the input field labeled "Prompt" in the upper left.</li>
+
+                <div class="code-block" style="border-left-color: #3b82f6; margin: 10px 0 20px 0;">
+                    <span style="color:#94a3b8;">example:</span> 1girl, cute, smile, blue hair, outdoors
+                </div>
+
+                <li>orange on the right <strong>"Generate"</strong> Click the button!</li>
+            </ol>
+
+            <div
+                style="text-align: center; margin-top: 30px; font-size: 1.2rem; color: #b45309; font-weight: bold; background: #fef3c7; padding: 20px; border-radius: 12px; border: 2px solid #fbbf24;">
+                <i class="fas fa-magic" style="font-size: 1.5rem; margin-bottom:10px; display:block;"></i>
+                Wait a few seconds and you should see the first AI image you created on the right side of the screen!<br>🎉 Congratulations! 🎉
+            </div>
+        </div>
+
+        <div class="conclusion">
+            <h2>Conclusion <i class="fas fa-flag-checkered" style="color: #10b981;"></i></h2>
+            <p><strong>Thank you for your hard work on the installation!</strong></p>
+            <p>You may be confused at first because it's all in English, but you'll quickly get used to it as you use it.</p>
+            <p style="background: #ecfdf5; padding: 15px; border-radius: 10px; display: inline-block; margin: 15px 0;">
+                From next time, step 4 <strong><code>webui-user.bat</code></strong> You can launch it at any time by simply double-clicking it.
+            </p>
+            <p>On this site, we will be publishing information that everyone wants to know, such as how to insert "models (Checkpoints)" to create even more beautiful illustrations, and how to use "LoRA" to dress specific characters and clothes, so be sure to bookmark it!
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer
+        style="padding: 40px 20px; background-color: rgba(255, 255, 255, 0.5); border-top: 1px solid rgba(0, 0, 0, 0.05); max-width: 800px; margin: 40px auto 30px auto; border-radius: 12px; font-size: 0.9rem; color: #475569; line-height: 1.8; text-align: center;">
+        <h4
+            style="color: var(--primary-cyan); margin-top: 0; margin-bottom: 10px; border-bottom: 1px dashed rgba(58, 123, 213, 0.3); padding-bottom: 5px; font-size: 1.1rem;">
+            About Noa AI Labs
+        </h4>
+        <p>
+            This site is<strong>local AI</strong>in the environment<strong>AI image generation</strong>This is a research record site.<br>
+            <strong>Stable Diffusion</strong>や<strong>ComfyUI</strong>Focusing on technical verification of<br>
+            various<strong>Checkpoint</strong>や<strong>LoRA</strong>The output results are stored and published.
+        </p>
+        <p
+            style="text-align: center; font-size: 0.85rem; border-top: 1px solid rgba(0, 0, 0, 0.1); padding-top: 20px; margin-top: 20px;">
+            &copy; 2026 Noa AI Labs.
+        </p>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>

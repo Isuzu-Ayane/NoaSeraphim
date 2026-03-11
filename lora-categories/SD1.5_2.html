@@ -1,0 +1,2634 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LoRA Categories - Noa Seraphim Project</title>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&amp;family=Nunito:wght@400;800&amp;display=swap" rel="stylesheet"/>
+<link href="../styles.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        .lora-container {
+            max-width: 1400px;
+            margin: 120px auto 40px auto;
+            padding: 0 20px;
+        }
+
+        .lora-section {
+            margin-bottom: 60px;
+        }
+
+        .lora-section h2 {
+            border-bottom: 2px solid;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Grid Layout */
+        .lora-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        /* Card Design */
+        .lora-card {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lora-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .lora-card-img {
+            width: 100%;
+            height: 200px;
+            background: #1a1a2e;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .lora-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            cursor: pointer;
+        }
+
+        .lora-card:hover .lora-card-img img {
+            object-fit: contain;
+            transform: scale(1);
+            background-color: #000;
+        }
+
+        .lora-card-img::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .lora-card-content {
+            padding: 18px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .lora-name {
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 1.1rem;
+            word-break: break-all;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .lora-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .lora-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            flex-grow: 1;
+            border-left: 3px solid rgba(255, 255, 255, 0.1);
+            padding-left: 12px;
+            line-height: 1.6;
+        }
+
+        .lora-credits {
+            font-size: 0.85rem;
+            color: #a1a1aa;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lora-author {
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .author-link {
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .author-link.known {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .author-link.unknown {
+            background: linear-gradient(135deg, #64748b, #475569);
+            opacity: 0.8;
+        }
+
+        .author-link:hover {
+            opacity: 1;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--primary-cyan);
+            text-decoration: none;
+            font-weight: bold;
+            background: rgba(56, 189, 248, 0.1);
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(56, 189, 248, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .category-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 50px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.75);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .category-nav a {
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 800;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .category-nav a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="cursor-dot"></div>
+<div class="cursor-outline"></div>
+<nav class="glass-panel centered-nav">
+<div class="logo">Noa Seraphim Project</div>
+<ul class="nav-links">
+<li><a href="../index.html">HOME</a></li>
+</ul>
+</nav>
+<div class="lora-container">
+<a class="back-link" href="../index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
+<div class="section-header" style="justify-content: flex-start; margin-bottom: 20px;">
+<h2 style="font-size: 3rem; text-shadow: 0 0 15px var(--primary-cyan); margin: 0;">LoRA Database</h2>
+<div class="header-deco" style="margin-left: 20px;"></div>
+</div>
+<p style="color: #0f172a; background: rgba(255, 255, 255, 0.7); font-weight: bold; padding: 15px 25px; border-radius: 12px; border-left: 5px solid var(--primary-cyan); margin-bottom: 40px; font-size: 1.15rem; max-width: 800px; line-height: 1.6; backdrop-filter: blur(5px); box-shadow: 0 4px 10px rgba(0,0,0,0.05);">対応モデルごとに分類されたLoRA一覧です。各カテゴリーを選択してください。全 <strong style="color: var(--primary-cyan); font-size: 1.3rem;">970</strong> ファイル。</p>
+
+<div class="search-container" style="margin-bottom: 30px; margin-top: 10px;">
+<div style="position: relative; max-width: 600px;">
+<input id="loraSearchInput" placeholder="現在のページ内を検索... (例: lora名、サイズ)" style="width: 100%; padding: 15px 20px 15px 45px; border-radius: 30px; border: 2px solid rgba(56, 189, 248, 0.4); 
+                                      background: rgba(255, 255, 255, 0.8); font-size: 1.1rem; outline: none; backdrop-filter: blur(10px);
+                                      box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.3s ease; box-sizing: border-box;" type="text"/>
+<i class="fas fa-search" style="position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: rgba(56, 189, 248, 1); font-size: 1.2rem;"></i>
+</div>
+</div>
+<div class="category-nav">
+<a href="loras.html" style="background: rgba(255, 255, 255, 0.4); border-color: rgba(255, 255, 255, 0.6); color: #94a3b8; opacity: 0.7; transition: all 0.3s;"><i class="fas fa-cube"></i> loras (1)</a>
+<a href="Flux.html" style="background: rgba(255, 255, 255, 0.4); border-color: rgba(255, 255, 255, 0.6); color: #94a3b8; opacity: 0.7; transition: all 0.3s;"><i class="fas fa-cube"></i> Flux (175)</a>
+<a href="Illustrious.html" style="background: rgba(255, 255, 255, 0.4); border-color: rgba(255, 255, 255, 0.6); color: #94a3b8; opacity: 0.7; transition: all 0.3s;"><i class="fas fa-cube"></i> Illustrious (93)</a>
+<a href="Pony.html" style="background: rgba(255, 255, 255, 0.4); border-color: rgba(255, 255, 255, 0.6); color: #94a3b8; opacity: 0.7; transition: all 0.3s;"><i class="fas fa-cube"></i> Pony (123)</a>
+<a href="SD1.5.html" style="background: #f1f5f9; border-color: #94a3b8; color: #334155; opacity: 1; filter: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transform: translateY(-2px);"><i class="fas fa-cube"></i> SD1.5 (390)</a>
+<a href="SDXL.html" style="background: rgba(255, 255, 255, 0.4); border-color: rgba(255, 255, 255, 0.6); color: #94a3b8; opacity: 0.7; transition: all 0.3s;"><i class="fas fa-cube"></i> SDXL (43)</a>
+<a href="WanVideo.html" style="background: rgba(255, 255, 255, 0.4); border-color: rgba(255, 255, 255, 0.6); color: #94a3b8; opacity: 0.7; transition: all 0.3s;"><i class="fas fa-cube"></i> WanVideo (145)</a>
+</div>
+
+<div class="lora-section" id="SD1.5">
+<h2 style="color: #94a3b8; border-color: #94a3b8; text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
+<i class="fas fa-layer-group"></i> SD1.5
+                    <span style="font-size:1.2rem;color:var(--text-muted); font-weight:normal; margin-left: 10px;">(100 items on this page / Total 390 items)</span>
+</h2>
+<div class="pagination" style="text-align: center; margin-top: 30px; margin-bottom: 20px;">
+<a href="SD1.5.html" style="display: inline-block; margin: 0 5px; padding: 8px 16px; border-radius: 20px; text-decoration: none; border: 1px solid; background: rgba(255, 255, 255, 0.5); color: var(--text-main); border-color: rgba(255, 255, 255, 0.2); transition: all 0.2s ease;">1</a>
+<a href="SD1.5_2.html" style="display: inline-block; margin: 0 5px; padding: 8px 16px; border-radius: 20px; text-decoration: none; border: 1px solid; background: rgba(56, 189, 248, 1); color: white; border-color: rgba(56, 189, 248, 1); transition: all 0.2s ease;">2</a>
+<a href="SD1.5_3.html" style="display: inline-block; margin: 0 5px; padding: 8px 16px; border-radius: 20px; text-decoration: none; border: 1px solid; background: rgba(255, 255, 255, 0.5); color: var(--text-main); border-color: rgba(255, 255, 255, 0.2); transition: all 0.2s ease;">3</a>
+<a href="SD1.5_4.html" style="display: inline-block; margin: 0 5px; padding: 8px 16px; border-radius: 20px; text-decoration: none; border: 1px solid; background: rgba(255, 255, 255, 0.5); color: var(--text-main); border-color: rgba(255, 255, 255, 0.2); transition: all 0.2s ease;">4</a>
+</div>
+<div class="lora-grid">
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="EkunePOVFellatioV2.safetensors" src="thumbnails/EkunePOVFellatioV2.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="EkunePOVFellatioV2.safetensors">EkunePOVFellatioV2.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,879,967
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=EkunePOVFellatioV2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2312665', '_blank')">
+<img alt="elaina_v3.safetensors" src="thumbnails/elaina_v3.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="elaina_v3.safetensors">elaina_v3.safetensors</div>
+<div class="lora-desc">
+                            Size: 151,114,844
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=elaina_v3+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2312665" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2378340', '_blank')">
+<img alt="Eldritch_animation1.1.safetensors" src="thumbnails/Eldritch_animation1.1.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="Eldritch_animation1.1.safetensors">Eldritch_animation1.1.safetensors</div>
+<div class="lora-desc">
+                            Size: 172,424,584
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Eldritch_animation1.1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2378340" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2378340', '_blank')">
+<img alt="Eldritch_OilPainting_Z_Image.safetensors" src="thumbnails/Eldritch_OilPainting_Z_Image.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="Eldritch_OilPainting_Z_Image.safetensors">Eldritch_OilPainting_Z_Image.safetensors</div>
+<div class="lora-desc">
+                            Size: 103,734,924
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Eldritch_OilPainting_Z_Image+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2378340" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="EpicSwordStyle_ANIMA.safetensors" src="thumbnails/EpicSwordStyle_ANIMA.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="EpicSwordStyle_ANIMA.safetensors">EpicSwordStyle_ANIMA.safetensors</div>
+<div class="lora-desc">
+                            Size: 63,213,656
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=EpicSwordStyle_ANIMA+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2333258', '_blank')">
+<img alt="Eromanga_all_resized.safetensors" src="thumbnails/Eromanga_all_resized.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="Eromanga_all_resized.safetensors">Eromanga_all_resized.safetensors</div>
+<div class="lora-desc">
+                            Size: 43,038,488
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Eromanga_all_resized+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2333258" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2255209', '_blank')">
+<img alt="Eula-1.0.safetensors" src="thumbnails/Eula-1.0.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="Eula-1.0.safetensors">Eula-1.0.safetensors</div>
+<div class="lora-desc">
+                            Size: 122,181,429
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Eula-1.0+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2255209" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="eula2-000009.safetensors" src="thumbnails/eula2-000009.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="eula2-000009.safetensors">eula2-000009.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,965,947
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=eula2-000009+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2455347', '_blank')">
+<img alt="eye_catching.safetensors" src="thumbnails/eye_catching.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="eye_catching.safetensors">eye_catching.safetensors</div>
+<div class="lora-desc">
+                            Size: 8,789,076
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=eye_catching+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2455347" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="FateNeroV2.safetensors" src="thumbnails/FateNeroV2.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="FateNeroV2.safetensors">FateNeroV2.safetensors</div>
+<div class="lora-desc">
+                            Size: 75,712,110
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=FateNeroV2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2456996', '_blank')">
+<img alt="Female_POV_1st_person_point_of_view.safetensors" src="thumbnails/Female_POV_1st_person_point_of_view.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="Female_POV_1st_person_point_of_view.safetensors">Female_POV_1st_person_point_of_view.safetensors</div>
+<div class="lora-desc">
+                            Size: 228,462,156
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Female_POV_1st_person_point_of_view+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2456996" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="FGOMusashi.safetensors" src="thumbnails/FGOMusashi.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="FGOMusashi.safetensors">FGOMusashi.safetensors</div>
+<div class="lora-desc">
+                            Size: 75,662,639
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=FGOMusashi+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1842926', '_blank')">
+<img alt="fischl_v2_896_lion_optimizer_dim64_KohyaLora_fp32_1e-1noise_token3_13-3-2023.safetensors" src="thumbnails/fischl_v2_896_lion_optimizer_dim64_KohyaLora_fp32_1e-1noise_token3_13-3-2023.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="fischl_v2_896_lion_optimizer_dim64_KohyaLora_fp32_1e-1noise_token3_13-3-2023.safetensors">fischl_v2_896_lion_optimizer_dim64_KohyaLora_fp32_1e-1noise_token3_13-3-2023.safetensors</div>
+<div class="lora-desc">
+                            Size: 151,129,984
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=fischl_v2_896_lion_optimizer_dim64_KohyaLora_fp32_1e-1noise_token3_13-3-2023+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1842926" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/640026', '_blank')">
+<img alt="flat2.safetensors" src="thumbnails/flat2.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="flat2.safetensors">flat2.safetensors</div>
+<div class="lora-desc">
+                            Size: 6,865,699
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=flat2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/640026" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2357540', '_blank')">
+<img alt="florence_nightingale_v1.safetensors" src="thumbnails/florence_nightingale_v1.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="florence_nightingale_v1.safetensors">florence_nightingale_v1.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,861,388
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=florence_nightingale_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2357540" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img">
+<img alt="freya_(danmanchi)_v2.safetensors" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20viewBox%3D%220%200%20300%20200%22%3E%3Crect%20fill%3D%22%232a2a2a%22%20width%3D%22300%22%20height%3D%22200%22%2F%3E%3Ctext%20fill%3D%22%23555%22%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22bold%22%3ENo%20Image%3C%2Ftext%3E%3C%2Fsvg%3E"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="freya_(danmanchi)_v2.safetensors">freya_(danmanchi)_v2.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,861,388
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=freya_(danmanchi)_v2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<span class="author-link unknown"><i class="fas fa-unlink"></i> なし</span>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2447479', '_blank')">
+<img alt="frieren-10.safetensors" src="thumbnails/frieren-10.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="frieren-10.safetensors">frieren-10.safetensors</div>
+<div class="lora-desc">
+                            Size: 18,998,999
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=frieren-10+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2447479" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2447479', '_blank')">
+<img alt="Frieren_Sousou_no_Frieren.safetensors" src="thumbnails/Frieren_Sousou_no_Frieren.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="Frieren_Sousou_no_Frieren.safetensors">Frieren_Sousou_no_Frieren.safetensors</div>
+<div class="lora-desc">
+                            Size: 228,468,676
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Frieren_Sousou_no_Frieren+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2447479" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2428122', '_blank')">
+<img alt="fubuki-v2.safetensors" src="thumbnails/fubuki-v2.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="fubuki-v2.safetensors">fubuki-v2.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,893,769
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=fubuki-v2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2428122" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2441402', '_blank')">
+<img alt="fujiwara_chika_v2.safetensors" src="thumbnails/fujiwara_chika_v2.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="fujiwara_chika_v2.safetensors">fujiwara_chika_v2.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,861,388
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=fujiwara_chika_v2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2441402" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2380869', '_blank')">
+<img alt="fukuda_mai( Kozukuri_sukebe_variety TV de utsushite mo daijoubu daa).safetensors" src="thumbnails/fukuda_mai( Kozukuri_sukebe_variety TV de utsushite mo daijoubu daa).safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="fukuda_mai( Kozukuri_sukebe_variety TV de utsushite mo daijoubu daa).safetensors">fukuda_mai( Kozukuri_sukebe_variety TV de utsushite mo daijoubu daa).safetensors</div>
+<div class="lora-desc">
+                            Size: 256,056,360
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=fukuda_mai( Kozukuri_sukebe_variety TV de utsushite mo daijoubu daa)+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2380869" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1601336', '_blank')">
+<img alt="fuxuan-str-v4.safetensors" src="thumbnails/fuxuan-str-v4.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="fuxuan-str-v4.safetensors">fuxuan-str-v4.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,869,216
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=fuxuan-str-v4+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1601336" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="gamer1-000005.safetensors" src="thumbnails/gamer1-000005.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="gamer1-000005.safetensors">gamer1-000005.safetensors</div>
+<div class="lora-desc">
+                            Size: 19,004,109
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=gamer1-000005+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="ganyu2.safetensors" src="thumbnails/ganyu2.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="ganyu2.safetensors">ganyu2.safetensors</div>
+<div class="lora-desc">
+                            Size: 151,118,480
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=ganyu2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="ganyu2ep10_0.85dim32.safetensors" src="thumbnails/ganyu2ep10_0.85dim32.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="ganyu2ep10_0.85dim32.safetensors">ganyu2ep10_0.85dim32.safetensors</div>
+<div class="lora-desc">
+                            Size: 10,628,000
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=ganyu2ep10_0.85dim32+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="GeoxorV1.1.safetensors" src="thumbnails/GeoxorV1.1.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="GeoxorV1.1.safetensors">GeoxorV1.1.safetensors</div>
+<div class="lora-desc">
+                            Size: 9,550,928
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=GeoxorV1.1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2456470', '_blank')">
+<img alt="Girls' Frontline-OTs-14[lightning]-V3.safetensors" src="thumbnails/Girls' Frontline-OTs-14[lightning]-V3.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="Girls' Frontline-OTs-14[lightning]-V3.safetensors">Girls' Frontline-OTs-14[lightning]-V3.safetensors</div>
+<div class="lora-desc">
+                            Size: 75,611,638
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Girls' Frontline-OTs-14[lightning]-V3+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2456470" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2333494', '_blank')">
+<img alt="gloria_(pokemon)_v1.safetensors" src="thumbnails/gloria_(pokemon)_v1.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="gloria_(pokemon)_v1.safetensors">gloria_(pokemon)_v1.safetensors</div>
+<div class="lora-desc">
+                            Size: 75,620,391
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=gloria_(pokemon)_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2333494" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2411734', '_blank')">
+<img alt="goblin_v0.1a.safetensors" src="thumbnails/goblin_v0.1a.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="goblin_v0.1a.safetensors">goblin_v0.1a.safetensors</div>
+<div class="lora-desc">
+                            Size: 9,568,095
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=goblin_v0.1a+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2411734" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img">
+<img alt="Gochuumon_all_resized.safetensors" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20viewBox%3D%220%200%20300%20200%22%3E%3Crect%20fill%3D%22%232a2a2a%22%20width%3D%22300%22%20height%3D%22200%22%2F%3E%3Ctext%20fill%3D%22%23555%22%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22bold%22%3ENo%20Image%3C%2Ftext%3E%3C%2Fsvg%3E"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="Gochuumon_all_resized.safetensors">Gochuumon_all_resized.safetensors</div>
+<div class="lora-desc">
+                            Size: 43,436,632
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Gochuumon_all_resized+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<span class="author-link unknown"><i class="fas fa-unlink"></i> なし</span>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img">
+<img alt="gotou_hitori.safetensors" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20viewBox%3D%220%200%20300%20200%22%3E%3Crect%20fill%3D%22%232a2a2a%22%20width%3D%22300%22%20height%3D%22200%22%2F%3E%3Ctext%20fill%3D%22%23555%22%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22bold%22%3ENo%20Image%3C%2Ftext%3E%3C%2Fsvg%3E"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="gotou_hitori.safetensors">gotou_hitori.safetensors</div>
+<div class="lora-desc">
+                            Size: 75,612,534
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=gotou_hitori+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<span class="author-link unknown"><i class="fas fa-unlink"></i> なし</span>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img">
+<img alt="gotou_hitori_v1.safetensors" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20viewBox%3D%220%200%20300%20200%22%3E%3Crect%20fill%3D%22%232a2a2a%22%20width%3D%22300%22%20height%3D%22200%22%2F%3E%3Ctext%20fill%3D%22%23555%22%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22bold%22%3ENo%20Image%3C%2Ftext%3E%3C%2Fsvg%3E"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="gotou_hitori_v1.safetensors">gotou_hitori_v1.safetensors</div>
+<div class="lora-desc">
+                            Size: 75,628,281
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=gotou_hitori_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<span class="author-link unknown"><i class="fas fa-unlink"></i> なし</span>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2449868', '_blank')">
+<img alt="Granblue_Fantasy_-_Cagliostro_A1.safetensors" src="thumbnails/Granblue_Fantasy_-_Cagliostro_A1.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="Granblue_Fantasy_-_Cagliostro_A1.safetensors">Granblue_Fantasy_-_Cagliostro_A1.safetensors</div>
+<div class="lora-desc">
+                            Size: 57,443,436
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Granblue_Fantasy_-_Cagliostro_A1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2449868" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="GreatSwordIL.safetensors" src="thumbnails/GreatSwordIL.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="GreatSwordIL.safetensors">GreatSwordIL.safetensors</div>
+<div class="lora-desc">
+                            Size: 228,453,444
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=GreatSwordIL+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2417347', '_blank')">
+<img alt="guilty-nikke-richy-v5.safetensors" src="thumbnails/guilty-nikke-richy-v5.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="guilty-nikke-richy-v5.safetensors">guilty-nikke-richy-v5.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,866,904
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=guilty-nikke-richy-v5+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2417347" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img">
+<img alt="gura-10.safetensors" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20viewBox%3D%220%200%20300%20200%22%3E%3Crect%20fill%3D%22%232a2a2a%22%20width%3D%22300%22%20height%3D%22200%22%2F%3E%3Ctext%20fill%3D%22%23555%22%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22bold%22%3ENo%20Image%3C%2Ftext%3E%3C%2Fsvg%3E"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="gura-10.safetensors">gura-10.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,962,021
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=gura-10+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<span class="author-link unknown"><i class="fas fa-unlink"></i> なし</span>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2451932', '_blank')">
+<img alt="gwen-000037.safetensors" src="thumbnails/gwen-000037.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="gwen-000037.safetensors">gwen-000037.safetensors</div>
+<div class="lora-desc">
+                            Size: 151,074,574
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=gwen-000037+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2451932" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="HailoFantasyPackV1.safetensors" src="thumbnails/HailoFantasyPackV1.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="HailoFantasyPackV1.safetensors">HailoFantasyPackV1.safetensors</div>
+<div class="lora-desc">
+                            Size: 228,453,404
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=HailoFantasyPackV1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2390388', '_blank')">
+<img alt="hasumi-v2.safetensors" src="thumbnails/hasumi-v2.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="hasumi-v2.safetensors">hasumi-v2.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,861,272
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=hasumi-v2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2390388" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="hatsunemiku1-000006.safetensors" src="thumbnails/hatsunemiku1-000006.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="hatsunemiku1-000006.safetensors">hatsunemiku1-000006.safetensors</div>
+<div class="lora-desc">
+                            Size: 38,485,956
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=hatsunemiku1-000006+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img">
+<img alt="hayasaka_ai_v2.safetensors" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20viewBox%3D%220%200%20300%20200%22%3E%3Crect%20fill%3D%22%232a2a2a%22%20width%3D%22300%22%20height%3D%22200%22%2F%3E%3Ctext%20fill%3D%22%23555%22%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22bold%22%3ENo%20Image%3C%2Ftext%3E%3C%2Fsvg%3E"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="hayasaka_ai_v2.safetensors">hayasaka_ai_v2.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,861,388
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=hayasaka_ai_v2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<span class="author-link unknown"><i class="fas fa-unlink"></i> なし</span>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2247042', '_blank')">
+<img alt="headshelf-000002.safetensors" src="thumbnails/headshelf-000002.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="headshelf-000002.safetensors">headshelf-000002.safetensors</div>
+<div class="lora-desc">
+                            Size: 228,470,964
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=headshelf-000002+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2247042" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2417535', '_blank')">
+<img alt="Helen_Sonic_X.safetensors" src="thumbnails/Helen_Sonic_X.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="Helen_Sonic_X.safetensors">Helen_Sonic_X.safetensors</div>
+<div class="lora-desc">
+                            Size: 228,456,900
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Helen_Sonic_X+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2417535" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="HertaStarRailV1.safetensors" src="thumbnails/HertaStarRailV1.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="HertaStarRailV1.safetensors">HertaStarRailV1.safetensors</div>
+<div class="lora-desc">
+                            Size: 75,610,670
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=HertaStarRailV1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2446678', '_blank')">
+<img alt="Hibiki-PD.safetensors" src="thumbnails/Hibiki-PD.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="Hibiki-PD.safetensors">Hibiki-PD.safetensors</div>
+<div class="lora-desc">
+                            Size: 101,610,268
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Hibiki-PD+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2446678" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="highelf1-000014.safetensors" src="thumbnails/highelf1-000014.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="highelf1-000014.safetensors">highelf1-000014.safetensors</div>
+<div class="lora-desc">
+                            Size: 9,594,170
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=highelf1-000014+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2456516', '_blank')">
+<img alt="high_elf_archer_v1.safetensors" src="thumbnails/high_elf_archer_v1.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="high_elf_archer_v1.safetensors">high_elf_archer_v1.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,868,350
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=high_elf_archer_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2456516" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2452693', '_blank')">
+<img alt="hinata-000065.safetensors" src="thumbnails/hinata-000065.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="hinata-000065.safetensors">hinata-000065.safetensors</div>
+<div class="lora-desc">
+                            Size: 151,073,665
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=hinata-000065+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2452693" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="hkmechaILv2.safetensors" src="thumbnails/hkmechaILv2.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="hkmechaILv2.safetensors">hkmechaILv2.safetensors</div>
+<div class="lora-desc">
+                            Size: 228,453,284
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=hkmechaILv2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="hongkongreal.safetensors" src="thumbnails/hongkongreal.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="hongkongreal.safetensors">hongkongreal.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,865,637
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=hongkongreal+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2447085', '_blank')">
+<img alt="Honkai Star Rail-bronya rand.safetensors" src="thumbnails/Honkai Star Rail-bronya rand.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="Honkai Star Rail-bronya rand.safetensors">Honkai Star Rail-bronya rand.safetensors</div>
+<div class="lora-desc">
+                            Size: 75,611,442
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Honkai Star Rail-bronya rand+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2447085" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2453456', '_blank')">
+<img alt="hoshimachi_suisei_v1.safetensors" src="thumbnails/hoshimachi_suisei_v1.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="hoshimachi_suisei_v1.safetensors">hoshimachi_suisei_v1.safetensors</div>
+<div class="lora-desc">
+                            Size: 75,626,689
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=hoshimachi_suisei_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2453456" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1829423', '_blank')">
+<img alt="HoshinoAi_v9-000007.safetensors" src="thumbnails/HoshinoAi_v9-000007.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="HoshinoAi_v9-000007.safetensors">HoshinoAi_v9-000007.safetensors</div>
+<div class="lora-desc">
+                            Size: 151,123,445
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=HoshinoAi_v9-000007+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1829423" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2385951', '_blank')">
+<img alt="HOTD_v0.4.safetensors" src="thumbnails/HOTD_v0.4.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="HOTD_v0.4.safetensors">HOTD_v0.4.safetensors</div>
+<div class="lora-desc">
+                            Size: 19,054,879
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=HOTD_v0.4+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2385951" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="HoushouMarineV2LORA-000050.safetensors" src="thumbnails/HoushouMarineV2LORA-000050.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="HoushouMarineV2LORA-000050.safetensors">HoushouMarineV2LORA-000050.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,880,399
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=HoushouMarineV2LORA-000050+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2070482', '_blank')">
+<img alt="hutao_v2.safetensors" src="thumbnails/hutao_v2.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="hutao_v2.safetensors">hutao_v2.safetensors</div>
+<div class="lora-desc">
+                            Size: 151,121,710
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=hutao_v2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2070482" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2139652', '_blank')">
+<img alt="hyakumantenbara_salome_v1.safetensors" src="thumbnails/hyakumantenbara_salome_v1.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="hyakumantenbara_salome_v1.safetensors">hyakumantenbara_salome_v1.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,861,388
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=hyakumantenbara_salome_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2139652" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="IL26_Close_V2.safetensors" src="thumbnails/IL26_Close_V2.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="IL26_Close_V2.safetensors">IL26_Close_V2.safetensors</div>
+<div class="lora-desc">
+                            Size: 85,935,964
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=IL26_Close_V2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="IL26_Kagurazaka_Yuna.safetensors" src="thumbnails/IL26_Kagurazaka_Yuna.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="IL26_Kagurazaka_Yuna.safetensors">IL26_Kagurazaka_Yuna.safetensors</div>
+<div class="lora-desc">
+                            Size: 85,931,788
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=IL26_Kagurazaka_Yuna+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="IL26_Kobu_Mori_Style.safetensors" src="thumbnails/IL26_Kobu_Mori_Style.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="IL26_Kobu_Mori_Style.safetensors">IL26_Kobu_Mori_Style.safetensors</div>
+<div class="lora-desc">
+                            Size: 85,957,260
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=IL26_Kobu_Mori_Style+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="illya22outfits.safetensors" src="thumbnails/illya22outfits.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="illya22outfits.safetensors">illya22outfits.safetensors</div>
+<div class="lora-desc">
+                            Size: 75,670,662
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=illya22outfits+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2446748', '_blank')">
+<img alt="illyasviel_von_einzbern_(fate_kaleid_liner)_v1.safetensors" src="thumbnails/illyasviel_von_einzbern_(fate_kaleid_liner)_v1.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="illyasviel_von_einzbern_(fate_kaleid_liner)_v1.safetensors">illyasviel_von_einzbern_(fate_kaleid_liner)_v1.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,861,776
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=illyasviel_von_einzbern_(fate_kaleid_liner)_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2446748" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2456605', '_blank')">
+<img alt="IL_dush style-000070.safetensors" src="thumbnails/IL_dush style-000070.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="IL_dush style-000070.safetensors">IL_dush style-000070.safetensors</div>
+<div class="lora-desc">
+                            Size: 280,928,584
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=IL_dush style-000070+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2456605" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2456605', '_blank')">
+<img alt="IL_Monegi Style V2-000040.safetensors" src="thumbnails/IL_Monegi Style V2-000040.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="IL_Monegi Style V2-000040.safetensors">IL_Monegi Style V2-000040.safetensors</div>
+<div class="lora-desc">
+                            Size: 280,937,232
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=IL_Monegi Style V2-000040+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2456605" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2456605', '_blank')">
+<img alt="IL_Okasa_Re_Taii_V2.safetensors" src="thumbnails/IL_Okasa_Re_Taii_V2.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="IL_Okasa_Re_Taii_V2.safetensors">IL_Okasa_Re_Taii_V2.safetensors</div>
+<div class="lora-desc">
+                            Size: 281,013,328
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=IL_Okasa_Re_Taii_V2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2456605" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2456605', '_blank')">
+<img alt="IL_Youko_Mano_-_Demon_Hunter_Youko.safetensors" src="thumbnails/IL_Youko_Mano_-_Demon_Hunter_Youko.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="IL_Youko_Mano_-_Demon_Hunter_Youko.safetensors">IL_Youko_Mano_-_Demon_Hunter_Youko.safetensors</div>
+<div class="lora-desc">
+                            Size: 228,457,060
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=IL_Youko_Mano_-_Demon_Hunter_Youko+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2456605" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img">
+<img alt="implied_fellatio_v2_b.safetensors" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20viewBox%3D%220%200%20300%20200%22%3E%3Crect%20fill%3D%22%232a2a2a%22%20width%3D%22300%22%20height%3D%22200%22%2F%3E%3Ctext%20fill%3D%22%23555%22%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22bold%22%3ENo%20Image%3C%2Ftext%3E%3C%2Fsvg%3E"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="implied_fellatio_v2_b.safetensors">implied_fellatio_v2_b.safetensors</div>
+<div class="lora-desc">
+                            Size: 9,566,912
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=implied_fellatio_v2_b+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<span class="author-link unknown"><i class="fas fa-unlink"></i> なし</span>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2453948', '_blank')">
+<img alt="Ino.safetensors" src="thumbnails/Ino.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="Ino.safetensors">Ino.safetensors</div>
+<div class="lora-desc">
+                            Size: 75,622,019
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Ino+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2453948" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2422570', '_blank')">
+<img alt="iono.safetensors" src="thumbnails/iono.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="iono.safetensors">iono.safetensors</div>
+<div class="lora-desc">
+                            Size: 151,117,709
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=iono+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2422570" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2422570', '_blank')">
+<img alt="iono_v1-000006.safetensors" src="thumbnails/iono_v1-000006.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="iono_v1-000006.safetensors">iono_v1-000006.safetensors</div>
+<div class="lora-desc">
+                            Size: 75,618,070
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=iono_v1-000006+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2422570" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2354824', '_blank')">
+<img alt="jabami yumeko_v10.safetensors" src="thumbnails/jabami yumeko_v10.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="jabami yumeko_v10.safetensors">jabami yumeko_v10.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,871,317
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=jabami yumeko_v10+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2354824" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2402582', '_blank')">
+<img alt="jessie-v2.safetensors" src="thumbnails/jessie-v2.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="jessie-v2.safetensors">jessie-v2.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,861,272
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=jessie-v2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2402582" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="Jupiter10_16.safetensors" src="thumbnails/Jupiter10_16.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="Jupiter10_16.safetensors">Jupiter10_16.safetensors</div>
+<div class="lora-desc">
+                            Size: 18,991,427
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Jupiter10_16+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2384372', '_blank')">
+<img alt="kafka-v3-nai-13ep-resize.safetensors" src="thumbnails/kafka-v3-nai-13ep-resize.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="kafka-v3-nai-13ep-resize.safetensors">kafka-v3-nai-13ep-resize.safetensors</div>
+<div class="lora-desc">
+                            Size: 48,599,448
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=kafka-v3-nai-13ep-resize+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2384372" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2423163', '_blank')">
+<img alt="kaga_nazuna_9th_1_1-09.safetensors" src="thumbnails/kaga_nazuna_9th_1_1-09.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="kaga_nazuna_9th_1_1-09.safetensors">kaga_nazuna_9th_1_1-09.safetensors</div>
+<div class="lora-desc">
+                            Size: 50,946,012
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=kaga_nazuna_9th_1_1-09+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2423163" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2423163', '_blank')">
+<img alt="kaga_sumire_9th_1_2-07.safetensors" src="thumbnails/kaga_sumire_9th_1_2-07.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="kaga_sumire_9th_1_2-07.safetensors">kaga_sumire_9th_1_2-07.safetensors</div>
+<div class="lora-desc">
+                            Size: 50,960,572
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=kaga_sumire_9th_1_2-07+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2423163" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2397739', '_blank')">
+<img alt="kamado_nezuko_offset.safetensors" src="thumbnails/kamado_nezuko_offset.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="kamado_nezuko_offset.safetensors">kamado_nezuko_offset.safetensors</div>
+<div class="lora-desc">
+                            Size: 151,108,831
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=kamado_nezuko_offset+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2397739" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2411181', '_blank')">
+<img alt="kamisato_ayaka.safetensors" src="thumbnails/kamisato_ayaka.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="kamisato_ayaka.safetensors">kamisato_ayaka.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,883,758
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=kamisato_ayaka+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2411181" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="karylV1.safetensors" src="thumbnails/karylV1.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="karylV1.safetensors">karylV1.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,863,814
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=karylV1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="KashimaV1B-000010.safetensors" src="thumbnails/KashimaV1B-000010.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="KashimaV1B-000010.safetensors">KashimaV1B-000010.safetensors</div>
+<div class="lora-desc">
+                            Size: 75,639,119
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=KashimaV1B-000010+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2400084', '_blank')">
+<img alt="kasumigaoka_utaha_v2-1.safetensors" src="thumbnails/kasumigaoka_utaha_v2-1.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="kasumigaoka_utaha_v2-1.safetensors">kasumigaoka_utaha_v2-1.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,861,388
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=kasumigaoka_utaha_v2-1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2400084" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2445373', '_blank')">
+<img alt="Kasumi_Matsubara-Hitozuma_Kasumi-san-IL.safetensors" src="thumbnails/Kasumi_Matsubara-Hitozuma_Kasumi-san-IL.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="Kasumi_Matsubara-Hitozuma_Kasumi-san-IL.safetensors">Kasumi_Matsubara-Hitozuma_Kasumi-san-IL.safetensors</div>
+<div class="lora-desc">
+                            Size: 228,474,268
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Kasumi_Matsubara-Hitozuma_Kasumi-san-IL+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2445373" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2445373', '_blank')">
+<img alt="Kasumi_Tendo_Ranma_12_1989_style.safetensors" src="thumbnails/Kasumi_Tendo_Ranma_12_1989_style.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="Kasumi_Tendo_Ranma_12_1989_style.safetensors">Kasumi_Tendo_Ranma_12_1989_style.safetensors</div>
+<div class="lora-desc">
+                            Size: 228,470,484
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Kasumi_Tendo_Ranma_12_1989_style+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2445373" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="KatanaChargeIL.safetensors" src="thumbnails/KatanaChargeIL.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="KatanaChargeIL.safetensors">KatanaChargeIL.safetensors</div>
+<div class="lora-desc">
+                            Size: 228,453,300
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=KatanaChargeIL+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img">
+<img alt="katou_megumi_v2.safetensors" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20viewBox%3D%220%200%20300%20200%22%3E%3Crect%20fill%3D%22%232a2a2a%22%20width%3D%22300%22%20height%3D%22200%22%2F%3E%3Ctext%20fill%3D%22%23555%22%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22bold%22%3ENo%20Image%3C%2Ftext%3E%3C%2Fsvg%3E"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="katou_megumi_v2.safetensors">katou_megumi_v2.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,861,388
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=katou_megumi_v2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<span class="author-link unknown"><i class="fas fa-unlink"></i> なし</span>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2368060', '_blank')">
+<img alt="keqing_lion_optimizer_dim64_loraModel_5e-3noise_token1_4-3-2023.safetensors" src="thumbnails/keqing_lion_optimizer_dim64_loraModel_5e-3noise_token1_4-3-2023.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="keqing_lion_optimizer_dim64_loraModel_5e-3noise_token1_4-3-2023.safetensors">keqing_lion_optimizer_dim64_loraModel_5e-3noise_token1_4-3-2023.safetensors</div>
+<div class="lora-desc">
+                            Size: 151,122,475
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=keqing_lion_optimizer_dim64_loraModel_5e-3noise_token1_4-3-2023+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2368060" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img">
+<img alt="Kino Makoto.safetensors" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20viewBox%3D%220%200%20300%20200%22%3E%3Crect%20fill%3D%22%232a2a2a%22%20width%3D%22300%22%20height%3D%22200%22%2F%3E%3Ctext%20fill%3D%22%23555%22%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22bold%22%3ENo%20Image%3C%2Ftext%3E%3C%2Fsvg%3E"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="Kino Makoto.safetensors">Kino Makoto.safetensors</div>
+<div class="lora-desc">
+                            Size: 228,455,140
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Kino Makoto+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<span class="author-link unknown"><i class="fas fa-unlink"></i> なし</span>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2404900', '_blank')">
+<img alt="kitagawa_marin_v1-1.safetensors" src="thumbnails/kitagawa_marin_v1-1.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="kitagawa_marin_v1-1.safetensors">kitagawa_marin_v1-1.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,861,388
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=kitagawa_marin_v1-1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2404900" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2397492', '_blank')">
+<img alt="Kizuki - To Love Ru - Momo Velia Deviluke.safetensors" src="thumbnails/Kizuki - To Love Ru - Momo Velia Deviluke.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="Kizuki - To Love Ru - Momo Velia Deviluke.safetensors">Kizuki - To Love Ru - Momo Velia Deviluke.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,861,176
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Kizuki - To Love Ru - Momo Velia Deviluke+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2397492" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2313908', '_blank')">
+<img alt="kizuna_ai_v10.safetensors" src="thumbnails/kizuna_ai_v10.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="kizuna_ai_v10.safetensors">kizuna_ai_v10.safetensors</div>
+<div class="lora-desc">
+                            Size: 151,117,086
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=kizuna_ai_v10+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2313908" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img">
+<img alt="kobayashimikuru_v1.0_IL.safetensors" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20viewBox%3D%220%200%20300%20200%22%3E%3Crect%20fill%3D%22%232a2a2a%22%20width%3D%22300%22%20height%3D%22200%22%2F%3E%3Ctext%20fill%3D%22%23555%22%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22bold%22%3ENo%20Image%3C%2Ftext%3E%3C%2Fsvg%3E"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="kobayashimikuru_v1.0_IL.safetensors">kobayashimikuru_v1.0_IL.safetensors</div>
+<div class="lora-desc">
+                            Size: 228,458,460
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=kobayashimikuru_v1.0_IL+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<span class="author-link unknown"><i class="fas fa-unlink"></i> なし</span>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2413431', '_blank')">
+<img alt="kochou_shinobu_v1.2.safetensors" src="thumbnails/kochou_shinobu_v1.2.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="kochou_shinobu_v1.2.safetensors">kochou_shinobu_v1.2.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,867,228
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=kochou_shinobu_v1.2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2413431" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2241887', '_blank')">
+<img alt="kokkoro_v1.safetensors" src="thumbnails/kokkoro_v1.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="kokkoro_v1.safetensors">kokkoro_v1.safetensors</div>
+<div class="lora-desc">
+                            Size: 37,863,926
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=kokkoro_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2241887" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2218701', '_blank')">
+<img alt="kokomi_1024_Adam8_dim64_kohyaLoRA_fp32_8e-2noise_token2_24-3-2023.safetensors" src="thumbnails/kokomi_1024_Adam8_dim64_kohyaLoRA_fp32_8e-2noise_token2_24-3-2023.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="kokomi_1024_Adam8_dim64_kohyaLoRA_fp32_8e-2noise_token2_24-3-2023.safetensors">kokomi_1024_Adam8_dim64_kohyaLoRA_fp32_8e-2noise_token2_24-3-2023.safetensors</div>
+<div class="lora-desc">
+                            Size: 151,125,969
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=kokomi_1024_Adam8_dim64_kohyaLoRA_fp32_8e-2noise_token2_24-3-2023+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2218701" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="kurii89800727ILL.safetensors" src="thumbnails/kurii89800727ILL.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="kurii89800727ILL.safetensors">kurii89800727ILL.safetensors</div>
+<div class="lora-desc">
+                            Size: 228,483,028
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=kurii89800727ILL+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="l1v3w4llp4p3r_720p.safetensors" src="thumbnails/l1v3w4llp4p3r_720p.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="l1v3w4llp4p3r_720p.safetensors">l1v3w4llp4p3r_720p.safetensors</div>
+<div class="lora-desc">
+                            Size: 718,395,264
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=l1v3w4llp4p3r_720p+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2356856', '_blank')">
+<img alt="lacus_clyne_v10.safetensors" src="thumbnails/lacus_clyne_v10.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="lacus_clyne_v10.safetensors">lacus_clyne_v10.safetensors</div>
+<div class="lora-desc">
+                            Size: 151,121,353
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=lacus_clyne_v10+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2356856" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="laser0626.safetensors" src="thumbnails/laser0626.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="laser0626.safetensors">laser0626.safetensors</div>
+<div class="lora-desc">
+                            Size: 75,614,821
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=laser0626+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827184', '_blank')">
+<img alt="lauralamer_IL.safetensors" src="thumbnails/lauralamer_IL.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="lauralamer_IL.safetensors">lauralamer_IL.safetensors</div>
+<div class="lora-desc">
+                            Size: 228,459,388
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=lauralamer_IL+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827184" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2452820', '_blank')">
+<img alt="LeMalin_V7_8dim_e6.safetensors" src="thumbnails/LeMalin_V7_8dim_e6.safetensors.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+</div>
+<div class="lora-name" title="LeMalin_V7_8dim_e6.safetensors">LeMalin_V7_8dim_e6.safetensors</div>
+<div class="lora-desc">
+                            Size: 9,595,127
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=LeMalin_V7_8dim_e6+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2452820" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+</div>
+<div class="pagination" style="text-align: center; margin-top: 30px; margin-bottom: 20px;">
+<a href="SD1.5.html" style="display: inline-block; margin: 0 5px; padding: 8px 16px; border-radius: 20px; text-decoration: none; border: 1px solid; background: rgba(255, 255, 255, 0.5); color: var(--text-main); border-color: rgba(255, 255, 255, 0.2); transition: all 0.2s ease;">1</a>
+<a href="SD1.5_2.html" style="display: inline-block; margin: 0 5px; padding: 8px 16px; border-radius: 20px; text-decoration: none; border: 1px solid; background: rgba(56, 189, 248, 1); color: white; border-color: rgba(56, 189, 248, 1); transition: all 0.2s ease;">2</a>
+<a href="SD1.5_3.html" style="display: inline-block; margin: 0 5px; padding: 8px 16px; border-radius: 20px; text-decoration: none; border: 1px solid; background: rgba(255, 255, 255, 0.5); color: var(--text-main); border-color: rgba(255, 255, 255, 0.2); transition: all 0.2s ease;">3</a>
+<a href="SD1.5_4.html" style="display: inline-block; margin: 0 5px; padding: 8px 16px; border-radius: 20px; text-decoration: none; border: 1px solid; background: rgba(255, 255, 255, 0.5); color: var(--text-main); border-color: rgba(255, 255, 255, 0.2); transition: all 0.2s ease;">4</a>
+</div>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('loraSearchInput');
+            if (!searchInput) return;
+            const loraCards = document.querySelectorAll('.lora-card');
+            const loraSections = document.querySelectorAll('.lora-section');
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                const terms = query.split(/\s+/);
+
+                let visibleCount = 0;
+                loraCards.forEach(card => {
+                    const text = card.textContent.toLowerCase();
+                    const isMatch = terms.every(term => text.includes(term));
+                    if (isMatch || query === '') {
+                        card.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                loraSections.forEach(section => {
+                    const header = section.querySelector('h2');
+                    if (header) {
+                        const countSpan = header.querySelector('span');
+                        if (countSpan) {
+                            if (query) {
+                                countSpan.textContent = `(表示中: ${visibleCount} items)`;
+                            } else {
+                                // Reset to original total (need to store it or extract it) - for simplicity, we keep it as "found" when searching
+                                // In paginated context, searching only applies to the CURRENT page.
+                                countSpan.textContent = `(${loraCards.length} items on this page)`;
+                            }
+                        }
+                    }
+                });
+            });
+            
+            searchInput.addEventListener('focus', () => {
+                searchInput.style.borderColor = 'rgba(56, 189, 248, 1)';
+                searchInput.style.boxShadow = '0 0 15px rgba(56, 189, 248, 0.3)';
+            });
+            searchInput.addEventListener('blur', () => {
+                searchInput.style.borderColor = 'rgba(56, 189, 248, 0.4)';
+                searchInput.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
+            });
+        });
+    </script>
+</div>
+<footer style="padding: 40px 20px; background-color: var(--bg-card); border-top: 1px solid rgba(255, 255, 255, 0.05); text-align: center; max-width: 1000px; margin: 40px auto 40px auto; border-radius: 12px; font-size: 0.95rem; color: var(--text-muted);">
+<p>© 2026 Noa Seraphim Project. LoRA Categories Archive.</p>
+<p style="margin-top: 15px; font-size: 0.85rem; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 8px; display: inline-block;">
+<i class="fas fa-info-circle" style="color: var(--primary-cyan);"></i>
+            サムネイル画像を表示するには、<code>lora-categories/thumbnails/</code> フォルダ内にLoRAファイルと同名の <code>.jpg</code> ファイルを配置してください。
+        </p>
+</footer>
+<script src="../script.js"></script>
+</body>
+</html>
