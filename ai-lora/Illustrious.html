@@ -1,0 +1,2461 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LoRA Categories - Noa Seraphim Project</title>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&amp;family=Nunito:wght@400;800&amp;display=swap" rel="stylesheet"/>
+<link href="../styles.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        .lora-container {
+            max-width: 1400px;
+            margin: 120px auto 40px auto;
+            padding: 0 20px;
+        }
+
+        .lora-section {
+            margin-bottom: 60px;
+        }
+
+        .lora-section h2 {
+            border-bottom: 2px solid;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Grid Layout */
+        .lora-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        /* Card Design */
+        .lora-card {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lora-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .lora-card-img {
+            width: 100%;
+            height: 200px;
+            background: #1a1a2e;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .lora-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            cursor: pointer;
+        }
+
+        .lora-card:hover .lora-card-img img {
+            object-fit: contain;
+            transform: scale(1);
+            background-color: #000;
+        }
+
+        .lora-card-img::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .lora-card-content {
+            padding: 18px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .lora-name {
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 1.1rem;
+            word-break: break-all;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .lora-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .lora-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            flex-grow: 1;
+            border-left: 3px solid rgba(255, 255, 255, 0.1);
+            padding-left: 12px;
+            line-height: 1.6;
+        }
+
+        .lora-credits {
+            font-size: 0.85rem;
+            color: #a1a1aa;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lora-author {
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .author-link {
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .author-link.known {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .author-link.unknown {
+            background: linear-gradient(135deg, #64748b, #475569);
+            opacity: 0.8;
+        }
+
+        .author-link:hover {
+            opacity: 1;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--primary-cyan);
+            text-decoration: none;
+            font-weight: bold;
+            background: rgba(56, 189, 248, 0.1);
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(56, 189, 248, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .category-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 50px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.75);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .category-nav a {
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 800;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .category-nav a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="cursor-dot"></div>
+<div class="cursor-outline"></div>
+<nav class="glass-panel centered-nav">
+<div class="logo">Noa Seraphim Project</div>
+<ul class="nav-links">
+<li><a href="../index.html">HOME</a></li>
+</ul>
+</nav>
+<div class="lora-container">
+<a class="back-link" href="../index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
+<div class="section-header" style="justify-content: flex-start; margin-bottom: 20px;">
+<h2 style="font-size: 3rem; text-shadow: 0 0 15px var(--primary-cyan); margin: 0;">LoRA Database</h2>
+<div class="header-deco" style="margin-left: 20px;"></div>
+</div>
+<p style="color: #0f172a; background: rgba(255, 255, 255, 0.7); font-weight: bold; padding: 15px 25px; border-radius: 12px; border-left: 5px solid var(--primary-cyan); margin-bottom: 40px; font-size: 1.15rem; max-width: 800px; line-height: 1.6; backdrop-filter: blur(5px); box-shadow: 0 4px 10px rgba(0,0,0,0.05);">対応モデルごとに分類されたLoRA一覧です。各カテゴリーを選択してください。全 <strong style="color: var(--primary-cyan); font-size: 1.3rem;">971</strong> ファイル。</p>
+
+<div class="search-container" style="margin-bottom: 30px; margin-top: 10px;">
+<div style="position: relative; max-width: 600px;">
+<input id="loraSearchInput" placeholder="現在のページ内を検索... (例: lora名、サイズ)" style="width: 100%; padding: 15px 20px 15px 45px; border-radius: 30px; border: 2px solid rgba(56, 189, 248, 0.4); 
+                                      background: rgba(255, 255, 255, 0.8); font-size: 1.1rem; outline: none; backdrop-filter: blur(10px);
+                                      box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.3s ease; box-sizing: border-box;" type="text"/>
+<i class="fas fa-search" style="position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: rgba(56, 189, 248, 1); font-size: 1.2rem;"></i>
+</div>
+</div>
+<div class="category-nav">
+<a href="loras.html" style="background: rgba(255, 255, 255, 0.4); border-color: rgba(255, 255, 255, 0.6); color: #94a3b8; opacity: 0.7; transition: all 0.3s;"><i class="fas fa-cube"></i> loras (1)</a>
+<a href="Flux.html" style="background: rgba(255, 255, 255, 0.4); border-color: rgba(255, 255, 255, 0.6); color: #94a3b8; opacity: 0.7; transition: all 0.3s;"><i class="fas fa-cube"></i> Flux (175)</a>
+<a href="Illustrious.html" style="background: #faf5ff; border-color: #c084fc; color: #6b21a8; opacity: 1; filter: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transform: translateY(-2px);"><i class="fas fa-cube"></i> Illustrious (93)</a>
+<a href="Pony.html" style="background: rgba(255, 255, 255, 0.4); border-color: rgba(255, 255, 255, 0.6); color: #94a3b8; opacity: 0.7; transition: all 0.3s;"><i class="fas fa-cube"></i> Pony (123)</a>
+<a href="SD1.5.html" style="background: rgba(255, 255, 255, 0.4); border-color: rgba(255, 255, 255, 0.6); color: #94a3b8; opacity: 0.7; transition: all 0.3s;"><i class="fas fa-cube"></i> SD1.5 (391)</a>
+<a href="SDXL.html" style="background: rgba(255, 255, 255, 0.4); border-color: rgba(255, 255, 255, 0.6); color: #94a3b8; opacity: 0.7; transition: all 0.3s;"><i class="fas fa-cube"></i> SDXL (43)</a>
+<a href="WanVideo.html" style="background: rgba(255, 255, 255, 0.4); border-color: rgba(255, 255, 255, 0.6); color: #94a3b8; opacity: 0.7; transition: all 0.3s;"><i class="fas fa-cube"></i> WanVideo (145)</a>
+</div>
+
+<div class="lora-section" id="Illustrious">
+<h2 style="color: #c084fc; border-color: #c084fc; text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
+<i class="fas fa-layer-group"></i> Illustrious
+                    <span style="font-size:1.2rem;color:var(--text-muted); font-weight:normal; margin-left: 10px;">(93 items on this page / Total 93 items)</span>
+</h2>
+<div class="lora-grid">
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2376063?modelVersionId=2679197', '_blank')">
+<img alt="13sentinels-v6-illustrious-000033" src="thumbnails/13sentinels-v6-illustrious-000033.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="13sentinels-v6-illustrious-000033">13sentinels-v6-illustrious-000033</div>
+<div class="lora-desc">
+                            Size: 44,592,920
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=13sentinels-v6-illustrious-000033+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2376063?modelVersionId=2679197" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1817382?modelVersionId=2737811', '_blank')">
+<img alt="2000s_Moe_Anime__Style__Illustrious_SDXL-000069" src="thumbnails/2000s_Moe_Anime__Style__Illustrious_SDXL-000069.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="2000s_Moe_Anime__Style__Illustrious_SDXL-000069">2000s_Moe_Anime__Style__Illustrious_SDXL-000069</div>
+<div class="lora-desc">
+                            Size: 228,533,876
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=2000s_Moe_Anime__Style__Illustrious_SDXL-000069+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1817382?modelVersionId=2737811" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2376052?modelVersionId=2672076', '_blank')">
+<img alt="Ai_Hoshino_Oshi_No_Ko_IL_V1" src="thumbnails/Ai_Hoshino_Oshi_No_Ko_IL_V1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Ai_Hoshino_Oshi_No_Ko_IL_V1">Ai_Hoshino_Oshi_No_Ko_IL_V1</div>
+<div class="lora-desc">
+                            Size: 57,433,612
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Ai_Hoshino_Oshi_No_Ko_IL_V1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2376052?modelVersionId=2672076" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2279983?modelVersionId=2566106', '_blank')">
+<img alt="AkenoDxD_IXL" src="thumbnails/AkenoDxD_IXL.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="AkenoDxD_IXL">AkenoDxD_IXL</div>
+<div class="lora-desc">
+                            Size: 228,507,156
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=AkenoDxD_IXL+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2279983?modelVersionId=2566106" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/286689?modelVersionId=2735641', '_blank')">
+<img alt="Aqua - Illu" src="thumbnails/Aqua - Illu.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Aqua - Illu">Aqua - Illu</div>
+<div class="lora-desc">
+                            Size: 228,453,772
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Aqua - Illu+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/286689?modelVersionId=2735641" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2430846?modelVersionId=2733168', '_blank')">
+<img alt="armpitwrinkles_il_v1" src="thumbnails/armpitwrinkles_il_v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="armpitwrinkles_il_v1">armpitwrinkles_il_v1</div>
+<div class="lora-desc">
+                            Size: 228,457,420
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=armpitwrinkles_il_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2430846?modelVersionId=2733168" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2447161?modelVersionId=2751599', '_blank')">
+<img alt="ars_almal_ilxl_v1" src="thumbnails/ars_almal_ilxl_v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="ars_almal_ilxl_v1">ars_almal_ilxl_v1</div>
+<div class="lora-desc">
+                            Size: 114,432,124
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=ars_almal_ilxl_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2447161?modelVersionId=2751599" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2436965?modelVersionId=2740076', '_blank')">
+<img alt="ayatoutae-illu-nvwls-v1" src="thumbnails/ayatoutae-illu-nvwls-v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="ayatoutae-illu-nvwls-v1">ayatoutae-illu-nvwls-v1</div>
+<div class="lora-desc">
+                            Size: 57,441,020
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=ayatoutae-illu-nvwls-v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2436965?modelVersionId=2740076" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/635326?modelVersionId=2697574', '_blank')">
+<img alt="Banbaro Armor illusXL v1" src="thumbnails/Banbaro Armor illusXL v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Banbaro Armor illusXL v1">Banbaro Armor illusXL v1</div>
+<div class="lora-desc">
+                            Size: 57,425,092
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Banbaro Armor illusXL v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/635326?modelVersionId=2697574" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2418084?modelVersionId=2718637', '_blank')">
+<img alt="barbeloth-illu-nvwls-v1" src="thumbnails/barbeloth-illu-nvwls-v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="barbeloth-illu-nvwls-v1">barbeloth-illu-nvwls-v1</div>
+<div class="lora-desc">
+                            Size: 57,430,548
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=barbeloth-illu-nvwls-v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2418084?modelVersionId=2718637" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2382861?modelVersionId=2679576', '_blank')">
+<img alt="bell-tsukiyono-alpha-illustriousxl-lora-nochekaiser" src="thumbnails/bell-tsukiyono-alpha-illustriousxl-lora-nochekaiser.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="bell-tsukiyono-alpha-illustriousxl-lora-nochekaiser">bell-tsukiyono-alpha-illustriousxl-lora-nochekaiser</div>
+<div class="lora-desc">
+                            Size: 228,457,796
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=bell-tsukiyono-alpha-illustriousxl-lora-nochekaiser+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2382861?modelVersionId=2679576" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1732515?modelVersionId=2686166', '_blank')">
+<img alt="Better_Smoothie_(unfazed)_IL_v2.0" src="thumbnails/Better_Smoothie_(unfazed)_IL_v2.0.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Better_Smoothie_(unfazed)_IL_v2.0">Better_Smoothie_(unfazed)_IL_v2.0</div>
+<div class="lora-desc">
+                            Size: 254,994,287
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Better_Smoothie_(unfazed)_IL_v2.0+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1732515?modelVersionId=2686166" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1021336?modelVersionId=2682327', '_blank')">
+<img alt="China Leotard Illustrious1V1.2" src="thumbnails/China Leotard Illustrious1V1.2.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="China Leotard Illustrious1V1.2">China Leotard Illustrious1V1.2</div>
+<div class="lora-desc">
+                            Size: 228,467,676
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=China Leotard Illustrious1V1.2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1021336?modelVersionId=2682327" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1215860?modelVersionId=2682252', '_blank')">
+<img alt="Chitose4_V1_wai-illu-000024" src="thumbnails/Chitose4_V1_wai-illu-000024.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Chitose4_V1_wai-illu-000024">Chitose4_V1_wai-illu-000024</div>
+<div class="lora-desc">
+                            Size: 202,701,844
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Chitose4_V1_wai-illu-000024+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1215860?modelVersionId=2682252" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2374269?modelVersionId=2676208', '_blank')">
+<img alt="claire-thomas-s1-v2-illustriousxl-lora-nochekaiser" src="thumbnails/claire-thomas-s1-v2-illustriousxl-lora-nochekaiser.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="claire-thomas-s1-v2-illustriousxl-lora-nochekaiser">claire-thomas-s1-v2-illustriousxl-lora-nochekaiser</div>
+<div class="lora-desc">
+                            Size: 228,466,844
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=claire-thomas-s1-v2-illustriousxl-lora-nochekaiser+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2374269?modelVersionId=2676208" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2396662?modelVersionId=2694746', '_blank')">
+<img alt="ephnel-illu-nvwls-v1" src="thumbnails/ephnel-illu-nvwls-v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="ephnel-illu-nvwls-v1">ephnel-illu-nvwls-v1</div>
+<div class="lora-desc">
+                            Size: 57,438,324
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=ephnel-illu-nvwls-v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2396662?modelVersionId=2694746" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2380151?modelVersionId=2676568', '_blank')">
+<img alt="eri-illu-nvwls-v1" src="thumbnails/eri-illu-nvwls-v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="eri-illu-nvwls-v1">eri-illu-nvwls-v1</div>
+<div class="lora-desc">
+                            Size: 57,447,108
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=eri-illu-nvwls-v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2380151?modelVersionId=2676568" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2395707?modelVersionId=2693716', '_blank')">
+<img alt="es_xblaze_illust_scarxzys" src="thumbnails/es_xblaze_illust_scarxzys.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="es_xblaze_illust_scarxzys">es_xblaze_illust_scarxzys</div>
+<div class="lora-desc">
+                            Size: 57,425,820
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=es_xblaze_illust_scarxzys+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2395707?modelVersionId=2693716" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/341601?modelVersionId=2710587', '_blank')">
+<img alt="Eva Aensland - Illu" src="thumbnails/Eva Aensland - Illu.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Eva Aensland - Illu">Eva Aensland - Illu</div>
+<div class="lora-desc">
+                            Size: 228,453,524
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Eva Aensland - Illu+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/341601?modelVersionId=2710587" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2396673?modelVersionId=2694756', '_blank')">
+<img alt="fatedemeter-illu-nvwls-v1" src="thumbnails/fatedemeter-illu-nvwls-v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="fatedemeter-illu-nvwls-v1">fatedemeter-illu-nvwls-v1</div>
+<div class="lora-desc">
+                            Size: 57,434,364
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=fatedemeter-illu-nvwls-v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2396673?modelVersionId=2694756" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2377008?modelVersionId=2673118', '_blank')">
+<img alt="fillia-von-einzbern-alpha-illustriousxl-lora-nochekaiser" src="thumbnails/fillia-von-einzbern-alpha-illustriousxl-lora-nochekaiser.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="fillia-von-einzbern-alpha-illustriousxl-lora-nochekaiser">fillia-von-einzbern-alpha-illustriousxl-lora-nochekaiser</div>
+<div class="lora-desc">
+                            Size: 228,463,812
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=fillia-von-einzbern-alpha-illustriousxl-lora-nochekaiser+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2377008?modelVersionId=2673118" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2396669?modelVersionId=2694752', '_blank')">
+<img alt="ftvirgo-illu-nvwls-v1" src="thumbnails/ftvirgo-illu-nvwls-v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="ftvirgo-illu-nvwls-v1">ftvirgo-illu-nvwls-v1</div>
+<div class="lora-desc">
+                            Size: 57,428,996
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=ftvirgo-illu-nvwls-v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2396669?modelVersionId=2694752" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2397484?modelVersionId=2695660', '_blank')">
+<img alt="fujikura-sylvie-illustrious-000010" src="thumbnails/fujikura-sylvie-illustrious-000010.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="fujikura-sylvie-illustrious-000010">fujikura-sylvie-illustrious-000010</div>
+<div class="lora-desc">
+                            Size: 44,562,032
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=fujikura-sylvie-illustrious-000010+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2397484?modelVersionId=2695660" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2404361?modelVersionId=2703385', '_blank')">
+<img alt="Gundam_Build_Metaverse_Avatar_Fumina_ill_v12" src="thumbnails/Gundam_Build_Metaverse_Avatar_Fumina_ill_v12.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Gundam_Build_Metaverse_Avatar_Fumina_ill_v12">Gundam_Build_Metaverse_Avatar_Fumina_ill_v12</div>
+<div class="lora-desc">
+                            Size: 57,459,372
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Gundam_Build_Metaverse_Avatar_Fumina_ill_v12+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2404361?modelVersionId=2703385" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2384857?modelVersionId=2681753', '_blank')">
+<img alt="hakui_koyori_ilxl_v1" src="thumbnails/hakui_koyori_ilxl_v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="hakui_koyori_ilxl_v1">hakui_koyori_ilxl_v1</div>
+<div class="lora-desc">
+                            Size: 114,432,124
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=hakui_koyori_ilxl_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2384857?modelVersionId=2681753" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2400842?modelVersionId=2699417', '_blank')">
+<img alt="higuchi_madoka_illust_scarxzys" src="thumbnails/higuchi_madoka_illust_scarxzys.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="higuchi_madoka_illust_scarxzys">higuchi_madoka_illust_scarxzys</div>
+<div class="lora-desc">
+                            Size: 57,424,124
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=higuchi_madoka_illust_scarxzys+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2400842?modelVersionId=2699417" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2384744?modelVersionId=2681635', '_blank')">
+<img alt="honma_himawari_ilxl_v1" src="thumbnails/honma_himawari_ilxl_v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="honma_himawari_ilxl_v1">honma_himawari_ilxl_v1</div>
+<div class="lora-desc">
+                            Size: 114,432,124
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=honma_himawari_ilxl_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2384744?modelVersionId=2681635" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2408688?modelVersionId=2708241', '_blank')">
+<img alt="houki-shinonono-s2-illustriousxl-lora-nochekaiser" src="thumbnails/houki-shinonono-s2-illustriousxl-lora-nochekaiser.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="houki-shinonono-s2-illustriousxl-lora-nochekaiser">houki-shinonono-s2-illustriousxl-lora-nochekaiser</div>
+<div class="lora-desc">
+                            Size: 228,475,964
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=houki-shinonono-s2-illustriousxl-lora-nochekaiser+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2408688?modelVersionId=2708241" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/811312?modelVersionId=907257', '_blank')">
+<img alt="Illustrious_susamix_LoRA" src="thumbnails/Illustrious_susamix_LoRA.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Illustrious_susamix_LoRA">Illustrious_susamix_LoRA</div>
+<div class="lora-desc">
+                            Size: 1,392,146,344
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Illustrious_susamix_LoRA+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/811312?modelVersionId=907257" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1928813?modelVersionId=2747213', '_blank')">
+<img alt="illustrious_XL_kasumi_h13a" src="thumbnails/illustrious_XL_kasumi_h13a.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="illustrious_XL_kasumi_h13a">illustrious_XL_kasumi_h13a</div>
+<div class="lora-desc">
+                            Size: 228,452,716
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=illustrious_XL_kasumi_h13a+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1928813?modelVersionId=2747213" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1930839?modelVersionId=2750261', '_blank')">
+<img alt="illustrious_XL_miki_h13a" src="thumbnails/illustrious_XL_miki_h13a.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="illustrious_XL_miki_h13a">illustrious_XL_miki_h13a</div>
+<div class="lora-desc">
+                            Size: 228,453,164
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=illustrious_XL_miki_h13a+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1930839?modelVersionId=2750261" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2390116?modelVersionId=2687450', '_blank')">
+<img alt="illu_Ayase_Eli-67" src="thumbnails/illu_Ayase_Eli-67.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="illu_Ayase_Eli-67">illu_Ayase_Eli-67</div>
+<div class="lora-desc">
+                            Size: 114,446,044
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=illu_Ayase_Eli-67+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2390116?modelVersionId=2687450" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2400676?modelVersionId=2699235', '_blank')">
+<img alt="illu_Tokoro_Megumi-89" src="thumbnails/illu_Tokoro_Megumi-89.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="illu_Tokoro_Megumi-89">illu_Tokoro_Megumi-89</div>
+<div class="lora-desc">
+                            Size: 114,440,812
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=illu_Tokoro_Megumi-89+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2400676?modelVersionId=2699235" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2428604?modelVersionId=2730666', '_blank')">
+<img alt="invisibleman_il_v1" src="thumbnails/invisibleman_il_v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="invisibleman_il_v1">invisibleman_il_v1</div>
+<div class="lora-desc">
+                            Size: 228,457,980
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=invisibleman_il_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2428604?modelVersionId=2730666" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img">
+<img alt="JN_Rika_Shiraki_Illus" src="thumbnails/JN_Rika_Shiraki_Illus.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="JN_Rika_Shiraki_Illus">JN_Rika_Shiraki_Illus</div>
+<div class="lora-desc">
+                            Size: 114,446,572
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=JN_Rika_Shiraki_Illus+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<span class="author-link unknown"><i class="fas fa-unlink"></i> なし</span>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1352629?modelVersionId=2751743', '_blank')">
+<img alt="kaga_sumire_ilxl_v2" src="thumbnails/kaga_sumire_ilxl_v2.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="kaga_sumire_ilxl_v2">kaga_sumire_ilxl_v2</div>
+<div class="lora-desc">
+                            Size: 114,432,124
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=kaga_sumire_ilxl_v2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1352629?modelVersionId=2751743" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1167928?modelVersionId=2753521', '_blank')">
+<img alt="Kairi_KHv2 - Illu" src="thumbnails/Kairi_KHv2 - Illu.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Kairi_KHv2 - Illu">Kairi_KHv2 - Illu</div>
+<div class="lora-desc">
+                            Size: 228,453,924
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Kairi_KHv2 - Illu+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1167928?modelVersionId=2753521" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/18357?modelVersionId=2695007', '_blank')">
+<img alt="Knbotz_ILLA" src="thumbnails/Knbotz_ILLA.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Knbotz_ILLA">Knbotz_ILLA</div>
+<div class="lora-desc">
+                            Size: 228,462,612
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Knbotz_ILLA+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/18357?modelVersionId=2695007" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1191396?modelVersionId=2683187', '_blank')">
+<img alt="Koshi Torako v2 illu" src="thumbnails/Koshi Torako v2 illu.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Koshi Torako v2 illu">Koshi Torako v2 illu</div>
+<div class="lora-desc">
+                            Size: 57,437,988
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Koshi Torako v2 illu+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1191396?modelVersionId=2683187" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2396664?modelVersionId=2694748', '_blank')">
+<img alt="kysetsuna-illu-nvwls-v1" src="thumbnails/kysetsuna-illu-nvwls-v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="kysetsuna-illu-nvwls-v1">kysetsuna-illu-nvwls-v1</div>
+<div class="lora-desc">
+                            Size: 57,432,940
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=kysetsuna-illu-nvwls-v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2396664?modelVersionId=2694748" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2408693?modelVersionId=2708246', '_blank')">
+<img alt="laura-bodewig-s2-illustriousxl-lora-nochekaiser" src="thumbnails/laura-bodewig-s2-illustriousxl-lora-nochekaiser.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="laura-bodewig-s2-illustriousxl-lora-nochekaiser">laura-bodewig-s2-illustriousxl-lora-nochekaiser</div>
+<div class="lora-desc">
+                            Size: 228,473,900
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=laura-bodewig-s2-illustriousxl-lora-nochekaiser+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2408693?modelVersionId=2708246" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2389038?modelVersionId=2686296', '_blank')">
+<img alt="lexia-von-alceria-s1-illustriousxl-lora-nochekaiser" src="thumbnails/lexia-von-alceria-s1-illustriousxl-lora-nochekaiser.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="lexia-von-alceria-s1-illustriousxl-lora-nochekaiser">lexia-von-alceria-s1-illustriousxl-lora-nochekaiser</div>
+<div class="lora-desc">
+                            Size: 228,473,188
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=lexia-von-alceria-s1-illustriousxl-lora-nochekaiser+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2389038?modelVersionId=2686296" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2408694?modelVersionId=2708247', '_blank')">
+<img alt="lingyin-huang-s2-illustriousxl-lora-nochekaiser" src="thumbnails/lingyin-huang-s2-illustriousxl-lora-nochekaiser.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="lingyin-huang-s2-illustriousxl-lora-nochekaiser">lingyin-huang-s2-illustriousxl-lora-nochekaiser</div>
+<div class="lora-desc">
+                            Size: 228,472,748
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=lingyin-huang-s2-illustriousxl-lora-nochekaiser+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2408694?modelVersionId=2708247" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/789110?modelVersionId=2700652', '_blank')">
+<img alt="luna_noa_Illustrious_V2" src="thumbnails/luna_noa_Illustrious_V2.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="luna_noa_Illustrious_V2">luna_noa_Illustrious_V2</div>
+<div class="lora-desc">
+                            Size: 228,462,412
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=luna_noa_Illustrious_V2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/789110?modelVersionId=2700652" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2123711?modelVersionId=2682041', '_blank')">
+<img alt="luviagelita-edelfelt-casefiles-s1-illustriousxl-lora-nochekaiser" src="thumbnails/luviagelita-edelfelt-casefiles-s1-illustriousxl-lora-nochekaiser.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="luviagelita-edelfelt-casefiles-s1-illustriousxl-lora-nochekaiser">luviagelita-edelfelt-casefiles-s1-illustriousxl-lora-nochekaiser</div>
+<div class="lora-desc">
+                            Size: 228,467,740
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=luviagelita-edelfelt-casefiles-s1-illustriousxl-lora-nochekaiser+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2123711?modelVersionId=2682041" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2395938?modelVersionId=2693954', '_blank')">
+<img alt="mai-fukuyama-s2-illustriousxl-lora-nochekaiser" src="thumbnails/mai-fukuyama-s2-illustriousxl-lora-nochekaiser.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="mai-fukuyama-s2-illustriousxl-lora-nochekaiser">mai-fukuyama-s2-illustriousxl-lora-nochekaiser</div>
+<div class="lora-desc">
+                            Size: 228,458,876
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=mai-fukuyama-s2-illustriousxl-lora-nochekaiser+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2395938?modelVersionId=2693954" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2382868?modelVersionId=2679582', '_blank')">
+<img alt="maia-azuma-alpha-illustriousxl-lora-nochekaiser" src="thumbnails/maia-azuma-alpha-illustriousxl-lora-nochekaiser.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="maia-azuma-alpha-illustriousxl-lora-nochekaiser">maia-azuma-alpha-illustriousxl-lora-nochekaiser</div>
+<div class="lora-desc">
+                            Size: 228,457,532
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=maia-azuma-alpha-illustriousxl-lora-nochekaiser+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2382868?modelVersionId=2679582" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/920145?modelVersionId=2136033', '_blank')">
+<img alt="Maia_illustrious" src="thumbnails/Maia_illustrious.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Maia_illustrious">Maia_illustrious</div>
+<div class="lora-desc">
+                            Size: 228,499,012
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Maia_illustrious+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/920145?modelVersionId=2136033" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2399967?modelVersionId=2698451', '_blank')">
+<img alt="makinami_mari_illustrious _scarxzys" src="thumbnails/makinami_mari_illustrious _scarxzys.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="makinami_mari_illustrious _scarxzys">makinami_mari_illustrious _scarxzys</div>
+<div class="lora-desc">
+                            Size: 57,438,556
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=makinami_mari_illustrious _scarxzys+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2399967?modelVersionId=2698451" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/479756?modelVersionId=2725152', '_blank')">
+<img alt="mangamaster_style_v5_illustrious_epoch_7" src="thumbnails/mangamaster_style_v5_illustrious_epoch_7.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="mangamaster_style_v5_illustrious_epoch_7">mangamaster_style_v5_illustrious_epoch_7</div>
+<div class="lora-desc">
+                            Size: 228,473,884
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=mangamaster_style_v5_illustrious_epoch_7+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/479756?modelVersionId=2725152" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1912439?modelVersionId=2677155', '_blank')">
+<img alt="menishuki_Illust_v2" src="thumbnails/menishuki_Illust_v2.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="menishuki_Illust_v2">menishuki_Illust_v2</div>
+<div class="lora-desc">
+                            Size: 228,464,724
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=menishuki_Illust_v2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1912439?modelVersionId=2677155" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/428204?modelVersionId=2720625', '_blank')">
+<img alt="Methode(snf)-Illus" src="thumbnails/Methode(snf)-Illus.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Methode(snf)-Illus">Methode(snf)-Illus</div>
+<div class="lora-desc">
+                            Size: 28,920,244
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Methode(snf)-Illus+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/428204?modelVersionId=2720625" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2396671?modelVersionId=2694754', '_blank')">
+<img alt="mikazuchikagura-illu-nvwls-v1" src="thumbnails/mikazuchikagura-illu-nvwls-v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="mikazuchikagura-illu-nvwls-v1">mikazuchikagura-illu-nvwls-v1</div>
+<div class="lora-desc">
+                            Size: 57,434,116
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=mikazuchikagura-illu-nvwls-v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2396671?modelVersionId=2694754" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1230256?modelVersionId=2699097', '_blank')">
+<img alt="MIN-NARAKEN_v2_illustriousXL" src="thumbnails/MIN-NARAKEN_v2_illustriousXL.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="MIN-NARAKEN_v2_illustriousXL">MIN-NARAKEN_v2_illustriousXL</div>
+<div class="lora-desc">
+                            Size: 28,943,340
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=MIN-NARAKEN_v2_illustriousXL+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1230256?modelVersionId=2699097" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2377006?modelVersionId=2673116', '_blank')">
+<img alt="Minami_Kotobuki_Oshi_No_Ko_IL_V1" src="thumbnails/Minami_Kotobuki_Oshi_No_Ko_IL_V1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Minami_Kotobuki_Oshi_No_Ko_IL_V1">Minami_Kotobuki_Oshi_No_Ko_IL_V1</div>
+<div class="lora-desc">
+                            Size: 57,428,452
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Minami_Kotobuki_Oshi_No_Ko_IL_V1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2377006?modelVersionId=2673116" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/180382?modelVersionId=2728231', '_blank')">
+<img alt="Narumi-Shirabe-IllustriousXL-05" src="thumbnails/Narumi-Shirabe-IllustriousXL-05.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Narumi-Shirabe-IllustriousXL-05">Narumi-Shirabe-IllustriousXL-05</div>
+<div class="lora-desc">
+                            Size: 50,935,876
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Narumi-Shirabe-IllustriousXL-05+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/180382?modelVersionId=2728231" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1813141?modelVersionId=2733141', '_blank')">
+<img alt="night shift nurses 1-3_v2_illustriousXL" src="thumbnails/night shift nurses 1-3_v2_illustriousXL.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="night shift nurses 1-3_v2_illustriousXL">night shift nurses 1-3_v2_illustriousXL</div>
+<div class="lora-desc">
+                            Size: 57,443,396
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=night shift nurses 1-3_v2_illustriousXL+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1813141?modelVersionId=2733141" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2396675?modelVersionId=2694758', '_blank')">
+<img alt="olgamarie-illu-nvwls-v1" src="thumbnails/olgamarie-illu-nvwls-v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="olgamarie-illu-nvwls-v1">olgamarie-illu-nvwls-v1</div>
+<div class="lora-desc">
+                            Size: 57,450,148
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=olgamarie-illu-nvwls-v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2396675?modelVersionId=2694758" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2420328?modelVersionId=2721143', '_blank')">
+<img alt="palutena-trailer-illustriousxl-lora-nochekaiser" src="thumbnails/palutena-trailer-illustriousxl-lora-nochekaiser.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="palutena-trailer-illustriousxl-lora-nochekaiser">palutena-trailer-illustriousxl-lora-nochekaiser</div>
+<div class="lora-desc">
+                            Size: 228,467,868
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=palutena-trailer-illustriousxl-lora-nochekaiser+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2420328?modelVersionId=2721143" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2408296?modelVersionId=2707795', '_blank')">
+<img alt="panty_peek_ilxl_goofy" src="thumbnails/panty_peek_ilxl_goofy.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="panty_peek_ilxl_goofy">panty_peek_ilxl_goofy</div>
+<div class="lora-desc">
+                            Size: 57,417,276
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=panty_peek_ilxl_goofy+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2408296?modelVersionId=2707795" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2423305?modelVersionId=2724583', '_blank')">
+<img alt="Queens_Blade_-_airi_-_illustrious" src="thumbnails/Queens_Blade_-_airi_-_illustrious.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Queens_Blade_-_airi_-_illustrious">Queens_Blade_-_airi_-_illustrious</div>
+<div class="lora-desc">
+                            Size: 228,478,100
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Queens_Blade_-_airi_-_illustrious+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2423305?modelVersionId=2724583" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2424999?modelVersionId=2726478', '_blank')">
+<img alt="Queens_Blade_-_alleyne_-_illustrious" src="thumbnails/Queens_Blade_-_alleyne_-_illustrious.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Queens_Blade_-_alleyne_-_illustrious">Queens_Blade_-_alleyne_-_illustrious</div>
+<div class="lora-desc">
+                            Size: 114,448,988
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Queens_Blade_-_alleyne_-_illustrious+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2424999?modelVersionId=2726478" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2384903?modelVersionId=2681798', '_blank')">
+<img alt="reines-el-melloi-archisorte-casefiles-s1-illustriousxl-lora-nochekaiser" src="thumbnails/reines-el-melloi-archisorte-casefiles-s1-illustriousxl-lora-nochekaiser.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="reines-el-melloi-archisorte-casefiles-s1-illustriousxl-lora-nochekaiser">reines-el-melloi-archisorte-casefiles-s1-illustriousxl-lora-nochekaiser</div>
+<div class="lora-desc">
+                            Size: 228,470,684
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=reines-el-melloi-archisorte-casefiles-s1-illustriousxl-lora-nochekaiser+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2384903?modelVersionId=2681798" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1612799?modelVersionId=2672872', '_blank')">
+<img alt="Reisen_IllustriousV2" src="thumbnails/Reisen_IllustriousV2.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Reisen_IllustriousV2">Reisen_IllustriousV2</div>
+<div class="lora-desc">
+                            Size: 228,450,268
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Reisen_IllustriousV2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1612799?modelVersionId=2672872" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2436967?modelVersionId=2740077', '_blank')">
+<img alt="sakimiyairuka-illu-nvwls-v1" src="thumbnails/sakimiyairuka-illu-nvwls-v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="sakimiyairuka-illu-nvwls-v1">sakimiyairuka-illu-nvwls-v1</div>
+<div class="lora-desc">
+                            Size: 57,453,676
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=sakimiyairuka-illu-nvwls-v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2436967?modelVersionId=2740077" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2395951?modelVersionId=2693967', '_blank')">
+<img alt="sakuya-shirase-s2-illustriousxl-lora-nochekaiser" src="thumbnails/sakuya-shirase-s2-illustriousxl-lora-nochekaiser.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="sakuya-shirase-s2-illustriousxl-lora-nochekaiser">sakuya-shirase-s2-illustriousxl-lora-nochekaiser</div>
+<div class="lora-desc">
+                            Size: 228,466,548
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=sakuya-shirase-s2-illustriousxl-lora-nochekaiser+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2395951?modelVersionId=2693967" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2390743?modelVersionId=2688120', '_blank')">
+<img alt="satsuki-kuroda-ova-illustriousxl-lora-nochekaiser" src="thumbnails/satsuki-kuroda-ova-illustriousxl-lora-nochekaiser.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="satsuki-kuroda-ova-illustriousxl-lora-nochekaiser">satsuki-kuroda-ova-illustriousxl-lora-nochekaiser</div>
+<div class="lora-desc">
+                            Size: 228,465,332
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=satsuki-kuroda-ova-illustriousxl-lora-nochekaiser+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2390743?modelVersionId=2688120" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2427044?modelVersionId=2728824', '_blank')">
+<img alt="shC398nE79EAC.mcat" src="thumbnails/shC398nE79EAC.mcat.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="shC398nE79EAC.mcat">shC398nE79EAC.mcat</div>
+<div class="lora-desc">
+                            Size: 228,509,956
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=shC398nE79EAC.mcat+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2427044?modelVersionId=2728824" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1786421?modelVersionId=2678916', '_blank')">
+<img alt="Shishido_Akari_IL_2.0" src="thumbnails/Shishido_Akari_IL_2.0.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Shishido_Akari_IL_2.0">Shishido_Akari_IL_2.0</div>
+<div class="lora-desc">
+                            Size: 228,477,596
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Shishido_Akari_IL_2.0+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1786421?modelVersionId=2678916" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2380203?modelVersionId=2689236', '_blank')">
+<img alt="skmi_s_il_1.1" src="thumbnails/skmi_s_il_1.1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="skmi_s_il_1.1">skmi_s_il_1.1</div>
+<div class="lora-desc">
+                            Size: 57,424,580
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=skmi_s_il_1.1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2380203?modelVersionId=2689236" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2197913?modelVersionId=2493973', '_blank')">
+<img alt="SmugFace_IXL" src="thumbnails/SmugFace_IXL.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="SmugFace_IXL">SmugFace_IXL</div>
+<div class="lora-desc">
+                            Size: 242,708,628
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=SmugFace_IXL+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2197913?modelVersionId=2493973" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2405366?modelVersionId=2704482', '_blank')">
+<img alt="sunna_zzz_illust_scarxzys" src="thumbnails/sunna_zzz_illust_scarxzys.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="sunna_zzz_illust_scarxzys">sunna_zzz_illust_scarxzys</div>
+<div class="lora-desc">
+                            Size: 57,424,316
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=sunna_zzz_illust_scarxzys+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2405366?modelVersionId=2704482" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2408697?modelVersionId=2708250', '_blank')">
+<img alt="tatenashi-sarashiki-s2-illustriousxl-lora-nochekaiser" src="thumbnails/tatenashi-sarashiki-s2-illustriousxl-lora-nochekaiser.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="tatenashi-sarashiki-s2-illustriousxl-lora-nochekaiser">tatenashi-sarashiki-s2-illustriousxl-lora-nochekaiser</div>
+<div class="lora-desc">
+                            Size: 228,473,892
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=tatenashi-sarashiki-s2-illustriousxl-lora-nochekaiser+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2408697?modelVersionId=2708250" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/138236?modelVersionId=2705136', '_blank')">
+<img alt="Tirpitz(azur)-Illus (1)" src="thumbnails/Tirpitz(azur)-Illus (1).jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Tirpitz(azur)-Illus (1)">Tirpitz(azur)-Illus (1)</div>
+<div class="lora-desc">
+                            Size: 28,917,708
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Tirpitz(azur)-Illus (1)+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/138236?modelVersionId=2705136" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/138236?modelVersionId=2705136', '_blank')">
+<img alt="Tirpitz(azur)-Illus" src="thumbnails/Tirpitz(azur)-Illus.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Tirpitz(azur)-Illus">Tirpitz(azur)-Illus</div>
+<div class="lora-desc">
+                            Size: 28,917,708
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Tirpitz(azur)-Illus+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/138236?modelVersionId=2705136" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2382871?modelVersionId=2679585', '_blank')">
+<img alt="tobera-azuma-alpha-illustriousxl-lora-nochekaiser" src="thumbnails/tobera-azuma-alpha-illustriousxl-lora-nochekaiser.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="tobera-azuma-alpha-illustriousxl-lora-nochekaiser">tobera-azuma-alpha-illustriousxl-lora-nochekaiser</div>
+<div class="lora-desc">
+                            Size: 228,461,180
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=tobera-azuma-alpha-illustriousxl-lora-nochekaiser+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2382871?modelVersionId=2679585" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2397675?modelVersionId=2704455', '_blank')">
+<img alt="uran_style_civ_web_illustrious_epoch_8" src="thumbnails/uran_style_civ_web_illustrious_epoch_8.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="uran_style_civ_web_illustrious_epoch_8">uran_style_civ_web_illustrious_epoch_8</div>
+<div class="lora-desc">
+                            Size: 228,466,276
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=uran_style_civ_web_illustrious_epoch_8+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2397675?modelVersionId=2704455" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2380148?modelVersionId=2676567', '_blank')">
+<img alt="valkfreya-illu-nvwls-v1" src="thumbnails/valkfreya-illu-nvwls-v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="valkfreya-illu-nvwls-v1">valkfreya-illu-nvwls-v1</div>
+<div class="lora-desc">
+                            Size: 57,423,100
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=valkfreya-illu-nvwls-v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2380148?modelVersionId=2676567" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2401330?modelVersionId=2699985', '_blank')">
+<img alt="vandread-v10-illustrious-000015" src="thumbnails/vandread-v10-illustrious-000015.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="vandread-v10-illustrious-000015">vandread-v10-illustrious-000015</div>
+<div class="lora-desc">
+                            Size: 44,576,112
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=vandread-v10-illustrious-000015+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2401330?modelVersionId=2699985" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/233816?modelVersionId=2707523', '_blank')">
+<img alt="Vepley(gf2)-Illus" src="thumbnails/Vepley(gf2)-Illus.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Vepley(gf2)-Illus">Vepley(gf2)-Illus</div>
+<div class="lora-desc">
+                            Size: 25,644,188
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Vepley(gf2)-Illus+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/233816?modelVersionId=2707523" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2413052?modelVersionId=2713049', '_blank')">
+<img alt="victoirepisa_Illust_v1" src="thumbnails/victoirepisa_Illust_v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="victoirepisa_Illust_v1">victoirepisa_Illust_v1</div>
+<div class="lora-desc">
+                            Size: 228,458,204
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=victoirepisa_Illust_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2413052?modelVersionId=2713049" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1506546?modelVersionId=2720883', '_blank')">
+<img alt="Watatsuki-no-Toyohime_IllustriousV2" src="thumbnails/Watatsuki-no-Toyohime_IllustriousV2.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Watatsuki-no-Toyohime_IllustriousV2">Watatsuki-no-Toyohime_IllustriousV2</div>
+<div class="lora-desc">
+                            Size: 228,450,268
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Watatsuki-no-Toyohime_IllustriousV2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1506546?modelVersionId=2720883" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2384712?modelVersionId=2681601', '_blank')">
+<img alt="yagami_hayate_ilxl_v1" src="thumbnails/yagami_hayate_ilxl_v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="yagami_hayate_ilxl_v1">yagami_hayate_ilxl_v1</div>
+<div class="lora-desc">
+                            Size: 114,432,124
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=yagami_hayate_ilxl_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2384712?modelVersionId=2681601" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2384774?modelVersionId=2681668', '_blank')">
+<img alt="yakumo_beni_ilxl_v1" src="thumbnails/yakumo_beni_ilxl_v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="yakumo_beni_ilxl_v1">yakumo_beni_ilxl_v1</div>
+<div class="lora-desc">
+                            Size: 114,432,124
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=yakumo_beni_ilxl_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2384774?modelVersionId=2681668" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1588072?modelVersionId=2735429', '_blank')">
+<img alt="Yamame-Kurodani_IllustriousV2" src="thumbnails/Yamame-Kurodani_IllustriousV2.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="Yamame-Kurodani_IllustriousV2">Yamame-Kurodani_IllustriousV2</div>
+<div class="lora-desc">
+                            Size: 228,450,268
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Yamame-Kurodani_IllustriousV2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1588072?modelVersionId=2735429" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/719834?modelVersionId=2714427', '_blank')">
+<img alt="ylgr feh 2outfits_illustriousXL" src="thumbnails/ylgr feh 2outfits_illustriousXL.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="ylgr feh 2outfits_illustriousXL">ylgr feh 2outfits_illustriousXL</div>
+<div class="lora-desc">
+                            Size: 114,441,708
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=ylgr feh 2outfits_illustriousXL+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/719834?modelVersionId=2714427" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2447260?modelVersionId=2751706', '_blank')">
+<img alt="yozora_mel_ilxl_v1" src="thumbnails/yozora_mel_ilxl_v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="yozora_mel_ilxl_v1">yozora_mel_ilxl_v1</div>
+<div class="lora-desc">
+                            Size: 114,432,124
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=yozora_mel_ilxl_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2447260?modelVersionId=2751706" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/560421?modelVersionId=2734688', '_blank')">
+<img alt="z47_IL_v2.0" src="thumbnails/z47_IL_v2.0.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="z47_IL_v2.0">z47_IL_v2.0</div>
+<div class="lora-desc">
+                            Size: 114,445,908
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=z47_IL_v2.0+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/560421?modelVersionId=2734688" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2398126?modelVersionId=2696373', '_blank')">
+<img alt="zibai_genshin_impact_ilxl_goofy" src="thumbnails/zibai_genshin_impact_ilxl_goofy.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="zibai_genshin_impact_ilxl_goofy">zibai_genshin_impact_ilxl_goofy</div>
+<div class="lora-desc">
+                            Size: 57,417,284
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=zibai_genshin_impact_ilxl_goofy+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2398126?modelVersionId=2696373" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2385276?modelVersionId=2682207', '_blank')">
+<img alt="_aemeath_wuwa-elesico-ilxl" src="thumbnails/_aemeath_wuwa-elesico-ilxl.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="_aemeath_wuwa-elesico-ilxl">_aemeath_wuwa-elesico-ilxl</div>
+<div class="lora-desc">
+                            Size: 28,955,932
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=_aemeath_wuwa-elesico-ilxl+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2385276?modelVersionId=2682207" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2430066?modelVersionId=2732305', '_blank')">
+<img alt="_escha_malier-elesico-ilxl" src="thumbnails/_escha_malier-elesico-ilxl.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="_escha_malier-elesico-ilxl">_escha_malier-elesico-ilxl</div>
+<div class="lora-desc">
+                            Size: 28,958,644
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=_escha_malier-elesico-ilxl+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2430066?modelVersionId=2732305" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1925202?modelVersionId=2672167', '_blank')">
+<img alt="_kokkoro-elesico-nb11-v11" src="thumbnails/_kokkoro-elesico-nb11-v11.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="_kokkoro-elesico-nb11-v11">_kokkoro-elesico-nb11-v11</div>
+<div class="lora-desc">
+                            Size: 28,950,420
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=_kokkoro-elesico-nb11-v11+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1925202?modelVersionId=2672167" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #c084fc;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2403796?modelVersionId=2702767', '_blank')">
+<img alt="_shizuka_rin-elesico-ilxl" src="thumbnails/_shizuka_rin-elesico-ilxl.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div>
+<span class="lora-tag" style="background: #faf5ff; color: #6b21a8; border: 1px solid #c084fc;">Illustrious</span>
+</div>
+<div class="lora-name" title="_shizuka_rin-elesico-ilxl">_shizuka_rin-elesico-ilxl</div>
+<div class="lora-desc">
+                            Size: 28,958,060
+                        </div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=_shizuka_rin-elesico-ilxl+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2403796?modelVersionId=2702767" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('loraSearchInput');
+            if (!searchInput) return;
+            const loraCards = document.querySelectorAll('.lora-card');
+            const loraSections = document.querySelectorAll('.lora-section');
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                const terms = query.split(/\s+/);
+
+                let visibleCount = 0;
+                loraCards.forEach(card => {
+                    const text = card.textContent.toLowerCase();
+                    const isMatch = terms.every(term => text.includes(term));
+                    if (isMatch || query === '') {
+                        card.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                loraSections.forEach(section => {
+                    const header = section.querySelector('h2');
+                    if (header) {
+                        const countSpan = header.querySelector('span');
+                        if (countSpan) {
+                            if (query) {
+                                countSpan.textContent = `(表示中: ${visibleCount} items)`;
+                            } else {
+                                // Reset to original total (need to store it or extract it) - for simplicity, we keep it as "found" when searching
+                                // In paginated context, searching only applies to the CURRENT page.
+                                countSpan.textContent = `(${loraCards.length} items on this page)`;
+                            }
+                        }
+                    }
+                });
+            });
+            
+            searchInput.addEventListener('focus', () => {
+                searchInput.style.borderColor = 'rgba(56, 189, 248, 1)';
+                searchInput.style.boxShadow = '0 0 15px rgba(56, 189, 248, 0.3)';
+            });
+            searchInput.addEventListener('blur', () => {
+                searchInput.style.borderColor = 'rgba(56, 189, 248, 0.4)';
+                searchInput.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
+            });
+        });
+    </script>
+</div>
+<footer style="padding: 40px 20px; background-color: var(--bg-card); border-top: 1px solid rgba(255, 255, 255, 0.05); text-align: center; max-width: 1000px; margin: 40px auto 40px auto; border-radius: 12px; font-size: 0.95rem; color: var(--text-muted);">
+<p>© 2026 Noa Seraphim Project. LoRA Categories Archive.</p>
+<p style="margin-top: 15px; font-size: 0.85rem; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 8px; display: inline-block;">
+<i class="fas fa-info-circle" style="color: var(--primary-cyan);"></i>
+            サムネイル画像を表示するには、<code>ai-lora/thumbnails/</code> フォルダ内にLoRAファイルと同名の <code>.jpg</code> ファイルを配置してください。
+        </p>
+</footer>
+<script src="../script.js"></script>
+</body>
+</html>
