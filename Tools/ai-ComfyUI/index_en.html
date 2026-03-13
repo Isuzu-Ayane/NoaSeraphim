@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComfyUI required custom node list | Noa Seraphim</title>
+
+    <!-- SEO & Meta Tags -->
+    <meta name="description" content="A comprehensive list of essential and useful custom nodes for ComfyUI. Collection of recommended GitHub repository links for workflow optimization, video generation, and UI improvements.">
+    <meta name="keywords" content="ComfyUI, custom nodes, Stable Diffusion, AI image generation, ComfyUI-Manager, AnimateDiff">
+    <meta name="author" content="Noa Seraphim Project">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://noaailabs.com/index_en.html"
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": "https://noaailabs.com/Tools/index_en.html"
+      },{
+        "@type": "ListItem",
+        "position": 3,
+        "name": "ComfyUI Nodes",
+        "item": "https://noaailabs.com/Tools/ai-ComfyUI/index_en.html"
+      }]
+    }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <!-- reusing the same dark theme as ai-tools -->
+    <style>
+        :root {
+            --bg-light: #f0f9ff;
+            --bg-card: rgba(255, 255, 255, 0.7);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --accent: #3a7bd5;
+            --accent-glow: rgba(58, 123, 213, 0.2);
+            --gradient: linear-gradient(135deg, #3a7bd5, #00d2ff);
+            --border-glow: #00d2ff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg-light);
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            color: var(--text-main);
+            line-height: 1.6;
+            background-attachment: fixed;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            bottom: -5%;
+            right: -5%;
+            width: 30%;
+            height: 50%;
+            background-image: url('../../web_image/image_00019_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: bottom right;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 10%;
+            left: -5%;
+            width: 20%;
+            height: 40%;
+            background-image: url('../../web_image/image_00020_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: top left;
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        header {
+            text-align: center;
+            padding: 80px 20px 60px;
+            background: rgba(255, 255, 255, 0.5);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(58, 123, 213, 0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin: 0 0 20px 0;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 8px var(--accent-glow));
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Navigation Pill inside Hero */
+        .nav-pill {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 25px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .nav-pill:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Nodes Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+            margin-bottom: 80px;
+        }
+
+        .tool-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            padding: 25px;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 20px rgba(58, 123, 213, 0.05);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--accent-glow);
+            border-color: var(--accent);
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tool-card:hover::before {
+            opacity: 1;
+        }
+
+        .tool-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-top: 0;
+            margin-bottom: 15px;
+            word-break: break-all;
+        }
+
+        .tool-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            flex-grow: 1;
+            margin-bottom: 25px;
+        }
+
+        .github-link {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            transition: all 0.2s;
+        }
+
+        .github-link:hover {
+            background: var(--gradient);
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 20px;
+            background-color: var(--bg-card);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        .footer-copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            header {
+                padding: 60px 20px 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="glass-panel centered-nav" style="position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(255, 255, 255, 0.8); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(58, 123, 213, 0.1); display: flex; justify-content: center; align-items: center; padding: 10px 0;">
+        <ul style="display: flex; list-style: none; gap: 20px; margin: 0; padding: 0;">
+            <li><a href="../../index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">HOME</a></li>
+            <li><a href="../../ai-guide/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">AI-GUIDE</a></li>
+            <li><a href="../../models/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">MODELS</a></li>
+            <li><a href="../../Tools/index_en.html" style="color: var(--accent); text-decoration: none; font-weight: bold;">TOOLS</a></li>
+            <li><a href="../../creative/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">GALLERY</a></li>
+        </ul>
+    </nav>
+    <div style="height: 60px;"></div>
+
+    <!-- Language Toggle -->
+    <div style="position: absolute; top: 20px; right: 20px; z-index: 1100;">
+        <a href="index.html"
+            style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: var(--text-main, #333); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; transition: background 0.3s, transform 0.2s; display: inline-block;">
+            🌐 Japanese
+        </a>
+    </div>
+
+    <header>
+        <div class="container">
+            <!-- Breadcrumbs -->
+            <nav aria-label="Breadcrumb" style="margin-bottom: 20px;">
+                <ol style="display:flex; justify-content:center; list-style:none; padding:0; gap:10px; font-size:0.9rem;">
+                    <li><a href="../../index_en.html" style="color:var(--accent); text-decoration:none;">Home</a></li>
+                    <li style="color: var(--text-muted); border-left: 2px solid rgba(255,255,255,0.1); padding-left: 10px;">Tools</li>
+                    <li style="color: var(--text-main); border-left: 2px solid rgba(255,255,255,0.1); padding-left: 10px;" aria-current="page">ComfyUI Nodes</li>
+                </ol>
+            </nav>
+            <h1>Required by ComfyUI<br>Custom node list</h1>
+            <p class="subtitle">A collection of GitHub repository links for powerful extensions (custom nodes) that are essential for building efficient workflows.</p>
+            <a href="../../index_en.html" class="nav-pill">← Back to Home</a>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Workflows Section -->
+        <div style="margin-top: 50px; margin-bottom: 40px;">
+            <h2
+                style="font-size: 2rem; border-bottom: 2px solid var(--accent); display: inline-block; padding-bottom: 10px; margin-bottom: 25px;">
+                ComfyUI Workflows</h2>
+
+            <div class="tool-card" style="border-left: 4px solid #10b981;">
+                <h3 class="tool-title" style="color: #10b981;">🖼 Image quality improvement/upscaling collaboration workflow</h3>
+                <p class="tool-desc" style="margin-bottom: 15px;">
+                    This is a special workflow file designed for image enlargement (upscaling).<br>
+                    Depending on your environment, please save the upscale models to the <code>ComfyUI\models\upscale_models</code> directory.<br>
+                    <span style="font-size: 0.85em; color: #64748b;">*The folder location may vary based on your installation.</span>
+                </p>
+                <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <strong style="color: var(--accent);">■ Required nodes/models:</strong><br>
+                    <a href="https://github.com/yuvraj108c/ComfyUI-Upscaler-Tensorrt" target="_blank"
+                        style="color: #38bdf8; text-decoration: underline;">ComfyUI-Upscaler-Tensorrt (GitHub)</a>
+                    Please download the necessary enlargement file from here.
+                </div>
+                <a href="./Workflows/UP_ Image enlargement.json" download class="github-link"
+                    style="background: #10b981; color: white; border-color: #059669;">
+                    Download workflow JSON ⬇
+                </a>
+            </div>
+        </div>
+
+        <h2
+            style="font-size: 2rem; border-bottom: 2px solid var(--accent); display: inline-block; padding-bottom: 10px; margin-bottom: 10px;">
+            List of required custom nodes</h2>
+        <div class="tools-grid" style="margin-top: 30px;">
+
+            <!-- ComfyUI-Manager -->
+            <div class="tool-card">
+                <h3 class="tool-title">💻 ComfyUI-Manager</h3>
+                <p class="tool-desc">
+                    The most essential management node. The most powerful tool that can automatically detect and install missing nodes in your workflow, as well as centrally manage updates and installations of models and custom nodes themselves.
+                </p>
+                <a href="https://github.com/Comfy-Org/ComfyUI-Manager" target="_blank" rel="noopener noreferrer"
+                    class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- ComfyUI-Easy-Use -->
+            <div class="tool-card">
+                <h3 class="tool-title">⚡ ComfyUI-Easy-Use</h3>
+                <p class="tool-desc">
+                    A convenient all-in-one tool pack that combines nodes that normally require multiple connections into one. As the name suggests, it is an essential node for "easy use" from loading and saving images to simplifying pipelines.
+                </p>
+                <a href="https://github.com/yolain/ComfyUI-Easy-Use" target="_blank" rel="noopener noreferrer"
+                    class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- ComfyUI-Impact-Pack -->
+            <div class="tool-card">
+                <h3 class="tool-title">💥 ComfyUI-Impact-Pack</h3>
+                <p class="tool-desc">
+                    A very famous comprehensive pack that is essential for generating high-quality images, including high resolution (upscaling), face and hand detail correction (Detailer type), and segmentation (cropping) of specific areas.
+                </p>
+                <a href="https://github.com/ltdrdata/ComfyUI-Impact-Pack" target="_blank" rel="noopener noreferrer"
+                    class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- ComfyUI-Impact-Subpack -->
+            <div class="tool-card">
+                <h3 class="tool-title">🔥 ComfyUI-Impact-Subpack</h3>
+                <p class="tool-desc">
+                    A collection of submodules that complement some of the functions of Impact-Pack. It is introduced in conjunction with advanced nodes that require external dependencies or when you want to use more specialized functionality.
+                </p>
+                <a href="https://github.com/ltdrdata/ComfyUI-Impact-Subpack" target="_blank" rel="noopener noreferrer"
+                    class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- rgthree-comfy -->
+            <div class="tool-card">
+                <h3 class="tool-title">🛠 rgthree-comfy</h3>
+                <p class="tool-desc">
+                    A collection of nodes that dramatically improves UIUX. It is extremely powerful in organizing complex workflows, such as the "Context" function that bundles multiple nodes, and the switch node that allows you to mute or bypass them all at once.
+                </p>
+                <a href="https://github.com/rgthree/rgthree-comfy" target="_blank" rel="noopener noreferrer"
+                    class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- ComfyUI-KJNodes -->
+            <div class="tool-card">
+                <h3 class="tool-title">🧩 ComfyUI-KJNodes</h3>
+                <p class="tool-desc">
+                    A group of utilities that compensate for processing that cannot be accessed with basic nodes, such as mask operations, color correction, noise addition, and batch processing. Useful for image compositing and fine-tuning.
+                </p>
+                <a href="https://github.com/kijai/ComfyUI-KJNodes" target="_blank" rel="noopener noreferrer"
+                    class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- cg-use-everywhere -->
+            <div class="tool-card">
+                <h3 class="tool-title">🔗 cg-use-everywhere</h3>
+                <p class="tool-desc">
+                    A revolutionary node that can wirelessly (broadcast) common data such as models and prompts to other nodes without physically connecting wires. Keeps the screen beautiful, which tends to look like spaghetti.
+                </p>
+                <a href="https://github.com/chrisgoringe/cg-use-everywhere" target="_blank" rel="noopener noreferrer"
+                    class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- was-node-suite-comfyui -->
+            <div class="tool-card">
+                <h3 class="tool-title">🧰 WAS Node Suite</h3>
+                <p class="tool-desc">
+                    A huge extended node suite for ComfyUI. A standard node that adds hundreds of wide-ranging features such as image resizing, text processing, powerful image filtering, and Python integration.
+                </p>
+                <a href="https://github.com/WASasquatch/was-node-suite-comfyui" target="_blank"
+                    rel="noopener noreferrer" class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- ComfyUI_Comfyroll_CustomNodes -->
+            <div class="tool-card">
+                <h3 class="tool-title">🎨 Comfyroll CustomNodes</h3>
+                <p class="tool-desc">
+                    (CR Nodes) A ​​large pack specializing in design, animation, and logic processing. It is extremely useful for artistic production such as aspect ratio calculation, text list processing, and color palette generation.
+                </p>
+                <a href="https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes" target="_blank"
+                    rel="noopener noreferrer" class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- comfyui_controlnet_aux -->
+            <div class="tool-card">
+                <h3 class="tool-title">🤖 ControlNet Auxiliary Preprocessors</h3>
+                <p class="tool-desc">
+                    A collection of nodes for performing the "preprocessor" that is essential when using ControlNet. This covers feature extraction such as Canny, Depth, OpenPose, and Lineart.
+                </p>
+                <a href="https://github.com/Fannovel16/comfyui_controlnet_aux" target="_blank" rel="noopener noreferrer"
+                    class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- ComfyUI-AnimateDiff-Evolved -->
+            <div class="tool-card">
+                <h3 class="tool-title">🎞 ComfyUI-AnimateDiff-Evolved</h3>
+                <p class="tool-desc">
+                    Extension to integrate "AnimateDiff", a function that uses Stable Diffusion to generate smooth animations and videos. You can output high-quality GIFs/videos while controlling parameters in detail.
+                </p>
+                <a href="https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved" target="_blank"
+                    rel="noopener noreferrer" class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- comfyui-inpaint-nodes -->
+            <div class="tool-card">
+                <h3 class="tool-title">🖌 comfyui-inpaint-nodes</h3>
+                <p class="tool-desc">
+                    A group of nodes that make it easier and more advanced to perform "in-paint" work, which involves redrawing only part of an image. Helps implement seamless image modifications and enhancements (out-painting).
+                </p>
+                <a href="https://github.com/Acly/comfyui-inpaint-nodes" target="_blank" rel="noopener noreferrer"
+                    class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- sdxl_prompt_styler -->
+            <div class="tool-card">
+                <h3 class="tool-title">📝 sdxl_prompt_styler</h3>
+                <p class="tool-desc">
+                    Just by selecting from a large number of pre-prepared style templates (anime, photo, cinematic, fantasy, etc.), this node automatically adds the best decorative text to SDXL prompts to improve quality.
+                </p>
+                <a href="https://github.com/twri/sdxl_prompt_styler" target="_blank" rel="noopener noreferrer"
+                    class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- ComfyUI_LayerStyle -->
+            <div class="tool-card">
+                <h3 class="tool-title">🖼 ComfyUI_LayerStyle</h3>
+                <p class="tool-desc">
+                    A design-specific node that enables Photoshop-like layer blending processing (drop shadows, borders, gradients, blend mode composition, etc.) on ComfyUI.
+                </p>
+                <a href="https://github.com/chflame163/ComfyUI_LayerStyle" target="_blank" rel="noopener noreferrer"
+                    class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- ComfyUI-N-Sidebar -->
+            <div class="tool-card">
+                <h3 class="tool-title">📁 ComfyUI-N-Sidebar</h3>
+                <p class="tool-desc">
+                    A UI improvement tool that adds a sidebar to the left side of ComfyUI's UI screen that makes it easy to search and add nodes by drag and drop. Node accessibility is dramatically improved.
+                </p>
+                <a href="https://github.com/Nuked88/ComfyUI-N-Sidebar" target="_blank" rel="noopener noreferrer"
+                    class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- ComfyUI-Custom-Scripts -->
+            <div class="tool-card">
+                <h3 class="tool-title">🔧 ComfyUI-Custom-Scripts</h3>
+                <p class="tool-desc">
+                    (pysssss) A collection of function enhancement scripts to make ComfyUI's basic operation system more comfortable and smart, such as AutoComplete (automatic prompt completion), image preview display improvements, node snaps, etc.
+                </p>
+                <a href="https://github.com/pythongosssss/ComfyUI-Custom-Scripts" target="_blank"
+                    rel="noopener noreferrer" class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- ComfyUI_Fill-Nodes -->
+            <div class="tool-card">
+                <h3 class="tool-title">💧 ComfyUI_Fill-Nodes</h3>
+                <p class="tool-desc">
+                    A support utility node that specializes in filling small areas, such as filling images and masks, expanding and generating masks for in-paint, etc.
+                </p>
+                <a href="https://github.com/filliptm/ComfyUI_Fill-Nodes" target="_blank" rel="noopener noreferrer"
+                    class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- ComfyUI-IF_AI_tools -->
+            <div class="tool-card">
+                <h3 class="tool-title">🧠 ComfyUI-IF_AI_tools</h3>
+                <p class="tool-desc">
+                    An interactive text generation collaboration tool that connects local and API-based LLMs (Ollama, etc.) and calls language models directly within ComfyUI to automatically generate and refine prompts.
+                </p>
+                <a href="https://github.com/if-ai/ComfyUI-IF_AI_tools" target="_blank" rel="noopener noreferrer"
+                    class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- comfyui-upscale-by-model -->
+            <div class="tool-card">
+                <h3 class="tool-title">🔎 comfyui-upscale-by-model</h3>
+                <p class="tool-desc">
+                    A group of dedicated nodes for basic image quality enhancement purposes that use various upscaling models (ESRGAN, OmniSR, etc.) to raise the resolution of generated images to clear and high quality.
+                </p>
+                <a href="https://github.com/ronn1xG/comfyui-upscale-by-model" target="_blank" rel="noopener noreferrer"
+                    class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- ComfyUI-Lora-Manager -->
+            <div class="tool-card">
+                <h3 class="tool-title">📚 ComfyUI-Lora-Manager</h3>
+                <p class="tool-desc">
+                    A convenient LoRA central management tool that organizes information on LoRA models, which tend to be huge, with tags and preview images, and allows you to easily select and apply them to prompts on the GUI.
+                </p>
+                <a href="https://github.com/willmiao/ComfyUI-Lora-Manager" target="_blank" rel="noopener noreferrer"
+                    class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- save-image-extended-comfyui -->
+            <div class="tool-card">
+                <h3 class="tool-title">💾 save-image-extended-comfyui</h3>
+                <p class="tool-desc">
+                    Extended save node that enhances the default image save function and allows you to customize file naming conventions, change metadata writing settings, save with automatic folder classification, etc.
+                </p>
+                <a href="https://github.com/audioscavenger/save-image-extended-comfyui" target="_blank"
+                    rel="noopener noreferrer" class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- ComfyUI-KikoTools -->
+            <div class="tool-card">
+                <h3 class="tool-title">🛠 ComfyUI-KikoTools</h3>
+                <p class="tool-desc">
+                    A group of flexible tools that assist with image processing tasks and data control within workflows, such as cropping part of an image, calculating resolution, and masking specific elements.
+                </p>
+                <a href="https://github.com/ComfyAssets/ComfyUI-KikoTools" target="_blank" rel="noopener noreferrer"
+                    class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+            <!-- ControlFlowUtils -->
+            <div class="tool-card">
+                <h3 class="tool-title">🔀 ControlFlowUtils</h3>
+                <p class="tool-desc">
+                    A collection of logical operation nodes that control the flow of workflow processing, like programming control syntax (If and Switch), such as data switching (branching) and node bypass based on conditions.
+                </p>
+                <a href="https://github.com/VykosX/ControlFlowUtils" target="_blank" rel="noopener noreferrer"
+                    class="github-link">
+                    Open GitHub ↗
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p class="footer-copyright">&copy; 2026 Noa Seraphim Project - AI Research & Dev</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Escape from Prompt Hell] How to Dramatically Ease Image Generation with Embeddings! - Noa AI Labs</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Are you tired of long prompts in Stable Diffusion or ComfyUI? Using 'Embeddings (Textual Inversion)', you can prevent hand corruption or change art styles with just one word. A thorough explanation of recommended Embeddings and how to use them!">
+    <meta name="keywords" content="Embeddings, Textual Inversion, Stable Diffusion, Prompt, Spell, Hand Corruption, Image Generation, ComfyUI, Easy">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&family=Nunito:wght@400;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Category Hub Styles - Cyan Theme */
+        .category-hub {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+            position: relative;
+            z-index: 2;
+        }
+        .cat-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 3px solid white;
+            border-radius: 25px;
+            padding: 30px;
+            text-decoration: none;
+            color: #0f172a;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(58, 123, 213, 0.1);
+        }
+        .cat-card:hover {
+            transform: translateY(-10px);
+            border-color: #00d2ff;
+            box-shadow: 0 20px 40px rgba(58, 123, 213, 0.2);
+        }
+        .cat-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #3a7bd5;
+        }
+        .cat-card h3 { margin: 0; font-size: 1.5rem; font-weight: 800; color: #3a7bd5; }
+        .cat-card p { font-size: 0.9rem; color: #475569; margin-top: 10px; line-height: 1.5; }
+        .cat-badge {
+            background: #3a7bd5;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        /* Background Ornaments */
+        body::before {
+            content: "";
+            position: fixed;
+            bottom: -5%;
+            left: -5%;
+            width: 35%;
+            height: 55%;
+            background-image: url('../../web_image/image_00015_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: bottom left;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 15%;
+            right: -5%;
+            width: 25%;
+            height: 45%;
+            background-image: url('../../web_image/image_00016_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: top right;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        :root {
+            --accent-pink: #3a7bd5;
+            --accent-blue: #00d2ff;
+            --accent-purple: #3a7bd5;
+            --glass: rgba(255, 255, 255, 0.7);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #f0f9ff;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            color: #0f172a;
+            line-height: 1.8;
+            background-attachment: fixed;
+        }
+
+        .guide-container {
+            max-width: 1000px;
+            margin: 100px auto 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Hero / Header Section */
+        .guide-header {
+            text-align: center;
+            margin-bottom: 50px;
+            background: var(--glass);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            padding: 50px 30px;
+            border-radius: 24px;
+            border: 1px solid rgba(58, 123, 213, 0.2);
+            box-shadow: 0 10px 40px rgba(58, 123, 213, 0.1);
+        }
+
+        .guide-header h1 {
+            font-size: 2.22rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .guide-header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .pain-point-box {
+            background: rgba(225, 29, 72, 0.1);
+            border-left: 4px solid #f43f5e;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .pain-point-box p {
+            margin: 12px 0;
+            color: #fda4af;
+            font-weight: 500;
+        }
+
+        .pain-point-box i {
+            color: #f43f5e;
+            margin-right: 10px;
+        }
+
+        /* Benefits Card */
+        .benefits-card {
+            background: var(--glass);
+            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
+            color: var(--text-main);
+            padding: 40px;
+            border-radius: 24px;
+            margin: 40px 0;
+            box-shadow: 0 15px 35px rgba(58, 123, 213, 0.1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .benefits-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ec4899, #8b5cf6, #38bdf8);
+        }
+
+        .benefits-card h2 {
+            color: var(--accent-pink);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .benefit-item {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(58, 123, 213, 0.1);
+            transition: all 0.3s;
+        }
+
+        .benefit-item:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--accent-pink);
+        }
+
+        .benefit-item h3 {
+            color: var(--accent-pink);
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+        }
+
+        .benefit-item p {
+            margin: 0;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Guide / Info Card */
+        .step-card {
+            background: var(--glass);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+
+        .step-card h2 {
+            color: var(--text-main);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        /* Definition List for Guide */
+        .def-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .def-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .def-item dt {
+            font-weight: 800;
+            color: var(--accent-blue);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .def-item dd {
+            margin: 0;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: var(--accent-pink);
+            text-decoration: none;
+            font-weight: bold;
+            background: rgba(236, 72, 153, 0.1);
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: rgba(236, 72, 153, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Models / Table CSS */
+        .list-card {
+            border-top: 4px solid var(--accent-purple);
+        }
+
+        .model-header {
+            margin-top: 40px;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .sd15-header { color: #38bdf8; }
+        .sdxl-header { color: #10b981; }
+        .pony-header { color: #f472b6; }
+        .vae-header { color: #8b5cf6; }
+
+        .model-desc {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: 16px;
+            border: 1px solid rgba(58, 123, 213, 0.1);
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .embeddings-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            min-width: 800px;
+        }
+
+        .embeddings-table th {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
+            font-weight: 800;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .embeddings-table td {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            vertical-align: middle;
+        }
+
+        .embeddings-table tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .embeddings-table code {
+            background: rgba(58, 123, 213, 0.05);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            color: #3a7bd5;
+            font-size: 0.9rem;
+        }
+
+        .trigger-word {
+            background: rgba(236, 72, 153, 0.2);
+            color: #f472b6;
+            font-weight: 800;
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(236, 72, 153, 0.4);
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Language Toggle -->
+    <div style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
+        <a href="index.html"
+            style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: var(--text-main, #333); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; transition: background 0.3s, transform 0.2s; display: inline-block;">
+            🌐 日本語
+        </a>
+    </div>
+
+    <nav class="glass-panel centered-nav" style="position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(255, 255, 255, 0.8); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(58, 123, 213, 0.1); display: flex; justify-content: center; align-items: center; padding: 10px 0;">
+        <ul style="display: flex; list-style: none; gap: 20px; margin: 0; padding: 0;">
+            <li><a href="../../index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">HOME</a></li>
+            <li><a href="../../ai-guide/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">AI-GUIDE</a></li>
+            <li><a href="../../models/index_en.html" style="color: var(--accent-blue); text-decoration: none; font-weight: bold;">MODELS</a></li>
+            <li><a href="../../Tools/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">TOOLS</a></li>
+            <li><a href="../../creative/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">GALLERY</a></li>
+        </ul>
+    </nav>
+
+    <div class="guide-container">
+        <!-- Breadcrumbs -->
+        <nav aria-label="Breadcrumb" style="margin-bottom: 30px;">
+            <ol style="display:flex; justify-content:center; list-style:none; padding:0; gap:10px; font-size:0.9rem;">
+                <li><a href="../../index_en.html" style="color:var(--accent-blue); text-decoration:none;">Home</a></li>
+                <li style="color: var(--text-muted); border-left: 2px solid rgba(255,255,255,0.1); padding-left: 10px;"><a href="../index_en.html" style="color: var(--accent-blue); text-decoration: none;">Models</a></li>
+                <li style="color: var(--text-muted); border-left: 2px solid rgba(255,255,255,0.1); padding-left: 10px;" aria-current="page">Embeddings</li>
+            </ol>
+        </nav>
+
+        <a href="../index_en.html" class="back-link"><i class="fas fa-arrow-left"></i> Models Top</a>
+
+        <!-- Header / Hero Section -->
+        <div class="guide-header">
+            <h1 style="color: #be185d;"><i class="fas fa-magic"
+                    style="color:#ec4899;"></i>[Escape from Prompt Hell]<br>How to Dramatically Ease Image Generation with Embeddings!</h1>
+            <p style="font-size: 1.2rem; font-weight: bold;">For those of you who enjoy AI image generation, don't you always worry about this?</p>
+
+            <div class="pain-point-box">
+                <p><i class="fas fa-times-circle"></i>"To prevent hand corruption, the negative prompt ends up being more than 10 lines long..."</p>
+                <p><i class="fas fa-times-circle"></i>"The spell to stabilize my art style is too long to manage!"</p>
+                <p><i class="fas fa-times-circle"></i>"It's just too much work to type the prompts every time!"</p>
+            </div>
+
+            <p style="margin-top: 25px; font-weight: bold; font-size: 1.25rem; color: #4338ca;">
+                There is a magical item that will solve your tedious work in one go.<br>
+                <span
+                    style="background: linear-gradient(120deg, #fce7f3 0%, #fae8ff 100%); padding: 5px 15px; border-radius: 8px; color: #db2777; display: inline-block; margin-top: 10px; border: 2px solid #fbcfe8;">"Embeddings (Textual Inversion)"</span><br>
+                Simply by implementing this, your prompt input will become dramatically shorter and easier.
+            </p>
+        </div>
+
+        <!-- Benefits Section -->
+        <div class="benefits-card">
+            <h2>✨ It's amazing when you add Embeddings!</h2>
+
+            <div class="benefit-item">
+                <h3><i class="fas fa-compress-arrows-alt"></i> 1. Compress long spells into "just one word"!</h3>
+                <p>Instead of entering dozens of tags to prevent hand corruption, just enter a <strong>"trigger word"</strong> like <code>bad-hands-5</code>, and the AI will understand everything.
+                </p>
+            </div>
+
+            <div class="benefit-item">
+                <h3><i class="fas fa-level-up-alt"></i> 2. Extremely easy to improve quality!</h3>
+                <p>By simply adding Embeddings for negative prompts (elements you don't want to appear), the quality of your illustrations will jump up. It is an essential item, especially for depicting complex parts like hands and fingers.</p>
+            </div>
+
+            <div class="benefit-item">
+                <h3><i class="fas fa-paint-brush"></i> 3. Call up characters or art styles in an instant!</h3>
+                <p>Even without explaining long characteristics in sentences, you can perfectly reproduce complex styles like "anime cel-shading" or "watercolor style" just by entering a dedicated word.</p>
+            </div>
+        </div>
+
+        <!-- List Explanation Section -->
+        <div class="step-card">
+            <h2><i class="fas fa-chart-bar" style="color: #8b5cf6;"></i> How to Read Our "Embeddings List"</h2>
+            <p style="font-size: 1.15rem; color: #334155; margin-bottom: 25px;">
+                On this site, we analyze a vast number of Embeddings and summarize them in a list so that anyone can use them immediately.<br>
+                The meaning of each item in the list is as follows:
+            </p>
+
+            <div class="def-list">
+                <div class="def-item">
+                    <dt><i class="fas fa-file-alt"></i> File Name</dt>
+                    <dd>The actual file name to download (common extensions are <code>.pt</code> or <code>.safetensors</code>). Please check this when putting it in your PC's folder.
+                    </dd>
+                </div>
+
+                <div class="def-item" style="border: 2px solid #6366f1; background: #eef2ff;">
+                    <dt style="color: #4338ca;"><i class="fas fa-cube"></i> Base Model <span
+                            style="font-size: 0.8rem; background: #ef4444; color: white; padding: 2px 8px; border-radius: 10px; margin-left: 10px;">Crucial</span>
+                    </dt>
+                    <dd style="font-weight: bold; color: #312e81;">This is the most important part! It shows which AI model it can be used with, such as SD 1.5, SDXL, or Pony. If the base model is different, it will cause an error or have no effect at all, so please be sure to check.</dd>
+                </div>
+
+                <div class="def-item">
+                    <dt><i class="fas fa-tag"></i> Official Name</dt>
+                    <dd>The name registered on distribution sites like Civitai. Useful when you want to search for details.</dd>
+                </div>
+
+                <div class="def-item">
+                    <dt><i class="fas fa-star"></i> Effects (Tags)</dt>
+                    <dd>Clearly describes what effects are packed into the file (hand/finger correction, style change, quality improvement, etc.).</dd>
+                </div>
+
+                <div class="def-item" style="grid-column: 1 / -1; background: #fdf4ff; border-color: #f0abfc;">
+                    <dt style="color: #c026d3;"><i class="fas fa-keyboard"></i> Trigger Word</dt>
+                    <dd style="font-size: 1.1rem;">
+                        <strong>The actual word you input into the prompt.</strong><br>
+                        Just copy and paste this into the prompt field, and a powerful effect will be activated!
+                    </dd>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- NEW CATEGORY GRID SECTION -->
+        <div class="step-card">
+            <h2 style="text-align: center;"><i class="fas fa-search" style="color: #3a7bd5;"></i> Browse All Lists by Category</h2>
+            <p style="text-align: center; color: #475569;">
+                Find the best Embeddings for your model from over 290 analyzed items.<br>
+                Trigger words can be copied with one click.
+            </p>
+            
+            <div class="category-hub">
+                <a href="pages/sd15_en.html" class="cat-card">
+                    <span class="cat-badge">LEGACY</span>
+                    <i class="fas fa-cube"></i>
+                    <h3>Stable Diffusion 1.5</h3>
+                    <p>For the classic 1.5 models. Essential items like EasyNegative are here.</p>
+                </a>
+                <a href="pages/sdxl_en.html" class="cat-card">
+                    <span class="cat-badge">HIGH-RES</span>
+                    <i class="fas fa-expand"></i>
+                    <h3>SDXL 1.0</h3>
+                    <p>Exclusive to high-res SDXL. A collection to prevent specific composition issues.</p>
+                </a>
+                <a href="pages/pony_en.html" class="cat-card">
+                    <span class="cat-badge">POPULAR</span>
+                    <i class="fas fa-horse"></i>
+                    <h3>Pony Diffusion</h3>
+                    <p>Quality improvement & breakdown suppression tools specialized for Pony models.</p>
+                </a>
+                <a href="pages/illustrious_en.html" class="cat-card">
+                    <span class="cat-badge">LATEST</span>
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>Illustrious XL</h3>
+                    <p>For the latest anime-specialized models. Items to bring out the highest quality.</p>
+                </a>
+                <a href="pages/others_en.html" class="cat-card">
+                    <span class="cat-badge">VARIETY</span>
+                    <i class="fas fa-ellipsis-h"></i>
+                    <h3>Other Models</h3>
+                    <p>Archives for SD 1.4, 2.x, and all other various models.</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- Embeddings List Section -->
+        <div class="step-card list-card">
+            <h2><i class="fas fa-list-alt" style="color: #ec4899;"></i> Ultimate List of Recommended Embeddings (by base model)</h2>
+            <p style="font-size: 1.15rem; color: #334155; margin-bottom: 25px; line-height: 1.8;">
+                If you're worried about "corrupted AI images" or "difficulty drawing hands and fingers", try these files matching your model.<br>
+                Just by introducing these, you should feel the effect of <strong>corrupted AI images disappearing</strong> as if by magic!
+            </p>
+
+            <!-- SD 1.5 Table -->
+            <h3 class="model-header sd15-header"><i class="fas fa-cube"></i> For Stable Diffusion 1.5 (SD 1.5)</h3>
+            <p class="model-desc">Exerts very powerful effects on the foundational 1.5 models. Rich in items that prevent hand corruption and significantly improve image quality.</p>
+            <div class="table-responsive">
+                <table class="embeddings-table">
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th>Official Name</th>
+                            <th>Effects / Characteristics</th>
+                            <th>Trigger Word</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>bad-hands-5.pt</code></td>
+                            <td>bad-hands-5</td>
+                            <td><strong>【Hand Corruption Fix】</strong> Specializes in hand corruption issues. Strongly prevents finger failures.</td>
+                            <td><span class="trigger-word">bad-hands-5</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>easynegative.safetensors</code></td>
+                            <td>EasyNegative</td>
+                            <td><strong>【Overall Quality Up】</strong> Standard universal negative. Best for anime-style models like Counterfeit.</td>
+                            <td><span class="trigger-word">easynegative</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>EasyNegativeV2.safetensors</code></td>
+                            <td>EasyNegativeV2</td>
+                            <td>Evolved version of EasyNegative. Must-have item adjusted to prevent image corruption even further.</td>
+                            <td><span class="trigger-word">EasyNegativeV2</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>negative_hand-neg.pt</code></td>
+                            <td>negative_hand</td>
+                            <td><strong>【Anime Hand Special】</strong> Draws hands and fingertips beautifully, especially in anime-style illustrations.</td>
+                            <td><span class="trigger-word">negative_hand</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>verybadimagenegative_v1.3.pt</code></td>
+                            <td>veryBadImageNegative</td>
+                            <td>Universal negative for avoiding low-quality outputs and maintaining high quality.</td>
+                            <td><span class="trigger-word">verybadimagenegative_v1.3</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>bad_prompt_version2.pt</code></td>
+                            <td>bad_prompt</td>
+                            <td>Improved version of bad_prompt. Guarantees quality while simplifying negative prompts.</td>
+                            <td><span class="trigger-word">bad_prompt_version2</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>ng_deepnegative_v1_75t.pt</code></td>
+                            <td>Deep Negative V1.x</td>
+                            <td><strong>【Body Proportion Fix】</strong> Strongly prevents body and limb length corruption.</td>
+                            <td><span class="trigger-word">ng_deepnegative_v1_75t</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>FastNegativeV2.pt</code></td>
+                            <td>Fast Negative Embedding</td>
+                            <td>Compresses many negative elements into one word. Avoids dull colors and outputs vivid images.</td>
+                            <td><span class="trigger-word">FastNegativeV2</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>pureerosface_v1.pt</code></td>
+                            <td>Pure Eros Face</td>
+                            <td><strong>【Real Face Special】</strong> Beautifully refines the facial features of photorealistic Asian women.</td>
+                            <td><span class="trigger-word">pureerosface_v1</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>CyberRealistic_Negative.pt</code></td>
+                            <td>CyberRealistic Negative</td>
+                            <td>Negative embedding optimized for the realistic model CyberRealistic.</td>
+                            <td><span class="trigger-word">CyberRealistic_Negative</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SDXL Table -->
+            <h3 class="model-header sdxl-header"><i class="fas fa-cube"></i> For SDXL</h3>
+            <p class="model-desc">Dedicated to the high-res SDXL model. SD 1.5 files cannot be used, so please use these dedicated files.</p>
+            <div class="table-responsive">
+                <table class="embeddings-table">
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th>Official Name</th>
+                            <th>Effects / Characteristics</th>
+                            <th>Trigger Word</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>unaestheticXLv31.safetensors</code></td>
+                            <td>unaestheticXL</td>
+                            <td><strong>【SDXL Universal Negative】</strong> Prevents corruption and improves overall aesthetic quality in SDXL.</td>
+                            <td><span class="trigger-word">unaestheticXLv31</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>negativeXL_D.safetensors</code></td>
+                            <td>negativeXL</td>
+                            <td>Lightweight negative compression to prevent composition failure unique to SDXL.</td>
+                            <td><span class="trigger-word">negativeXL_D</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>DeepNegative_xl_v1.safetensors</code></td>
+                            <td>Deep Negative XL</td>
+                            <td>Suppresses unnatural parts and corruption for SDXL models.</td>
+                            <td><span class="trigger-word">DeepNegative_xl_v1</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>AissistXLv2.safetensors</code></td>
+                            <td>Aissist XL</td>
+                            <td>Powerful negative embedding optimized for Animagine XL 3.1.</td>
+                            <td><span class="trigger-word">AissistXLv2</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>SimplePositiveXLv2.safetensors</code></td>
+                            <td>SimplePositiveXL</td>
+                            <td>Positive type that increases detail (描き込み) without changing the composition.</td>
+                            <td><span class="trigger-word">SimplePositiveXLv2</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pony Table -->
+            <h3 class="model-header pony-header"><i class="fas fa-cube"></i> For Pony Diffusion (Pony-based)</h3>
+            <p class="model-desc">Pony models require a dedicated approach due to their unique tag training.</p>
+            <div class="table-responsive">
+                <table class="embeddings-table">
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th>Official Name</th>
+                            <th>Effects / Characteristics</th>
+                            <th>Trigger Word</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>pony_negative.safetensors</code></td>
+                            <td>Pony Negative</td>
+                            <td><strong>【Pony Specialized】</strong> Standard negative to prevent corruption in Pony models.</td>
+                            <td><span class="trigger-word">pony_negative</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>PonyScores.safetensors</code></td>
+                            <td>PonyScores</td>
+                            <td>Auxiliary embedding to batch apply quality score tags (score_9, etc.).</td>
+                            <td><span class="trigger-word">PonyScores</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>Score_PnyReal.safetensors</code></td>
+                            <td>Pony XL Score with Realism Enhancers</td>
+                            <td>Improves realism and image quality in Pony models.</td>
+                            <td><span class="trigger-word">Score_PnyReal</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>CyberRealistic_Negative_PONY_V2.safetensors</code></td>
+                            <td>CyberRealistic Negative Pony v2.0</td>
+                            <td>Negative to enhance realism specifically for Realistic Pony v9.</td>
+                            <td><span class="trigger-word">CyberRealistic_Negative_PONY_V2</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>deep_negative_pony.safetensors</code></td>
+                            <td>Deep Negative Pony</td>
+                            <td>Suppresses unnatural body corruption and proportion issues in Pony models.</td>
+                            <td><span class="trigger-word">deep_negative_pony</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>boring_sdxl_v1.safetensors</code></td>
+                            <td>boring_SDXL</td>
+                            <td>Improves both style and topic quality in Pony Diffusion V6.</td>
+                            <td><span class="trigger-word">boring_sdxl_v1</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>NEGATIVE_HANDS.safetensors</code></td>
+                            <td>Negative Hands (Pony)</td>
+                            <td>Specialized negative for hand corruption issues in Pony models.</td>
+                            <td><span class="trigger-word">NEGATIVE_HANDS</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Illustrious Table -->
+            <h3 class="model-header illustrious-header"><i class="fas fa-cube"></i> For Illustrious</h3>
+            <p class="model-desc">Dedicated to the latest anime-focused Illustrious XL model. Specialized high-quality embeddings are effective.</p>
+            <div class="table-responsive">
+                <table class="embeddings-table">
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th>Official Name</th>
+                            <th>Effects / Characteristics</th>
+                            <th>Trigger Word</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>lazypos.safetensors</code></td>
+                            <td>LazyPositive</td>
+                            <td><strong>【High Quality】</strong> Dramatically improves detail and quality in Illustrious/Pony models.</td>
+                            <td><span class="trigger-word">lazypos</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>lazyneg.safetensors</code></td>
+                            <td>LazyNegative</td>
+                            <td><strong>【Universal Negative】</strong> Essential negative to prevent corruption, optimized for Illustrious.</td>
+                            <td><span class="trigger-word">lazyneg</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>BadDigitalHandsNeg.safetensors</code></td>
+                            <td>IllusXL Negative Embeddings</td>
+                            <td><strong>【Hand Corruption Fix】</strong> Suppresses unnatural hands and digital artifacts in Illustrious.</td>
+                            <td><span class="trigger-word">BadDigitalHandsNeg</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>lazyhand.safetensors</code></td>
+                            <td>LazyHand</td>
+                            <td>Specialized embedding for hand and finger correction in Illustrious.</td>
+                            <td><span class="trigger-word">lazyhand</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>SimplePositiveXLv3.safetensors</code></td>
+                            <td>SimplePositiveXL v3</td>
+                            <td>Quality improvement positive trained on Illustrious XL v2.0.</td>
+                            <td><span class="trigger-word">SimplePositiveXLv3</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div
+                style="background: #fffbeb; border-left: 5px solid #f59e0b; padding: 15px; border-radius: 8px; margin-top: 30px;">
+                <p style="margin: 0; color: #b45309; line-height: 1.6;">
+                    <strong><i class="fas fa-lightbulb"></i> Tip:</strong><br>
+                    Starting with the combination of <strong>"EasyNegative"</strong> and <strong>"bad-hands-5"</strong> is the most foolproof royal road to prevent image corruption!
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer
+        style="padding: 40px 20px; background-color: rgba(255, 255, 255, 0.5); border-top: 1px solid rgba(0, 0, 0, 0.05); max-width: 800px; margin: 40px auto 30px auto; border-radius: 12px; font-size: 0.9rem; color: #475569; line-height: 1.8; text-align: center;">
+        <h4
+            style="color: var(--primary-cyan); margin-top: 0; margin-bottom: 10px; border-bottom: 1px dashed rgba(58, 123, 213, 0.3); padding-bottom: 5px; font-size: 1.1rem;">
+            About Noa AI Labs
+        </h4>
+        <p>
+            This site is a research record site for <strong>AI image generation</strong> in <strong>local AI</strong> environments.<br>
+            Focusing on technical verification of <strong>Stable Diffusion</strong> and <strong>ComfyUI</strong>,<br>
+            we store and publish various output results of <strong>Checkpoints</strong> and <strong>LoRA</strong>.
+        </p>
+        <p
+            style="text-align: center; font-size: 0.85rem; border-top: 1px solid rgba(0, 0, 0, 0.1); padding-top: 20px; margin-top: 20px;">
+            &copy; 2026 Noa AI Labs.
+        </p>
+    </footer>
+
+    <script src="../../script.js"></script>
+
+    <!-- JSON-LD Breadcrumbs -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://noa-ai-labs.example.com/index_en.html"
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Models",
+        "item": "https://noa-ai-labs.example.com/models/index_en.html"
+      },{
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Embeddings Guide",
+        "item": "https://noa-ai-labs.example.com/models/ai-embeddings/index_en.html"
+      }]
+    }
+    </script>
+</body>
+
+</html>

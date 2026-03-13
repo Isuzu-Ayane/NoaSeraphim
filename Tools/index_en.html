@@ -1,149 +1,308 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tools - Noa Seraphim Project</title>
+    <title>AI Tools & Utilities | Noa Seraphim</title>
+    <meta name="description" content="Exclusive tools for AI image generation and video streaming. Featuring Noaplugin and AI Specification Checkers.">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://noaailabs.com/index_en.html"
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": "https://noaailabs.com/Tools/index_en.html"
+      }]
+    }
+    </script>
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&family=Nunito:wght@400;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-light: #f0f9ff;
+            --bg-card: rgba(255, 255, 255, 0.7);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --accent-blue: #3a7bd5;
+            --accent-green: #10b981;
+            --accent-red: #f43f5e;
+            --glass: rgba(255, 255, 255, 0.7);
+            --gradient: linear-gradient(135deg, #3a7bd5, #00d2ff);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg-light);
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            color: var(--text-main);
+            line-height: 1.8;
+            background-attachment: fixed;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            bottom: -5%;
+            left: -5%;
+            width: 30%;
+            height: 50%;
+            background-image: url('../web_image/image_00017_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: bottom left;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 10%;
+            right: -5%;
+            width: 28%;
+            height: 48%;
+            background-image: url('../web_image/image_00018_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: top right;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 100px 20px 40px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 10px rgba(58, 123, 213, 0.2));
+        }
+
+        .tool-card {
+            background: var(--glass);
+            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            transition: transform 0.3s, border-color 0.3s;
+            box-shadow: 0 10px 30px rgba(58, 123, 213, 0.05);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+
+        .tool-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .tool-card h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .tool-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            background: rgba(56, 189, 248, 0.2);
+            color: var(--accent-blue);
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            transition: all 0.3s;
+            margin-top: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-blue { background: linear-gradient(135deg, #0ea5e9, #38bdf8); color: white; }
+        .btn-green { background: linear-gradient(135deg, #059669, #10b981); color: white; }
+        .btn-red { background: linear-gradient(135deg, #be123c, #f43f5e); color: white; }
+
+        .btn-download:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.1);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .step-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .step-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background: rgba(255, 255, 255, 0.1);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 2.22rem; }
+            .tool-card { padding: 30px 20px; }
+        }
+    </style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HFB5ECR6DM"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-HFB5ECR6DM');
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HFB5ECR6DM');
     </script>
 </head>
 
 <body>
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
+    <nav class="glass-panel centered-nav" style="position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(255, 255, 255, 0.8); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(58, 123, 213, 0.1); display: flex; justify-content: center; align-items: center; padding: 10px 0;">
+        <ul style="display: flex; list-style: none; gap: 20px; margin: 0; padding: 0;">
+            <li><a href="../index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">HOME</a></li>
+            <li><a href="../ai-guide/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">AI-GUIDE</a></li>
+            <li><a href="../models/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">MODELS</a></li>
+            <li><a href="../Tools/index_en.html" style="color: var(--accent-blue); text-decoration: none; font-weight: bold;">TOOLS</a></li>
+            <li><a href="../creative/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">GALLERY</a></li>
+        </ul>
+    </nav>
 
     <!-- Language Toggle -->
-    <div style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
-        <a href="../index.html"
-            style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: var(--text-main); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; transition: background 0.3s, transform 0.2s; display: inline-block;">
+    <div style="position: absolute; top: 20px; right: 20px; z-index: 1100;">
+        <a href="index.html"
+            style="background: rgba(58, 123, 213, 0.1); border: 1px solid rgba(58, 123, 213, 0.2); color: var(--text-main); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; transition: background 0.3s, transform 0.2s; display: inline-block;">
             🌐 Japanese
         </a>
     </div>
 
-    <nav class="glass-panel centered-nav">
-        <div class="logo">Noa Seraphim Project</div>
-        <ul class="nav-links">
-            <li><a href="../index.html">HOME</a></li>
-            <li><a href="../Games/index.html">GAMES</a></li>
-            <li><a href="../image-song/index.html">IMAGE SONGS</a></li>
-        </ul>
-    </nav>
+    <div class="container">
+        <!-- Breadcrumbs -->
+        <nav aria-label="Breadcrumb" style="margin-bottom: 30px;">
+            <ol style="display:flex; justify-content:center; list-style:none; padding:0; gap:10px; font-size:0.9rem;">
+                <li><a href="../index_en.html" style="color:var(--accent-blue); text-decoration:none;">Home</a></li>
+                <li style="color: var(--text-muted); border-left: 2px solid rgba(255,255,255,0.1); padding-left: 10px;" aria-current="page">Tools</li>
+            </ol>
+        </nav>
 
-    <div class="main-layout" style="margin-top: 100px;">
-        <section class="section-dense">
-            <div class="section-header">
-                <h2>TOOLS & UTILITIES</h2>
-                <div class="header-deco"></div>
+        <header class="page-header">
+            <h1>Tools & Utilities</h1>
+            <p style="color: var(--text-muted);">Exclusive tools to optimize your AI generation and streaming experience.</p>
+        </header>
+
+        <!-- Tool 1: Noaplugin -->
+        <div class="tool-card" style="border-left: 4px solid var(--accent-blue);">
+            <div class="tool-tag">Extension</div>
+            <div class="tool-icon"><i class="fas fa-puzzle-piece" style="color: var(--accent-blue);"></i></div>
+            <h2>Noaplugin Downloader</h2>
+            <p>A powerful browser extension for stress-free video downloading from anime streaming sites.</p>
+            
+            <h4 style="margin-top: 30px;"><i class="fas fa-terminal"></i> Installation Guide</h4>
+            <ul class="step-list">
+                <li><div class="step-number">1</div> Download the zip and extract the folder.</li>
+                <li><div class="step-number">2</div> Open <code>chrome://extensions/</code> in your browser.</li>
+                <li><div class="step-number">3</div> Enable "Developer mode" in the top right.</li>
+                <li><div class="step-number">4</div> Click "Load unpacked" and select the extension folder.</li>
+            </ul>
+            
+            <a href="./Noaplugin.zip" class="btn-download btn-blue"><i class="fas fa-file-archive"></i> Download Noaplugin.zip</a>
+        </div>
+
+        <!-- Tool 2: AI Spec -->
+        <div class="tool-card" style="border-left: 4px solid var(--accent-green);">
+            <div class="tool-tag" style="background: rgba(16, 185, 129, 0.2); color: var(--accent-green);">Script</div>
+            <div class="tool-icon"><i class="fas fa-microchip" style="color: var(--accent-green);"></i></div>
+            <h2>AI Spec Checker</h2>
+            <p>A Python script to diagnose if your PC can handle Local AI. Instantly checks VRAM and CUDA compatibility.</p>
+            
+            <div style="background: rgba(16, 185, 129, 0.05); padding: 20px; border-radius: 12px; margin-top: 20px; border: 1px solid rgba(16, 185, 129, 0.2);">
+                <p style="font-size: 0.9rem;"><i class="fas fa-info-circle"></i> Requires Python. Run <code>python system_info.py</code> from your terminal.</p>
             </div>
+            
+            <a href="./system_info.py" class="btn-download btn-green"><i class="fas fa-file-code"></i> Download system_info.py</a>
+        </div>
 
-            <div class="glass-panel profile-detailed" style="margin-top: 20px;">
-                <h3 style="color: #00d2ff; font-size: 1.8rem; margin-bottom: 5px;">Noaplugin (Browser Extension)</h3>
+        <!-- Tool 3: Sanctuary -->
+        <div class="tool-card" style="border-left: 4px solid var(--accent-red);">
+            <div class="tool-tag" style="background: rgba(244, 63, 94, 0.2); color: var(--accent-red);">Ultimate</div>
+            <div class="tool-icon"><i class="fas fa-shield-halved" style="color: var(--accent-red);"></i></div>
+            <h2>Sanctuary Environment Check</h2>
+            <p>The ultimate diagnostic suite to determine if high-end models like FLUX.1 or Llama 3 will run smoothly on your hardware.</p>
+            
+            <a href="./system_info_sanctuary.zip" class="btn-download btn-red"><i class="fas fa-bolt"></i> Download Sanctuary</a>
+        </div>
 
-                <div class="bio-text" style="margin-top: 15px;">
-                    <p style="font-size: 1.2rem; font-weight: bold; color: #ff69b4; margin-bottom: 10px;">
-                        [Click here to download Erotic Anime Chocolat, favhentai]
-                    </p>
-                    <p>This plugin is an extension exclusively for Chrome and Edge browsers.<br>
-                        Supports video downloads from target sites.</p>
-                </div>
-
-                <div
-                    style="margin-top: 30px; padding: 25px; background: rgba(0, 0, 0, 0.4); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.2);">
-                    <h4 style="color: #fff; margin-bottom: 15px; font-size: 1.3rem;">🚀 Installation instructions</h4>
-                    <ol style="color: #ddd; line-height: 1.8; margin-left: 20px; font-size: 1.1rem;">
-                        <li>from the button below <strong>Noaplugin.zip</strong> Download and extract (unzip) the folder.</li>
-                        <li>in the browser address bar <code>chrome://extensions/</code> (or <code>edge://extensions/</code>)
-                            Open the extension page by typing .</li>
-                        <li>top right <strong>"Developer mode"</strong> Turn on.</li>
-                        <li>top left <strong>"Load unpackaged extensions"</strong> Click.</li>
-                        <li>included in the unzipped <strong>Noaplugin</strong> Select a folder and load it.</li>
-                    </ol>
-                    <div style="margin-top: 30px; text-align: center;">
-                        <a href="./Noaplugin.zip" class="hub-link-btn"
-                            style="font-size: 1.3rem; padding: 15px 40px; display: inline-block; font-weight: bold;"
-                            download>
-                            ⬇ Download Noaplugin.zip
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 新しく追加したPythonツールのセクション -->
-            <div class="glass-panel profile-detailed" style="margin-top: 40px;">
-                <h3 style="color: #10b981; font-size: 1.8rem; margin-bottom: 5px;">AI appropriate spec tool (Python)</h3>
-
-                <div class="bio-text" style="margin-top: 15px;">
-                    <p>This is a dedicated script that scans your PC environment and diagnoses whether it is suitable for local AI (image generation, LLM, etc.).<br>
-                        You can see at a glance the configuration of your PC, VRAM, and CUDA availability on the terminal.</p>
-                </div>
-
-                <div
-                    style="margin-top: 30px; padding: 25px; background: rgba(0, 0, 0, 0.4); border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.3);">
-                    <h4 style="color: #facc15; margin-bottom: 15px; font-size: 1.3rem;">⚠️ Notes on execution</h4>
-                    <ul style="color: #ddd; line-height: 1.8; margin-left: 20px; font-size: 1.1rem;">
-                        <li>This tool <strong>Python script</strong> (.py)
-                            It is. To run in a Windows environment,<strong>Installing Python itself</strong>is required.</li>
-                        <li>After downloading, from command prompt or PowerShell <code>python system_info.py</code> Please enter and execute.</li>
-                        <li>It is recommended that the terminal character code is UTF-8 before execution.</li>
-                    </ul>
-                    <div style="margin-top: 30px; text-align: center;">
-                        <a href="./system_info.py" class="hub-link-btn"
-                            style="font-size: 1.3rem; padding: 15px 40px; display: inline-block; font-weight: bold; background: linear-gradient(135deg, #10b981, #059669); border-color: #10b981;"
-                            download>
-                            ⬇ Download system_info.py
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 新しく追加したSanctuary環境チェックツール -->
-            <div class="glass-panel profile-detailed" style="margin-top: 40px;">
-                <h3 style="color: #f43f5e; font-size: 1.8rem; margin-bottom: 5px;">AI environment simple check tool (Sanctuary)</h3>
-
-                <div class="bio-text" style="margin-top: 15px;">
-                    <p style="font-size: 1.25rem; font-weight: bold; color: #fbbf24; margin-bottom: 10px;">
-                        [Ultimate function! Thoroughly diagnose whether "cutting-edge local AI" works on your PC in an instant! ! ]
-                    </p>
-                    <p><strong>Stable Diffusion 1.5, SDXL, latest FLUX.1</strong> From ultra-high quality image generation AI such as<br>
-                        <strong>Llama 3、Gemma、Gemma 2、Qwen</strong> Even the topic of large-scale language models (LLM)!<br>
-                        All kinds of local AI that amazes the world can be created using your PC specifications.<span
-                            style="color: #f43f5e; font-weight: bold;">“Does it really move comfortably?”</span>Determine with ultra-precision!
-                    </p>
-                    <p style="margin-top: 10px; color: #a78bfa;">With this one thing, you can completely eliminate your worries about introducing AI! Download now and unleash the hidden power of your PC!
-                    </p>
-                </div>
-
-                <div
-                    style="margin-top: 30px; padding: 25px; background: rgba(0, 0, 0, 0.4); border-radius: 12px; border: 1px solid rgba(244, 63, 94, 0.3);">
-                    <div style="text-align: center;">
-                        <a href="./system_info_sanctuary.zip" class="hub-link-btn"
-                            style="font-size: 1.3rem; padding: 15px 40px; display: inline-block; font-weight: bold; background: linear-gradient(135deg, #f43f5e, #be123c); border-color: #f43f5e; box-shadow: 0 4px 15px rgba(244, 63, 94, 0.3);"
-                            download>
-                            ⬇ Download the Sanctuary diagnostic tool
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-        </section>
     </div>
 
-    <footer>
-        <p>&copy; 2026 Noa Seraphim Project.</p>
+    <footer style="background: rgba(255, 255, 255, 0.8); border-top: 1px solid rgba(58, 123, 213, 0.1);">
+        <p>&copy; 2026 Noa Seraphim Project - Technical Utilities</p>
     </footer>
 
     <script src="../script.js"></script>

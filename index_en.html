@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noa Seraphim Project</title>
+    <title>Noa AI Labs | Local AI Image Generation & Stable Diffusion Guide</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="A beginner's guide to AI image generation using Stable Diffusion, ComfyUI, and Local LLMs. Explore model comparisons (Checkpoints, LoRA), local environment setup, and prompt research logs.">
+    <meta name="keywords" content="Local AI, Stable Diffusion, ComfyUI, LoRA, AI Image Generation, Checkpoint">
+    
     <meta name="google-site-verification" content="r1U9FsT1YekGk3y4mFhZQKngudtZtlhWyXQwjUta8rw" />
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,100 +28,102 @@
 
         gtag('config', 'G-HFB5ECR6DM');
     </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://noaailabs.com/"
+    }
+  ]
+}
+</script>
+    <!-- Simple overrides for better readability on new sections -->
+    <style>
+        .ai-explain-box h3 {
+            color: var(--primary-cyan, #00d2ff);
+            border-bottom: 2px solid rgba(58, 123, 213, 0.3);
+            padding-bottom: 5px;
+            margin-top: 25px;
+            font-size: 1.3rem;
+        }
+
+        .ai-explain-box p,
+        .ai-explain-box ul {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #0f172a;
+        }
+
+        .ai-explain-box li {
+            margin-bottom: 8px;
+        }
+
+        .keyword-highlight {
+            font-weight: bold;
+            color: #0284c7;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            bottom: -5%;
+            right: -5%;
+            width: 35%;
+            height: 55%;
+            background-image: url('web_image/image_00001_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: bottom right;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 10%;
+            left: -5%;
+            width: 25%;
+            height: 45%;
+            background-image: url('web_image/image_00002_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: top left;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
 </head>
 
 <body>
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <!-- Language Toggle -->
-    <div style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
-        <a href="./index.html"
-            style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: var(--text-main); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; transition: background 0.3s, transform 0.2s; display: inline-block;">
-            🌐 日本語
-        </a>
-    </div>
-
-    <nav class="glass-panel centered-nav">
-        <div class="logo">Noa Seraphim Project</div>
-        <ul class="nav-links">
-            <li><a href="#hero">HOME</a></li>
-
-            <!-- GAMES Dropdown -->
-            <li class="dropdown">
-                <a href="#games-section" class="dropdown-btn">GAMES ▼</a>
-                <div class="dropdown-content">
-                    <a href="./Games/future-city-game_pro/index.html">
-                        <div>
-                            <div>Code: SERAPHIM</div>
-                            <span class="dropdown-description">Destiny Choice RPG</span>
-                        </div>
-                    </a>
-                    <a href="./Games/Seraphim_Growth_Project/index.html">
-                        <div>
-                            <div>Growth Project</div>
-                            <span class="dropdown-description">Raising Sim (v6.0)</span>
-                        </div>
-                    </a>
-                    <a href="./Games/future-city-game/index.html">
-                        <div>
-                            <div>Future City Proto</div>
-                            <span class="dropdown-description">Dev Prototype</span>
-                        </div>
-                    </a>
-                </div>
-            </li>
-
-            <!-- PROFILE Dropdown -->
-            <li class="dropdown">
-                <a href="#profile-section" class="dropdown-btn">PROFILE ▼</a>
-                <div class="dropdown-content">
-                    <a href="#profile-section">Basic Info</a>
-                    <a href="./image-song/index.html">
-                        <div>
-                            <div>Image Songs</div>
-                            <span class="dropdown-description">Visual & Audio Gallery</span>
-                        </div>
-                    </a>
-                    <a href="#social-section">Social Media</a>
-                </div>
-            </li>
-
-            <!-- TOOLS Dropdown -->
-            <li class="dropdown">
-                <a href="#tools-section" class="dropdown-btn">TOOLS ▼</a>
-                <div class="dropdown-content">
-                    <a href="./Tools/index.html">
-                        <div>
-                            <div>Noaplugin</div>
-                            <span class="dropdown-description">Downloader Extension</span>
-                        </div>
-                    </a>
-                </div>
-            </li>
-
-            <!-- FAILURE Dropdown -->
-            <li class="dropdown">
-                <a href="#failure-section" class="dropdown-btn">FAILURE ▼</a>
-                <div class="dropdown-content">
-                    <a href="./Failure_Yet_Alive/index.html">
-                        <div>
-                            <div>Failure_Yet_Alive</div>
-                            <span class="dropdown-description">Rejected Concepts</span>
-                        </div>
-                    </a>
-                </div>
-            </li>
+    <nav class="glass-panel centered-nav" style="position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: center; align-items: center; padding: 10px 0;">
+        <ul style="display: flex; list-style: none; gap: 20px; margin: 0; padding: 0;">
+            <li><a href="./index_en.html" style="color: #38bdf8; text-decoration: none; font-weight: bold;">HOME</a></li>
+            <li><a href="./ai-guide/index_en.html" style="color: white; text-decoration: none; font-weight: bold;">AI-GUIDE</a></li>
+            <li><a href="./models/index_en.html" style="color: white; text-decoration: none; font-weight: bold;">MODELS</a></li>
+            <li><a href="./Tools/index_en.html" style="color: white; text-decoration: none; font-weight: bold;">TOOLS</a></li>
+            <li><a href="./creative/index_en.html" style="color: white; text-decoration: none; font-weight: bold;">GALLERY</a></li>
         </ul>
     </nav>
+    <div style="height: 60px;"></div>
 
     <div class="main-layout">
         <header id="hero" class="hero-compact">
             <div class="hero-left">
-                <h1 class="bounce-text">Noa Seraphim</h1>
-                <p class="hero-subtitle">Savior of the Cyber World - Kawaii & Infinite</p>
+                <h1 class="bounce-text" style="font-size: 2.2rem; margin-bottom: 10px;">Local AI Image Gen<br>& Stable Diffusion Guide</h1>
+                <p class="hero-subtitle">Noa AI Labs - Research & Development</p>
                 <p class="hero-subtitle" style="font-size: 1rem; color: var(--text-color); margin-top: 5px;">AI
-                    illustration tools and LoRA gallery by Noa Seraphim.</p>
+                    illustration tools, Checkpoints and LoRA gallery.</p>
                 <div class="social-list horizontal-list" style="margin-top: 15px;">
                     <a href="https://x.com/isuzu_ayan76331" target="_blank" class="social-row x-row"
                         style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 20px;">
@@ -136,119 +143,120 @@
             <div class="hero-center" style="display: none;"></div>
 
             <div class="hero-right">
-                <img src="./assets/images/character.png" alt="Noa Seraphim" class="hero-mini-char floating-anim">
+                <img src="./web_image/image_00049_.png" alt="Noa Seraphim" class="hero-mini-char floating-anim">
             </div>
-
-            <div
-                style="width: 100%; text-align: center; margin-top: 40px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-                <a href="./ai-checkpoints/index.html"
-                    style="display: inline-block; padding: 12px 30px; background: linear-gradient(135deg, #10b981, #059669); color: white; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); transition: transform 0.3s ease;">
-                    ✨ Checkpoints Gallery ✨
-                </a>
-                <a href="./ai-tools/index.html"
-                    style="display: inline-block; padding: 12px 30px; background: linear-gradient(135deg, var(--primary-cyan), #0ea5e9); color: white; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4); transition: transform 0.3s ease;">
-                    ✨ AI Tools & LoRA Gallery ✨
-                </a>
-            </div>
-
-            <!-- AI Content Links (Nested Box Structure) -->
-            <div style="width: 100%; margin-top: 40px;">
-                <div class="glass-panel"
-                    style="padding: 30px; border-radius: 16px; border: 1px solid rgba(56, 189, 248, 0.4); text-align: left;">
-                    <h2
-                        style="font-size: 1.8rem; margin-top: 0; margin-bottom: 20px; color: var(--text-main); text-align: center; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 10px;">
-                        <span style="color: var(--primary-cyan);">■</span> AI Knowledge & Future Topics <span
-                            style="color: var(--primary-cyan);">■</span>
-                    </h2>
-
-                    <!-- Inner Box: ComfyUI Highlight -->
-                    <div
-                        style="background: rgba(16, 185, 129, 0.15); border: 2px solid #10b981; border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.2); text-align: center; position: relative; overflow: hidden;">
-                        <div
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, transparent, #10b981, transparent);">
-                        </div>
-                        <h3 style="color: #10b981; font-size: 1.5rem; margin-top: 0; margin-bottom: 10px;">✨ Essential
-                            ComfyUI Custom Nodes ✨</h3>
-                        <p style="color: var(--text-main); font-size: 0.95rem; margin-bottom: 20px;">
-                            A curated list of powerful workflow tools to dramatically improve image generation
-                            efficiency and quality.</p>
-                        <a href="./ai-ComfyUI/index.html"
-                            style="display: inline-block; padding: 12px 40px; background: linear-gradient(135deg, #059669, #10b981); color: white; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.5); transition: transform 0.3s ease;">
-                            View the ComfyUI Nodes List ➤
-                        </a>
-                    </div>
-
-                    <!-- Inner Box: Other AI Articles -->
-                    <div
-                        style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 20px;">
-                        <p
-                            style="font-weight: bold; margin-top: 0; margin-bottom: 15px; color: #94a3b8; text-align: center; font-size: 0.9rem;">
-                            📚 Other AI-Related Resources</p>
-                        <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
-                            <a href="./ai-specs/index.html"
-                                style="color: #38bdf8; text-decoration: none; font-size: 0.95rem; font-weight: bold; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 8px 15px; border-radius: 8px; transition: background 0.2s;">
-                                AI PC Specs
-                            </a>
-                            <a href="./ai-character/index.html"
-                                style="color: #38bdf8; text-decoration: none; font-size: 0.95rem; font-weight: bold; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 8px 15px; border-radius: 8px; transition: background 0.2s;">
-                                AI Character Theory
-                            </a>
-                            <a href="./ai-girlfriend/index.html"
-                                style="color: #38bdf8; text-decoration: none; font-size: 0.95rem; font-weight: bold; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 8px 15px; border-radius: 8px; transition: background 0.2s;">
-                                Future of AI Girlfriends
-                            </a>
-                            <a href="./ai-personality/index.html"
-                                style="color: #38bdf8; text-decoration: none; font-size: 0.95rem; font-weight: bold; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 8px 15px; border-radius: 8px; transition: background 0.2s;">
-                                Mechanisms of AI Personality
-                            </a>
-                            <a href="./ai-dialogue/index.html"
-                                style="color: #38bdf8; text-decoration: none; font-size: 0.95rem; font-weight: bold; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 8px 15px; border-radius: 8px; transition: background 0.2s;">
-                                AI Dialogue Systems
-                            </a>
-                            <a href="./ai-waifu/index.html"
-                                style="color: #38bdf8; text-decoration: none; font-size: 0.95rem; font-weight: bold; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 8px 15px; border-radius: 8px; transition: background 0.2s;">
-                                AI Waifu Culture
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
+            
+            <!-- Decorative Ornament -->
+            <div class="image-ornament ornament-float" style="width: 120px; height: 120px; top: -20px; left: -30px;">
+                <img src="./assets/images/ornament_1.png" style="width:100%; height:100%; object-fit:cover;">
             </div>
         </header>
 
-        <!-- 4. TOOLS SECTION (Moved up) -->
-        <section id="tools-section" class="section-dense">
+        <!-- ABOUT SECTION -->
+        <section id="about" class="section-dense">
             <div class="section-header">
-                <h2>TOOLS & UTILITIES</h2>
+                <h2>What is AI Image Generation? (Beginner's Guide)</h2>
                 <div class="header-deco"></div>
-                <a href="./Tools/index.html" class="hub-link-btn">View All Tools ➤</a>
             </div>
+
+            <div class="glass-panel profile-detailed ai-explain-box"
+                style="padding: 30px; background: rgba(255, 255, 255, 0.7); border-radius: 20px;">
+                <p style="margin-bottom: 20px;">
+                    <span class="keyword-highlight">AI Image Generation</span> is a magical technology where AI automatically generates illustrations or photos just by entering text (prompts).<br>
+                    This site provides detailed guides on how to use limit-free <span class="keyword-highlight">Local AI</span> that runs on your own computer, rather than cloud services.
+                </p>
+
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <a href="./ai-guide/index_en.html"
+                        style="display: inline-block; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 15px 40px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 1.3rem; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); transition: transform 0.2s, box-shadow 0.2s;"
+                        onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(16, 185, 129, 0.6)';"
+                        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(16, 185, 129, 0.4)';">
+                        <i class="fas fa-book-open"></i> AI Guide Hub Here
+                    </a>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <a href="./ai-guide/sd-install/index_en.html" style="display: block; background: rgba(255,255,255,0.5); padding: 25px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); text-decoration: none; color: inherit; transition: transform 0.2s, box-shadow 0.2s, background 0.2s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(58,123,213,0.15)'; this.style.background='rgba(255,255,255,0.8)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'; this.style.background='rgba(255,255,255,0.5)';" class="hover-card">
+                        <h3 style="margin-top: 0; color: #3b82f6; border-bottom: 2px solid rgba(59, 130, 246, 0.3); padding-bottom: 5px;">Stable Diffusion Installation</h3>
+                        <p style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 0;">The most famous AI image generator. Start here to create stunning and attractive images.</p>
+                    </a>
+                    <a href="./ai-guide/comfyui-install/index_en.html" style="display: block; background: rgba(255,255,255,0.5); padding: 25px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); text-decoration: none; color: inherit; transition: transform 0.2s, box-shadow 0.2s, background 0.2s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(168,85,247,0.15)'; this.style.background='rgba(255,255,255,0.8)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'; this.style.background='rgba(255,255,255,0.5)';" class="hover-card">
+                        <h3 style="margin-top: 0; color: #a855f7; border-bottom: 2px solid rgba(168, 85, 247, 0.3); padding-bottom: 5px;">ComfyUI Installation</h3>
+                        <p style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 0;">Extremely lightweight and flexible next-gen tool. Essential for power users to use various AI in workflow format.</p>
+                    </a>
+                    <a href="./ai-guide/local-llm-install/index_en.html" style="display: block; background: rgba(255,255,255,0.5); padding: 25px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); text-decoration: none; color: inherit; transition: transform 0.2s, box-shadow 0.2s, background 0.2s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(16,185,129,0.15)'; this.style.background='rgba(255,255,255,0.8)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'; this.style.background='rgba(255,255,255,0.5)';" class="hover-card">
+                        <h3 style="margin-top: 0; color: #10b981; border-bottom: 2px solid rgba(16, 185, 129, 0.3); padding-bottom: 5px;">Local LLM Installation</h3>
+                        <p style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 0;">Enjoy unlimited AI chat on your own PC. It's like having the world's knowledge right on your computer.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORIES SECTION -->
+        <section id="categories" class="section-dense">
+            <div class="section-header">
+                <h2>Stable Diffusion Recommended Models & Setup (Categories)</h2>
+                <div class="header-deco"></div>
+            </div>
+
             <div class="games-hub-grid">
-                <!-- Tool 1: Downloader -->
-                <a href="./Tools/index.html" class="game-hub-card hover-pop">
-                    <div class="card-bg" style="background-image: url('./assets/images/promo_3.jpg');"></div>
+                <!-- ComfyUI -->
+                <a href="./Tools/ai-ComfyUI/index_en.html" class="game-hub-card hover-pop">
+                    <div class="card-bg" style="background-image: url('./web_image/image_00027_.png');"></div>
                     <div class="card-content">
-                        <span class="badge dev-badge">EXTENSION</span>
-                        <h3>Noaplugin Downloader</h3>
-                        <p class="sub-title">Anime Video Downloader</p>
-                        <p class="desc">Fully supports sites like EroAnime Chocolat and favhentai! A stress-free custom
-                            browser extension for saving videos.</p>
-                        <span class="play-btn">GET TOOL ➤</span>
+                        <span class="badge dev-badge">WORKFLOW</span>
+                        <h3>ComfyUI Guide</h3>
+                        <p class="sub-title">Efficient Node Building</p>
+                        <p class="desc">Introduction of essential custom nodes and workflow explanations for comfortable image generation.</p>
+                        <span class="play-btn">VIEW DETAILS ➤</span>
                     </div>
                 </a>
 
-                <!-- Tool 2: AI Checker -->
-                <a href="./Tools/index.html" class="game-hub-card hover-pop" style="border-color: #f43f5e;">
-                    <div class="card-bg"
-                        style="background-image: url('./assets/images/promo_2.jpg'); filter: hue-rotate(300deg);"></div>
+                <!-- Checkpoint -->
+                <a href="./models/ai-checkpoints/index_en.html" class="game-hub-card hover-pop">
+                    <div class="card-bg" style="background-image: url('./web_image/image_00028_.png');"></div>
                     <div class="card-content">
-                        <span class="badge love-badge" style="background: linear-gradient(45deg, #f43f5e, #be123c);">AI
-                            DIAGNOSTICS</span>
-                        <h3>AI Environment Checker</h3>
-                        <p class="sub-title">PC Specs Diagnosis</p>
-                        <p class="desc">From Stable Diffusion to the latest LLMs (Llama, etc)! The ultimate tool to
-                            instantly check if local AI runs on your PC.</p>
-                        <span class="play-btn">DOWNLOAD ➤</span>
+                        <span class="badge" style="background: #10b981; color: white;">MODELS</span>
+                        <h3>Checkpoint Comparison</h3>
+                        <p class="sub-title">Top Base Models</p>
+                        <p class="desc">Verifying output results of various Checkpoints. Easy comparison of styles and features.</p>
+                        <span class="play-btn">VIEW DETAILS ➤</span>
+                    </div>
+                </a>
+
+                <!-- LoRA -->
+                <a href="./models/ai-lora/loras_en.html" class="game-hub-card hover-pop">
+                    <div class="card-bg" style="background-image: url('./web_image/image_00029_.png');"></div>
+                    <div class="card-content">
+                        <span class="badge" style="background: #a855f7; color: white;">CUSTOMIZE</span>
+                        <h3>LoRA Gallery</h3>
+                        <p class="sub-title">Style & Outfit Application</p>
+                        <p class="desc">Classification and explanation of LoRA that change images. Categorized by effective usage.</p>
+                        <span class="play-btn">VIEW DETAILS ➤</span>
+                    </div>
+                </a>
+
+                <!-- Embeddings -->
+                <a href="./models/ai-embeddings/index_en.html" class="game-hub-card hover-pop">
+                    <div class="card-bg" style="background-image: url('./web_image/image_00030_.png');"></div>
+                    <div class="card-content">
+                        <span class="badge" style="background: #ec4899; color: white;">MAGIC TOOL</span>
+                        <h3>Embeddings Top</h3>
+                        <p class="sub-title">Compress long prompts in one word</p>
+                        <p class="desc">A collection of useful items that dramatically simplify prompt input, such as hand fixers and style changers.</p>
+                        <span class="play-btn">VIEW DETAILS ➤</span>
+                    </div>
+                </a>
+
+                <!-- VAE -->
+                <a href="./models/ai-vae/index_en.html" class="game-hub-card hover-pop">
+                    <div class="card-bg" style="background-image: url('./web_image/image_00031_.png');"></div>
+                    <div class="card-content">
+                        <span class="badge" style="background: #0ea5e9; color: white;">COLOR & TONE</span>
+                        <h3>VAE Reference</h3>
+                        <p class="sub-title">Control clarity and density</p>
+                        <p class="desc">A list of recommended VAEs by base model to solve color casting and NaN errors.</p>
+                        <span class="play-btn">VIEW DETAILS ➤</span>
                     </div>
                 </a>
             </div>
@@ -294,12 +302,13 @@
                     </div>
 
                     <div class="bio-text" style="margin-top: 20px;">
-                        <p>An electronic angel born as the self-cleaning mechanism of the cyber world "Eden Server".
-                            Originally a security program designed to eradicate viruses, she awoke to "emotions" and
-                            "ego" upon encountering human culture (especially anime and games).</p>
-                        <p>Currently claiming to be the "Savior of the Cyber World", she enjoys interacting with
-                            humanity through streaming and game development. Her wings are variable and can transform
-                            into blades during combat.</p>
+                        <p>An electronic angel born as the self-cleaning mechanism of the cyber world "Eden Server". Originally a security program designed to eradicate viruses, she awoke to "emotions" and "ego" upon encountering human culture (especially anime and games).</p>
+                        <p>Currently claiming to be the "Savior of the Cyber World", she enjoys interacting with humanity through streaming and game development. Her wings are variable and can transform into blades during combat.</p>
+                    </div>
+
+                    <!-- Decorative Ornament -->
+                    <div class="image-ornament ornament-float" style="width: 130px; height: 130px; bottom: -30px; left: -40px; animation-delay: -4s;">
+                        <img src="./assets/images/ornament_3.png" style="width:100%; height:100%; object-fit:cover;">
                     </div>
                 </div>
 
@@ -397,7 +406,7 @@
 
         <div class="secret-link-container" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
             <!-- Failure Archive -->
-            <a href="./Failure_Yet_Alive/index.html" class="secret-card">
+            <a href="./creative/Failure_Yet_Alive/index_en.html" class="secret-card">
                 <div class="secret-thumb">
                     <img src="./assets/images/failure_thumb.jpg" alt="???">
                     <div class="secret-overlay">
@@ -409,7 +418,7 @@
             </a>
 
             <!-- Nora's Tweets (Secret Blog) -->
-            <a href="./Nora_Tweets/index.html" class="secret-card" style="border-color: #9370db;">
+            <a href="./creative/Nora_Tweets/index_en.html" class="secret-card" style="border-color: #9370db;">
                 <div class="secret-thumb">
                     <div class="secret-overlay" style="background: rgba(20, 0, 30, 0.9);">
                         <h3>Nora's Tweets</h3>

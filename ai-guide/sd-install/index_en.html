@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stable Diffusion Installation Guide for Beginners | Noa Seraphim</title>
+    <meta name="description" content="Step-by-step guide to installing Stable Diffusion WebUI on your own PC. Generate unlimited AI images for free.">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://noaailabs.com/index_en.html"
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "AI Guide",
+        "item": "https://noaailabs.com/ai-guide/index_en.html"
+      },{
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Stable Diffusion Guide",
+        "item": "https://noaailabs.com/ai-guide/sd-install/index_en.html"
+      }]
+    }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-light: #f0f9ff;
+            --bg-card: rgba(255, 255, 255, 0.7);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --accent: #3a7bd5;
+            --accent-glow: rgba(58, 123, 213, 0.2);
+            --gradient: linear-gradient(135deg, #3a7bd5, #00d2ff);
+            --glass: rgba(255, 255, 255, 0.7);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg-light);
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            color: var(--text-main);
+            line-height: 1.8;
+            background-attachment: fixed;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            bottom: -5%;
+            left: -5%;
+            width: 30%;
+            height: 50%;
+            background-image: url('../../web_image/image_00009_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: bottom left;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 10%;
+            right: -5%;
+            width: 25%;
+            height: 45%;
+            background-image: url('../../web_image/image_00010_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: top right;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 100px auto 40px auto;
+            padding: 0 20px;
+        }
+
+        .guide-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px 40px;
+        }
+
+        .guide-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 60px 40px;
+            background: rgba(30, 41, 59, 0.6);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 32px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .guide-header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 25px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px var(--accent-glow));
+        }
+
+        .spec-box {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            padding: 35px;
+            border-radius: 24px;
+            margin: 40px 0;
+            border-left: 6px solid var(--accent);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .spec-box h3 {
+            color: var(--accent);
+            margin-top: 0;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .spec-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0 0;
+        }
+
+        .spec-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .spec-list li i { color: #10b981; }
+
+        .section {
+            background: var(--glass);
+            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(58, 123, 213, 0.05);
+        }
+
+        .step-badge {
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            background: var(--gradient);
+            color: white;
+            font-weight: 800;
+            padding: 8px 25px;
+            border-radius: 50px;
+            box-shadow: 0 10px 20px var(--accent-glow);
+        }
+
+        .step-card h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 15px 0 25px;
+            color: var(--text-main);
+        }
+
+        .alert-box {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid #ef4444;
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            margin: 25px 0;
+            display: flex;
+            gap: 15px;
+            color: #fca5a5;
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--gradient);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            margin: 20px 0;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px var(--accent-glow);
+        }
+
+        .btn-download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px var(--accent-glow);
+        }
+
+        .code-block {
+            background: #0a1120;
+            color: #10b981;
+            padding: 20px;
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            margin: 25px 0;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            position: relative;
+        }
+
+        .copy-hint {
+            position: absolute;
+            top: 8px;
+            right: 15px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .important-point {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 25px;
+            border-radius: 16px;
+            margin: 25px 0;
+        }
+
+        .important-point strong {
+            color: #10b981;
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .conclusion {
+            text-align: center;
+            padding: 60px 40px;
+            background: rgba(16, 185, 129, 0.05);
+            border-radius: 32px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            margin-top: 80px;
+        }
+
+        .conclusion h2 {
+            font-size: 2.22rem;
+            color: #10b981;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .guide-header h1 { font-size: 2rem; }
+            .step-card { padding: 30px 20px; }
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HFB5ECR6DM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HFB5ECR6DM');
+    </script>
+</head>
+
+<body>
+    <nav class="glass-panel centered-nav" style="position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(255, 255, 255, 0.8); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(58, 123, 213, 0.1); display: flex; justify-content: center; align-items: center; padding: 10px 0;">
+        <ul style="display: flex; list-style: none; gap: 20px; margin: 0; padding: 0;">
+            <li><a href="../../index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">HOME</a></li>
+            <li><a href="../../ai-guide/index_en.html" style="color: var(--accent); text-decoration: none; font-weight: bold;">AI-GUIDE</a></li>
+            <li><a href="../../models/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">MODELS</a></li>
+            <li><a href="../../Tools/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">TOOLS</a></li>
+            <li><a href="../../creative/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">GALLERY</a></li>
+        </ul>
+    </nav>
+    <div style="height: 60px;"></div>
+
+    <div class="guide-container">
+        <!-- Breadcrumbs -->
+        <nav aria-label="Breadcrumb" style="margin-bottom: 30px;">
+            <ol style="display:flex; justify-content:center; list-style:none; padding:0; gap:10px; font-size:0.9rem;">
+                <li><a href="../../index_en.html" style="color:var(--accent); text-decoration:none;">Home</a></li>
+                <li style="color: var(--text-muted); border-left: 2px solid rgba(255,255,255,0.1); padding-left: 10px;"><a href="../index_en.html" style="color:var(--text-muted); text-decoration:none;">AI Guide</a></li>
+                <li style="color: var(--text-main); border-left: 2px solid rgba(255,255,255,0.1); padding-left: 10px;" aria-current="page">Stable Diffusion</li>
+            </ol>
+        </nav>
+
+        <div class="guide-header">
+            <h1>【Free AI】<br>Stable Diffusion WebUI<br>Beginner's Install Guide</h1>
+            <p class="subtitle">Generate magic-like images on your own PC. A comprehensive walkthrough for setting up your local environment.</p>
+        </div>
+
+        <div class="spec-box">
+            <h3><i class="fas fa-desktop"></i> Requirements (Recommended)</h3>
+            <ul class="spec-list">
+                <li><i class="fab fa-windows"></i> <strong>OS:</strong> Windows 10 / 11</li>
+                <li><i class="fas fa-microchip"></i> <strong>GPU:</strong> NVIDIA GeForce RTX Series (Required)</li>
+                <li><i class="fas fa-memory"></i> <strong>VRAM:</strong> 8GB+ (12GB+ recommended)</li>
+                <li><i class="fas fa-hdd"></i> <strong>SSD:</strong> 50GB+ free space</li>
+            </ul>
+        </div>
+
+        <div class="step-card">
+            <div class="step-badge">STEP 1</div>
+            <h2>Install Python</h2>
+            <p>Prepare the foundation for running the AI.</p>
+            <div class="alert-box">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>Important: You MUST use version <strong>3.10.6</strong>. Newer versions may cause errors.</div>
+            </div>
+            <a href="https://www.python.org/downloads/release/python-3106/" target="_blank" class="btn-download"><i class="fas fa-download"></i> Python 3.10.6 Official Site</a>
+            <div class="important-point">
+                <strong><i class="fas fa-check-circle"></i> Crucial Step</strong>
+                When the installer starts, make sure to check <strong>"Add Python 3.10 to PATH"</strong>.
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-badge">STEP 2</div>
+            <h2>Install Git</h2>
+            <p>A tool to download and update the latest AI software.</p>
+            <a href="https://git-scm.com/download/win" target="_blank" class="btn-download" style="--gradient: linear-gradient(135deg, #f97316, #ea580c);"><i class="fas fa-download"></i> Official Git for Windows</a>
+            <p>Keep all installer options as default (click Next until finished).</p>
+        </div>
+
+        <div class="step-card">
+            <div class="step-badge">STEP 3</div>
+            <h2>Download Stable Diffusion</h2>
+            <p>Deploy the entire system with a single command. Create a folder, type `cmd` in the address bar, and run the following:</p>
+            <div class="code-block">
+                <div class="copy-hint">Copy command</div>
+                git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-badge">STEP 4</div>
+            <h2>First Time Startup</h2>
+            <p>Run <strong>`webui-user.bat`</strong> inside the downloaded folder.</p>
+            <p>The first launch will download several GBs of data. Depending on your connection, this may take 15-30 minutes.</p>
+            <p>The setup is successful when you see <code>Running on local URL: http://127.0.0.1:7860</code> in the window.</p>
+        </div>
+
+        <div class="conclusion">
+            <h2>🎉 Setup Complete!</h2>
+            <p>Congratulations! Your personal AI image generation environment is ready.</p>
+            <p>From here, you can add "Checkpoints" for different art styles or "LoRA" for specific characters to create your ideal artwork.</p>
+            <a href="../../index_en.html" class="nav-pill" style="margin-top: 20px;">Return to Home</a>
+        </div>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2026 Noa Seraphim Project - AI Creative Labs</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../../script.js"></script>
+</body>
+
+</html>

@@ -19,6 +19,26 @@ body {
     /* Darker text for light bg */
     font-family: 'Nunito', sans-serif;
     min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Watermark Background */
+body::before {
+    content: "";
+    position: fixed;
+    top: 10%;
+    right: -5%;
+    width: 60%;
+    height: 80%;
+    background-image: url('assets/images/watermark.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: -1;
+    filter: grayscale(100%);
 }
 
 /* Navigation */
@@ -85,9 +105,7 @@ body {
 .hero-compact {
     display: flex;
     flex-wrap: wrap;
-    /* CRITICAL FIX: Allow wrapping */
     justify-content: center;
-    /* Center content when wrapped */
     align-items: center;
     background: rgba(255, 255, 255, 0.6);
     border-radius: 30px;
@@ -95,10 +113,24 @@ body {
     margin-bottom: 30px;
     position: relative;
     overflow: hidden;
-    /* Ensure content doesn't spill */
     border: 3px solid white;
-    box-shadow: 0 10px 30px rgba(255, 182, 193, 0.4);
+    box-shadow: 0 10px 30px rgba(58, 123, 213, 0.2);
     gap: 20px;
+}
+
+.hero-compact::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('web_image/image_00044_.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.15; /* Subtly faded background */
+    z-index: 0;
+    pointer-events: none;
 }
 
 .hero-left {
@@ -133,8 +165,9 @@ body {
 .bounce-text {
     font-size: 2.2rem;
     margin: 0;
-    background: linear-gradient(to right, #00d2ff, #3a7bd5);
+    background: linear-gradient(135deg, var(--primary-cyan), #0ea5e9);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     font-family: 'M PLUS Rounded 1c', sans-serif;
     filter: drop-shadow(1px 1px 0px white);
@@ -709,3 +742,38 @@ footer {
     }
 }
 
+/* Decorative Image Ornaments */
+.image-ornament {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+    border-radius: 20px;
+    border: 4px solid white;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.ornament-float {
+    animation: ornamentFloat 6s ease-in-out infinite;
+}
+
+@keyframes ornamentFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+.hero-compact {
+    position: relative;
+}
+
+/* Adjustments for better visual hierarchy */
+.section-dense {
+    position: relative;
+    z-index: 2;
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}

@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official Image Songs | Noa Seraphim</title>
+    <meta name="description" content="ノア・セラフィムの世界を彩る旋律。AIと人間の共作による公式イメージソング集です。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "ホーム",
+        "item": "https://noaailabs.com/index.html"
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "ギャラリー",
+        "item": "https://noaailabs.com/creative/index.html"
+      },{
+        "@type": "ListItem",
+        "position": 3,
+        "name": "イメージソング",
+        "item": "https://noaailabs.com/creative/image-song/index.html"
+      }]
+    }
+    </script>
+    <style>
+        :root {
+            --bg-light: #f0f9ff;
+            --bg-card: rgba(255, 255, 255, 0.7);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --accent: #3a7bd5;
+            --accent-glow: rgba(58, 123, 213, 0.2);
+            --gradient: linear-gradient(135deg, #e11d48, #fb7185);
+            --glass: rgba(255, 255, 255, 0.7);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg-light);
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            color: var(--text-main);
+            line-height: 1.6;
+            background-attachment: fixed;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            bottom: -5%;
+            left: -5%;
+            width: 30%;
+            height: 50%;
+            background-image: url('../../web_image/image_00023_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: bottom left;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 10%;
+            right: -5%;
+            width: 25%;
+            height: 45%;
+            background-image: url('../../web_image/image_00024_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: top right;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        header {
+            text-align: center;
+            padding: 80px 20px 60px;
+            background: transparent;
+            border-bottom: 1px solid rgba(58, 123, 213, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin: 0 0 10px 0;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 8px var(--accent-glow));
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .song-container {
+            max-width: 900px;
+            margin: 50px auto 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .song-card {
+            background: var(--glass);
+            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(58, 123, 213, 0.05);
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+
+        .song-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(58, 123, 213, 0.1);
+            border-color: rgba(58, 123, 213, 0.4);
+        }
+
+        .song-title {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin: 0 0 10px 0;
+            font-weight: 800;
+        }
+
+        .song-date {
+            text-align: right;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        .song-description {
+            text-align: left;
+            font-size: 0.95rem;
+            margin-top: 20px;
+            color: var(--text-main);
+            line-height: 1.7;
+            white-space: pre-wrap;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(58, 123, 213, 0.05);
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: 2px solid white;
+            color: white;
+            font-weight: 800;
+            font-size: 1.2rem;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .song-card:hover .play-overlay {
+            background: var(--accent);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        footer {
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-top: 1px solid rgba(58, 123, 213, 0.1);
+            text-align: center;
+        }
+
+        .footer-copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HFB5ECR6DM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HFB5ECR6DM');
+</script>
+</head>
+
+<body>
+    <nav class="glass-panel centered-nav" style="position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(255, 255, 255, 0.8); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(58, 123, 213, 0.1); display: flex; justify-content: center; align-items: center; padding: 10px 0;">
+        <ul style="display: flex; list-style: none; gap: 20px; margin: 0; padding: 0;">
+            <li><a href="../../index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">HOME</a></li>
+            <li><a href="../../ai-guide/index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">AI-GUIDE</a></li>
+            <li><a href="../../models/index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">MODELS</a></li>
+            <li><a href="../../Tools/index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">TOOLS</a></li>
+            <li><a href="../../creative/index.html" style="color: #3a7bd5; text-decoration: none; font-weight: bold;">GALLERY</a></li>
+        </ul>
+    </nav>
+    <div style="height: 60px;"></div>
+
+    <!-- Language Toggle -->
+    <div style="position: absolute; top: 20px; right: 20px; z-index: 1100;">
+        <a href="index_en.html"
+            style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: var(--text-main); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; transition: background 0.3s, transform 0.2s; display: inline-block;">
+            🌐 English
+        </a>
+    </div>
+
+    <header>
+        <div class="container">
+            <!-- Breadcrumbs -->
+            <nav aria-label="Breadcrumb" style="margin-bottom: 20px;">
+                <ol style="display:flex; justify-content:center; list-style:none; padding:0; gap:10px; font-size:0.9rem;">
+                    <li><a href="../../index.html" style="color:var(--accent); text-decoration:none;">ホーム</a></li>
+                    <li style="color: var(--text-muted); border-left: 2px solid rgba(255,255,255,0.1); padding-left: 10px;"><a href="../index.html" style="color:var(--text-muted); text-decoration:none;">ギャラリー</a></li>
+                    <li style="color: var(--text-main); border-left: 2px solid rgba(255,255,255,0.1); padding-left: 10px;" aria-current="page">イメージソング</li>
+                </ol>
+            </nav>
+            <h1>Official Image Songs</h1>
+            <p class="subtitle">ノア・セラフィムの世界を彩る旋律</p>
+            <div style="margin-top: 25px;">
+                <a href="limited.html"
+                    style="color: white; border: 1px solid var(--accent); padding: 8px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; font-size: 0.9rem; transition: background 0.3s;">
+                    View Limited Releases (限定公開へ)
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="song-container">
+        <!-- 15. NoaSeraphim_WhiteSilk_Udon_Flow -->
+        <a href="https://youtu.be/6UqZ1Zqutu4" target="_blank" class="song-card">
+            <h2 class="song-title">NoaSeraphim_WhiteSilk_Udon_Flow</h2>
+            <div style="position: relative; overflow: hidden; border-radius: 12px;">
+                <img src="https://img.youtube.com/vi/6UqZ1Zqutu4/hqdefault.jpg" alt="Video Thumbnail" style="width: 100%; display: block;">
+                <div class="play-overlay">▶ PLAY</div>
+            </div>
+            <div class="song-description">🥢✨ 心の隙間を埋める「一杯」を求めているあなたへ。
+優しくて、透き通った癒やしの音を届けます🎶
+
+この曲のイメージは、凍えるような寒い夜、ふと立ち寄った店で立ち上る真っ白な湯気。
+飾らない、真っ白で力強い「うどん」のコシと温かさを音に込めました😤
+
+派手なご馳走ではないけれど👇
+🍜 シンプルだからこそ
+💎 嘘をつけない純粋な味がある
+
+そんな、心の底からホッとする「安心感」をテクノに昇華しました。</div>
+            <div class="song-date">公開日：2025/12/19</div>
+        </a>
+
+        <!-- 16. NoaSeraphim_Solo_Gyudon_Horizon -->
+        <a href="https://youtu.be/CXo013NLyWw" target="_blank" class="song-card">
+            <h2 class="song-title">NoaSeraphim_Solo_Gyudon_Horizon</h2>
+            <div style="position: relative; overflow: hidden; border-radius: 12px;">
+                <img src="https://img.youtube.com/vi/CXo013NLyWw/hqdefault.jpg" alt="Video Thumbnail" style="width: 100%; display: block;">
+                <div class="play-overlay">▶ PLAY</div>
+            </div>
+            <div class="song-description">🍱🌌 都会という名のジャングルで戦うすべての人へ。
+魂を奮い立たせる、静かなるパワーソングを捧げます。
+
+早い、安い、美味い。
+それだけじゃない。牛丼というどんぶりの中には、僕たちの「情熱」と「物語」が詰まっているんだ😤
+
+カウンターの端に座って👇
+🍚 目の前のどんぶりと一対一で向き合う瞬間
+そこはもう、誰にも邪魔されない僕だけの聖域（テリトリー）🌌</div>
+            <div class="song-date">公開日：2025/12/19</div>
+        </a>
+
+        <!-- 17. NoaSeraphim_Midnight_Ramen_Kick -->
+        <a href="https://youtu.be/Xwl7v2pIUuE" target="_blank" class="song-card">
+            <h2 class="song-title">NoaSeraphim_Midnight_Ramen_Kick</h2>
+            <div style="position: relative; overflow: hidden; border-radius: 12px;">
+                <img src="https://img.youtube.com/vi/Xwl7v2pIUuE/hqdefault.jpg" alt="Video Thumbnail" style="width: 100%; display: block;">
+                <div class="play-overlay">▶ PLAY</div>
+            </div>
+            <div class="song-description">🍜🔥 背徳感。それは最高のスパイス。
+深夜の衝動を音にぶつけました！⚡️
+
+この曲で言いたいのは「理屈抜きで、今すぐ食べたい！」っていうあの直感的な感覚です。
+
+計算されたスープのコクと👇
+💥 ガツンと来る低音（Low Kick）。これ、完璧なマリアージュだと思わない！？😂</div>
+            <div class="song-date">公開日：2025/12/19</div>
+        </a>
+
+        <!-- 18. NoaSeraphim_Celestial_Sushi_Art -->
+        <a href="https://youtu.be/zY-RCnqzn7Y" target="_blank" class="song-card">
+            <h2 class="song-title">NoaSeraphim_Celestial_Sushi_Art</h2>
+            <div style="position: relative; overflow: hidden; border-radius: 12px;">
+                <img src="https://img.youtube.com/vi/zY-RCnqzn7Y/hqdefault.jpg" alt="Video Thumbnail" style="width: 100%; display: block;">
+                <div class="play-overlay">▶ PLAY</div>
+            </div>
+            <div class="song-description">🍣✨ 鮮度と色彩。それは日本の至宝。
+最高にクリアで、気高い一曲ができました。
+
+お寿司ってさ👇
+🎨 まるで小さなアート作品だよね！？✨
+職人が一貫一貫に込めた繊細な技を、天界の歌声（Choir Pad）のような音色に乗せて、美しく、儚く描き出しました。</div>
+            <div class="song-date">公開日：2025/12/19</div>
+        </a>
+
+        <!-- 1. NoaSeraphim_FallenInbox‗portraitt　：　ノアセラフィム_堕ちた受信箱（ショート） -->
+        <a href="https://www.youtube.com/watch?v=wmmA9-GhkQQ" target="_blank" class="song-card">
+            <h2 class="song-title">NoaSeraphim_FallenInbox‗portraitt　：　ノアセラフィム_堕ちた受信箱（ショート）</h2>
+            <div style="position: relative; overflow: hidden; border-radius: 12px;">
+                <img src="https://img.youtube.com/vi/wmmA9-GhkQQ/hqdefault.jpg" alt="Video Thumbnail"
+                    style="width: 100%; display: block;">
+                <div class="play-overlay">▶ PLAY</div>
+            </div>
+            <div class="song-description">📩🚫 迷惑DMに困っているすべての人へ
+                この曲を捧げます🎶🔥
+
+                この曲で言いたいのは
+                DMだけの話じゃありません。
+                📞 電話
+                📧 メール
+                全部ひっくるめての話です😤
+
+                迷惑DMってさ😇💥
+                いつまで経っても止まらないよね！？
+                しかも👇
+                📩 DMだけじゃなくて
+                📞 スマホの電話も
+                基本「出ない」案件😂
+
+                だってさ、
+                👥 友達からの連絡は
+                💬 LINEとか
+                💻 Discordで来るもんでしょ！？
+
+                というわけで結論👇
+                🚫📨 迷惑メール＆迷惑DM
+                ほんとに大嫌いです。僕は。
+                😤🔥
+
+                この曲に共感した人は
+                きっともう
+                🤝📵 通知オフ仲間 ですね😂
+
+                そんな気持ちを
+                そのまま音にしました🎧✨
+                作業用BGMとしてもどうぞ！
+
+                #ノア・セラフィム #オリジナルソング #OriginalSong #テクノ #AI活用</div>
+            <div class="song-date">公開日：2025/12/17</div>
+        </a>
+
+        <!-- 2. NoaSeraphim_FallenInbox　：　ノアセラフィム_堕ちた受信箱 -->
+        <a href="https://www.youtube.com/watch?v=Ytirfo0nj88" target="_blank" class="song-card">
+            <h2 class="song-title">NoaSeraphim_FallenInbox　：　ノアセラフィム_堕ちた受信箱</h2>
+            <div style="position: relative; overflow: hidden; border-radius: 12px;">
+                <img src="https://img.youtube.com/vi/Ytirfo0nj88/hqdefault.jpg" alt="Video Thumbnail"
+                    style="width: 100%; display: block;">
+                <div class="play-overlay">▶ PLAY</div>
+            </div>
+            <div class="song-description">迷惑DMってさ😇💥
+                いつまで経っても止まらないよね！
+                しかも
+                📩DMだけじゃなくて
+                📞スマホの電話も基本出ない案件！
+
+                だってさ
+                👥友達からの連絡は
+                💬LINEとか💻Discordで来るもん！
+
+                というわけで結論👇
+                🚫📨**迷惑メール＆迷惑DM ほんとに大嫌いです、僕は。**😤🔥
+
+                共感した人、
+                きっと通知オフ仲間🤝📵</div>
+            <div class="song-date">公開日：2025/12/17</div>
+        </a>
+
+        <!-- 3. NoaSeraphim_Beyond2D‗portraitt　：　ノアセラフィム_二次元の彼方（ショート） -->
+        <a href="https://www.youtube.com/watch?v=7Xypkt3Oz2s" target="_blank" class="song-card">
+            <h2 class="song-title">NoaSeraphim_Beyond2D‗portraitt　：　ノアセラフィム_二次元の彼方（ショート）</h2>
+            <div style="position: relative; overflow: hidden; border-radius: 12px;">
+                <img src="https://img.youtube.com/vi/7Xypkt3Oz2s/hqdefault.jpg" alt="Video Thumbnail"
+                    style="width: 100%; display: block;">
+                <div class="play-overlay">▶ PLAY</div>
+            </div>
+            <div class="song-description">人生ってさ🤔💭
+                僕は最終的に
+                二次元にたどり着くものだと思うんだよね📺✨
+
+                きっと
+                🎯二次元こそが人生のゴール
+                🚪そして人は二次元へ向かう…
+
+                そんな気持ちを
+                🎶✨曲にしてみました✨🎶
+
+                共感した人は
+                もう半分くらい
+                二次元に足突っ込んでる説😇💖</div>
+            <div class="song-date">公開日：2025/12/17</div>
+        </a>
+
+        <!-- 4. NoaSeraphim_Beyond2D　：　ノアセラフィム_二次元の彼方 -->
+        <a href="https://www.youtube.com/watch?v=AyAI9X5kAKI" target="_blank" class="song-card">
+            <h2 class="song-title">NoaSeraphim_Beyond2D　：　ノアセラフィム_二次元の彼方</h2>
+            <div style="position: relative; overflow: hidden; border-radius: 12px;">
+                <img src="https://img.youtube.com/vi/AyAI9X5kAKI/hqdefault.jpg" alt="Video Thumbnail"
+                    style="width: 100%; display: block;">
+                <div class="play-overlay">▶ PLAY</div>
+            </div>
+            <div class="song-description">🎌✨ 二次元が大好きなすべての人へ
+                捧ぐ一曲です 🎶
+
+                僕、長く生きてきたんだけどさ…
+                人生って結局🤔💭
+                最終的に二次元にたどり着く
+                そんな気がしてるんだよね📺✨
+
+                きっと――
+                🎯 二次元こそが人生のゴール
+                🚪 そして人は二次元へ向かう…
+
+                そんな妄想と本音を
+                🎶✨ 音にしてみました ✨🎶
+
+                もしこの曲に
+                「わかる…」って思った人は👇
+                😇💖 もう半分くらい
+                二次元に足突っ込んでる説、あります。
+
+                今日も現実を生きつつ
+                心は二次元へ…
+                そんな気分で聴いてもらえたら嬉しいです🎧✨
+
+                #ノア・セラフィム #オリジナルソング #OriginalSong #テクノ #AI活用</div>
+            <div class="song-date">公開日：2025/12/17</div>
+        </a>
+
+        <!-- 5. Japan–Taiwan Friendship　：　日台友好 -->
+        <a href="https://www.youtube.com/watch?v=P36RqXGWvHU" target="_blank" class="song-card glass-panel"
+            style="display: block; text-decoration: none; position: relative;">
+            <h2 class="song-title">Japan–Taiwan Friendship　：　日台友好</h2>
+            <p class="song-subtitle">N/A</p>
+            <div style="position: relative; overflow: hidden; border-radius: 10px;">
+                <img src="https://img.youtube.com/vi/P36RqXGWvHU/hqdefault.jpg" alt="Video Thumbnail"
+                    style="width: 100%; display: block;">
+                <div
+                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); padding: 15px 25px; border-radius: 50px; border: 2px solid white;">
+                    <span style="color: white; font-size: 24px;">▶ PLAY</span>
+                </div>
+            </div>
+            <div class="song-description">🎶🌏 最近、
+                日本と台湾の関係を見ていて
+                なんだか心があたたかくなって☺️
+                その気持ちのまま、曲を作りました。
+
+                僕は
+                🤝 仲がいい人
+                🤍 思いやりを持てる関係
+                そういうつながりが、ただただ好きです。
+
+                だからこの曲には
+                難しい主張よりも
+                「好き」「大切」「ありがとう」
+                そんな気持ちを込めています✨
+
+                🇯🇵 日本語の想い
+                🌊 海を越えて心をつなぐ、日台友好
+                😊 文化と笑顔が行き交う、日本と台湾の絆
+                🤍 支え合い、尊重し合う日台の友情
+                🍜🎵💻 食・音楽・技術でつながる日台の未来
+                📍 近くて遠く、遠くて近い。だからこそ大切な日台友好
+
+                🇹🇼 台湾語（台語）の想い
+                ※ 表記：繁体字（台湾で一般的）＋ローマ字（POJ寄り）
+                🌊 跨過海洋，連結心靈的日台友誼
+                😊 文化佮笑容來來去去的日本佮台灣
+                🤝 互相尊重，做伙行的日台關係
+                🍽️🎶💻 用食物、音樂、技術連結的日台未來
+                💎 看起來近，嘛真遠；所以更加珍貴的日台友誼
+
+                音楽は言葉が違っても
+                気持ちはちゃんと届くと信じています🎧✨
+
+                この曲が
+                誰かの心を少しだけあたためられたら
+                それだけで嬉しいです❤</div>
+            <div class="song-date">公開日：2025/12/17</div>
+        </a>
+
+        <!-- 6. NoaSeraphimInAnAgeTooFast【速すぎる時代に生きるノアセラフィム】 -->
+        <a href="https://www.youtube.com/watch?v=__PRiSsfqE0" target="_blank" class="song-card glass-panel"
+            style="display: block; text-decoration: none; position: relative;">
+            <h2 class="song-title">NoaSeraphimInAnAgeTooFast【速すぎる時代に生きるノアセラフィム】</h2>
+            <p class="song-subtitle">N/A</p>
+            <div style="position: relative; overflow: hidden; border-radius: 10px;">
+                <img src="https://img.youtube.com/vi/__PRiSsfqE0/hqdefault.jpg" alt="Video Thumbnail"
+                    style="width: 100%; display: block;">
+                <div
+                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); padding: 15px 25px; border-radius: 50px; border: 2px solid white;">
+                    <span style="color: white; font-size: 24px;">▶ PLAY</span>
+                </div>
+            </div>
+            <div class="song-description">🚀💻 最近の技術進歩、
+                正直… 速すぎない？😵‍💫
+
+                🔄 アプデしたと思ったら
+                もう次のアプデ。
+                「昨日覚えたやつどこ行った？」状態😂
+
+                機能は増えるけど
+                理解は追いつかないまま💥
+
+                そんな
+                🤯 置いていかれる感覚
+                😮‍💨 ついていくのに必死な毎日
+
+                このモヤモヤを
+                そのまま
+                音にしました🎶
+
+                でも安心して🙌✨
+                進歩が速すぎて
+                ついていけなくても大丈夫。
+                🤫 みんな
+                分かってる顔してるだけで
+                実は同じところで詰まってます😂
+
+                「自分だけじゃなかったんだ」
+                そう思いながら
+                気楽に聴いてもらえたら嬉しいです🎧✨
+
+                #ノア・セラフィム #オリジナルソング #OriginalSong #テクノ #AI活用</div>
+            <div class="song-date">公開日：2025/12/17</div>
+        </a>
+
+        <!-- 7. Honesty Is Required When Using AI　ー　AIを使うなら正直さを欠くな -->
+        <a href="https://www.youtube.com/watch?v=m2sVbhEICBU" target="_blank" class="song-card glass-panel"
+            style="display: block; text-decoration: none; position: relative;">
+            <h2 class="song-title">Honesty Is Required When Using AI　ー　AIを使うなら正直さを欠くな</h2>
+            <p class="song-subtitle">N/A</p>
+            <div style="position: relative; overflow: hidden; border-radius: 10px;">
+                <img src="https://img.youtube.com/vi/m2sVbhEICBU/hqdefault.jpg" alt="Video Thumbnail"
+                    style="width: 100%; display: block;">
+                <div
+                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); padding: 15px 25px; border-radius: 50px; border: 2px solid white;">
+                    <span style="color: white; font-size: 24px;">▶ PLAY</span>
+                </div>
+            </div>
+            <div class="song-description">🤖🔥 僕は AI使い です。
+
+                この楽曲は、
+                同じAI使いに向けて
+                はっきりメッセージを投げるための音楽です。
+
+                🤫 AIを使っていることを隠し
+                ✍️ まるで自分だけの創作のように見せて
+                💰 お金を稼ぐ行為に、疑問を投げかけます。
+
+                誤解しないでほしい。
+                💸 お金を取ることが悪いとは言いません。
+
+                でも、
+                🤖 AIが作ったならAIが作ったと言おう。
+
+                それだけの話です。
+
+                AIは魔法じゃない。
+                ズルのための道具でもない。
+                創作を広げるための「道具」です。
+
+                だからこそ
+                使う側の 姿勢 が問われる。
+
+                この音楽は、
+                そのことを伝えるために鳴らしています🎶⚡
+
+                #ノア・セラフィム #オリジナルソング #OriginalSong #テクノ #AI活用</div>
+            <div class="song-date">公開日：2025/12/17</div>
+        </a>
+
+        <!-- 8. Beyond Lolita Expectations　：　ロリという期待の、その先へ　―　ノアセラフィム -->
+        <a href="https://www.youtube.com/watch?v=SOatU61-GT8" target="_blank" class="song-card glass-panel"
+            style="display: block; text-decoration: none; position: relative;">
+            <h2 class="song-title">Beyond Lolita Expectations　：　ロリという期待の、その先へ　―　ノアセラフィム</h2>
+            <p class="song-subtitle">2:37</p>
+            <div style="position: relative; overflow: hidden; border-radius: 10px;">
+                <img src="https://img.youtube.com/vi/SOatU61-GT8/hqdefault.jpg" alt="Video Thumbnail"
+                    style="width: 100%; display: block;">
+                <div
+                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); padding: 15px 25px; border-radius: 50px; border: 2px solid white;">
+                    <span style="color: white; font-size: 24px;">▶ PLAY</span>
+                </div>
+            </div>
+            <div class="song-description">🔹 Noa（ノア）
+                安らぎ・慰め・平和 という意味を持つ名前
+                旧約聖書のノア（箱舟）由来で
+                👉 混乱の中でも生き延び、次の世界へ進む存在
+                中性的で、子供にも大人にも見える曖昧さがある名前
+
+                🔹 Seraphim（セラフィム）
+                最上位の天使（熾天使）
+                「燃える者」「純粋な炎」を意味する存在
+                神に最も近く、幼さではなく“完成された存在
+
+                なので！
+
+                🔹 Noa Seraphim 全体の意味
+                👉 「安らぎを与える、完成された天使」
+                「もう成長を終えた存在」
+
+                つまり、
+                見た目は可愛く・無垢に見えても
+                本質は
+                子供ではない
+                見下される存在でも、守られるだけの存在でもない
+                大人で、意志を持った天使
+
+                それが
+                ノアセラフィム。</div>
+            <div class="song-date">公開日：2025/12/15</div>
+        </a>
+
+        <!-- 9. Beyond Childhood Noa Seraphim　―　 幼さを越えたノアセラフィム -->
+        <a href="https://www.youtube.com/watch?v=twxVo_qXw4Y" target="_blank" class="song-card glass-panel"
+            style="display: block; text-decoration: none; position: relative;">
+            <h2 class="song-title">Beyond Childhood Noa Seraphim　―　 幼さを越えたノアセラフィム</h2>
+            <p class="song-subtitle">N/A</p>
+            <div style="position: relative; overflow: hidden; border-radius: 10px;">
+                <img src="https://img.youtube.com/vi/twxVo_qXw4Y/hqdefault.jpg" alt="Video Thumbnail"
+                    style="width: 100%; display: block;">
+                <div
+                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); padding: 15px 25px; border-radius: 50px; border: 2px solid white;">
+                    <span style="color: white; font-size: 24px;">▶ PLAY</span>
+                </div>
+            </div>
+            <div class="song-description">ノア・セラフィムがもう子供じゃないんだと主張している音楽です！
+                僕には子供に見えますが？</div>
+            <div class="song-date">公開日：2025/12/14</div>
+        </a>
+
+        <!-- 10. Like Noa Seraphim? Congrats, you probably like loli vibes.　：　ノアセラフィム好き？おめでとう、ロリ系好きですね -->
+        <a href="https://www.youtube.com/watch?v=Y0ROQwBmzu4" target="_blank" class="song-card glass-panel"
+            style="display: block; text-decoration: none; position: relative;">
+            <h2 class="song-title">Like Noa Seraphim? Congrats, you probably like loli vibes.　：　ノアセラフィム好き？おめでとう、ロリ系好きですね
+            </h2>
+            <p class="song-subtitle">4:31</p>
+            <div style="position: relative; overflow: hidden; border-radius: 10px;">
+                <img src="https://img.youtube.com/vi/Y0ROQwBmzu4/hqdefault.jpg" alt="Video Thumbnail"
+                    style="width: 100%; display: block;">
+                <div
+                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); padding: 15px 25px; border-radius: 50px; border: 2px solid white;">
+                    <span style="color: white; font-size: 24px;">▶ PLAY</span>
+                </div>
+            </div>
+            <div class="song-description">僕はこのAIとは相性が良くないようだ、思ったように画像が生成されない。あとで静止画ですがオリジナルもアップします。</div>
+            <div class="song-date">公開日：2025/12/14</div>
+        </a>
+
+        <!-- 11. Noa Seraphim – Echoes of Creation　：　　創世の残響、ノア・セラフィム -->
+        <a href="https://www.youtube.com/watch?v=nvVvs7TJivw" target="_blank" class="song-card glass-panel"
+            style="display: block; text-decoration: none; position: relative;">
+            <h2 class="song-title">Noa Seraphim – Echoes of Creation　：　　創世の残響、ノア・セラフィム</h2>
+            <p class="song-subtitle">N/A</p>
+            <div style="position: relative; overflow: hidden; border-radius: 10px;">
+                <img src="https://img.youtube.com/vi/nvVvs7TJivw/hqdefault.jpg" alt="Video Thumbnail"
+                    style="width: 100%; display: block;">
+                <div
+                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); padding: 15px 25px; border-radius: 50px; border: 2px solid white;">
+                    <span style="color: white; font-size: 24px;">▶ PLAY</span>
+                </div>
+            </div>
+            <div class="song-description">🤖✨ AIに作らせた
+                「ノア・セラフィム（Noa Seraphim）」
+                ――意味は
+                👑 最高位天使セラフィムの名を冠した高貴な存在
+                👼🔥
+
+                このフレーズが
+                気に入りすぎてしまい😂
+                気づいたら
+                ノア・セラフィム関連の動画ばっかり作ってます🎶
+
+                そして今回はなんと…
+                🎤 ひたすら「ノア・セラフィム」と言ってるだけ！
+                それだけです！笑🤣
+
+                本当は
+                🎥 AIで動画生成したかったんですが
+                💸 お金が尽きたので…
+                今回は 静止画 でお届けします🙏😇
+
+                それでも
+                雰囲気やノリを楽しんでもらえたら嬉しいです✨
+
+                #ノア・セラフィム #オリジナルソング #OriginalSong #テクノ #AI活用</div>
+            <div class="song-date">公開日：2025/12/14</div>
+        </a>
+
+        <!-- 12. ノア・セラフィム ― 光浄化プロトコル【Noa Seraphim The Cleansing of Light】 -->
+        <a href="https://www.youtube.com/watch?v=_CIr42fezro" target="_blank" class="song-card glass-panel"
+            style="display: block; text-decoration: none; position: relative;">
+            <h2 class="song-title">ノア・セラフィム ― 光浄化プロトコル【Noa Seraphim The Cleansing of Light】</h2>
+            <p class="song-subtitle">N/A</p>
+            <div style="position: relative; overflow: hidden; border-radius: 10px;">
+                <img src="https://img.youtube.com/vi/_CIr42fezro/hqdefault.jpg" alt="Video Thumbnail"
+                    style="width: 100%; display: block;">
+                <div
+                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); padding: 15px 25px; border-radius: 50px; border: 2px solid white;">
+                    <span style="color: white; font-size: 24px;">▶ PLAY</span>
+                </div>
+            </div>
+            <div class="song-description">🛁✨ ノア・セラフィムがお風呂掃除しているイメージ画像 です 🧽🫧
+
+                ガチ設定というよりは…
+                「お風呂掃除しながら聴いてたら
+                ちょっとテンション上がるかも？🤔🎶」
+                くらいのノリで作ってます😂
+
+                日常作業のお供に
+                🎧 ノリよく
+                🧼 気分よく
+                ぜひ流してみてください✨
+
+                #ノア・セラフィム #オリジナルソング #OriginalSong #テクノ #AI活用</div>
+            <div class="song-date">公開日：2025/12/13</div>
+        </a>
+
+        <!-- 14. 熾天使の狂乱 -->
+        <a href="https://www.youtube.com/watch?v=D3ugNkP94WM" target="_blank" class="song-card glass-panel"
+            style="display: block; text-decoration: none; position: relative;">
+            <h2 class="song-title">熾天使の狂乱</h2>
+            <p class="song-subtitle">N/A</p>
+            <div style="position: relative; overflow: hidden; border-radius: 10px;">
+                <img src="https://img.youtube.com/vi/D3ugNkP94WM/hqdefault.jpg" alt="Video Thumbnail"
+                    style="width: 100%; display: block;">
+                <div
+                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); padding: 15px 25px; border-radius: 50px; border: 2px solid white;">
+                    <span style="color: white; font-size: 24px;">▶ PLAY</span>
+                </div>
+            </div>
+            <div class="song-description">🎶✨ 「熾天使の強襲」別バージョン ✨🎶
+                こちらは
+                前作とは雰囲気を変えた
+                🌙🎧 おとなしく、落ち着いた曲調 になっています。
+
+                同じ世界観を持ちながらも
+                静かに広がる音と感情を
+                じっくり味わってもらえるアレンジです😌✨
+
+                ぜひ
+                🔥 原曲との聴き比べ
+                🎵 バージョン違いの空気感
+                どちらも楽しんでみてください！
+
+                #ノア・セラフィム #オリジナルソング #OriginalSong #テクノ #AI活用</div>
+            <div class="song-date">公開日：2025/12/13</div>
+        </a>
+
+        <div style="text-align: center;">
+            <a href="../../index.html" class="back-btn">RETURN TO HOME</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Noa Seraphim Project.</p>
+    </footer>
+
+    <script src="../../script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,218 @@
+/* Dark Secret Theme - Standardized */
+:root {
+    --bg-dark: #0f172a;
+    --bg-card: #1e293b;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent: #a855f7;
+    --accent-glow: rgba(168, 85, 247, 0.4);
+    --gradient: linear-gradient(135deg, #7e22ce, #a855f7);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    line-height: 1.8;
+}
+
+/* Glass Panel Utility */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* LOGIN GATE */
+.gate-container {
+    height: calc(100vh - 60px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+}
+
+.login-box {
+    padding: 60px 40px;
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    box-shadow: 0 0 50px var(--accent-glow);
+}
+
+.login-box h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: 0;
+    letter-spacing: 4px;
+}
+
+.login-box p {
+    color: var(--text-muted);
+    margin-bottom: 30px;
+}
+
+.login-box input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px;
+    margin-bottom: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    text-align: center;
+    font-size: 1.2rem;
+    border-radius: 12px;
+    transition: border-color 0.3s;
+}
+
+.login-box input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.login-box button {
+    width: 100%;
+    padding: 15px;
+    background: var(--gradient);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 1rem;
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.login-box button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px var(--accent-glow);
+}
+
+.error-text {
+    color: #ef4444;
+    font-weight: 600;
+    margin-top: 15px;
+    min-height: 1.5em;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 25px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.back-link:hover {
+    color: var(--accent);
+}
+
+/* BLOG CONTENT */
+.blog-header {
+    background: rgba(15, 23, 42, 0.9);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px 0;
+    text-align: center;
+}
+
+.header-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.blog-header h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 0;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+    display: block;
+}
+
+.home-btn {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 800;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 25px;
+    border-radius: 50px;
+    transition: background 0.3s;
+}
+
+.home-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* POSTS */
+.posts-grid {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.post-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.post-image {
+    width: 100%;
+    display: block;
+}
+
+.post-meta {
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.post-title {
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+.post-date {
+    font-family: monospace;
+    color: var(--text-muted);
+}
+
+footer {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}

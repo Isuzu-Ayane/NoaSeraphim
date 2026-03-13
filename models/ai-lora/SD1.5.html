@@ -1,0 +1,2930 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>おすすめLoRAモデル一覧と比較 | SD1.5対応 - Noa AI Labs</title>
+<meta content="Stable Diffusionで使えるおすすめLoRAモデルをカテゴリ別（Flux, SDXL, SD1.5, Pony, Illustriousなど）に一覧化。アニメ調からリアル系まで、各LoRAの特徴やAI画像の生成出力サンプルを比較・解説しています。" name="description"/>
+<meta content="LoRA, Stable Diffusion, おすすめ, AI画像生成, SD1.5, ローカルAI, モデル比較" name="keywords"/>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&amp;family=Nunito:wght@400;800&amp;display=swap" rel="stylesheet"/>
+<link href="../../styles.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "SD1.5 LoRAモデル一覧 - Noa AI Labs",
+      "description": "Stable Diffusionで使えるおすすめLoRAモデルをカテゴリ別（SD1.5）に一覧化。アニメ調からリアル系まで、各LoRAの特徴やAI画像の生成出力サンプルを比較・解説しています。",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ホーム",
+          "item": "https://noaailabs.com/"
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "name": "MODELS",
+          "item": "https://noaailabs.com/models/ai-checkpoints/index.html"
+        },{
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SD1.5 LoRA",
+          "item": "https://noaailabs.com/models/ai-lora/SD1.5.html"
+        }]
+      }
+    }
+    </script>
+<style>
+        :root {
+            --bg-light: #f0f9ff;
+            --bg-card: rgba(255, 255, 255, 0.7);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary-cyan: #3a7bd5;
+            --glass: rgba(255, 255, 255, 0.7);
+            --gradient: linear-gradient(135deg, #3a7bd5, #00d2ff);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg-light);
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            color: var(--text-main);
+            line-height: 1.8;
+            background-attachment: fixed;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            bottom: -5%;
+            left: -5%;
+            width: 30%;
+            height: 50%;
+            background-image: url('../../web_image/image_00025_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: bottom left;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 10%;
+            right: -5%;
+            width: 25%;
+            height: 45%;
+            background-image: url('../../web_image/image_00026_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: top right;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .lora-container {
+            max-width: 1400px;
+            margin: 100px auto 40px auto;
+            padding: 0 20px;
+        }
+
+        .lora-section {
+            margin-bottom: 60px;
+        }
+
+        .lora-section h2 {
+            border-bottom: 2px solid;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Grid Layout */
+        .lora-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        /* Card Design */
+        .lora-card {
+            background: var(--glass);
+            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(58, 123, 213, 0.05);
+        }
+
+        .lora-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(58, 123, 213, 0.15);
+            border-color: rgba(58, 123, 213, 0.4);
+        }
+
+        .lora-card-img {
+            width: 100%;
+            height: 200px;
+            background: #1a1a2e;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .lora-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            cursor: pointer;
+        }
+
+        .lora-card:hover .lora-card-img img {
+            object-fit: contain;
+            transform: scale(1);
+            background-color: #000;
+        }
+
+        .lora-card-img::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .lora-card-content {
+            padding: 18px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .lora-name {
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 1.1rem;
+            word-break: break-all;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .lora-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .lora-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            flex-grow: 1;
+            border-left: 3px solid rgba(255, 255, 255, 0.1);
+            padding-left: 12px;
+            line-height: 1.6;
+        }
+
+        .lora-credits {
+            font-size: 0.85rem;
+            color: #a1a1aa;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lora-author {
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .author-link {
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .author-link.known {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .author-link.unknown {
+            background: linear-gradient(135deg, #64748b, #475569);
+            opacity: 0.8;
+        }
+
+        .author-link:hover {
+            opacity: 1;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--primary-cyan);
+            text-decoration: none;
+            font-weight: bold;
+            background: rgba(56, 189, 248, 0.1);
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(56, 189, 248, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .category-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 50px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.75);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .category-nav a {
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 800;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .category-nav a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="cursor-dot"></div>
+<div class="cursor-outline"></div>
+<nav class="glass-panel centered-nav" style="position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(255, 255, 255, 0.8); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(58, 123, 213, 0.1); display: flex; justify-content: center; align-items: center; padding: 10px 0;">
+<ul style="display: flex; list-style: none; gap: 20px; margin: 0; padding: 0;">
+<li><a href="../../index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">HOME</a></li>
+<li><a href="../../ai-guide/index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">AI-GUIDE</a></li>
+<li><a href="../../models/index.html" style="color: var(--primary-cyan); text-decoration: none; font-weight: bold;">MODELS</a></li>
+<li><a href="../../Tools/index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">TOOLS</a></li>
+<li><a href="../../creative/index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">GALLERY</a></li>
+</ul>
+</nav>
+<div style="height: 60px;"></div>
+<div class="lora-container">
+<a class="back-link" href="../../index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
+<nav aria-label="breadcrumb" style="margin-bottom: 20px;">
+<ol style="display:flex; list-style:none; padding:0; gap:8px; font-size:0.95rem; color:var(--text-muted);">
+<li><a href="../../index.html" style="color:var(--primary-cyan); text-decoration:none;">ホーム</a> &gt; </li>
+<li aria-current="page" style="color:#0f172a; font-weight:bold;">SD1.5 LoRAモデル一覧</li>
+</ol>
+</nav>
+<div class="section-header" style="justify-content: flex-start; margin-bottom: 20px;">
+<h1 style="font-size: 2.5rem; text-shadow: 0 0 15px var(--primary-cyan); margin: 0;">SD1.5 対応 おすすめLoRA一覧</h1>
+<div class="header-deco" style="margin-left: 20px;"></div>
+</div>
+<p style="color: #0f172a; background: rgba(255, 255, 255, 0.7); font-weight: bold; padding: 15px 25px; border-radius: 12px; border-left: 5px solid var(--primary-cyan); margin-bottom: 40px; font-size: 1.15rem; max-width: 800px; line-height: 1.6; backdrop-filter: blur(5px); box-shadow: 0 4px 10px rgba(0,0,0,0.05);">対応モデルごとに分類されたLoRA一覧です。各カテゴリーを選択してください。全 <strong style="color: var(--primary-cyan); font-size: 1.3rem;">971</strong> ファイル。</p>
+
+<div class="search-container" style="margin-bottom: 30px; margin-top: 10px;">
+<div style="position: relative; max-width: 600px;">
+<input id="loraSearchInput" placeholder="現在のページ内を検索... (例: lora名、サイズ)" style="width: 100%; padding: 15px 20px 15px 45px; border-radius: 30px; border: 2px solid rgba(58, 123, 213, 0.4); 
+                                      background: rgba(255, 255, 255, 0.8); font-size: 1.1rem; outline: none; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+                                      box-shadow: 0 4px 15px rgba(58, 123, 213, 0.05); transition: all 0.3s ease; box-sizing: border-box;" type="text"/>
+<i class="fas fa-search" style="position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #3a7bd5; font-size: 1.2rem;"></i>
+</div>
+</div>
+<div class="category-nav">
+<a href="loras.html" style="background: rgba(255, 255, 255, 0.4); border-color: rgba(255, 255, 255, 0.6); color: #475569; opacity: 0.7; transition: all 0.3s;"><i class="fas fa-cube"></i> loras (1)</a>
+<a href="Flux.html" style="background: rgba(255, 255, 255, 0.4); border-color: rgba(255, 255, 255, 0.6); color: #475569; opacity: 0.7; transition: all 0.3s;"><i class="fas fa-cube"></i> Flux (175)</a>
+<a href="Illustrious.html" style="background: rgba(255, 255, 255, 0.4); border-color: rgba(255, 255, 255, 0.6); color: #475569; opacity: 0.7; transition: all 0.3s;"><i class="fas fa-cube"></i> Illustrious (93)</a>
+<a href="Pony.html" style="background: rgba(255, 255, 255, 0.4); border-color: rgba(255, 255, 255, 0.6); color: #475569; opacity: 0.7; transition: all 0.3s;"><i class="fas fa-cube"></i> Pony (123)</a>
+<a href="SD1.5.html" style="background: #f1f5f9; border-color: #94a3b8; color: #334155; opacity: 1; filter: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transform: translateY(-2px);"><i class="fas fa-cube"></i> SD1.5 (391)</a>
+<a href="SDXL.html" style="background: rgba(255, 255, 255, 0.4); border-color: rgba(255, 255, 255, 0.6); color: #475569; opacity: 0.7; transition: all 0.3s;"><i class="fas fa-cube"></i> SDXL (43)</a>
+<a href="WanVideo.html" style="background: rgba(255, 255, 255, 0.4); border-color: rgba(255, 255, 255, 0.6); color: #475569; opacity: 0.7; transition: all 0.3s;"><i class="fas fa-cube"></i> WanVideo (145)</a>
+</div>
+
+<div class="lora-section" id="SD1.5">
+<h2 style="color: #94a3b8; border-color: #94a3b8; text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
+<i class="fas fa-layer-group"></i> SD1.5
+                    <span style="font-size:1.2rem;color:var(--text-muted); font-weight:normal; margin-left: 10px;">(100 items on this page / Total 391 items)</span>
+</h2>
+<div class="pagination" style="text-align: center; margin-top: 30px; margin-bottom: 20px;">
+<a href="SD1.5.html" style="display: inline-block; margin: 0 5px; padding: 8px 16px; border-radius: 20px; text-decoration: none; border: 1px solid; background: rgba(56, 189, 248, 1); color: white; border-color: rgba(56, 189, 248, 1); transition: all 0.2s ease;">1</a>
+<a href="SD1.5_2.html" style="display: inline-block; margin: 0 5px; padding: 8px 16px; border-radius: 20px; text-decoration: none; border: 1px solid; background: rgba(255, 255, 255, 0.5); color: var(--text-main); border-color: rgba(255, 255, 255, 0.2); transition: all 0.2s ease;">2</a>
+<a href="SD1.5_3.html" style="display: inline-block; margin: 0 5px; padding: 8px 16px; border-radius: 20px; text-decoration: none; border: 1px solid; background: rgba(255, 255, 255, 0.5); color: var(--text-main); border-color: rgba(255, 255, 255, 0.2); transition: all 0.2s ease;">3</a>
+<a href="SD1.5_4.html" style="display: inline-block; margin: 0 5px; padding: 8px 16px; border-radius: 20px; text-decoration: none; border: 1px solid; background: rgba(255, 255, 255, 0.5); color: var(--text-main); border-color: rgba(255, 255, 255, 0.2); transition: all 0.2s ease;">4</a>
+</div>
+<div class="lora-grid">
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img">
+<img alt="ace-step-v1-chinese-rap-lora" src="thumbnails/ace-step-v1-chinese-rap-lora.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="ace-step-v1-chinese-rap-lora">ace-step-v1-chinese-rap-lora</div>
+<div class="lora-desc">
+                            「ace step v1 chinese rap lora」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 523,816,352</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=ace-step-v1-chinese-rap-lora+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<span class="author-link unknown"><i class="fas fa-unlink"></i> なし</span>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/295100?modelVersionId=331598', '_blank')">
+<img alt="aesthetic_anime_v1s" src="thumbnails/aesthetic_anime_v1s.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">画風</span>
+</div>
+<div class="lora-name" title="aesthetic_anime_v1s">aesthetic_anime_v1s</div>
+<div class="lora-desc">
+                            「aesthetic anime v1s」の独特なタッチを反映する追加学習モデル。Stable DiffusionでのAI画像生成で、色彩や質感をLoRAにより一変させます。独創的で芸術性の高い作品を追求するクリエイターにおすすめです。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 340,768,396</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=aesthetic_anime_v1s+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/295100?modelVersionId=331598" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/81345?modelVersionId=86308', '_blank')">
+<img alt="agomaru" src="thumbnails/agomaru.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="agomaru">agomaru</div>
+<div class="lora-desc">
+                            「agomaru」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 9,549,897</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=agomaru+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/81345?modelVersionId=86308" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/27721?modelVersionId=33194', '_blank')">
+<img alt="ahegao" src="thumbnails/ahegao.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="ahegao">ahegao</div>
+<div class="lora-desc">
+                            「ahegao」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 21,673,689</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=ahegao+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/27721?modelVersionId=33194" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/8505?modelVersionId=10029', '_blank')">
+<img alt="Ahegaoo" src="thumbnails/Ahegaoo.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="Ahegaoo">Ahegaoo</div>
+<div class="lora-desc">
+                            「Ahegaoo」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 151,124,310</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Ahegaoo+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/8505?modelVersionId=10029" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/4789?modelVersionId=5485', '_blank')">
+<img alt="ahri-000045" src="thumbnails/ahri-000045.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="ahri-000045">ahri-000045</div>
+<div class="lora-desc">
+                            「ahri 000045」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 151,073,665</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=ahri-000045+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/4789?modelVersionId=5485" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/60952?modelVersionId=65431', '_blank')">
+<img alt="ahri_v10" src="thumbnails/ahri_v10.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="ahri_v10">ahri_v10</div>
+<div class="lora-desc">
+                            「ahri v10」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 37,879,925</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=ahri_v10+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/60952?modelVersionId=65431" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2393443?modelVersionId=2691175', '_blank')">
+<img alt="Aino Minako" src="thumbnails/Aino Minako.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="Aino Minako">Aino Minako</div>
+<div class="lora-desc">
+                            「Aino Minako」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 228,458,540</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Aino Minako+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2393443?modelVersionId=2691175" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/66490?modelVersionId=71148', '_blank')">
+<img alt="AiriAkizukiV1" src="thumbnails/AiriAkizukiV1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="AiriAkizukiV1">AiriAkizukiV1</div>
+<div class="lora-desc">
+                            「AiriAkizukiV1」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 22,525,340</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=AiriAkizukiV1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/66490?modelVersionId=71148" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/109977?modelVersionId=119949', '_blank')">
+<img alt="AkaneV1.2" src="thumbnails/AkaneV1.2.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="AkaneV1.2">AkaneV1.2</div>
+<div class="lora-desc">
+                            「AkaneV1.2」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 18,991,325</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=AkaneV1.2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/109977?modelVersionId=119949" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1180939?modelVersionId=2739992', '_blank')">
+<img alt="akizukikaini-10(ILL)" src="thumbnails/akizukikaini-10(ILL).jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="akizukikaini-10(ILL)">akizukikaini-10(ILL)</div>
+<div class="lora-desc">
+                            「akizukikaini 10(ILL)」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 50,933,028</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=akizukikaini-10(ILL)+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1180939?modelVersionId=2739992" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/23205?modelVersionId=51367', '_blank')">
+<img alt="Alice v2.0" src="thumbnails/Alice v2.0.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="Alice v2.0">Alice v2.0</div>
+<div class="lora-desc">
+                            「Alice v2.0」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 151,111,285</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Alice v2.0+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/23205?modelVersionId=51367" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/7563?modelVersionId=18060', '_blank')">
+<img alt="alice-lora-v3-32dim-20ep" src="thumbnails/alice-lora-v3-32dim-20ep.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="alice-lora-v3-32dim-20ep">alice-lora-v3-32dim-20ep</div>
+<div class="lora-desc">
+                            「alice lora v3 32dim 20ep」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 37,871,943</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=alice-lora-v3-32dim-20ep+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/7563?modelVersionId=18060" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1922307?modelVersionId=2683548', '_blank')">
+<img alt="Alp Style 2.0" src="thumbnails/Alp Style 2.0.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">画風</span>
+</div>
+<div class="lora-name" title="Alp Style 2.0">Alp Style 2.0</div>
+<div class="lora-desc">
+                            「Alp Style 2.0」の独特なタッチを反映する追加学習モデル。Stable DiffusionでのAI画像生成で、色彩や質感をLoRAにより一変させます。独創的で芸術性の高い作品を追求するクリエイターにおすすめです。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 101,574,036</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Alp Style 2.0+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1922307?modelVersionId=2683548" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/4503?modelVersionId=5105', '_blank')">
+<img alt="amber (genshin impact) flexible" src="thumbnails/amber (genshin impact) flexible.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">その他</span>
+</div>
+<div class="lora-name" title="amber (genshin impact) flexible">amber (genshin impact) flexible</div>
+<div class="lora-desc">
+                            「amber (genshin impact) flexible」に特化した追加学習モデルです。Stable DiffusionでのAI画像生成にLoRAを導入し、特定要素の再現性を劇的に向上。効率的かつ高品質なビジュアルを求める全てのAI絵師必見のモデルです。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 151,073,665</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=amber (genshin impact) flexible+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/4503?modelVersionId=5105" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/27398?modelVersionId=48669', '_blank')">
+<img alt="ame-10" src="thumbnails/ame-10.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="ame-10">ame-10</div>
+<div class="lora-desc">
+                            「ame 10」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 37,964,947</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=ame-10+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/27398?modelVersionId=48669" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/17350?modelVersionId=89206', '_blank')">
+<img alt="anastasia_(idolmaster)_v2" src="thumbnails/anastasia_(idolmaster)_v2.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="anastasia_(idolmaster)_v2">anastasia_(idolmaster)_v2</div>
+<div class="lora-desc">
+                            「anastasia (idolmaster) v2」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 37,879,838</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=anastasia_(idolmaster)_v2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/17350?modelVersionId=89206" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/7805?modelVersionId=9205', '_blank')">
+<img alt="android18" src="thumbnails/android18.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="android18">android18</div>
+<div class="lora-desc">
+                            「android18」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 151,121,421</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=android18+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/7805?modelVersionId=9205" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/27862?modelVersionId=33381', '_blank')">
+<img alt="android_18_v110" src="thumbnails/android_18_v110.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="android_18_v110">android_18_v110</div>
+<div class="lora-desc">
+                            「android 18 v110」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 151,118,700</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=android_18_v110+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/27862?modelVersionId=33381" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2204336?modelVersionId=2692813', '_blank')">
+<img alt="AnimaLowPoly" src="thumbnails/AnimaLowPoly.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="AnimaLowPoly">AnimaLowPoly</div>
+<div class="lora-desc">
+                            「AnimaLowPoly」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 264,419,968</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=AnimaLowPoly+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2204336?modelVersionId=2692813" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/660971?modelVersionId=739660', '_blank')">
+<img alt="animation2k_v1" src="thumbnails/animation2k_v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="animation2k_v1">animation2k_v1</div>
+<div class="lora-desc">
+                            「animation2k v1」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 171,969,352</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=animation2k_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/660971?modelVersionId=739660" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/4982?modelVersionId=60568', '_blank')">
+<img alt="animemix_v3_offset" src="thumbnails/animemix_v3_offset.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="animemix_v3_offset">animemix_v3_offset</div>
+<div class="lora-desc">
+                            「animemix v3 offset」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 151,108,831</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=animemix_v3_offset+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/4982?modelVersionId=60568" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/499279?modelVersionId=554991', '_blank')">
+<img alt="Anime_Rose_Garden_Girls" src="thumbnails/Anime_Rose_Garden_Girls.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="Anime_Rose_Garden_Girls">Anime_Rose_Garden_Girls</div>
+<div class="lora-desc">
+                            「Anime Rose Garden Girls」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 228,455,828</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Anime_Rose_Garden_Girls+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/499279?modelVersionId=554991" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1460036?modelVersionId=1651067', '_blank')">
+<img alt="Anime_Style_Ancient_Greek_Toga__Chiton" src="thumbnails/Anime_Style_Ancient_Greek_Toga__Chiton.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">画風</span>
+</div>
+<div class="lora-name" title="Anime_Style_Ancient_Greek_Toga__Chiton">Anime_Style_Ancient_Greek_Toga__Chiton</div>
+<div class="lora-desc">
+                            「Anime Style Ancient Greek Toga  Chiton」の独特なタッチを反映する追加学習モデル。Stable DiffusionでのAI画像生成で、色彩や質感をLoRAにより一変させます。独創的で芸術性の高い作品を追求するクリエイターにおすすめです。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 228,457,108</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Anime_Style_Ancient_Greek_Toga__Chiton+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1460036?modelVersionId=1651067" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/705085?modelVersionId=788671', '_blank')">
+<img alt="Anime_Style_Chinese_Cheongsam_Dress" src="thumbnails/Anime_Style_Chinese_Cheongsam_Dress.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">画風</span>
+</div>
+<div class="lora-name" title="Anime_Style_Chinese_Cheongsam_Dress">Anime_Style_Chinese_Cheongsam_Dress</div>
+<div class="lora-desc">
+                            「Anime Style Chinese Cheongsam Dress」の独特なタッチを反映する追加学習モデル。Stable DiffusionでのAI画像生成で、色彩や質感をLoRAにより一変させます。独創的で芸術性の高い作品を追求するクリエイターにおすすめです。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 228,459,412</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Anime_Style_Chinese_Cheongsam_Dress+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/705085?modelVersionId=788671" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1090791?modelVersionId=2557510', '_blank')">
+<img alt="Anime_Style_Japanese_Kimono_Dress" src="thumbnails/Anime_Style_Japanese_Kimono_Dress.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">画風</span>
+</div>
+<div class="lora-name" title="Anime_Style_Japanese_Kimono_Dress">Anime_Style_Japanese_Kimono_Dress</div>
+<div class="lora-desc">
+                            「Anime Style Japanese Kimono Dress」の独特なタッチを反映する追加学習モデル。Stable DiffusionでのAI画像生成で、色彩や質感をLoRAにより一変させます。独創的で芸術性の高い作品を追求するクリエイターにおすすめです。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 228,459,668</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Anime_Style_Japanese_Kimono_Dress+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1090791?modelVersionId=2557510" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/22977?modelVersionId=27439', '_blank')">
+<img alt="anmnr01AOM3A1" src="thumbnails/anmnr01AOM3A1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="anmnr01AOM3A1">anmnr01AOM3A1</div>
+<div class="lora-desc">
+                            「anmnr01AOM3A1」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 9,563,328</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=anmnr01AOM3A1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/22977?modelVersionId=27439" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/972886?modelVersionId=1089413', '_blank')">
+<img alt="ArcaneFGTNR" src="thumbnails/ArcaneFGTNR.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="ArcaneFGTNR">ArcaneFGTNR</div>
+<div class="lora-desc">
+                            「ArcaneFGTNR」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 89,745,224</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=ArcaneFGTNR+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/972886?modelVersionId=1089413" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/6135?modelVersionId=7173', '_blank')">
+<img alt="Arknights-Skadi the Corrupting Heart" src="thumbnails/Arknights-Skadi the Corrupting Heart.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">画風</span>
+</div>
+<div class="lora-name" title="Arknights-Skadi the Corrupting Heart">Arknights-Skadi the Corrupting Heart</div>
+<div class="lora-desc">
+                            「Arknights Skadi the Corrupting Heart」の独特なタッチを反映する追加学習モデル。Stable DiffusionでのAI画像生成で、色彩や質感をLoRAにより一変させます。独創的で芸術性の高い作品を追求するクリエイターにおすすめです。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 75,612,217</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Arknights-Skadi the Corrupting Heart+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/6135?modelVersionId=7173" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/5601?modelVersionId=6520', '_blank')">
+<img alt="Arknights-Specter the Unchained-SOFT" src="thumbnails/Arknights-Specter the Unchained-SOFT.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">その他</span>
+</div>
+<div class="lora-name" title="Arknights-Specter the Unchained-SOFT">Arknights-Specter the Unchained-SOFT</div>
+<div class="lora-desc">
+                            「Arknights Specter the Unchained SOFT」に特化した追加学習モデルです。Stable DiffusionでのAI画像生成にLoRAを導入し、特定要素の再現性を劇的に向上。効率的かつ高品質なビジュアルを求める全てのAI絵師必見のモデルです。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 75,576,093</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Arknights-Specter the Unchained-SOFT+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/5601?modelVersionId=6520" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/6779?modelVersionId=7974', '_blank')">
+<img alt="Arknights-Texas the Omertosa" src="thumbnails/Arknights-Texas the Omertosa.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="Arknights-Texas the Omertosa">Arknights-Texas the Omertosa</div>
+<div class="lora-desc">
+                            「Arknights Texas the Omertosa」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 75,611,509</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Arknights-Texas the Omertosa+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/6779?modelVersionId=7974" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/142428?modelVersionId=157935', '_blank')">
+<img alt="AS207" src="thumbnails/AS207.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="AS207">AS207</div>
+<div class="lora-desc">
+                            「AS207」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 9,585,934</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=AS207+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/142428?modelVersionId=157935" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/827420?modelVersionId=2689563', '_blank')">
+<img alt="Asagi2" src="thumbnails/Asagi2.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="Asagi2">Asagi2</div>
+<div class="lora-desc">
+                            「Asagi2」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 228,454,452</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Asagi2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/827420?modelVersionId=2689563" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/12372?modelVersionId=14593', '_blank')">
+<img alt="asagiMutsukiV1" src="thumbnails/asagiMutsukiV1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="asagiMutsukiV1">asagiMutsukiV1</div>
+<div class="lora-desc">
+                            「asagiMutsukiV1」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 75,612,650</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=asagiMutsukiV1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/12372?modelVersionId=14593" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/53552?modelVersionId=57908', '_blank')">
+<img alt="Astolfo" src="thumbnails/Astolfo.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="Astolfo">Astolfo</div>
+<div class="lora-desc">
+                            「Astolfo」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 37,879,638</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Astolfo+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/53552?modelVersionId=57908" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/98841?modelVersionId=228643', '_blank')">
+<img alt="asuka langley soryu rebuild-lora-nochekaiser" src="thumbnails/asuka langley soryu rebuild-lora-nochekaiser.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">その他</span>
+</div>
+<div class="lora-name" title="asuka langley soryu rebuild-lora-nochekaiser">asuka langley soryu rebuild-lora-nochekaiser</div>
+<div class="lora-desc">
+                            「asuka langley soryu rebuild lora nochekaiser」に特化した追加学習モデルです。Stable DiffusionでのAI画像生成にLoRAを導入し、特定要素の再現性を劇的に向上。効率的かつ高品質なビジュアルを求める全てのAI絵師必見のモデルです。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 37,883,248</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=asuka langley soryu rebuild-lora-nochekaiser+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/98841?modelVersionId=228643" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/20058?modelVersionId=123926', '_blank')">
+<img alt="AsukaLangleySouryuuV2-000015" src="thumbnails/AsukaLangleySouryuuV2-000015.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="AsukaLangleySouryuuV2-000015">AsukaLangleySouryuuV2-000015</div>
+<div class="lora-desc">
+                            「AsukaLangleySouryuuV2 000015」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 75,628,192</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=AsukaLangleySouryuuV2-000015+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/20058?modelVersionId=123926" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/33011?modelVersionId=39388', '_blank')">
+<img alt="Asuna-BlueArchive" src="thumbnails/Asuna-BlueArchive.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="Asuna-BlueArchive">Asuna-BlueArchive</div>
+<div class="lora-desc">
+                            「Asuna BlueArchive」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 19,002,793</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Asuna-BlueArchive+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/33011?modelVersionId=39388" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/142203?modelVersionId=157655', '_blank')">
+<img alt="asuna_(sao)_v1" src="thumbnails/asuna_(sao)_v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="asuna_(sao)_v1">asuna_(sao)_v1</div>
+<div class="lora-desc">
+                            「asuna (sao) v1」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 37,861,388</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=asuna_(sao)_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/142203?modelVersionId=157655" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/4792?modelVersionId=5492', '_blank')">
+<img alt="Asuna_Hard" src="thumbnails/Asuna_Hard.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="Asuna_Hard">Asuna_Hard</div>
+<div class="lora-desc">
+                            「Asuna Hard」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 151,073,665</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Asuna_Hard+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/4792?modelVersionId=5492" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/20069?modelVersionId=24389', '_blank')">
+<img alt="AyanamiReiV6-000010" src="thumbnails/AyanamiReiV6-000010.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="AyanamiReiV6-000010">AyanamiReiV6-000010</div>
+<div class="lora-desc">
+                            「AyanamiReiV6 000010」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 151,111,198</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=AyanamiReiV6-000010+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/20069?modelVersionId=24389" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/440784?modelVersionId=2695264', '_blank')">
+<img alt="azurlaneslowahead_v1_noob-000002" src="thumbnails/azurlaneslowahead_v1_noob-000002.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">その他</span>
+</div>
+<div class="lora-name" title="azurlaneslowahead_v1_noob-000002">azurlaneslowahead_v1_noob-000002</div>
+<div class="lora-desc">
+                            「azurlaneslowahead v1 noob 000002」に特化した追加学習モデルです。Stable DiffusionでのAI画像生成にLoRAを導入し、特定要素の再現性を劇的に向上。効率的かつ高品質なビジュアルを求める全てのAI絵師必見のモデルです。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 255,700,636</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=azurlaneslowahead_v1_noob-000002+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/440784?modelVersionId=2695264" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/42734?modelVersionId=47413', '_blank')">
+<img alt="barbara1-000009" src="thumbnails/barbara1-000009.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="barbara1-000009">barbara1-000009</div>
+<div class="lora-desc">
+                            「barbara1 000009」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 75,741,903</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=barbara1-000009+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/42734?modelVersionId=47413" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/81317?modelVersionId=86274', '_blank')">
+<img alt="bigeye1" src="thumbnails/bigeye1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="bigeye1">bigeye1</div>
+<div class="lora-desc">
+                            「bigeye1」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 6,865,488</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=bigeye1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/81317?modelVersionId=86274" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img">
+<img alt="bigeye2" src="thumbnails/bigeye2.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="bigeye2">bigeye2</div>
+<div class="lora-desc">
+                            「bigeye2」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 7,796,269</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=bigeye2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<span class="author-link unknown"><i class="fas fa-unlink"></i> なし</span>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2281424?modelVersionId=2685863', '_blank')">
+<img alt="BirdHatter" src="thumbnails/BirdHatter.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="BirdHatter">BirdHatter</div>
+<div class="lora-desc">
+                            「BirdHatter」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 57,433,772</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=BirdHatter+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2281424?modelVersionId=2685863" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2281229?modelVersionId=2567494', '_blank')">
+<img alt="BladePointIL" src="thumbnails/BladePointIL.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="BladePointIL">BladePointIL</div>
+<div class="lora-desc">
+                            「BladePointIL」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 228,453,292</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=BladePointIL+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2281229?modelVersionId=2567494" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/873517?modelVersionId=2746407', '_blank')">
+<img alt="bluethebone" src="thumbnails/bluethebone.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="bluethebone">bluethebone</div>
+<div class="lora-desc">
+                            「bluethebone」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 272,903,592</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=bluethebone+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/873517?modelVersionId=2746407" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/81313?modelVersionId=86269', '_blank')">
+<img alt="boldline" src="thumbnails/boldline.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="boldline">boldline</div>
+<div class="lora-desc">
+                            「boldline」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 9,547,800</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=boldline+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/81313?modelVersionId=86269" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2304609?modelVersionId=2593084', '_blank')">
+<img alt="BookBlastIL" src="thumbnails/BookBlastIL.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="BookBlastIL">BookBlastIL</div>
+<div class="lora-desc">
+                            「BookBlastIL」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 228,453,284</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=BookBlastIL+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2304609?modelVersionId=2593084" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/10390?modelVersionId=41267', '_blank')">
+<img alt="BotanLORA-000006" src="thumbnails/BotanLORA-000006.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="BotanLORA-000006">BotanLORA-000006</div>
+<div class="lora-desc">
+                            「BotanLORA 000006」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 19,025,195</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=BotanLORA-000006+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/10390?modelVersionId=41267" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/16186?modelVersionId=19114', '_blank')">
+<img alt="bows1-000015" src="thumbnails/bows1-000015.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="bows1-000015">bows1-000015</div>
+<div class="lora-desc">
+                            「bows1 000015」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 9,621,293</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=bows1-000015+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/16186?modelVersionId=19114" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/6619?modelVersionId=7777', '_blank')">
+<img alt="breastfeeding_handjob" src="thumbnails/breastfeeding_handjob.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="breastfeeding_handjob">breastfeeding_handjob</div>
+<div class="lora-desc">
+                            「breastfeeding handjob」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 75,613,470</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=breastfeeding_handjob+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/6619?modelVersionId=7777" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/11468?modelVersionId=13576', '_blank')">
+<img alt="BrestV1-000006" src="thumbnails/BrestV1-000006.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="BrestV1-000006">BrestV1-000006</div>
+<div class="lora-desc">
+                            「BrestV1 000006」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 37,862,528</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=BrestV1-000006+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/11468?modelVersionId=13576" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/81324?modelVersionId=86278', '_blank')">
+<img alt="brighter-eye1" src="thumbnails/brighter-eye1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="brighter-eye1">brighter-eye1</div>
+<div class="lora-desc">
+                            「brighter eye1」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 6,865,488</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=brighter-eye1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/81324?modelVersionId=86278" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1445226?modelVersionId=1698719', '_blank')">
+<img alt="BulgePovMissionary_v11" src="thumbnails/BulgePovMissionary_v11.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="BulgePovMissionary_v11">BulgePovMissionary_v11</div>
+<div class="lora-desc">
+                            「BulgePovMissionary v11」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 359,258,536</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=BulgePovMissionary_v11+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1445226?modelVersionId=1698719" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/89013?modelVersionId=94729', '_blank')">
+<img alt="bulma_v1" src="thumbnails/bulma_v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="bulma_v1">bulma_v1</div>
+<div class="lora-desc">
+                            「bulma v1」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 37,882,672</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=bulma_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/89013?modelVersionId=94729" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2382379?modelVersionId=2679016', '_blank')">
+<img alt="C.C._-_Code_Geass_Lelouch_of_the_Rebellion__COMMISSION" src="thumbnails/C.C._-_Code_Geass_Lelouch_of_the_Rebellion__COMMISSION.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">その他</span>
+</div>
+<div class="lora-name" title="C.C._-_Code_Geass_Lelouch_of_the_Rebellion__COMMISSION">C.C._-_Code_Geass_Lelouch_of_the_Rebellion__COMMISSION</div>
+<div class="lora-desc">
+                            「C.C.   Code Geass Lelouch of the Rebellion  COMMISSION」に特化した追加学習モデルです。Stable DiffusionでのAI画像生成にLoRAを導入し、特定要素の再現性を劇的に向上。効率的かつ高品質なビジュアルを求める全てのAI絵師必見のモデルです。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 456,494,820</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=C.C._-_Code_Geass_Lelouch_of_the_Rebellion__COMMISSION+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2382379?modelVersionId=2679016" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/46343?modelVersionId=2722642', '_blank')">
+<img alt="CDBotzILL_epoch_12" src="thumbnails/CDBotzILL_epoch_12.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="CDBotzILL_epoch_12">CDBotzILL_epoch_12</div>
+<div class="lora-desc">
+                            「CDBotzILL epoch 12」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 228,459,852</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=CDBotzILL_epoch_12+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/46343?modelVersionId=2722642" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/20809?modelVersionId=109406', '_blank')">
+<img alt="ceres_fauna_v2" src="thumbnails/ceres_fauna_v2.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="ceres_fauna_v2">ceres_fauna_v2</div>
+<div class="lora-desc">
+                            「ceres fauna v2」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 37,861,388</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=ceres_fauna_v2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/20809?modelVersionId=109406" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/178949?modelVersionId=391508', '_blank')">
+<img alt="CHAR-FernV2" src="thumbnails/CHAR-FernV2.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="CHAR-FernV2">CHAR-FernV2</div>
+<div class="lora-desc">
+                            「CHAR FernV2」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 37,908,936</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=CHAR-FernV2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/178949?modelVersionId=391508" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/190315?modelVersionId=394792', '_blank')">
+<img alt="CHAR-FrierenV2" src="thumbnails/CHAR-FrierenV2.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="CHAR-FrierenV2">CHAR-FrierenV2</div>
+<div class="lora-desc">
+                            「CHAR FrierenV2」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 37,907,008</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=CHAR-FrierenV2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/190315?modelVersionId=394792" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/11765?modelVersionId=175995', '_blank')">
+<img alt="CHAR-HoshimachiSuiseiV2" src="thumbnails/CHAR-HoshimachiSuiseiV2.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="CHAR-HoshimachiSuiseiV2">CHAR-HoshimachiSuiseiV2</div>
+<div class="lora-desc">
+                            「CHAR HoshimachiSuiseiV2」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 37,947,282</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=CHAR-HoshimachiSuiseiV2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/11765?modelVersionId=175995" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/13582?modelVersionId=16424', '_blank')">
+<img alt="char-Nakiri Erina-v2" src="thumbnails/char-Nakiri Erina-v2.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="char-Nakiri Erina-v2">char-Nakiri Erina-v2</div>
+<div class="lora-desc">
+                            「char Nakiri Erina v2」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 37,861,942</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=char-Nakiri Erina-v2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/13582?modelVersionId=16424" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/12658?modelVersionId=77060', '_blank')">
+<img alt="CHAR-NakiriAyame_v2" src="thumbnails/CHAR-NakiriAyame_v2.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="CHAR-NakiriAyame_v2">CHAR-NakiriAyame_v2</div>
+<div class="lora-desc">
+                            「CHAR NakiriAyame v2」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 19,020,749</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=CHAR-NakiriAyame_v2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/12658?modelVersionId=77060" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/26909?modelVersionId=237217', '_blank')">
+<img alt="CHAR-OuroKroniiV2" src="thumbnails/CHAR-OuroKroniiV2.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="CHAR-OuroKroniiV2">CHAR-OuroKroniiV2</div>
+<div class="lora-desc">
+                            「CHAR OuroKroniiV2」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 37,913,565</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=CHAR-OuroKroniiV2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/26909?modelVersionId=237217" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/18696?modelVersionId=96146', '_blank')">
+<img alt="CHAR-TaeTakemiV2" src="thumbnails/CHAR-TaeTakemiV2.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="CHAR-TaeTakemiV2">CHAR-TaeTakemiV2</div>
+<div class="lora-desc">
+                            「CHAR TaeTakemiV2」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 18,992,982</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=CHAR-TaeTakemiV2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/18696?modelVersionId=96146" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/15033?modelVersionId=17711', '_blank')">
+<img alt="chara-kazusa-v1c" src="thumbnails/chara-kazusa-v1c.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="chara-kazusa-v1c">chara-kazusa-v1c</div>
+<div class="lora-desc">
+                            「chara kazusa v1c」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 19,007,600</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=chara-kazusa-v1c+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/15033?modelVersionId=17711" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/134656?modelVersionId=148345', '_blank')">
+<img alt="chi-chi_v1" src="thumbnails/chi-chi_v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="chi-chi_v1">chi-chi_v1</div>
+<div class="lora-desc">
+                            「chi chi v1」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 75,610,358</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=chi-chi_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/134656?modelVersionId=148345" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/98270?modelVersionId=215541', '_blank')">
+<img alt="chisatonishikigis1-lora-nochekaiser" src="thumbnails/chisatonishikigis1-lora-nochekaiser.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">その他</span>
+</div>
+<div class="lora-name" title="chisatonishikigis1-lora-nochekaiser">chisatonishikigis1-lora-nochekaiser</div>
+<div class="lora-desc">
+                            「chisatonishikigis1 lora nochekaiser」に特化した追加学習モデルです。Stable DiffusionでのAI画像生成にLoRAを導入し、特定要素の再現性を劇的に向上。効率的かつ高品質なビジュアルを求める全てのAI絵師必見のモデルです。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 37,893,896</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=chisatonishikigis1-lora-nochekaiser+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/98270?modelVersionId=215541" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/24787?modelVersionId=29656', '_blank')">
+<img alt="chitanda_eru_v10" src="thumbnails/chitanda_eru_v10.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="chitanda_eru_v10">chitanda_eru_v10</div>
+<div class="lora-desc">
+                            「chitanda eru v10」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 151,115,671</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=chitanda_eru_v10+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/24787?modelVersionId=29656" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/57006?modelVersionId=61422', '_blank')">
+<img alt="ChunLi_v1" src="thumbnails/ChunLi_v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="ChunLi_v1">ChunLi_v1</div>
+<div class="lora-desc">
+                            「ChunLi v1」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 151,112,330</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=ChunLi_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/57006?modelVersionId=61422" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/6358?modelVersionId=72557', '_blank')">
+<img alt="Code Geass - C.C. @ c.c.-000010" src="thumbnails/Code Geass - C.C. @ c.c.-000010.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">その他</span>
+</div>
+<div class="lora-name" title="Code Geass - C.C. @ c.c.-000010">Code Geass - C.C. @ c.c.-000010</div>
+<div class="lora-desc">
+                            「Code Geass   C.C. @ c.c. 000010」に特化した追加学習モデルです。Stable DiffusionでのAI画像生成にLoRAを導入し、特定要素の再現性を劇的に向上。効率的かつ高品質なビジュアルを求める全てのAI絵師必見のモデルです。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 37,870,275</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Code Geass - C.C. @ c.c.-000010+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/6358?modelVersionId=72557" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1798811?modelVersionId=2679173', '_blank')">
+<img alt="columbina_2a_naiVpred-000039" src="thumbnails/columbina_2a_naiVpred-000039.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="columbina_2a_naiVpred-000039">columbina_2a_naiVpred-000039</div>
+<div class="lora-desc">
+                            「columbina 2a naiVpred 000039」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 101,524,220</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=columbina_2a_naiVpred-000039+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1798811?modelVersionId=2679173" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/14905?modelVersionId=92781', '_blank')">
+<img alt="Concept-dogezaV5-000007" src="thumbnails/Concept-dogezaV5-000007.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">画風</span>
+</div>
+<div class="lora-name" title="Concept-dogezaV5-000007">Concept-dogezaV5-000007</div>
+<div class="lora-desc">
+                            「Concept dogezaV5 000007」の独特なタッチを反映する追加学習モデル。Stable DiffusionでのAI画像生成で、色彩や質感をLoRAにより一変させます。独創的で芸術性の高い作品を追求するクリエイターにおすすめです。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 9,563,724</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Concept-dogezaV5-000007+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/14905?modelVersionId=92781" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/5891?modelVersionId=91871', '_blank')">
+<img alt="Constricted PupilsV3" src="thumbnails/Constricted PupilsV3.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="Constricted PupilsV3">Constricted PupilsV3</div>
+<div class="lora-desc">
+                            「Constricted PupilsV3」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 31,009,375</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=Constricted PupilsV3+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/5891?modelVersionId=91871" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/8072?modelVersionId=9521', '_blank')">
+<img alt="covering_eyes" src="thumbnails/covering_eyes.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="covering_eyes">covering_eyes</div>
+<div class="lora-desc">
+                            「covering eyes」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 151,126,825</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=covering_eyes+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/8072?modelVersionId=9521" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/48536?modelVersionId=53130', '_blank')">
+<img alt="cowprint" src="thumbnails/cowprint.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="cowprint">cowprint</div>
+<div class="lora-desc">
+                            「cowprint」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 19,010,317</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=cowprint+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/48536?modelVersionId=53130" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2383334?modelVersionId=2680097', '_blank')">
+<img alt="cureanswer_v1" src="thumbnails/cureanswer_v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="cureanswer_v1">cureanswer_v1</div>
+<div class="lora-desc">
+                            「cureanswer v1」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 228,453,100</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=cureanswer_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2383334?modelVersionId=2680097" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2421391?modelVersionId=2722408', '_blank')">
+<img alt="curebeauty_IL" src="thumbnails/curebeauty_IL.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="curebeauty_IL">curebeauty_IL</div>
+<div class="lora-desc">
+                            「curebeauty IL」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 228,455,540</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=curebeauty_IL+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2421391?modelVersionId=2722408" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2388573?modelVersionId=2685814', '_blank')">
+<img alt="cureblack_IL" src="thumbnails/cureblack_IL.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="cureblack_IL">cureblack_IL</div>
+<div class="lora-desc">
+                            「cureblack IL」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 228,456,956</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=cureblack_IL+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2388573?modelVersionId=2685814" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2388619?modelVersionId=2685848', '_blank')">
+<img alt="curewhite_IL" src="thumbnails/curewhite_IL.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="curewhite_IL">curewhite_IL</div>
+<div class="lora-desc">
+                            「curewhite IL」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 228,456,020</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=curewhite_IL+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2388619?modelVersionId=2685848" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/243292?modelVersionId=274504', '_blank')">
+<img alt="cute_kimono_N_V1_1-000010" src="thumbnails/cute_kimono_N_V1_1-000010.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="cute_kimono_N_V1_1-000010">cute_kimono_N_V1_1-000010</div>
+<div class="lora-desc">
+                            「cute kimono N V1 1 000010」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 151,112,840</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=cute_kimono_N_V1_1-000010+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/243292?modelVersionId=274504" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1013984?modelVersionId=2055099', '_blank')">
+<img alt="CynthiaLillie_NAI" src="thumbnails/CynthiaLillie_NAI.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="CynthiaLillie_NAI">CynthiaLillie_NAI</div>
+<div class="lora-desc">
+                            「CynthiaLillie NAI」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 228,453,020</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=CynthiaLillie_NAI+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1013984?modelVersionId=2055099" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/141046?modelVersionId=156347', '_blank')">
+<img alt="d.va_v1" src="thumbnails/d.va_v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="d.va_v1">d.va_v1</div>
+<div class="lora-desc">
+                            「d.va v1」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 9,548,009</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=d.va_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/141046?modelVersionId=156347" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/25294?modelVersionId=30272', '_blank')">
+<img alt="daiwa_scarlet_v10" src="thumbnails/daiwa_scarlet_v10.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="daiwa_scarlet_v10">daiwa_scarlet_v10</div>
+<div class="lora-desc">
+                            「daiwa scarlet v10」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 151,122,226</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=daiwa_scarlet_v10+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/25294?modelVersionId=30272" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/70582?modelVersionId=75258', '_blank')">
+<img alt="DakiniV1" src="thumbnails/DakiniV1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="DakiniV1">DakiniV1</div>
+<div class="lora-desc">
+                            「DakiniV1」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 22,525,340</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=DakiniV1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/70582?modelVersionId=75258" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/20806?modelVersionId=24763', '_blank')">
+<img alt="darkness (konosuba)_v1" src="thumbnails/darkness (konosuba)_v1.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="darkness (konosuba)_v1">darkness (konosuba)_v1</div>
+<div class="lora-desc">
+                            「darkness (konosuba) v1」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 151,115,927</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=darkness (konosuba)_v1+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/20806?modelVersionId=24763" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/6213?modelVersionId=7287', '_blank')">
+<img alt="dark_magician_girl_offset" src="thumbnails/dark_magician_girl_offset.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="dark_magician_girl_offset">dark_magician_girl_offset</div>
+<div class="lora-desc">
+                            「dark magician girl offset」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 151,108,831</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=dark_magician_girl_offset+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/6213?modelVersionId=7287" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/45693?modelVersionId=50324', '_blank')">
+<img alt="ddlc-10" src="thumbnails/ddlc-10.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="ddlc-10">ddlc-10</div>
+<div class="lora-desc">
+                            「ddlc 10」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 19,049,824</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=ddlc-10+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/45693?modelVersionId=50324" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/4346?modelVersionId=18226', '_blank')">
+<img alt="deepthroat1.8" src="thumbnails/deepthroat1.8.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="deepthroat1.8">deepthroat1.8</div>
+<div class="lora-desc">
+                            「deepthroat1.8」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 151,074,558</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=deepthroat1.8+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/4346?modelVersionId=18226" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/8349?modelVersionId=27100', '_blank')">
+<img alt="dildoRiding2-000005" src="thumbnails/dildoRiding2-000005.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="dildoRiding2-000005">dildoRiding2-000005</div>
+<div class="lora-desc">
+                            「dildoRiding2 000005」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 9,618,189</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=dildoRiding2-000005+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/8349?modelVersionId=27100" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/18832?modelVersionId=25941', '_blank')">
+<img alt="DQ3PRIESTv2" src="thumbnails/DQ3PRIESTv2.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="DQ3PRIESTv2">DQ3PRIESTv2</div>
+<div class="lora-desc">
+                            「DQ3PRIESTv2」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 19,004,352</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=DQ3PRIESTv2+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/18832?modelVersionId=25941" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2403545?modelVersionId=2702497', '_blank')">
+<img alt="DressingForPleasureJeansILL" src="thumbnails/DressingForPleasureJeansILL.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">衣装</span>
+</div>
+<div class="lora-name" title="DressingForPleasureJeansILL">DressingForPleasureJeansILL</div>
+<div class="lora-desc">
+                            「DressingForPleasureJeansILL」の衣装を付与できる追加学習モデルです。Stable DiffusionのAI画像生成でLoRAを活用し、細部までこだわり抜いたデザインを固定可能。特定のコスチュームを手軽に再現したい時に重宝します。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 228,455,468</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=DressingForPleasureJeansILL+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2403545?modelVersionId=2702497" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2386737?modelVersionId=2683704', '_blank')">
+<img alt="E5B1B1E8BEBA20E78788.cADb" src="thumbnails/E5B1B1E8BEBA20E78788.cADb.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="E5B1B1E8BEBA20E78788.cADb">E5B1B1E8BEBA20E78788.cADb</div>
+<div class="lora-desc">
+                            「E5B1B1E8BEBA20E78788.cADb」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 228,456,436</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=E5B1B1E8BEBA20E78788.cADb+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2386737?modelVersionId=2683704" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/1545158?modelVersionId=2736921', '_blank')">
+<img alt="E69F90E69FA5000171.cKJt" src="thumbnails/E69F90E69FA5000171.cKJt.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="E69F90E69FA5000171.cKJt">E69F90E69FA5000171.cKJt</div>
+<div class="lora-desc">
+                            「E69F90E69FA5000171.cKJt」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 280,922,296</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=E69F90E69FA5000171.cKJt+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/1545158?modelVersionId=2736921" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2380522?modelVersionId=2676959', '_blank')">
+<img alt="E6A998E38182E3828AE38199E382A2E382A4E38389E383ABE3839EE382B9E3.WddO" src="thumbnails/E6A998E38182E3828AE38199E382A2E382A4E38389E383ABE3839EE382B9E3.WddO.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">その他</span>
+</div>
+<div class="lora-name" title="E6A998E38182E3828AE38199E382A2E382A4E38389E383ABE3839EE382B9E3.WddO">E6A998E38182E3828AE38199E382A2E382A4E38389E383ABE3839EE382B9E3.WddO</div>
+<div class="lora-desc">
+                            「E6A998E38182E3828AE38199E382A2E382A4E38389E383ABE3839EE382B9E3.WddO」に特化した追加学習モデルです。Stable DiffusionでのAI画像生成にLoRAを導入し、特定要素の再現性を劇的に向上。効率的かつ高品質なビジュアルを求める全てのAI絵師必見のモデルです。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 256,056,360</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=E6A998E38182E3828AE38199E382A2E382A4E38389E383ABE3839EE382B9E3.WddO+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2380522?modelVersionId=2676959" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2380812?modelVersionId=2677293', '_blank')">
+<img alt="E6ABBBE4BA95E6A183E88FAFEFBC88E382A2E382A4E38389E383ABE3839EE382.0maz" src="thumbnails/E6ABBBE4BA95E6A183E88FAFEFBC88E382A2E382A4E38389E383ABE3839EE382.0maz.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">その他</span>
+</div>
+<div class="lora-name" title="E6ABBBE4BA95E6A183E88FAFEFBC88E382A2E382A4E38389E383ABE3839EE382.0maz">E6ABBBE4BA95E6A183E88FAFEFBC88E382A2E382A4E38389E383ABE3839EE382.0maz</div>
+<div class="lora-desc">
+                            「E6ABBBE4BA95E6A183E88FAFEFBC88E382A2E382A4E38389E383ABE3839EE382.0maz」に特化した追加学習モデルです。Stable DiffusionでのAI画像生成にLoRAを導入し、特定要素の再現性を劇的に向上。効率的かつ高品質なビジュアルを求める全てのAI絵師必見のモデルです。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 256,056,360</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=E6ABBBE4BA95E6A183E88FAFEFBC88E382A2E382A4E38389E383ABE3839EE382.0maz+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2380812?modelVersionId=2677293" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2202258?modelVersionId=2698589', '_blank')">
+<img alt="E788B1E5BCA5E696AF20v1.bLWv" src="thumbnails/E788B1E5BCA5E696AF20v1.bLWv.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">キャラ</span>
+</div>
+<div class="lora-name" title="E788B1E5BCA5E696AF20v1.bLWv">E788B1E5BCA5E696AF20v1.bLWv</div>
+<div class="lora-desc">
+                            「E788B1E5BCA5E696AF20v1.bLWv」を精密に再現する追加学習モデルです。Stable DiffusionのAI画像生成において、特徴的な容姿や表情をLoRAで安定させて描画。ハイクオリティな特定キャラ画像を生成したい方に最適です。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 21,608,924</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=E788B1E5BCA5E696AF20v1.bLWv+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2202258?modelVersionId=2698589" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+<div class="lora-card" style="border-top: 3px solid #94a3b8;">
+<div class="lora-card-img" onclick="window.open('https://civitai.com/models/2037698?modelVersionId=2677014', '_blank')">
+<img alt="E7B590E59F8EE699B4E382A2E382A4E38389E383ABE3839EE382B9E382BF.cTvO" src="thumbnails/E7B590E59F8EE699B4E382A2E382A4E38389E383ABE3839EE382B9E382BF.cTvO.jpg"/>
+<div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #fff; pointer-events: none;">
+<i class="fas fa-external-link-alt"></i>
+</div>
+</div>
+<div class="lora-card-content">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<span class="lora-tag" style="background: #f1f5f9; color: #334155; border: 1px solid #94a3b8;">SD1.5</span>
+<span class="lora-tag" style="background: rgba(58, 123, 213, 0.05); color: var(--text-main); border: 1px solid rgba(58, 123, 213, 0.2); font-size: 0.7rem;">その他</span>
+</div>
+<div class="lora-name" title="E7B590E59F8EE699B4E382A2E382A4E38389E383ABE3839EE382B9E382BF.cTvO">E7B590E59F8EE699B4E382A2E382A4E38389E383ABE3839EE382B9E382BF.cTvO</div>
+<div class="lora-desc">
+                            「E7B590E59F8EE699B4E382A2E382A4E38389E383ABE3839EE382B9E382BF.cTvO」に特化した追加学習モデルです。Stable DiffusionでのAI画像生成にLoRAを導入し、特定要素の再現性を劇的に向上。効率的かつ高品質なビジュアルを求める全てのAI絵師必見のモデルです。
+                            <div style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Size: 256,056,360</div>
+</div>
+<div class="lora-author">
+<a class="author-link unknown" href="https://www.google.com/search?q=E7B590E59F8EE699B4E382A2E382A4E38389E383ABE3839EE382B9E382BF.cTvO+civitai" target="_blank" title="Googleで検索">
+                                Google <i class="fab fa-google" style="font-size: 0.8em;"></i>
+</a>
+<a class="author-link known" href="https://civitai.com/models/2037698?modelVersionId=2677014" target="_blank" title="配信元で開く"><i class="fas fa-link"></i> Link</a>
+</div>
+</div>
+</div>
+</div>
+<div class="pagination" style="text-align: center; margin-top: 30px; margin-bottom: 20px;">
+<a href="SD1.5.html" style="display: inline-block; margin: 0 5px; padding: 8px 16px; border-radius: 20px; text-decoration: none; border: 1px solid; background: rgba(56, 189, 248, 1); color: white; border-color: rgba(56, 189, 248, 1); transition: all 0.2s ease;">1</a>
+<a href="SD1.5_2.html" style="display: inline-block; margin: 0 5px; padding: 8px 16px; border-radius: 20px; text-decoration: none; border: 1px solid; background: rgba(255, 255, 255, 0.5); color: var(--text-main); border-color: rgba(255, 255, 255, 0.2); transition: all 0.2s ease;">2</a>
+<a href="SD1.5_3.html" style="display: inline-block; margin: 0 5px; padding: 8px 16px; border-radius: 20px; text-decoration: none; border: 1px solid; background: rgba(255, 255, 255, 0.5); color: var(--text-main); border-color: rgba(255, 255, 255, 0.2); transition: all 0.2s ease;">3</a>
+<a href="SD1.5_4.html" style="display: inline-block; margin: 0 5px; padding: 8px 16px; border-radius: 20px; text-decoration: none; border: 1px solid; background: rgba(255, 255, 255, 0.5); color: var(--text-main); border-color: rgba(255, 255, 255, 0.2); transition: all 0.2s ease;">4</a>
+</div>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('loraSearchInput');
+            if (!searchInput) return;
+            const loraCards = document.querySelectorAll('.lora-card');
+            const loraSections = document.querySelectorAll('.lora-section');
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                const terms = query.split(/\s+/);
+
+                let visibleCount = 0;
+                loraCards.forEach(card => {
+                    const text = card.textContent.toLowerCase();
+                    const isMatch = terms.every(term => text.includes(term));
+                    if (isMatch || query === '') {
+                        card.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                loraSections.forEach(section => {
+                    const header = section.querySelector('h2');
+                    if (header) {
+                        const countSpan = header.querySelector('span');
+                        if (countSpan) {
+                            if (query) {
+                                countSpan.textContent = `(表示中: ${visibleCount} items)`;
+                            } else {
+                                // Reset to original total (need to store it or extract it) - for simplicity, we keep it as "found" when searching
+                                // In paginated context, searching only applies to the CURRENT page.
+                                countSpan.textContent = `(${loraCards.length} items on this page)`;
+                            }
+                        }
+                    }
+                });
+            });
+            
+            searchInput.addEventListener('focus', () => {
+                searchInput.style.borderColor = 'rgba(56, 189, 248, 1)';
+                searchInput.style.boxShadow = '0 0 15px rgba(56, 189, 248, 0.3)';
+            });
+            searchInput.addEventListener('blur', () => {
+                searchInput.style.borderColor = 'rgba(56, 189, 248, 0.4)';
+                searchInput.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
+            });
+        });
+    </script>
+</div>
+<footer style="padding: 40px 20px; background: rgba(255, 255, 255, 0.8); border-top: 1px solid rgba(58, 123, 213, 0.1); text-align: center; max-width: 1000px; margin: 40px auto 40px auto; border-radius: 12px; font-size: 0.95rem; color: var(--text-muted);">
+<p>© 2026 Noa Seraphim Project. LoRA Categories Archive.</p>
+<p style="margin-top: 15px; font-size: 0.85rem; padding: 15px; background: rgba(58, 123, 213, 0.05); border-radius: 8px; display: inline-block;">
+<i class="fas fa-info-circle" style="color: var(--primary-cyan);"></i>
+            サムネイル画像を表示するには、<code>ai-lora/thumbnails/</code> フォルダ内にLoRAファイルと同名の <code>.jpg</code> ファイルを配置してください。
+        </p>
+</footer>
+<script src="../../script.js"></script>
+</body>
+</html>

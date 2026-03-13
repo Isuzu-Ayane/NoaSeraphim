@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-<url>
-<loc>https://isuzu-ayane.github.io/NoaSeraphim/</loc>
-</url>
+<url><loc>https://noaailabs.com/</loc></url>
+<url><loc>https://noaailabs.com/index_en.html</loc></url>
 
-<url>
-<loc>https://isuzu-ayane.github.io/NoaSeraphim/ai-tools/</loc>
-</url>
+<!-- AI-GUIDE Silo -->
+<url><loc>https://noaailabs.com/ai-guide/sd-install/index.html</loc></url>
+<url><loc>https://noaailabs.com/ai-guide/sd-install/index_en.html</loc></url>
+<url><loc>https://noaailabs.com/ai-guide/comfyui-install/index.html</loc></url>
+<url><loc>https://noaailabs.com/ai-guide/local-llm-install/index.html</loc></url>
+<url><loc>https://noaailabs.com/ai-guide/ai-specs/index.html</loc></url>
+<url><loc>https://noaailabs.com/ai-guide/ai-specs/index_en.html</loc></url>
 
-<url>
-<loc>https://isuzu-ayane.github.io/NoaSeraphim/ai-character/</loc>
-</url>
+<!-- MODELS Silo -->
+<url><loc>https://noaailabs.com/models/ai-checkpoints/index.html</loc></url>
+<url><loc>https://noaailabs.com/models/ai-checkpoints/index_en.html</loc></url>
+<url><loc>https://noaailabs.com/models/ai-lora/loras.html</loc></url>
+<url><loc>https://noaailabs.com/models/ai-vae/index.html</loc></url>
+<url><loc>https://noaailabs.com/models/ai-embeddings/index.html</loc></url>
 
-<url>
-<loc>https://isuzu-ayane.github.io/NoaSeraphim/ai-girlfriend/</loc>
-</url>
+<!-- TOOLS Silo -->
+<url><loc>https://noaailabs.com/Tools/ai-tools/index.html</loc></url>
+<url><loc>https://noaailabs.com/Tools/ai-tools/index_en.html</loc></url>
+<url><loc>https://noaailabs.com/Tools/ai-ComfyUI/index.html</loc></url>
+<url><loc>https://noaailabs.com/Tools/ai-ComfyUI/index_en.html</loc></url>
+<url><loc>https://noaailabs.com/Tools/index.html</loc></url>
 
-<url>
-<loc>https://isuzu-ayane.github.io/NoaSeraphim/ai-personality/</loc>
-</url>
+<!-- CREATIVE Silo -->
+<url><loc>https://noaailabs.com/creative/ai-character/index.html</loc></url>
+<url><loc>https://noaailabs.com/creative/ai-personality/index.html</loc></url>
+<url><loc>https://noaailabs.com/creative/image-song/index.html</loc></url>
+<url><loc>https://noaailabs.com/creative/image-song/index_en.html</loc></url>
 
-<url>
-<loc>https://isuzu-ayane.github.io/NoaSeraphim/ai-dialogue/</loc>
-</url>
-
-<url>
-<loc>https://isuzu-ayane.github.io/NoaSeraphim/ai-waifu/</loc>
-</url>
+<!-- GAMES -->
+<url><loc>https://noaailabs.com/Games/Seraphim_Growth_Project/index.html</loc></url>
+<url><loc>https://noaailabs.com/Games/future-city-game_pro/index.html</loc></url>
 
 </urlset>
