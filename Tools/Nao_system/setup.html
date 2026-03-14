@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nao System | 導入・設定ガイド</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --accent-blue: #3a7bd5;
+            --accent-green: #10b981;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --text-dark: #1e293b;
+        }
+
+        body {
+            font-family: 'Inter', 'M PLUS Rounded 1c', sans-serif;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            color: var(--text-dark);
+            line-height: 1.8;
+            padding-top: 80px;
+        }
+
+        .guide-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section-box {
+            background: var(--glass-bg);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid white;
+        }
+
+        .section-box h2 {
+            font-size: 1.8rem;
+            color: var(--accent-blue);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .step-label {
+            background: var(--accent-blue);
+            color: white;
+            padding: 2px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            margin-right: 10px;
+        }
+
+        .image-container {
+            margin: 25px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .highlight-text {
+            border-left: 4px solid var(--accent-green);
+            background: rgba(16, 185, 129, 0.05);
+            padding: 20px;
+            border-radius: 0 15px 15px 0;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--accent-blue);
+            font-weight: 700;
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+    <nav class="glass-panel centered-nav" style="position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(58, 123, 213, 0.1); display: flex; justify-content: center; align-items: center; padding: 15px 0;">
+        <ul style="display: flex; list-style: none; gap: 30px; margin: 0; padding: 0;">
+            <li><a href="../../index.html" style="color: #1e293b; text-decoration: none; font-weight: bold;">HOME</a></li>
+            <li><a href="../../ai-guide/index.html" style="color: #1e293b; text-decoration: none; font-weight: bold;">AI-GUIDE</a></li>
+            <li><a href="../../models/index.html" style="color: #1e293b; text-decoration: none; font-weight: bold;">MODELS</a></li>
+            <li><a href="../../Tools/index.html" style="color: var(--accent-blue); text-decoration: none; font-weight: bold;">TOOLS</a></li>
+        </ul>
+    </nav>
+
+    <div class="guide-container">
+        <a href="./index.html" class="back-link"><i class="fas fa-arrow-left"></i> ポータルに戻る</a>
+        
+        <header class="page-header">
+            <h1>インストール & 設定ガイド</h1>
+        </header>
+
+        <!-- SECTION: API Key -->
+        <section class="section-box">
+            <h2><i class="fas fa-key"></i> 1. Gemini APIキーの取得</h2>
+            <p>Nao Systemを動かすには、Googleの提供する最新AI「Gemini」のAPIキーが必要です。以下の手順で無料で取得できます。</p>
+            
+            <div style="margin-top: 30px;">
+                <p><span class="step-label">STEP 01</span> <strong>Google AI Studio</strong>へアクセスし、ログインします。</p>
+                <a href="https://aistudio.google.com/u/1/prompts/new_chat" target="_blank" style="color: var(--accent-blue); font-weight: bold;">Google AI Studio リンクはこちら</a>
+                <div class="image-container">
+                    <img src="./image/0.setumei_image.png" alt="Google AI Studio 画面">
+                </div>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <p><span class="step-label">STEP 02</span> サイドバーの「Get API key」メニューを選択し、キーを生成・コピーします。</p>
+                <div class="image-container">
+                    <img src="./image/1.setumei_image.png" alt="APIキーの取得画面">
+                </div>
+                <div class="highlight-text">
+                    <i class="fas fa-info-circle"></i> このキーがあれば、WEB版のGeminiを通さずにあなたのプログラムから直接AIを呼び出せるようになります。
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: Setup -->
+        <section class="section-box">
+            <h2><i class="fas fa-laptop-code"></i> 2. アプリの初期設定</h2>
+            <p>アプリの起動と、取得したAPIキーの設定を行います。</p>
+            
+            <div style="margin-top: 30px;">
+                <p><span class="step-label">STEP 03</span> アプリを起動し、取得したAPIキーを入力フィールドに貼り付けます。</p>
+                <div class="image-container">
+                    <img src="./image/01.app.png" alt="APIキー設定画面">
+                </div>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <p><span class="step-label">STEP 04</span> <strong>コンテキスト（AIの性格・前提知識）</strong>を設定します。</p>
+                <p>Nao SystemはAPI版を使用しているため、ここで設定した内容がAIの「考え方」の基準になります。何も設定しない場合は標準のGeminiとして振る舞います。</p>
+                <div class="image-container">
+                    <img src="./image/02.app.png" alt="コンテキスト設定画面">
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer style="text-align: center; padding: 60px 20px; color: #64748b; font-size: 0.9rem;">
+        <p>&copy; 2026 Noa Seraphim Project - Nao Local System Guide</p>
+    </footer>
+
+    <script src="../../script.js"></script>
+</body>
+</html>

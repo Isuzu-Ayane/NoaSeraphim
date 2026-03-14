@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nao System | 利用方法・カスタマイズ</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --accent-blue: #3a7bd5;
+            --accent-green: #10b981;
+            --accent-red: #f43f5e;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --text-dark: #1e293b;
+        }
+
+        body {
+            font-family: 'Inter', 'M PLUS Rounded 1c', sans-serif;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            color: var(--text-dark);
+            line-height: 1.8;
+            padding-top: 80px;
+        }
+
+        .guide-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section-box {
+            background: var(--glass-bg);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid white;
+        }
+
+        .section-box h2 {
+            font-size: 1.8rem;
+            color: var(--accent-blue);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .image-container {
+            margin: 25px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .highlight-text {
+            border-left: 4px solid var(--accent-green);
+            background: rgba(16, 185, 129, 0.05);
+            padding: 20px;
+            border-radius: 0 15px 15px 0;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--accent-blue);
+            font-weight: 700;
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+    <nav class="glass-panel centered-nav" style="position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(58, 123, 213, 0.1); display: flex; justify-content: center; align-items: center; padding: 15px 0;">
+        <ul style="display: flex; list-style: none; gap: 30px; margin: 0; padding: 0;">
+            <li><a href="../../index.html" style="color: #1e293b; text-decoration: none; font-weight: bold;">HOME</a></li>
+            <li><a href="../../ai-guide/index.html" style="color: #1e293b; text-decoration: none; font-weight: bold;">AI-GUIDE</a></li>
+            <li><a href="../../models/index.html" style="color: #1e293b; text-decoration: none; font-weight: bold;">MODELS</a></li>
+            <li><a href="../../Tools/index.html" style="color: var(--accent-blue); text-decoration: none; font-weight: bold;">TOOLS</a></li>
+        </ul>
+    </nav>
+
+    <div class="guide-container">
+        <a href="./index.html" class="back-link"><i class="fas fa-arrow-left"></i> ポータルに戻る</a>
+        
+        <header class="page-header">
+            <h1>利用方法 & カスタマイズ</h1>
+        </header>
+
+        <!-- SECTION: Design -->
+        <section class="section-box">
+            <h2><i class="fas fa-palette"></i> デザインのカスタマイズ</h2>
+            <p>あなたの好みに合わせて、デスクトップを彩るアシスタントへと育てましょう。</p>
+            
+            <div style="margin-top: 30px;">
+                <p><strong>外観の変更:</strong> 背景色や透明度、好みのキャラクターイメージを自由に変更できます。背景を設定することで、透過感を活かした奥行きのあるデザインを楽しむことが可能です。</p>
+                <div class="image-container">
+                    <img src="./image/03.app.png" alt="背景設定後のカスタム画面">
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: Features -->
+        <section class="section-box">
+            <h2><i class="fas fa-brain"></i> 高度な機能と活用</h2>
+            <p>Nao Systemならではの、ローカルAIとしての強みを活かしましょう。</p>
+
+            <div style="margin-top: 30px;">
+                <h3>ローカルファイルの精査機能</h3>
+                <p>WEB版Geminiでは難しかった「ローカルPC内のファイルを分析・調査」させることが可能です。ソースコードのレビューやドキュメントの要約など、あなたの作業を直接サポートします。</p>
+                <div class="image-container">
+                    <img src="./image/04.app.png" alt="ローカルファイル精査の様子">
+                </div>
+                <div class="highlight-text" style="border-left-color: var(--accent-red); background: rgba(244, 63, 94, 0.05);">
+                    <i class="fas fa-exclamation-triangle"></i> 本アプリはプライバイシーを考慮し、すべての処理をローカルで制御しています。アプリを終了すればバックグラウンドに不要なプロセスが残ることはありません。
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer style="text-align: center; padding: 60px 20px; color: #64748b; font-size: 0.9rem;">
+        <p>&copy; 2026 Noa Seraphim Project - Nao Local System Guide</p>
+    </footer>
+
+    <script src="../../script.js"></script>
+</body>
+</html>

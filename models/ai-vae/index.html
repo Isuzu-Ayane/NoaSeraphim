@@ -365,7 +365,7 @@
             border-radius: 6px;
             font-family: 'Courier New', Courier, monospace;
             color: #0f172a;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             display: inline-block;
             word-break: break-all;
         }
@@ -374,11 +374,62 @@
             display: inline-block;
             background: #e0f2fe;
             color: #0369a1;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 0.85rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
             font-weight: bold;
             border: 1px solid #bae6fd;
+            white-space: nowrap;
+        }
+
+        /* Preview Stylings */
+        .preview-cell {
+            width: 80px;
+            text-align: center;
+        }
+
+        .vae-preview-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .vae-preview-img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        .no-preview {
+            width: 60px;
+            height: 60px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 0.7rem;
+            border: 1px dashed #cbd5e1;
+        }
+
+        .civitai-link {
+            color: #3b82f6;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .civitai-link:hover {
+            text-decoration: underline;
+            color: #2563eb;
         }
     </style>
 </head>
@@ -486,138 +537,327 @@
             <h2><i class="fas fa-list-ul" style="color: #0ea5e9;"></i> 決定版！おすすめVAEリスト（検証済み）</h2>
 
             <!-- SD 1.5 Table -->
-            <h3 class="model-header sd15-header"><i class="fas fa-cube"></i> SD 1.5 系 (Stable Diffusion 1.5)</h3>
+            <h3 class="model-header sd15-header"><i class="fas fa-cube"></i> SD 1.5 系</h3>
             <div class="table-responsive">
                 <table class="vae-table">
                     <thead>
                         <tr>
-                            <th style="width: 40%;">ファイル名</th>
-                            <th style="width: 25%;">ベースモデル</th>
-                            <th style="width: 35%;">正式名称</th>
+                            <th class="preview-cell">プレビュー</th>
+                            <th style="width: 35%;">ファイル名</th>
+                            <th style="width: 20%;">ベースモデル</th>
+                            <th style="width: 30%;">正式名称</th>
+                            <th style="width: 15%;">Link</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><code>amenityVAE</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
+                            <td class="preview-cell"><img src="previews/pixelDustCC0Rebild_v02.jpg" class="vae-preview-img" alt="Pixel-Dust CC0 Rebild Attempt VAE"></td>
+                            <td><code>pixelDustCC0Rebild_v02.bin</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>Pixel-Dust CC0 Rebild Attempt VAE</td>
+                            <td><a href="https://civitai.com/models/768770" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><div class="no-preview">No Img</div></td>
+                            <td><code>ace_1.5_vae.safetensors</code></td>
+                            <td><span class="model-badge" >不明</span></td>
+                            <td>不明</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/amenityVAE_amenityV10.jpg" class="vae-preview-img" alt="Amenity VAE"></td>
+                            <td><code>amenityVAE_amenityV10.ckpt</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
                             <td>Amenity VAE</td>
+                            <td><a href="https://civitai.com/models/796798" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>apricotsV</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
-                            <td>Apricots VAE</td>
+                            <td class="preview-cell"><img src="previews/apricotsVAESeries_apricotsQuantizerV10.jpg" class="vae-preview-img" alt="Apricots VAE Series"></td>
+                            <td><code>apricotsVAESeries_apricotsQuantizerV10.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>Apricots VAE Series</td>
+                            <td><a href="https://civitai.com/models/253306" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>asianmixV</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
-                            <td>AsianMix VAE</td>
+                            <td class="preview-cell"><img src="previews/asianmixW50BackedVAE_v10.jpg" class="vae-preview-img" alt="AsianMix_W50 Backed VAE"></td>
+                            <td><code>asianmixW50BackedVAE_v10.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>AsianMix_W50 Backed VAE</td>
+                            <td><a href="https://civitai.com/models/101942" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>asyncsVA</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
+                            <td class="preview-cell"><img src="previews/asyncsVAE_v10.jpg" class="vae-preview-img" alt="Async's VAE"></td>
+                            <td><code>asyncsVAE_v10.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
                             <td>Async's VAE</td>
+                            <td><a href="https://civitai.com/models/317327" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>color101V</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
+                            <td class="preview-cell"><img src="previews/cleanvae_v10.jpg" class="vae-preview-img" alt="CleanVAE"></td>
+                            <td><code>cleanvae_v10.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>CleanVAE</td>
+                            <td><a href="https://civitai.com/models/115979" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/clearvaeSD15_v23.jpg" class="vae-preview-img" alt="ClearVAE(SD1.5)"></td>
+                            <td><code>clearvaeSD15_v23.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>ClearVAE(SD1.5)</td>
+                            <td><a href="https://civitai.com/models/22354" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/color101VAE_v1.jpg" class="vae-preview-img" alt="Color101 VAE"></td>
+                            <td><code>color101VAE_v1.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
                             <td>Color101 VAE</td>
+                            <td><a href="https://civitai.com/models/70248" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>consisten</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
-                            <td>Consistent VAE</td>
+                            <td class="preview-cell"><img src="previews/consistencyDecoderVAE_v10.jpg" class="vae-preview-img" alt="Consistency Decoder VAE by OpenAI"></td>
+                            <td><code>consistencyDecoderVAE_v10.pt</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>Consistency Decoder VAE by OpenAI</td>
+                            <td><a href="https://civitai.com/models/192010" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>difconsist</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
-                            <td>difConsist VAE</td>
+                            <td class="preview-cell"><img src="previews/customvae2_v001.jpg" class="vae-preview-img" alt="customVAE2"></td>
+                            <td><code>customvae2_v001.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>customVAE2</td>
+                            <td><a href="https://civitai.com/models/1371088" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>improvedV</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
-                            <td>Improved VAE</td>
+                            <td class="preview-cell"><img src="previews/customvae_q6.jpg" class="vae-preview-img" alt="customVAE"></td>
+                            <td><code>customvae_q6.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>customVAE</td>
+                            <td><a href="https://civitai.com/models/79699" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>lastpieceV</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
+                            <td class="preview-cell"><img src="previews/difconsistencyRAWVAE_v10.jpg" class="vae-preview-img" alt="difConsistency RAW VAE (Pack)"></td>
+                            <td><code>difconsistencyRAWVAE_v10.pt</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>difConsistency RAW VAE (Pack)</td>
+                            <td><a href="https://civitai.com/models/88390" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/difconsistencyRAWVAE_v10MEDIUMSafestensor.jpg" class="vae-preview-img" alt="difConsistency RAW VAE (Pack)"></td>
+                            <td><code>difconsistencyRAWVAE_v10MEDIUMSafestensor.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>difConsistency RAW VAE (Pack)</td>
+                            <td><a href="https://civitai.com/models/88390" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/difconsistencyRAWVAE_v10Safestensor.jpg" class="vae-preview-img" alt="difConsistency RAW VAE (Pack)"></td>
+                            <td><code>difconsistencyRAWVAE_v10Safestensor.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>difConsistency RAW VAE (Pack)</td>
+                            <td><a href="https://civitai.com/models/88390" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/improvedVAEForPony6_5.jpg" class="vae-preview-img" alt="Improved VAE for Pony 6 SD1.5"></td>
+                            <td><code>improvedVAEForPony6_5.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>Improved VAE for Pony 6 SD1.5</td>
+                            <td><a href="https://civitai.com/models/1144382" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/klF8Anime3_mse840000V10.jpg" class="vae-preview-img" alt="kl-f8-anime3"></td>
+                            <td><code>klF8Anime3_mse840000V10.ckpt</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>kl-f8-anime3</td>
+                            <td><a href="https://civitai.com/models/419401" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/klF8LDMKL8Models_klF8FixPt.jpg" class="vae-preview-img" alt="kl-f8 LDM KL-8 Models"></td>
+                            <td><code>klF8LDMKL8Models_klF8FixPt.pt</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>kl-f8 LDM KL-8 Models</td>
+                            <td><a href="https://civitai.com/models/505017" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/lastpieceVAE_contrast.jpg" class="vae-preview-img" alt="Lastpiece VAE"></td>
+                            <td><code>lastpieceVAE_contrast.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
                             <td>Lastpiece VAE</td>
+                            <td><a href="https://civitai.com/models/158046" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>lsunChurc</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
-                            <td>LSUN-Church VAE</td>
+                            <td class="preview-cell"><img src="previews/lsunChurchesKL8Model_v10.jpg" class="vae-preview-img" alt="LSUN-Churches KL-8 Model VAE(LDM)"></td>
+                            <td><code>lsunChurchesKL8Model_v10.ckpt</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>LSUN-Churches KL-8 Model VAE(LDM)</td>
+                            <td><a href="https://civitai.com/models/431674" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>nocturnal</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
+                            <td class="preview-cell"><img src="previews/nocturnalVAE_ (1).jpg" class="vae-preview-img" alt="Nocturnal VAE"></td>
+                            <td><code>nocturnalVAE_ (1).safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
                             <td>Nocturnal VAE</td>
+                            <td><a href="https://civitai.com/models/249879" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>pppanimi</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
-                            <td>PPPAnimi VAE</td>
+                            <td class="preview-cell"><img src="previews/nocturnalVAE_.jpg" class="vae-preview-img" alt="Nocturnal VAE"></td>
+                            <td><code>nocturnalVAE_.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>Nocturnal VAE</td>
+                            <td><a href="https://civitai.com/models/249879" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>realisticV</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
-                            <td>Realistic VAE</td>
+                            <td class="preview-cell"><img src="previews/pppanimixVAE_pppanimixVAE.jpg" class="vae-preview-img" alt="PPPAnimix VAE"></td>
+                            <td><code>pppanimixVAE_pppanimixVAE.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>PPPAnimix VAE</td>
+                            <td><a href="https://civitai.com/models/285852" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>sdVAHFor</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
-                            <td>SD VAE for Anime</td>
+                            <td class="preview-cell"><img src="previews/pppanimixVAE_v3.jpg" class="vae-preview-img" alt="PPPAnimix VAE"></td>
+                            <td><code>pppanimixVAE_v3.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>PPPAnimix VAE</td>
+                            <td><a href="https://civitai.com/models/285852" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>toneRang</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
-                            <td>Tone Range VAE</td>
+                            <td class="preview-cell"><img src="previews/realisticVisionV60B1_v51VAE.jpg" class="vae-preview-img" alt="Realistic Vision V6.0 B1"></td>
+                            <td><code>realisticVisionV60B1_v51VAE.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>Realistic Vision V6.0 B1</td>
+                            <td><a href="https://civitai.com/models/4201" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>ttjStableD</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
-                            <td>ttj / stable diffusion vae</td>
+                            <td class="preview-cell"><img src="previews/realisticVisionV60B1_v60B1VAE.jpg" class="vae-preview-img" alt="Realistic Vision V6.0 B1"></td>
+                            <td><code>realisticVisionV60B1_v60B1VAE.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>Realistic Vision V6.0 B1</td>
+                            <td><a href="https://civitai.com/models/4201" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>twinkleVA</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
+                            <td class="preview-cell"><img src="previews/sdVAEForAnime_v10.jpg" class="vae-preview-img" alt="SD VAE for anime"></td>
+                            <td><code>sdVAEForAnime_v10.pt</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>SD VAE for anime</td>
+                            <td><a href="https://civitai.com/models/217931" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/sharpspectrumvae_v1Bf16 (1).jpg" class="vae-preview-img" alt="SharpSpectrumVAE"></td>
+                            <td><code>sharpspectrumvae_v1Bf16 (1).safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>SharpSpectrumVAE</td>
+                            <td><a href="https://civitai.com/models/212366" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/sharpspectrumvae_v1Bf16.jpg" class="vae-preview-img" alt="SharpSpectrumVAE"></td>
+                            <td><code>sharpspectrumvae_v1Bf16.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>SharpSpectrumVAE</td>
+                            <td><a href="https://civitai.com/models/212366" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/toneRangeCompressor_trcvae.jpg" class="vae-preview-img" alt="Tone Range Compressor (VAE)"></td>
+                            <td><code>toneRangeCompressor_trcvae.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>Tone Range Compressor (VAE)</td>
+                            <td><a href="https://civitai.com/models/87271" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/ttjStableDiffusionVae_originalV10.jpg" class="vae-preview-img" alt="ttj / stable-diffusion-vae-anime"></td>
+                            <td><code>ttjStableDiffusionVae_originalV10.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>ttj / stable-diffusion-vae-anime</td>
+                            <td><a href="https://civitai.com/models/812855" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/twinkleVAEMonochrome_oldies50s60sV10.jpg" class="vae-preview-img" alt="Twinkle VAE Monochrome and Sepiatone"></td>
+                            <td><code>twinkleVAEMonochrome_oldies50s60sV10.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>Twinkle VAE Monochrome and Sepiatone</td>
+                            <td><a href="https://civitai.com/models/496506" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/twinkleVAE_twinkleQuantizerV10.jpg" class="vae-preview-img" alt="Twinkle VAE"></td>
+                            <td><code>twinkleVAE_twinkleQuantizerV10.pt</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
                             <td>Twinkle VAE</td>
+                            <td><a href="https://civitai.com/models/357727" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>vaeFtEma</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
-                            <td>vae-ft-ema-560000-ema-pruned</td>
+                            <td class="preview-cell"><img src="previews/vaeFtEma560000Ema_original.jpg" class="vae-preview-img" alt="vae-ft-ema-560000-ema"></td>
+                            <td><code>vaeFtEma560000Ema_original.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>vae-ft-ema-560000-ema</td>
+                            <td><a href="https://civitai.com/models/115217" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>vaeFtMse</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
-                            <td>vae-ft-mse-840000-ema-pruned</td>
+                            <td class="preview-cell"><img src="previews/vaeFtMse840000EmaPruned_vaeFtMse840k.jpg" class="vae-preview-img" alt="vae-ft-mse-840000-ema-pruned | 840000 | 840k SD1.5 VAE"></td>
+                            <td><code>vaeFtMse840000EmaPruned_vaeFtMse840k.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>vae-ft-mse-840000-ema-pruned | 840000 | 840k SD1.5 VAE</td>
+                            <td><a href="https://civitai.com/models/276082" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>vaeKIF8Ar</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
+                            <td class="preview-cell"><img src="previews/vaeKlF8Anime2_klF8Anime2VAE.jpg" class="vae-preview-img" alt="VAE-kl-f8-anime2"></td>
+                            <td><code>vaeKlF8Anime2_klF8Anime2VAE.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
                             <td>VAE-kl-f8-anime2</td>
+                            <td><a href="https://civitai.com/models/23906" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>vaeTedin</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
-                            <td>vae-tedin</td>
+                            <td class="preview-cell"><img src="previews/vaeTedingAliased2024_vaeTedingAliased2024.jpg" class="vae-preview-img" alt="vae-teding-aliased-2024-03"></td>
+                            <td><code>vaeTedingAliased2024_vaeTedingAliased2024.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>vae-teding-aliased-2024-03</td>
+                            <td><a href="https://civitai.com/models/366568" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>voidnoise</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
+                            <td class="preview-cell"><img src="previews/voidnoiseVAE_baseonR0829.jpg" class="vae-preview-img" alt="Voidnoise VAE"></td>
+                            <td><code>voidnoiseVAE_baseonR0829.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
                             <td>Voidnoise VAE</td>
+                            <td><a href="https://civitai.com/models/158049" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>wdVAE_v</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
+                            <td class="preview-cell"><img src="previews/wdVAE_v10 (1).jpg" class="vae-preview-img" alt="WD-VAE"></td>
+                            <td><code>wdVAE_v10 (1).safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
                             <td>WD-VAE</td>
+                            <td><a href="https://civitai.com/models/225734" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>zcVAE_v1</code></td>
-                            <td><span class="model-badge">SD 1.5</span></td>
-                            <td>ZC VAE</td>
+                            <td class="preview-cell"><img src="previews/wdVAE_v10.jpg" class="vae-preview-img" alt="WD-VAE"></td>
+                            <td><code>wdVAE_v10.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>WD-VAE</td>
+                            <td><a href="https://civitai.com/models/225734" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
-                    </tbody>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/zcVAE_v10.jpg" class="vae-preview-img" alt="ZC VAE"></td>
+                            <td><code>zcVAE_v10.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>ZC VAE</td>
+                            <td><a href="https://civitai.com/models/248286" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/realisticVisionV60B1_v51HyperVAE.jpg" class="vae-preview-img" alt="Realistic Vision V6.0 B1"></td>
+                            <td><code>realisticVisionV60B1_v51HyperVAE.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5 Hyper</span></td>
+                            <td>Realistic Vision V6.0 B1</td>
+                            <td><a href="https://civitai.com/models/4201" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/earthDuskVAE_v10.jpg" class="vae-preview-img" alt="Earth & Dusk VAE"></td>
+                            <td><code>earthDuskVAE_v10.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>Earth & Dusk VAE</td>
+                            <td><a href="https://civitai.com/models/248843" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/ewth_v10.jpg" class="vae-preview-img" alt="ewth"></td>
+                            <td><code>ewth_v10.safetensors</code></td>
+                            <td><span class="model-badge" >SD 1.5</span></td>
+                            <td>ewth</td>
+                            <td><a href="https://civitai.com/models/547074" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr></tbody>
                 </table>
             </div>
 
@@ -627,167 +867,238 @@
                 <table class="vae-table">
                     <thead>
                         <tr>
-                            <th style="width: 40%;">ファイル名</th>
-                            <th style="width: 25%;">ベースモデル</th>
-                            <th style="width: 35%;">正式名称</th>
+                            <th class="preview-cell">プレビュー</th>
+                            <th style="width: 35%;">ファイル名</th>
+                            <th style="width: 20%;">ベースモデル</th>
+                            <th style="width: 30%;">正式名称</th>
+                            <th style="width: 15%;">Link</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><code>aiartlabSDXL</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
+                            <td class="preview-cell"><img src="previews/sdxlVaeAnimeTest_beta120000 (1).jpg" class="vae-preview-img" alt="sdxl-vae-anime-test"></td>
+                            <td><code>sdxlVaeAnimeTest_beta120000 (1).safetensors</code></td>
+                            <td><span class="model-badge" >NoobAI</span></td>
+                            <td>sdxl-vae-anime-test</td>
+                            <td><a href="https://civitai.com/models/1219546" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/sdxlVaeAnimeTest_beta120000.jpg" class="vae-preview-img" alt="sdxl-vae-anime-test"></td>
+                            <td><code>sdxlVaeAnimeTest_beta120000.safetensors</code></td>
+                            <td><span class="model-badge" >NoobAI</span></td>
+                            <td>sdxl-vae-anime-test</td>
+                            <td><a href="https://civitai.com/models/1219546" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/aiartlabSdxlVae_v20.jpg" class="vae-preview-img" alt="aiartlab_sdxl_vae"></td>
+                            <td><code>aiartlabSdxlVae_v20.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
                             <td>aiartlab_sdxl_vae</td>
+                            <td><a href="https://civitai.com/models/1880829" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>andromed</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
-                            <td>Andromeda VAE</td>
+                            <td class="preview-cell"><img src="previews/andromedaXLILNAIVAE_v10.jpg" class="vae-preview-img" alt="Andromeda XL|IL|NAI VAE"></td>
+                            <td><code>andromedaXLILNAIVAE_v10.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>Andromeda XL|IL|NAI VAE</td>
+                            <td><a href="https://civitai.com/models/1809235" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>anzhcMSL</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
-                            <td>Anzhc / MSL VAE</td>
+                            <td class="preview-cell"><img src="previews/anzhcMSLCEQDVRVAE_v10.jpg" class="vae-preview-img" alt="Anzhc / MS-LC-EQ-D-VR_VAE"></td>
+                            <td><code>anzhcMSLCEQDVRVAE_v10.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>Anzhc / MS-LC-EQ-D-VR_VAE</td>
+                            <td><a href="https://civitai.com/models/1835078" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>betterColo</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
-                            <td>Better Color VAE</td>
+                            <td class="preview-cell"><img src="previews/betterColorsVAEXL_monumental.jpg" class="vae-preview-img" alt="Better Colors VAE XL"></td>
+                            <td><code>betterColorsVAEXL_monumental.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>Better Colors VAE XL</td>
+                            <td><a href="https://civitai.com/models/2248393" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>fixFP16Err</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
-                            <td><strong>FIX FP16 Errors (重要)</strong></td>
+                            <td class="preview-cell"><img src="previews/fixFP16ErrorsSDXLLowerMemoryUse_v10.jpg" class="vae-preview-img" alt="FIX FP16 Errors SDXL - Lower Memory use! --- sdxl-vae-fp16-fix by madebyollin"></td>
+                            <td><code>fixFP16ErrorsSDXLLowerMemoryUse_v10.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>FIX FP16 Errors SDXL - Lower Memory use! --- sdxl-vae-fp16-fix by madebyollin</td>
+                            <td><a href="https://civitai.com/models/140686" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>greyVAEF</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
-                            <td>Grey VAE Fix</td>
+                            <td class="preview-cell"><img src="previews/forSharpness_s15.jpg" class="vae-preview-img" alt="For sharpness adjustment"></td>
+                            <td><code>forSharpness_s15.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>For sharpness adjustment</td>
+                            <td><a href="https://civitai.com/models/1018808" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>neptuniaX</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
-                            <td>Neptunia XL VAE</td>
+                            <td class="preview-cell"><img src="previews/greyVAEForSDXL_t.jpg" class="vae-preview-img" alt="Grey VAE For SDXL"></td>
+                            <td><code>greyVAEForSDXL_t.pt</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>Grey VAE For SDXL</td>
+                            <td><a href="https://civitai.com/models/357506" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>pixelateX</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
-                            <td>Pixelate x4 VAE</td>
+                            <td class="preview-cell"><img src="previews/lttXL_v03.jpg" class="vae-preview-img" alt="LTT_XL"></td>
+                            <td><code>lttXL_v03.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>LTT_XL</td>
+                            <td><a href="https://civitai.com/models/1713963" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>sdxlAnime</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
-                            <td>SDXL_anime_vae</td>
+                            <td class="preview-cell"><img src="previews/neptuniaXLILNAIVAE_contrastColors.jpg" class="vae-preview-img" alt="Neptunia XL/IL/NAI VAE"></td>
+                            <td><code>neptuniaXLILNAIVAE_contrastColors.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>Neptunia XL/IL/NAI VAE</td>
+                            <td><a href="https://civitai.com/models/1290283" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>sdxlNatu...</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
-                            <td>SDXL Natural VAE</td>
+                            <td class="preview-cell"><img src="previews/pixelateX4VAEForIL_v11.jpg" class="vae-preview-img" alt="Pixelate x4 VAE for IL/Pony/SDXL"></td>
+                            <td><code>pixelateX4VAEForIL_v11.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>Pixelate x4 VAE for IL/Pony/SDXL</td>
+                            <td><a href="https://civitai.com/models/2299499" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>sdxlRec2...</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
-                            <td>SDXL Rec VAE</td>
+                            <td class="preview-cell"><img src="previews/pixelateX8VAEForSDXL_v10.jpg" class="vae-preview-img" alt="Pixelate x8 VAE for SDXL/Pony/Illustrious"></td>
+                            <td><code>pixelateX8VAEForSDXL_v10.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>Pixelate x8 VAE for SDXL/Pony/Illustrious</td>
+                            <td><a href="https://civitai.com/models/1492329" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>sdxlVAEF</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
+                            <td class="preview-cell"><img src="previews/sdxlAnimeClearVae_clear.jpg" class="vae-preview-img" alt="SDXL_anime_clear_vae"></td>
+                            <td><code>sdxlAnimeClearVae_clear.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>SDXL_anime_clear_vae</td>
+                            <td><a href="https://civitai.com/models/2171491" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/sdxlNaturalSkintone_fp32.jpg" class="vae-preview-img" alt="SDXL Natural Skintone (FP32 VAE)"></td>
+                            <td><code>sdxlNaturalSkintone_fp32.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>SDXL Natural Skintone (FP32 VAE)</td>
+                            <td><a href="https://civitai.com/models/1362299" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/sdxlRec2100PQVAEFor_v10.jpg" class="vae-preview-img" alt="SDXL Rec. 2100 PQ VAE for HDR"></td>
+                            <td><code>sdxlRec2100PQVAEFor_v10.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>SDXL Rec. 2100 PQ VAE for HDR</td>
+                            <td><a href="https://civitai.com/models/1171618" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/sdxlVAEFinetuneVAE_v10Failure (1).jpg" class="vae-preview-img" alt="SDXL VAE finetune + VAE training script"></td>
+                            <td><code>sdxlVAEFinetuneVAE_v10Failure (1).safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>SDXL VAE finetune + VAE training script</td>
+                            <td><a href="https://civitai.com/models/707136" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/sdxlVAEFinetuneVAE_v10Failure.jpg" class="vae-preview-img" alt="SDXL VAE finetune + VAE training script"></td>
+                            <td><code>sdxlVAEFinetuneVAE_v10Failure.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>SDXL VAE finetune + VAE training script</td>
+                            <td><a href="https://civitai.com/models/707136" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/sdxlVAE_sdxlVAE.jpg" class="vae-preview-img" alt="SDXL VAE"></td>
+                            <td><code>sdxlVAE_sdxlVAE.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
                             <td>SDXL VAE</td>
+                            <td><a href="https://civitai.com/models/296576" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>sdxlVAE_</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
-                            <td>SDXL VAE Base</td>
+                            <td class="preview-cell"><img src="previews/sdxl_vae.jpg" class="vae-preview-img" alt="FIX FP16 Errors SDXL - Lower Memory use! --- sdxl-vae-fp16-fix by madebyollin"></td>
+                            <td><code>sdxl_vae.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>FIX FP16 Errors SDXL - Lower Memory use! --- sdxl-vae-fp16-fix by madebyollin</td>
+                            <td><a href="https://civitai.com/models/140686" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>sdxl_vae.s</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
-                            <td>sdxl_vae.safetensors</td>
+                            <td class="preview-cell"><img src="previews/toonEffectHyperColor_toonEffectVAE.jpg" class="vae-preview-img" alt="Toon Effect (Hyper Color VAE)"></td>
+                            <td><code>toonEffectHyperColor_toonEffectVAE.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>Toon Effect (Hyper Color VAE)</td>
+                            <td><a href="https://civitai.com/models/1526211" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>toonEffect</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
-                            <td>Toon Effect VAE</td>
+                            <td class="preview-cell"><img src="previews/utopiaOptimizedVAEFor_utopiaxlOptimized.jpg" class="vae-preview-img" alt="Utopia Optimized | VAE for low CFG"></td>
+                            <td><code>utopiaOptimizedVAEFor_utopiaxlOptimized.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>Utopia Optimized | VAE for low CFG</td>
+                            <td><a href="https://civitai.com/models/1848268" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>utopiaOpt</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
-                            <td>Utopia Opt VAE</td>
-                        </tr>
-                        <tr>
-                            <td><code>vaemix_v</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
+                            <td class="preview-cell"><img src="previews/vaemix_v6.jpg" class="vae-preview-img" alt="vaemix"></td>
+                            <td><code>vaemix_v6.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
                             <td>vaemix</td>
+                            <td><a href="https://civitai.com/models/1712443" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>xlVAEC_c</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
+                            <td class="preview-cell"><img src="previews/xlVAEC_c91.jpg" class="vae-preview-img" alt="XL_VAE_C"></td>
+                            <td><code>xlVAEC_c91.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
                             <td>XL_VAE_C</td>
+                            <td><a href="https://civitai.com/models/152040" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>xlVAEC_e</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
-                            <td>XL_VAE_E</td>
+                            <td class="preview-cell"><img src="previews/xlVAEC_e83.jpg" class="vae-preview-img" alt="XL_VAE_C"></td>
+                            <td><code>xlVAEC_e83.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>XL_VAE_C</td>
+                            <td><a href="https://civitai.com/models/152040" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>xlVAEC_f...</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
-                            <td>XL_VAE_F</td>
+                            <td class="preview-cell"><img src="previews/xlVAEC_f2.jpg" class="vae-preview-img" alt="XL_VAE_C"></td>
+                            <td><code>xlVAEC_f2.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>XL_VAE_C</td>
+                            <td><a href="https://civitai.com/models/152040" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>xlVAEC_g</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
-                            <td>XL_VAE_G</td>
+                            <td class="preview-cell"><img src="previews/xlVAEC_f231.jpg" class="vae-preview-img" alt="XL_VAE_C"></td>
+                            <td><code>xlVAEC_f231.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>XL_VAE_C</td>
+                            <td><a href="https://civitai.com/models/152040" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>xlVAE_fp</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span>
-                            </td>
-                            <td>XL-VAE FP16 Fix</td>
+                            <td class="preview-cell"><img src="previews/xlVAEC_g102.jpg" class="vae-preview-img" alt="XL_VAE_C"></td>
+                            <td><code>xlVAEC_g102.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>XL_VAE_C</td>
+                            <td><a href="https://civitai.com/models/152040" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
-                    </tbody>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/xlVAEC_g95.jpg" class="vae-preview-img" alt="XL_VAE_C"></td>
+                            <td><code>xlVAEC_g95.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>XL_VAE_C</td>
+                            <td><a href="https://civitai.com/models/152040" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/xlVAEC_g952.jpg" class="vae-preview-img" alt="XL_VAE_C"></td>
+                            <td><code>xlVAEC_g952.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>XL_VAE_C</td>
+                            <td><a href="https://civitai.com/models/152040" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/xlVAE_fp321280Retx.jpg" class="vae-preview-img" alt="XL-VAE"></td>
+                            <td><code>xlVAE_fp321280Retx.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>XL-VAE</td>
+                            <td><a href="https://civitai.com/models/2017926" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/dogevaeNo10_dogevaeNo10typeh.jpg" class="vae-preview-img" alt="DogeVAE - No.10"></td>
+                            <td><code>dogevaeNo10_dogevaeNo10typeh.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#d1fae5; color:#047857; border-color:#6ee7b7;">SDXL 1.0</span></td>
+                            <td>DogeVAE - No.10</td>
+                            <td><a href="https://civitai.com/models/1412255" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr></tbody>
                 </table>
             </div>
 
@@ -797,37 +1108,42 @@
                 <table class="vae-table">
                     <thead>
                         <tr>
-                            <th style="width: 40%;">ファイル名</th>
-                            <th style="width: 25%;">ベースモデル</th>
-                            <th style="width: 35%;">正式名称</th>
+                            <th class="preview-cell">プレビュー</th>
+                            <th style="width: 35%;">ファイル名</th>
+                            <th style="width: 20%;">ベースモデル</th>
+                            <th style="width: 30%;">正式名称</th>
+                            <th style="width: 15%;">Link</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><code>hdrEffectV</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#fce7f3; color:#be185d; border-color:#fbcfe8;">Pony</span></td>
+                            <td class="preview-cell"><img src="previews/hdrEffectVAE_v20.jpg" class="vae-preview-img" alt="HDR Effect VAE"></td>
+                            <td><code>hdrEffectVAE_v20.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#fce7f3; color:#be185d; border-color:#fbcfe8;">Pony</span></td>
                             <td>HDR Effect VAE</td>
+                            <td><a href="https://civitai.com/models/1480240" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>ponyEnha</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#fce7f3; color:#be185d; border-color:#fbcfe8;">Pony</span></td>
-                            <td>Pony Enhanced VAE</td>
+                            <td class="preview-cell"><img src="previews/ponyEnhancedVAE_pastelHelperV1.jpg" class="vae-preview-img" alt="Pony Enhanced VAE Pastels"></td>
+                            <td><code>ponyEnhancedVAE_pastelHelperV1.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#fce7f3; color:#be185d; border-color:#fbcfe8;">Pony</span></td>
+                            <td>Pony Enhanced VAE Pastels</td>
+                            <td><a href="https://civitai.com/models/660613" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>ponyStan</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#fce7f3; color:#be185d; border-color:#fbcfe8;">Pony</span></td>
+                            <td class="preview-cell"><img src="previews/ponyStandardVAE_v10.jpg" class="vae-preview-img" alt="Pony Standard VAE"></td>
+                            <td><code>ponyStandardVAE_v10.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#fce7f3; color:#be185d; border-color:#fbcfe8;">Pony</span></td>
                             <td>Pony Standard VAE</td>
+                            <td><a href="https://civitai.com/models/660673" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>softFastV</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#fce7f3; color:#be185d; border-color:#fbcfe8;">Pony</span></td>
-                            <td>Soft & Fast VAE</td>
-                        </tr>
-                    </tbody>
+                            <td class="preview-cell"><img src="previews/softFastVAESDXLPONY_v10.jpg" class="vae-preview-img" alt="Soft & Fast VAE (SDXL/PONY 80MB Quantized)"></td>
+                            <td><code>softFastVAESDXLPONY_v10.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#fce7f3; color:#be185d; border-color:#fbcfe8;">Pony</span></td>
+                            <td>Soft & Fast VAE (SDXL/PONY 80MB Quantized)</td>
+                            <td><a href="https://civitai.com/models/1555544" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr></tbody>
                 </table>
             </div>
 
@@ -837,48 +1153,56 @@
                 <table class="vae-table">
                     <thead>
                         <tr>
-                            <th style="width: 40%;">ファイル名</th>
-                            <th style="width: 25%;">ベースモデル</th>
-                            <th style="width: 35%;">正式名称</th>
+                            <th class="preview-cell">プレビュー</th>
+                            <th style="width: 35%;">ファイル名</th>
+                            <th style="width: 20%;">ベースモデル</th>
+                            <th style="width: 30%;">正式名称</th>
+                            <th style="width: 15%;">Link</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><code>flashPhot</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#ffedd5; color:#c2410c; border-color:#fdba74;">Flux.1 D</span>
-                            </td>
-                            <td>Flash Photo VAE</td>
+                            <td class="preview-cell"><img src="previews/fluxVaeSft_aeSft.jpg" class="vae-preview-img" alt="Flux vae.sft"></td>
+                            <td><code>fluxVaeSft_aeSft.sft</code></td>
+                            <td><span class="model-badge" style="background:#ffedd5; color:#c2410c; border-color:#fdba74;">Flux.1 D</span></td>
+                            <td>Flux vae.sft</td>
+                            <td><a href="https://civitai.com/models/636193" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>fluxVaeSf</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#ffedd5; color:#c2410c; border-color:#fdba74;">Flux.1 D</span>
-                            </td>
-                            <td>Flux vae sf</td>
+                            <td class="preview-cell"><img src="previews/flashPhotoFLUXVAE_v10.jpg" class="vae-preview-img" alt="Flash Photo (FLUX VAE)"></td>
+                            <td><code>flashPhotoFLUXVAE_v10.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#ffedd5; color:#c2410c; border-color:#fdba74;">Flux.1 D</span></td>
+                            <td>Flash Photo (FLUX VAE)</td>
+                            <td><a href="https://civitai.com/models/1546042" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>fluxVAEW</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#ffedd5; color:#c2410c; border-color:#fdba74;">Flux.2 D</span>
-                            </td>
-                            <td>FLUX_VAE Wide</td>
+                            <td class="preview-cell"><img src="previews/fluxVAEW_w2.jpg" class="vae-preview-img" alt="FLUX_VAE_W"></td>
+                            <td><code>fluxVAEW_w2.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#ffedd5; color:#c2410c; border-color:#fdba74;">Flux.1 S</span></td>
+                            <td>FLUX_VAE_W</td>
+                            <td><a href="https://civitai.com/models/742675" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>fluxVAEW</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#ffedd5; color:#c2410c; border-color:#fdba74;">Flux.1 S</span>
-                            </td>
-                            <td>FLUX_VAE Wide S</td>
+                            <td class="preview-cell"><img src="previews/ostrisOpenflux1VAE_wip4db07a1.jpg" class="vae-preview-img" alt="Ostris OpenFLUX.1 VAE"></td>
+                            <td><code>ostrisOpenflux1VAE_wip4db07a1.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#ffedd5; color:#c2410c; border-color:#fdba74;">Flux.1 S</span></td>
+                            <td>Ostris OpenFLUX.1 VAE</td>
+                            <td><a href="https://civitai.com/models/680456" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>ostrisOpen</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#ffedd5; color:#c2410c; border-color:#fdba74;">Flux.1 S</span>
-                            </td>
-                            <td>Ostris Open VAE</td>
+                            <td class="preview-cell"><img src="previews/fluxVAEW2_w21.jpg" class="vae-preview-img" alt="FLUX_VAE_W2"></td>
+                            <td><code>fluxVAEW2_w21.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#ffedd5; color:#c2410c; border-color:#fdba74;">Flux.2 D</span></td>
+                            <td>FLUX_VAE_W2</td>
+                            <td><a href="https://civitai.com/models/2319642" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
-                    </tbody>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/fluxVAEW2_w21.jpg" class="vae-preview-img" alt="FLUX_VAE_W2"></td>
+                            <td><code>fluxVAEW2_w21.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#ffedd5; color:#c2410c; border-color:#fdba74;">Flux.2 D</span></td>
+                            <td>FLUX_VAE_W2</td>
+                            <td><a href="https://civitai.com/models/2319642" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr></tbody>
                 </table>
             </div>
 
@@ -887,78 +1211,175 @@
                 <table class="vae-table">
                     <thead>
                         <tr>
-                            <th style="width: 40%;">ファイル名</th>
-                            <th style="width: 25%;">ベースモデル</th>
-                            <th style="width: 35%;">正式名称</th>
+                            <th class="preview-cell">プレビュー</th>
+                            <th style="width: 35%;">ファイル名</th>
+                            <th style="width: 20%;">ベースモデル</th>
+                            <th style="width: 30%;">正式名称</th>
+                            <th style="width: 15%;">Link</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><code>ace_1.5_vae</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#eef2ff; color:#4338ca; border-color:#c7d2fe;">ACE</span></td>
-                            <td>ACE1.5</td>
+                            <td class="preview-cell"><div class="no-preview">No Img</div></td>
+                            <td><code>ema_vae.pth</code></td>
+                            <td><span class="model-badge" >不明</span></td>
+                            <td>不明</td>
+                            <td>-</td>
                         </tr>
                         <tr>
-                            <td><code>auraflowV</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#f5f3ff; color:#6d28d9; border-color:#ddd6fe;">Kolors</span></td>
-                            <td>Kolors VAE Flow</td>
+                            <td class="preview-cell"><img src="previews/crystalVAESDXL_vaeV3.jpg" class="vae-preview-img" alt="Crystal - VAE [SDXL/Illustrious]"></td>
+                            <td><code>crystalVAESDXL_vaeV3.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#fdf4ff; color:#a21caf; border-color:#f5d0fe;">Illustrious</span></td>
+                            <td>Crystal - VAE [SDXL/Illustrious]</td>
+                            <td><a href="https://civitai.com/models/2179383" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>kolorsVAE</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#f5f3ff; color:#6d28d9; border-color:#ddd6fe;">Kolors</span></td>
-                            <td>Kolors VAE Base</td>
+                            <td class="preview-cell"><img src="previews/forgesBuiltInVAE_v10.jpg" class="vae-preview-img" alt="Forge's "Built In" VAE"></td>
+                            <td><code>forgesBuiltInVAE_v10.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#fdf4ff; color:#a21caf; border-color:#f5d0fe;">Illustrious</span></td>
+                            <td>Forge's "Built In" VAE</td>
+                            <td><a href="https://civitai.com/models/1623082" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>crystalVAE</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#fdf4ff; color:#a21caf; border-color:#f5d0fe;">Illustrious</span>
-                            </td>
-                            <td>Crystal VAE</td>
+                            <td class="preview-cell"><img src="previews/illustriousXLV10_v10.jpg" class="vae-preview-img" alt="Illustrious-XL-v1.0"></td>
+                            <td><code>illustriousXLV10_v10.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#fdf4ff; color:#a21caf; border-color:#f5d0fe;">Illustrious</span></td>
+                            <td>Illustrious-XL-v1.0</td>
+                            <td><a href="https://civitai.com/models/1693029" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>pppanimi</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#fdf4ff; color:#a21caf; border-color:#f5d0fe;">Illustrious</span>
-                            </td>
-                            <td>PPPAnimi VAE XL</td>
+                            <td class="preview-cell"><img src="previews/illustriousXLV20_v10.jpg" class="vae-preview-img" alt="Illustrious-XL-v2.0"></td>
+                            <td><code>illustriousXLV20_v10.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#fdf4ff; color:#a21caf; border-color:#f5d0fe;">Illustrious</span></td>
+                            <td>Illustrious-XL-v2.0</td>
+                            <td><a href="https://civitai.com/models/1684460" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>purecolor</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#fdf4ff; color:#a21caf; border-color:#f5d0fe;">Illustrious</span>
-                            </td>
+                            <td class="preview-cell"><img src="previews/liquid111vae_sdxl9745VAE.jpg" class="vae-preview-img" alt="Liquid111VAE & Liquid9745VAE"></td>
+                            <td><code>liquid111vae_sdxl9745VAE.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#fdf4ff; color:#a21caf; border-color:#f5d0fe;">Illustrious</span></td>
+                            <td>Liquid111VAE & Liquid9745VAE</td>
+                            <td><a href="https://civitai.com/models/85106" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/pppanimixVAE_il.jpg" class="vae-preview-img" alt="PPPAnimix VAE"></td>
+                            <td><code>pppanimixVAE_il.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#fdf4ff; color:#a21caf; border-color:#f5d0fe;">Illustrious</span></td>
+                            <td>PPPAnimix VAE</td>
+                            <td><a href="https://civitai.com/models/285852" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/pppanimixVAE_ilxl.jpg" class="vae-preview-img" alt="PPPAnimix VAE"></td>
+                            <td><code>pppanimixVAE_ilxl.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#fdf4ff; color:#a21caf; border-color:#f5d0fe;">Illustrious</span></td>
+                            <td>PPPAnimix VAE</td>
+                            <td><a href="https://civitai.com/models/285852" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/purecolorVAE_v10.jpg" class="vae-preview-img" alt="Purecolor VAE"></td>
+                            <td><code>purecolorVAE_v10.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#fdf4ff; color:#a21caf; border-color:#f5d0fe;">Illustrious</span></td>
                             <td>Purecolor VAE</td>
+                            <td><a href="https://civitai.com/models/1792881" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>qwenImag</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#f0fdfa; color:#0f766e; border-color:#ccfbf1;">Qwen</span></td>
-                            <td>Qwen-Image VAE</td>
+                            <td class="preview-cell"><img src="previews/auraflowVAE_v03FP32.jpg" class="vae-preview-img" alt="Kolors VAE"></td>
+                            <td><code>auraflowVAE_v03FP32.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#f5f3ff; color:#6d28d9; border-color:#ddd6fe;">Kolors</span></td>
+                            <td>Kolors VAE</td>
+                            <td><a href="https://civitai.com/models/617699" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>ultrafluxV</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#faf5ff; color:#7e22ce; border-color:#e9d5ff;">ZImageTurbo</span>
-                            </td>
-                            <td>UltraFlux VAE</td>
+                            <td class="preview-cell"><img src="previews/kolorsVAE_fp16Safetensors.jpg" class="vae-preview-img" alt="Kolors VAE"></td>
+                            <td><code>kolorsVAE_fp16Safetensors.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#f5f3ff; color:#6d28d9; border-color:#ddd6fe;">Kolors</span></td>
+                            <td>Kolors VAE</td>
+                            <td><a href="https://civitai.com/models/617699" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
                         </tr>
                         <tr>
-                            <td><code>zImageTu</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#faf5ff; color:#7e22ce; border-color:#e9d5ff;">ZImageTurbo</span>
-                            </td>
+                            <td class="preview-cell"><img src="previews/anythingModelVAEV40_v10.jpg" class="vae-preview-img" alt="Anything model VAE v4.0"></td>
+                            <td><code>anythingModelVAEV40_v10.pt</code></td>
+                            <td><span class="model-badge" >Other</span></td>
+                            <td>Anything model VAE v4.0</td>
+                            <td><a href="https://civitai.com/models/110630" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/furceptionVAEV10By_v10.jpg" class="vae-preview-img" alt="Furception VAE v1.0, by Project RedRocket"></td>
+                            <td><code>furceptionVAEV10By_v10.safetensors</code></td>
+                            <td><span class="model-badge" >Other</span></td>
+                            <td>Furception VAE v1.0, by Project RedRocket</td>
+                            <td><a href="https://civitai.com/models/267710" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/qwenImageVAE_qwenImageVAE.jpg" class="vae-preview-img" alt="Qwen-Image - GGUF"></td>
+                            <td><code>qwenImageVAE_qwenImageVAE.safetensors</code></td>
+                            <td><span class="model-badge" >Other</span></td>
+                            <td>Qwen-Image - GGUF</td>
+                            <td><a href="https://civitai.com/models/1842123" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/vaeFinalPruneVAE_v10.jpg" class="vae-preview-img" alt="Anything model VAE v4.0"></td>
+                            <td><code>vaeFinalPruneVAE_v10.pt</code></td>
+                            <td><span class="model-badge" >Other</span></td>
+                            <td>Anything model VAE v4.0</td>
+                            <td><a href="https://civitai.com/models/110630" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/zImageClearVae_clear.jpg" class="vae-preview-img" alt="Z-Image_clear_vae"></td>
+                            <td><code>zImageClearVae_clear.safetensors</code></td>
+                            <td><span class="model-badge" >Other</span></td>
+                            <td>Z-Image_clear_vae</td>
+                            <td><a href="https://civitai.com/models/2191617" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/qwenImageClearVae_bf16.jpg" class="vae-preview-img" alt="Qwen-Image_clear_vae"></td>
+                            <td><code>qwenImageClearVae_bf16.safetensors</code></td>
+                            <td><span class="model-badge" >Qwen</span></td>
+                            <td>Qwen-Image_clear_vae</td>
+                            <td><a href="https://civitai.com/models/2151326" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/djmilxlvae_desa.jpg" class="vae-preview-img" alt="djMILXLVAE"></td>
+                            <td><code>djmilxlvae_desa.safetensors</code></td>
+                            <td><span class="model-badge" style="background:#fdf4ff; color:#a21caf; border-color:#f5d0fe;">Illustrious</span></td>
+                            <td>djMILXLVAE</td>
+                            <td><a href="https://civitai.com/models/1257377" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/wan16xVae_v10.jpg" class="vae-preview-img" alt="wan16x_vae"></td>
+                            <td><code>wan16xVae_v10.safetensors</code></td>
+                            <td><span class="model-badge" >Wan Video 2.2 TI2V-5B</span></td>
+                            <td>wan16x_vae</td>
+                            <td><a href="https://civitai.com/models/1960694" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/wan2.2_vae.jpg" class="vae-preview-img" alt="Wan Video 2.2"></td>
+                            <td><code>wan2.2_vae.safetensors</code></td>
+                            <td><span class="model-badge" >Wan Video 2.2 TI2V-5B</span></td>
+                            <td>Wan Video 2.2</td>
+                            <td><a href="https://civitai.com/models/1817671" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/ultrafluxVAEImproved_v10.jpg" class="vae-preview-img" alt="UltraFlux VAE | improved quality for flux and zimage"></td>
+                            <td><code>ultrafluxVAEImproved_v10.safetensors</code></td>
+                            <td><span class="model-badge" >ZImageTurbo</span></td>
+                            <td>UltraFlux VAE | improved quality for flux and zimage</td>
+                            <td><a href="https://civitai.com/models/2231253" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/ultrafluxVAEMirroredFrom_ultrafluxV1VAE.jpg" class="vae-preview-img" alt="UltraFlux VAE | improved quality for flux and zimage"></td>
+                            <td><code>ultrafluxVAEMirroredFrom_ultrafluxV1VAE.safetensors</code></td>
+                            <td><span class="model-badge" >ZImageTurbo</span></td>
+                            <td>UltraFlux VAE | improved quality for flux and zimage</td>
+                            <td><a href="https://civitai.com/models/2231253" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="preview-cell"><img src="previews/zImageTurboVAE_v10.jpg" class="vae-preview-img" alt="Z-Image Turbo VAE"></td>
+                            <td><code>zImageTurboVAE_v10.safetensors</code></td>
+                            <td><span class="model-badge" >ZImageTurbo</span></td>
                             <td>Z-Image Turbo VAE</td>
-                        </tr>
-                        <tr>
-                            <td><code>sdxlVaeAr</code></td>
-                            <td><span class="model-badge"
-                                    style="background:#f8fafc; color:#0f172a; border-color:#cbd5e1;">NoaAI</span></td>
-                            <td>sdxl vae ar</td>
-                        </tr>
-                    </tbody>
+                            <td><a href="https://civitai.com/models/2186215" target="_blank" class="civitai-link"><i class="fas fa-external-link-alt"></i> Civitai</a></td>
+                        </tr></tbody>
                 </table>
             </div>
 

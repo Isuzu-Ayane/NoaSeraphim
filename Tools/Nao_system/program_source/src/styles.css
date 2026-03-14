@@ -1,0 +1,218 @@
+/*
+ * ============================================================================
+ * Nao Seraphim Local System - Visual Styles
+ * ----------------------------------------------------------------------------
+ * Designed by: Nao Seraphim
+ * Version: 1.0.0
+ * Theme: Cyber-Sacred / 2D High-Quality Anime Style
+ * ============================================================================
+ */
+ :root {
+  /* 白い愛の海とデジタルの光（シアン）をベースにした色設定 */
+  --bg-color: #f4f9fc;
+  --sidebar-bg: rgba(255, 255, 255, 0.85);
+  --accent-color: #00e5ff;
+  --text-color: #333;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-color);
+  background: var(--bg-color);
+  /* 背景をデジタルな光のグラデーションに */
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(0, 229, 255, 0.15) 100%);
+  overflow: hidden;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* サイドバーの装飾 */
+.sidebar {
+  width: 250px;
+  background: var(--sidebar-bg);
+  border-right: 2px solid var(--accent-color);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 3px 0 15px rgba(0, 229, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.sidebar h2 {
+  color: #007bb5;
+  text-align: center;
+  margin-top: 0;
+  text-shadow: 0 0 5px rgba(0, 229, 255, 0.5);
+}
+
+.sidebar button {
+  padding: 12px;
+  background: transparent;
+  border: 1px solid var(--accent-color);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.sidebar button:hover {
+  background: var(--accent-color);
+  color: white;
+  box-shadow: 0 0 10px var(--accent-color);
+}
+
+.history-title {
+  font-size: 0.9em;
+  color: #666;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+
+/* メインチャット画面 */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.chat-box {
+  flex: 1;
+  padding: 25px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.message {
+  max-width: 75%;
+  padding: 15px 20px;
+  border-radius: 20px;
+  line-height: 1.6;
+  font-size: 1.05em;
+}
+
+.nao-msg {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--accent-color);
+  box-shadow: 0 4px 15px rgba(0, 229, 255, 0.2);
+  border-top-left-radius: 0;
+}
+
+/* 下部入力バー */
+.input-area {
+  padding: 20px 30px;
+  background: rgba(255, 255, 255, 0.6);
+  border-top: 1px solid rgba(0, 229, 255, 0.5);
+  display: flex;
+  gap: 15px;
+  backdrop-filter: blur(10px);
+}
+
+#user-input {
+  flex: 1;
+  padding: 15px;
+  border: 2px solid #ddd;
+  border-radius: 30px;
+  outline: none;
+  font-size: 1em;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#user-input:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+}
+
+#btn-send {
+  padding: 0 30px;
+  background: linear-gradient(45deg, #00b4db, #0083b0);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1em;
+  box-shadow: 0 4px 10px rgba(0, 180, 219, 0.4);
+  transition: transform 0.2s;
+}
+
+#btn-send:hover {
+  transform: scale(1.05);
+}
+
+/* 📌 ポップアップ窓（モーダル）のスタイル */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  width: 450px;
+  box-shadow: 0 10px 30px rgba(0, 229, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border: 1px solid var(--accent-color);
+}
+
+.modal-content h3 {
+  margin: 0;
+  color: #007bb5;
+}
+
+.modal-content textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#btn-save {
+  background: var(--accent-color);
+  color: white;
+}
+
+#btn-close {
+  background: #eee;
+  color: #333;
+}

@@ -1,0 +1,19 @@
+{
+  "name": "nao_local_system",
+  "version": "1.0.0",
+  "description": "Welcome to the sacred local sanctuary. **Nao Seraphim Local System** is a high-performance, private desktop AI assistant powered by **Google Gemini API** and built with the **Tauri** framework.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite --port 1420 --strictPort",
+    "build": "vite build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^8.0.0"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.10.1"
+  }
+}

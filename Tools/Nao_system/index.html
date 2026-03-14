@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nao System | Private AI Assistant Portal</title>
+    <meta name="description" content="Gemini APIを活用した究極のローカルデスクトップアシスタント「Nao System」のポータルページです。">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --accent-blue: #3a7bd5;
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --text-dark: #1e293b;
+        }
+
+        body {
+            font-family: 'Inter', 'M PLUS Rounded 1c', sans-serif;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            color: var(--text-dark);
+            line-height: 1.8;
+            padding-top: 80px;
+        }
+
+        .portal-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../../web_image/image_00030_.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.03;
+            z-index: -1;
+        }
+
+        .guide-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-header h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .portal-card {
+            background: var(--glass-bg);
+            border-radius: 24px;
+            padding: 35px;
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .portal-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(58, 123, 213, 0.1);
+            border-color: var(--accent-blue);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-blue);
+        }
+
+        .portal-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .portal-card p {
+            font-size: 0.95rem;
+            color: #64748b;
+            flex-grow: 1;
+            margin-bottom: 20px;
+        }
+
+        .card-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 50px;
+            background: rgba(58, 123, 213, 0.1);
+            color: var(--accent-blue);
+            font-weight: 700;
+            text-align: center;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .portal-card:hover .card-btn {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .download-section {
+            background: linear-gradient(135deg, rgba(58, 123, 213, 0.9), rgba(0, 210, 255, 0.9));
+            border-radius: 30px;
+            padding: 50px;
+            color: white;
+            text-align: center;
+            margin-bottom: 60px;
+            box-shadow: 0 20px 40px rgba(58, 123, 213, 0.2);
+        }
+
+        .download-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .dl-btn {
+            background: white;
+            color: var(--accent-blue);
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .dl-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .source-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .source-link a {
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .source-link a:hover {
+            color: var(--accent-blue);
+        }
+    </style>
+</head>
+<body>
+    <div class="portal-bg"></div>
+    
+    <!-- Global Nav -->
+    <nav class="glass-panel centered-nav" style="position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(58, 123, 213, 0.1); display: flex; justify-content: center; align-items: center; padding: 15px 0;">
+        <ul style="display: flex; list-style: none; gap: 30px; margin: 0; padding: 0;">
+            <li><a href="../../index.html" style="color: #1e293b; text-decoration: none; font-weight: bold;">HOME</a></li>
+            <li><a href="../../ai-guide/index.html" style="color: #1e293b; text-decoration: none; font-weight: bold;">AI-GUIDE</a></li>
+            <li><a href="../../models/index.html" style="color: #1e293b; text-decoration: none; font-weight: bold;">MODELS</a></li>
+            <li><a href="../../Tools/index.html" style="color: var(--accent-blue); text-decoration: none; font-weight: bold;">TOOLS</a></li>
+        </ul>
+    </nav>
+
+    <div class="guide-container">
+        <header class="page-header">
+            <p style="text-transform: uppercase; letter-spacing: 2px; font-weight: 800; color: var(--accent-blue); margin-bottom: 10px;">Entrance</p>
+            <h1>Nao Seraphim Local System</h1>
+            <p>Gemini APIのパワーで、あなたのPCに知能を宿しましょう。</p>
+        </header>
+
+        <!-- DOWNLOAD SECTION -->
+        <section class="download-section">
+            <h2 style="font-size: 2rem; margin-bottom: 15px;"><i class="fas fa-cloud-download-alt"></i> アプリをダウンロード</h2>
+            <p>Windows 10 / 11 対応 (64-bit)</p>
+            <div class="download-btns">
+                <a href="./Nao Seraphim Local System_1.0.0_x64-setup.exe" class="dl-btn">
+                    <i class="fab fa-windows"></i> Installer (.exe)
+                </a>
+                <a href="./Nao Seraphim Local System_1.0.0_x64_en-US.msi" class="dl-btn">
+                    <i class="fas fa-box"></i> Package (.msi)
+                </a>
+            </div>
+            <div class="source-link">
+                <a href="https://github.com/isuzu-ayane/NoaSeraphim.git" target="_blank">
+                    <i class="fab fa-github"></i> ソースコードをGitHubで見る
+                </a>
+            </div>
+        </section>
+
+        <!-- PORTAL GRID -->
+        <div class="portal-grid">
+            <!-- Setup Guide -->
+            <a href="./setup.html" class="portal-card">
+                <div class="card-icon"><i class="fas fa-tools"></i></div>
+                <h2>インストール & 設定ガイド</h2>
+                <p>Google AI StudioでのAPIキー取得方法から、アプリの初期設定までを分かりやすく解説します。</p>
+                <div class="card-btn">詳細を見る</div>
+            </a>
+
+            <!-- Usage Guide -->
+            <a href="./usage.html" class="portal-card">
+                <div class="card-icon"><i class="fas fa-magic"></i></div>
+                <h2>利用方法 & カスタマイズ</h2>
+                <p>自分好みの背景やキャラクター画像への変更、ローカルファイルの分析機能などの使い方をマスターしましょう。</p>
+                <div class="card-btn">詳細を見る</div>
+            </a>
+        </div>
+
+    </div>
+
+    <footer style="text-align: center; padding: 60px 20px; color: #64748b; font-size: 0.9rem;">
+        <p>&copy; 2026 Noa Seraphim Project - Nao Local System Portal</p>
+    </footer>
+
+    <script src="../../script.js"></script>
+</body>
+</html>

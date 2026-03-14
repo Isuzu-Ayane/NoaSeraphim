@@ -199,12 +199,17 @@
                         class="keyword-highlight">ローカルAI</span>を活用する方法を丁寧に解説しています。
                 </p>
 
-                <div style="text-align: center; margin-bottom: 30px;">
+                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 30px;">
                     <a href="./ai-guide/index.html"
                         style="display: inline-block; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 15px 40px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 1.3rem; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); transition: transform 0.2s, box-shadow 0.2s;"
                         onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(16, 185, 129, 0.6)';"
                         onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(16, 185, 129, 0.4)';"><i
-                            class="fas fa-book-open"></i> AI 導入ガイド・ハブはこちら</a>
+                            class="fas fa-book-open"></i> AI 導入ガイド・ハブ</a>
+                    <a href="./Tools/index.html"
+                        style="display: inline-block; background: linear-gradient(135deg, #3a7bd5, #00d2ff); color: white; padding: 15px 40px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 1.3rem; box-shadow: 0 4px 15px rgba(58, 123, 213, 0.4); transition: transform 0.2s, box-shadow 0.2s;"
+                        onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(58, 123, 213, 0.6)';"
+                        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(58, 123, 213, 0.4)';"><i
+                            class="fas fa-tools"></i> 便利なツール・ハブ</a>
                 </div>
 
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
@@ -232,6 +237,17 @@
             </div>
 
             <div class="games-hub-grid">
+                <!-- Tools Hub -->
+                <a href="./Tools/index.html" class="game-hub-card hover-pop" style="border: 2px solid var(--primary-cyan);">
+                    <div class="card-bg" style="background-image: url('./web_image/image_00032_.png');"></div>
+                    <div class="card-content">
+                        <span class="badge" style="background: var(--primary-cyan); color: white;">HUB</span>
+                        <h3 style="font-size: 1.4rem;">Tools & Utilities</h3>
+                        <p class="sub-title">ツール総合ハブ</p>
+                        <p class="desc">画像ダウンロード支援、スペック診断、ローカルAI設定ツールなど、便利なツール群の入り口です。</p>
+                        <span class="play-btn">GO TO HUB ➤</span>
+                    </div>
+                </a>
                 <!-- ComfyUI -->
                 <a href="./Tools/ai-ComfyUI/index.html" class="game-hub-card hover-pop">
                     <div class="card-bg" style="background-image: url('./web_image/image_00027_.png');"></div>
@@ -294,17 +310,54 @@
             </div>
         </section>
 
-        <!-- OTHER RESOURCES LINKS -->
-        <section class="section-dense" style="margin-top: 40px;">
+        <!-- TOOLS SECTION -->
+        <section id="tools" class="section-dense">
             <div class="section-header">
-                <h2 id="other-tools">その他のツール & 資料</h2>
+                <h2>TOOLS（便利なツール群）</h2>
                 <div class="header-deco"></div>
             </div>
-            <div class="glass-panel" style="padding: 25px; text-align: center; border-radius: 20px;">
+            
+            <div class="games-hub-grid">
+                <!-- Nao System -->
+                <a href="./Tools/Nao_system/index.html" class="game-hub-card hover-pop">
+                    <div class="card-bg" style="background-image: url('./web_image/image_00033_.png');"></div>
+                    <div class="card-content">
+                        <span class="badge" style="background: #3a7bd5; color: white;">LOCAL AI</span>
+                        <h3 style="font-size: 1.4rem;">Nao Local System</h3>
+                        <p class="sub-title">聖域のプライベートAI</p>
+                        <p class="desc">Gemini APIを活用したローカルデスクトップアシスタント。安全で快適な対話環境を提供。</p>
+                        <span class="play-btn">VIEW DETAILS ➤</span>
+                    </div>
+                </a>
+
+                <!-- Noaplugin -->
+                <a href="./Tools/index.html" class="game-hub-card hover-pop">
+                    <div class="card-bg" style="background-image: url('./web_image/image_00034_.png');"></div>
+                    <div class="card-content">
+                        <span class="badge" style="background: #f43f5e; color: white;">EXTENSION</span>
+                        <h3 style="font-size: 1.4rem;">Noaplugin</h3>
+                        <p class="sub-title">動画ダウンロード支援</p>
+                        <p class="desc">ブラウザでの動画ダウンロードを快適にするための専用拡張機能。簡単インストール。</p>
+                        <span class="play-btn">VIEW DETAILS ➤</span>
+                    </div>
+                </a>
+
+                <!-- Spec Checker / Sanctuary -->
+                <a href="./Tools/index.html" class="game-hub-card hover-pop">
+                    <div class="card-bg" style="background-image: url('./web_image/image_00035_.png');"></div>
+                    <div class="card-content">
+                        <span class="badge" style="background: #10b981; color: white;">UTILITY</span>
+                        <h3 style="font-size: 1.4rem;">AI Spec & Sanctuary</h3>
+                        <p class="sub-title">PC性能 診断ツール集</p>
+                        <p class="desc">ローカルAIや重量級モデルが動作するかチェック。Pythonスクリプトによる精密診断。</p>
+                        <span class="play-btn">VIEW DETAILS ➤</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="glass-panel" style="padding: 25px; text-align: center; border-radius: 20px; margin-top: 40px;">
                 <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
                     <a href="./ai-guide/ai-specs/index.html" class="hub-link-btn" style="margin:0;">💻 PCスペック・環境構築</a>
-                    <a href="./Tools/ai-tools/index.html" class="hub-link-btn"
-                        style="margin:0; background: var(--primary-cyan);">🛠️ 周辺 AI Tools</a>
                     <a href="./Tools/index.html" class="hub-link-btn" style="margin:0; background: #f43f5e;">⚡
                         拡張ダウンローダー</a>
                 </div>

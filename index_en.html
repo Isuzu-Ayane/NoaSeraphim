@@ -166,12 +166,18 @@
                     This site provides detailed guides on how to use limit-free <span class="keyword-highlight">Local AI</span> that runs on your own computer, rather than cloud services.
                 </p>
 
-                <div style="text-align: center; margin-bottom: 30px;">
+                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 30px;">
                     <a href="./ai-guide/index_en.html"
                         style="display: inline-block; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 15px 40px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 1.3rem; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); transition: transform 0.2s, box-shadow 0.2s;"
                         onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(16, 185, 129, 0.6)';"
                         onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(16, 185, 129, 0.4)';">
-                        <i class="fas fa-book-open"></i> AI Guide Hub Here
+                        <i class="fas fa-book-open"></i> AI Guide Hub
+                    </a>
+                    <a href="./Tools/index_en.html"
+                        style="display: inline-block; background: linear-gradient(135deg, #3a7bd5, #00d2ff); color: white; padding: 15px 40px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 1.3rem; box-shadow: 0 4px 15px rgba(58, 123, 213, 0.4); transition: transform 0.2s, box-shadow 0.2s;"
+                        onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(58, 123, 213, 0.6)';"
+                        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(58, 123, 213, 0.4)';">
+                        <i class="fas fa-tools"></i> Tools Hub
                     </a>
                 </div>
 
@@ -200,6 +206,17 @@
             </div>
 
             <div class="games-hub-grid">
+                <!-- Tools Hub -->
+                <a href="./Tools/index_en.html" class="game-hub-card hover-pop" style="border: 2px solid #38bdf8;">
+                    <div class="card-bg" style="background-image: url('./web_image/image_00032_.png');"></div>
+                    <div class="card-content">
+                        <span class="badge" style="background: #38bdf8; color: white;">HUB</span>
+                        <h3 style="font-size: 1.4rem;">Tools & Utilities</h3>
+                        <p class="sub-title">Main Tools Hub</p>
+                        <p class="desc">Access downloaders, spec diagnostics, and local AI setup tools from this central hub.</p>
+                        <span class="play-btn">GO TO HUB ➤</span>
+                    </div>
+                </a>
                 <!-- ComfyUI -->
                 <a href="./Tools/ai-ComfyUI/index_en.html" class="game-hub-card hover-pop">
                     <div class="card-bg" style="background-image: url('./web_image/image_00027_.png');"></div>
@@ -259,6 +276,60 @@
                         <span class="play-btn">VIEW DETAILS ➤</span>
                     </div>
                 </a>
+            </div>
+        </section>
+
+        <!-- TOOLS SECTION -->
+        <section id="tools" class="section-dense">
+            <div class="section-header">
+                <h2>TOOLS</h2>
+                <div class="header-deco"></div>
+            </div>
+            
+            <div class="games-hub-grid">
+                <!-- Nao System -->
+                <a href="./Tools/Nao_system/index.html" class="game-hub-card hover-pop">
+                    <div class="card-bg" style="background-image: url('./web_image/image_00033_.png');"></div>
+                    <div class="card-content">
+                        <span class="badge" style="background: #3a7bd5; color: white;">LOCAL AI</span>
+                        <h3>Nao Local System</h3>
+                        <p class="sub-title">Private Sanctuary AI</p>
+                        <p class="desc">A local desktop assistant utilizing Gemini API. Providing a secure and comfortable dialogue environment.</p>
+                        <span class="play-btn">VIEW DETAILS ➤</span>
+                    </div>
+                </a>
+
+                <!-- Noaplugin -->
+                <a href="./Tools/index.html" class="game-hub-card hover-pop">
+                    <div class="card-bg" style="background-image: url('./web_image/image_00034_.png');"></div>
+                    <div class="card-content">
+                        <span class="badge" style="background: #f43f5e; color: white;">EXTENSION</span>
+                        <h3>Noaplugin</h3>
+                        <p class="sub-title">Video Download Support</p>
+                        <p class="desc">A browser extension to make video downloads comfortable. Easy installation process.</p>
+                        <span class="play-btn">VIEW DETAILS ➤</span>
+                    </div>
+                </a>
+
+                <!-- Spec Checker / Sanctuary -->
+                <a href="./Tools/index.html" class="game-hub-card hover-pop">
+                    <div class="card-bg" style="background-image: url('./web_image/image_00035_.png');"></div>
+                    <div class="card-content">
+                        <span class="badge" style="background: #10b981; color: white;">UTILITY</span>
+                        <h3>AI Spec & Sanctuary</h3>
+                        <p class="sub-title">PC Diagnostic Tools</p>
+                        <p class="desc">Check if Local AI or heavy models can run. Precise diagnosis using Python scripts.</p>
+                        <span class="play-btn">VIEW DETAILS ➤</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="glass-panel" style="padding: 25px; text-align: center; border-radius: 20px; margin-top: 40px;">
+                <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                    <a href="./ai-guide/ai-specs/index_en.html" class="hub-link-btn" style="margin:0;">💻 PC Specs & Setup</a>
+                    <a href="./Tools/index.html" class="hub-link-btn" style="margin:0; background: #f43f5e;">⚡
+                        Extension Downloader</a>
+                </div>
             </div>
         </section>
 
