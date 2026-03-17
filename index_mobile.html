@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noa AI Labs | モバイルガイド</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Stable DiffusionやComfyUIの使い方をスマホでサクッとチェック。ローカルAI画像生成の初心者向けモバイルガイド。">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Nunito:wght@400;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="styles_mobile.css">
+    
+    <script>
+        // Redirect to desktop if screen is large
+        if (window.innerWidth > 768) {
+            window.location.href = "index.html";
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <div class="logo">Noa AI Labs</div>
+        <div class="lang-toggle">
+            <a href="index_en.html">EN</a>
+        </div>
+    </header>
+
+    <main class="mobile-content">
+        <!-- Hero Section -->
+        <section class="mobile-hero">
+            <div class="hero-image-container">
+                <img src="./web_image/image_00049_.png" alt="Noa Seraphim" class="hero-char-mobile">
+            </div>
+            <div class="hero-text-mobile">
+                <h1>ローカルAI画像生成<br>クイックガイド</h1>
+                <p>スマホで学ぶAI画像生成の基礎</p>
+            </div>
+        </section>
+
+        <!-- Search / Quick Links -->
+        <section class="quick-nav">
+            <div class="scroll-row">
+                <a href="#guide" class="chip active">導入ガイド</a>
+                <a href="#models" class="chip">モデル比較</a>
+                <a href="#tools" class="chip">便利ツール</a>
+            </div>
+        </section>
+
+        <!-- Main Categories -->
+        <section id="guide" class="mobile-section">
+            <h2 class="section-title"><i class="fas fa-book-open"></i> スタートガイド</h2>
+            <div class="vertical-list">
+                <a href="./ai-guide/sd-install/index.html" class="mobile-card sd">
+                    <div class="card-icon"><i class="fas fa-download"></i></div>
+                    <div class="card-info">
+                        <h3>Stable Diffusion 導入</h3>
+                        <p>初心者向けインストール手順</p>
+                    </div>
+                </a>
+                <a href="./ai-guide/comfyui-install/index.html" class="mobile-card comfy">
+                    <div class="card-icon"><i class="fas fa-nodes-dotted"></i></div>
+                    <div class="card-info">
+                        <h3>ComfyUI ガイド</h3>
+                        <p>軽量・高速なノード環境の構築</p>
+                    </div>
+                </a>
+                <a href="./ai-guide/local-llm-install/index.html" class="mobile-card llm">
+                    <div class="card-icon"><i class="fas fa-comment-dots"></i></div>
+                    <div class="card-info">
+                        <h3>Local LLM 導入</h3>
+                        <p>自分のPCでAIとチャット</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section id="models" class="mobile-section">
+            <h2 class="section-title"><i class="fas fa-layer-group"></i> モデル・素材</h2>
+            <div class="grid-2-col">
+                <a href="./models/ai-checkpoints/index.html" class="grid-item">
+                    <img src="./web_image/image_00028_.png" alt="Checkpoint">
+                    <span>Checkpoint</span>
+                </a>
+                <a href="./models/ai-lora/loras.html" class="grid-item">
+                    <img src="./web_image/image_00029_.png" alt="LoRA">
+                    <span>LoRA</span>
+                </a>
+                <a href="./models/ai-embeddings/index.html" class="grid-item">
+                    <img src="./web_image/image_00030_.png" alt="Embeddings">
+                    <span>Embeddings</span>
+                </a>
+                <a href="./models/ai-vae/index.html" class="grid-item">
+                    <img src="./web_image/image_00031_.png" alt="VAE">
+                    <span>VAE</span>
+                </a>
+            </div>
+        </section>
+
+        <section id="tools" class="mobile-section">
+            <h2 class="section-title"><i class="fas fa-tools"></i> 便利ツール</h2>
+            <a href="./Tools/Nao_system/index.html" class="mobile-card-wide system">
+                <div class="wide-card-content">
+                    <h3>Nao Local System</h3>
+                    <p>究極のローカルAIアシスタント</p>
+                </div>
+                <img src="./web_image/image_00033_.png" alt="Nao System">
+            </a>
+        </section>
+    </main>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="./ai-guide/index.html" class="nav-item">
+            <i class="fas fa-lightbulb"></i>
+            <span>Guide</span>
+        </a>
+        <a href="./models/index.html" class="nav-item">
+            <i class="fas fa-box"></i>
+            <span>Models</span>
+        </a>
+        <a href="./Tools/index.html" class="nav-item">
+            <i class="fas fa-screwdriver-wrench"></i>
+            <span>Tools</span>
+        </a>
+    </nav>
+
+    <!-- Mobile Footer -->
+    <footer class="mobile-footer">
+        <p>&copy; 2026 Noa AI Labs.</p>
+        <a href="index.html?mode=desktop" class="desktop-link">デスクトップ版を表示</a>
+    </footer>
+
+    <script>
+        // Smooth scroll implementation if needed
+        document.querySelectorAll('.chip').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

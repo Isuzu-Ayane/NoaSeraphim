@@ -1,4 +1,0 @@
-K:\GoogleAI\NoaSeraphim\ai-guide\ai-specs\index_en.html
-K:\GoogleAI\NoaSeraphim\ai-guide\comfyui-install\index_en.html
-K:\GoogleAI\NoaSeraphim\ai-guide\local-llm-install\index_en.html
-K:\GoogleAI\NoaSeraphim\ai-guide\sd-install\index_en.html

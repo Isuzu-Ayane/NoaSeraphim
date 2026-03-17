@@ -1,2 +1,0 @@
-# NoaSeraphim
-NoaSeraphim

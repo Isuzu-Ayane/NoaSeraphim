@@ -22,6 +22,11 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HFB5ECR6DM"></script>
     <script>
+        // Redirect to mobile if screen is small
+        if (window.innerWidth <= 768 && !window.location.search.includes('mode=desktop')) {
+            window.location.href = "index_mobile.html";
+        }
+
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
