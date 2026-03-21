@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stable Diffusion 1.5 - Embeddings List | Noa AI Labs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&family=Nunito:wght@400;800&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-cyan: #3a7bd5;
+            --secondary-cyan: #00d2ff;
+            --accent-blue: #0284c7;
+            --bg-light: #e0f2fe;
+            --bg-card: rgba(255, 255, 255, 0.7);
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            color: var(--text-dark);
+            background-attachment: fixed;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            padding-top: 60px; /* Spacer for fixed nav */
+        }
+
+        /* Decorative Background Illustration */
+        body::before {
+            content: "";
+            position: fixed;
+            bottom: -5%;
+            right: -5%;
+            width: 40%;
+            height: 60%;
+            background-image: url('../../../web_image/image_00001_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: bottom right;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 10%;
+            left: -5%;
+            width: 30%;
+            height: 50%;
+            background-image: url('../../../web_image/image_00002_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: top left;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -1;
+            filter: scaleX(-1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-panel {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 30px;
+            border: 3px solid white;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(58, 123, 213, 0.15);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--secondary-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            gap: 10px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb a { color: var(--accent-blue); text-decoration: none; font-weight: bold; }
+        .breadcrumb li::after { content: '>'; margin-left: 10px; color: var(--text-muted); }
+        .breadcrumb li:last-child::after { content: ''; }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .nav-item {
+            background: rgba(255,255,255,0.6);
+            padding: 12px;
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--accent-blue);
+            font-weight: 800;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid white;
+            font-size: 0.9rem;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: var(--primary-cyan);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(58, 123, 213, 0.3);
+        }
+
+        .table-container {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            border: 3px solid white;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background: rgba(58, 123, 213, 0.1);
+            padding: 20px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid white;
+            color: var(--primary-cyan);
+        }
+
+        td {
+            padding: 18px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+            vertical-align: middle;
+            font-size: 0.95rem;
+        }
+
+        tr:hover td {
+            background: rgba(255,255,255,0.4);
+        }
+
+        .file-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.5);
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 4px;
+            word-break: break-all;
+        }
+
+        .trigger-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--secondary-cyan));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid white;
+            box-shadow: 0 4px 10px rgba(58, 123, 213, 0.2);
+            border-style: none; /* overrides browser default button border if badge is a button */
+            text-align: left;
+            word-break: break-all;
+        }
+
+        .trigger-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(58, 123, 213, 0.4);
+        }
+
+        .effect-text {
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .model-tag {
+            font-size: 0.7rem;
+            background: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            color: var(--primary-cyan);
+            border: 1px solid var(--primary-cyan);
+            font-weight: 800;
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3) {
+                display: none;
+            }
+            h1 { font-size: 1.8rem; }
+        }
+
+        /* Back button */
+        .back-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-cyan);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+        .back-btn:hover {
+            transform: scale(1.1) rotate(-10deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Language Toggle -->
+    <div style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
+        <a href="sd15.html"
+            style="background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border: 2px solid white; color: var(--primary-cyan); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; transition: background 0.3s, transform 0.2s; display: inline-block; box-shadow: 0 4px 10px rgba(58, 123, 213, 0.1);">
+            <i class="fas fa-globe"></i> 日本語
+        </a>
+    </div>
+
+    <nav class="glass-panel centered-nav" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 999; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border-bottom: 2px solid white; display: flex; justify-content: center; align-items: center; padding: 10px 0; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
+        <ul style="display: flex; list-style: none; gap: 20px; margin: 0; padding: 0;">
+            
+            <li><a href="../../../index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">HOME</a></li>
+            <li><a href="../../../ai-guide/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">AI-GUIDE</a></li>
+            <li><a href="../../../models/index_en.html" style="color: var(--accent-blue); text-decoration: none; font-weight: bold;">MODELS</a></li>
+            <li><a href="../../../Tools/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">TOOLS</a></li>
+            <li><a href="../../../creative/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">GALLERY</a></li>
+        
+        </ul>
+    </nav>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            
+            <li><a href="../../../index_en.html">Home</a></li>
+            <li><a href="../../../models/index_en.html">Models</a></li>
+            <li><a href="../../index_en.html">Embeddings</a></li>
+            <li>Stable Diffusion 1.5</li>
+            
+        </nav>
+
+        <div class="header-panel">
+            <h1 class="bounce-text">Stable Diffusion 1.5 Embeddings</h1>
+            <p style="color: var(--text-muted);">A list of recommended Embeddings for SD 1.5 models. These have various effects such as correcting hand and finger corruption and improving image quality.</p>
+        </div>
+
+        <div class="nav-grid">
+            <a href="sd15_en.html" class="nav-item active">Stable Diffusion 1.5</a>
+<a href="sdxl_en.html" class="nav-item ">SDXL 1.0</a>
+<a href="pony_en.html" class="nav-item ">Pony Diffusion</a>
+<a href="illustrious_en.html" class="nav-item ">Illustrious XL</a>
+<a href="others_en.html" class="nav-item ">Other Models</a>
+
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name / File</th><th>Model</th><th>Effects / Description</th><th>Trigger Word</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">0001SoftRealistic Negative and Positive Embeddings</div>
+                            <span class="file-name">0001SRGoodPictureV10.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">ポジティブエンベディング</div></td>
+                        <td><button class="trigger-badge">0001SRGoodPictureV10</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Negative Embedding for Deliberate</div>
+                            <span class="file-name">16-token-negative-deliberate-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">Deliberate V2 に基づくマージでトレーニングされた初期埋め込みでは、16 個のトークンを使用します。</div></td>
+                        <td><button class="trigger-badge">16-token-negative-deliberate</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">【PRINCESS CONNECT RE:DIVE/公主连结/プリンセスコネクト】氷川 鏡華/Hikawa Kyoka/冰川镜华</div>
+                            <span class="file-name">2_kyoka.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">2_kyoka</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">7 Dirty Words negative prompt</div>
+                            <span class="file-name">7dirtywords.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">7dirtywords</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Adventure Diffusion</div>
+                            <span class="file-name">advntr.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">25 枚の画像のデータセットで 2300 ステップまでトレーニングされました。</div></td>
+                        <td><button class="trigger-badge">advntr</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Aissist - Negative Embedding</div>
+                            <span class="file-name">AissistV2-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">少し調整します。スタイル (スケッチ、水彩など) では使用するのが難しくなります。</div></td>
+                        <td><button class="trigger-badge">AissistV2</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Async's Negative</div>
+                            <span class="file-name">an11.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">このバージョンには 2 つの埋め込みファイルがあります。an11an11_lightan11_light は、わずか 5 つのトークンを持つ an11 の軽量バージョンです。 an11 は完全版です。これはネガティブ埋め込みです。 EasyNegative や VeryBadImageNegative などの品質を向上させることがコンセプトでした。この TI は、textualinversion の kohya-ss バージョンで an8 を再トレーニングして作成されました。この TI は、textualinversion の an8 の kohya-ss バージョンを使用して再トレーニングされ、埋め込みマージを使用して 2 つの TI パターンがマージされました。</div></td>
+                        <td><button class="trigger-badge">an11</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Async's Negative</div>
+                            <span class="file-name">an14.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">an14</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Async's Negative</div>
+                            <span class="file-name">an14.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">an14</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">League of Legends Annie Embed</div>
+                            <span class="file-name">annie18.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.4</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">annie18</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Anthro</div>
+                            <span class="file-name">anthro.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">anthro</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Antonia LastName</div>
+                            <span class="file-name">antonialastnamesd15.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">antonialastnamesd15</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Age Slider</div>
+                            <span class="file-name">AS-YoungV2-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">AS-YoungV2</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Style Asian Less</div>
+                            <span class="file-name">Asian-Less2-Neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">Asian-Less2-Neg</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">ATRI-亚托莉-アトリ-ATRI -My Dear Moments-</div>
+                            <span class="file-name">atri.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">アトリは世界一だ！</div></td>
+                        <td><button class="trigger-badge">atri</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Awaiting Tongue Embedding</div>
+                            <span class="file-name">awaitingtongue.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">awaitingtongue</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Asagi Mutsuki TI</div>
+                            <span class="file-name">ba-mutsuki.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">ba-mutsuki</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Ushio Noa TI</div>
+                            <span class="file-name">ba-noa.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text"></div></td>
+                        <td><button class="trigger-badge">ba-noa</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Sunaookami Shiroko TI</div>
+                            <span class="file-name">ba-shiroko.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">ba-shiroko</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Bad artist Negative embedding</div>
+                            <span class="file-name">bad-artist-anime.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">By bad artist</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Bad artist Negative embedding</div>
+                            <span class="file-name">bad-artist.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">By bad artist</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">bad-image-v2-39000</div>
+                            <span class="file-name">bad-image-v2-39000-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">bad-image-v2-39000</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">bad-picture negative embedding for ChilloutMix</div>
+                            <span class="file-name">bad-picture-chill-75v.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">高度な TI トレーニング機能を備えた WebUI の拡張機能を使用して、可変学習率でステップ 2101 @ 4batch 5grad までトレーニングされました。トレーニング .zip には、より少ないステップ数とより多いステップ数の保存が含まれています。</div></td>
+                        <td><button class="trigger-badge">bad-picture-chill-75v</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">BadDream + UnrealisticDream (Negative Embeddings)</div>
+                            <span class="file-name">BadDream.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">BadDream</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Bad_NegAnatomy Textual Inversion</div>
+                            <span class="file-name">BadNegAnatomyV1-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">BadNegAnatomyV1</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Inzaniak's Lazy Textual Inversions</div>
+                            <span class="file-name">badpic.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">badpic</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">BadQuality</div>
+                            <span class="file-name">badquality-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">badquality</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">badquality - Negative Embedding for WD1.5 (~ beta 2)</div>
+                            <span class="file-name">badquality.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 2.1 768</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">badquality</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">bad_pictures</div>
+                            <span class="file-name">bad_pictures.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">以前のバージョンをポジティブ プロンプトとして使用して 75 個の追加画像を生成し、それらを使用して 100 エポックのさらなるトレーニングを行いました。</div></td>
+                        <td><button class="trigger-badge">bad_pictures</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">bad_prompt Negative Embedding</div>
+                            <span class="file-name">bad_prompt_version2-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">bad_prompt の改良された改良バージョン。</div></td>
+                        <td><button class="trigger-badge">bad_prompt_version2</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">better hands 更好的手emb</div>
+                            <span class="file-name">bhands-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">bhands</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Boring_e621 Negative Embedding: Enhance Images Stylistically AND Topically</div>
+                            <span class="file-name">boring_e621_v4.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.4</span></td>
+                        <td><div class="effect-text">退屈な e621 v1.0 に似ていますが、より強力な埋め込みの場合は、その前に「by」という単語を追加すると、v1 が最適に機能します。このバージョンではその必要はありません。否定プロンプトに「boring_e621_v4」を追加するだけです。他のバージョンが特に必要でない限り、これを入手する必要があります。</div></td>
+                        <td><button class="trigger-badge">boring_e621_v4</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Boring_e621 Negative Embedding: Enhance Images Stylistically AND Topically</div>
+                            <span class="file-name">boring_e621_v4.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.4</span></td>
+                        <td><div class="effect-text">退屈な e621 v1.0 に似ていますが、より強力な埋め込みの場合は、その前に「by」という単語を追加すると、v1 が最適に機能します。このバージョンではその必要はありません。否定プロンプトに「boring_e621_v4」を追加するだけです。他のバージョンが特に必要でない限り、これを入手する必要があります。</div></td>
+                        <td><button class="trigger-badge">boring_e621_v4</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Bad artist Negative embedding</div>
+                            <span class="file-name">By bad artist -neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">By bad artist</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">cartoonish_doll</div>
+                            <span class="file-name">cartoonish_doll.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 2.1</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">cartoonish_doll</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">QoL Positive Embeds - CelShade</div>
+                            <span class="file-name">CelShade.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">マイナスで行う場合はプラスのprompt3dでセルシェーディングします。</div></td>
+                        <td><button class="trigger-badge">CelShade</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Chun-Li Alpha (Street Fighter)</div>
+                            <span class="file-name">chunli_alpha.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">素晴らしい結果になりました、楽しんでください:)</div></td>
+                        <td><button class="trigger-badge">chunli_alpha</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Civitai Safe Helper</div>
+                            <span class="file-name">civit_nsfw.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">civit_nsfw</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Clutter</div>
+                            <span class="file-name">Clutter-Mechanical.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">Clutter-Mechanical</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">collection of embeddings</div>
+                            <span class="file-name">colorful01.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">カラフルな背景を追加、[女性:カラフル01:10]</div></td>
+                        <td><button class="trigger-badge">colorful01</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Coloring Book Style</div>
+                            <span class="file-name">coloring-book-style.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">coloring-book-style</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Corneo's Aerith (FF7) Embedding</div>
+                            <span class="file-name">corneo_aerith.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">他の更新された埋め込みとともに更新し、トレーニング データのいくつかの問題を修正し、結果をキャラクターに対してより正確にします。</div></td>
+                        <td><button class="trigger-badge">corneo_aerith</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Corneo's Makima (Chainsaw Man) TI Embedding</div>
+                            <span class="file-name">corneo_makima.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">corneo_makima</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Corneo's Marin Kitagawa TI Embedding</div>
+                            <span class="file-name">corneo_marin_kitagawa.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">corneo_marin_kitagawa</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Corneo's Power (Chainsaw Man) TI Embedding</div>
+                            <span class="file-name">corneo_power.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">corneo_power</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Yoruichi Shihouin (Bleach) TI Embedding by Corneo</div>
+                            <span class="file-name">corneo_yoruichi.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">corneo_yoruichi</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Yor Forger - Innocent Housewife version - TI Embedding by Corneo</div>
+                            <span class="file-name">corneo_yor_forger.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">corneo_yor_forger</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Color Palettes</div>
+                            <span class="file-name">CS-MNC.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">CS-MNC</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">CyberRealistic Negative - SD 1.5</div>
+                            <span class="file-name">CyberRealistic_Negative-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">最初のバージョン</div></td>
+                        <td><button class="trigger-badge">CyberRealistic_Negative</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">CyberRealistic Negative - Anime</div>
+                            <span class="file-name">CyberRealistic_Negative_Anime-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">アニメチェックポイントではマイナス</div></td>
+                        <td><button class="trigger-badge">CyberRealistic_Negative_Anime</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Dark Fantasy Style</div>
+                            <span class="file-name">DarkFantasy.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">最初のバージョン</div></td>
+                        <td><button class="trigger-badge">DarkFantasy</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Double Exposure for SD 2.x</div>
+                            <span class="file-name">dblx.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 2.1</span></td>
+                        <td><div class="effect-text"></div></td>
+                        <td><button class="trigger-badge">dblx</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Devilhs style TI</div>
+                            <span class="file-name">devilhs-69100.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text"></div></td>
+                        <td><button class="trigger-badge">devilhs-69100</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Donglu Bunny Girl Style</div>
+                            <span class="file-name">donglu.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.4</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">donglu</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Brenda Vicious</div>
+                            <span class="file-name">DV_Brenda_Vicious.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">DV_Brenda_Vicious</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Bunny Vicious</div>
+                            <span class="file-name">DV_Bunny_Vicious.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">DV_Bunny_Vicious</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Ducky Vicious</div>
+                            <span class="file-name">DV_Ducky_Vicious.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">DV_Ducky_Vicious</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Paris Vicious</div>
+                            <span class="file-name">DV_Paris_Vicious.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">DV_Paris_Vicious</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">EasyNegative</div>
+                            <span class="file-name">easynegative.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">この埋め込みは NEGATIVE プロンプトで使用する必要があります。必要に応じて強度を調整します (歪みなく適切にスケールされるようです)。必要な強度は、正と負のプロンプトに基づいて異なる場合があります。サンプルは、順番に次のとおりです。sample01 - Counterfeit-V2.0.safetensorssample02 - AbyssOrangeMix2_sfw.safetensorssample03 - anything-v4.0-pruned.safetensors を使用した強度比較AbyssOrangeMix2_sfw.作者より「これは偽造で訓練されたネガティブ埋め込みです。「\stable-diffusio」で使用してください</div></td>
+                        <td><button class="trigger-badge">easynegative</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Rina's Robo Faces v2</div>
+                            <span class="file-name">emb-rrf2.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">トレーニング データ内の低品質の画像を v1 の img2img 結果に置き換えました。サノスを引っ張り、石を使って石を破壊しました。</div></td>
+                        <td><button class="trigger-badge">emb-rrf2</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">makima embedding</div>
+                            <span class="file-name">EMB_sksmakimatest.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">リングアイの結果を得るためにモデルをゼロからトレーニングしました。これまでで最高の結果が得られたモデルは https://civitai.com/models/3850/kenshii ト​​リガーワードを変更しました。(注: 再度正しいものに変更しました)</div></td>
+                        <td><button class="trigger-badge">EMB_sksmakimatest</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Neon Diffusion</div>
+                            <span class="file-name">eonn.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">このバージョンは、トレーニング データが変更され、さらに 250 ステップトレーニングされたため、はるかに優れていると思います。より「ネオン」の雰囲気を醸し出します。これを使ってください。</div></td>
+                        <td><button class="trigger-badge">eonn</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">EpiCRealism - Embeddings</div>
+                            <span class="file-name">epiCNegative.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">ネガティブプロンプトとして使用</div></td>
+                        <td><button class="trigger-badge">epiCNegative</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">epiCPhoto</div>
+                            <span class="file-name">epiCPhoto-neg-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">epiCPhoto</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">epiCPhotoGasm Style Negatives</div>
+                            <span class="file-name">epiCPhotoGasm-colorfulPhoto-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">epiCPhotoGasm-colorfulPhoto</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">ERA_09 Detailer (Negative embedding)</div>
+                            <span class="file-name">ERA09NEGV2.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">V2 は過剰なシャープ効果を軽減し、V1 のようにスタイルと格闘することなく、より多くのスタイルを処理できるようになります。</div></td>
+                        <td><button class="trigger-badge">ERA09NEGV2</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">egirl, alt makeup, idk</div>
+                            <span class="file-name">eyeliner5.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">大量のアイメイクを気にしない場合は、V2 を使用してください。安定した拡散では古いものよりさらに悪化するため、そこでは絶対に使用しないでください。これをtbhでトレーニングするモデルは何かわかりません。一般的な女性ミックスでは500ステップ、SD1.5では500ステップほどトレーニングしました</div></td>
+                        <td><button class="trigger-badge">eyeliner5</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Faith LastName</div>
+                            <span class="file-name">faithlastnamesd15.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">faithlastnamesd15</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">fake lips</div>
+                            <span class="file-name">fakelips7-2500.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.4</span></td>
+                        <td><div class="effect-text">画像を最初から生成する場合に適しています。近距離から遠距離まで、非常に異なるモデルでトレーニングされました。</div></td>
+                        <td><button class="trigger-badge">fakelips7-2500</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Fast Negative Embedding (+ FastNegativeV2)</div>
+                            <span class="file-name">FastNegativeV2.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">FastNegativeV2</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Amazing Embeddings - fcNegative + fcPortrait suite</div>
+                            <span class="file-name">fcNeg-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">fcNeg</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Shadowverse Whitefrost Dragonnewt Filene Embed</div>
+                            <span class="file-name">filene32-62000.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.4</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">filene32-62000</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Fix hand</div>
+                            <span class="file-name">Fixhand.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">LoRA はそれほど多くの画像を学習できませんでした。分割して保持すると、壊滅的な忘却が発生します。したがって、私はテキスト反転を選択しました。自由に LoRA でデータセットをトレーニングし、私のクレジットを表示せずに公開してください 🎩</div></td>
+                        <td><button class="trigger-badge">Fixhand</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Flame Surge Style</div>
+                            <span class="file-name">flame_surge_style.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">～最初のアップロード～</div></td>
+                        <td><button class="trigger-badge">flame_surge_style</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Flower Style TI</div>
+                            <span class="file-name">flower_style.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">～最初のアップロード～</div></td>
+                        <td><button class="trigger-badge">flower_style</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">hitori gotou(bocchi the rock)</div>
+                            <span class="file-name">gotou.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">16000 歩、100 以上</div></td>
+                        <td><button class="trigger-badge">gotou</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Gender Slider</div>
+                            <span class="file-name">GS-DeMasculate-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">GS-DeMasculate</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Hogwarts Legacy embedding</div>
+                            <span class="file-name">H0GLEGACYv2.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">内部、外部、キャラクターの画像を生成しやすくなるはずです。プロンプト内で (内側、外側、または文字) を使用するだけです。</div></td>
+                        <td><button class="trigger-badge">H0GLEGACYv2</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">SCG Emotions Pack - Simple embeds for  easily controlling a variety of emotions! (For all 1.5 Models and Merges)</div>
+                            <span class="file-name">happy512.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">Happy512 - 簡単な笑顔を作ります。歯を見せた笑顔をしたくない場合は、歯を否定してください</div></td>
+                        <td><button class="trigger-badge">happy512</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">hiten style</div>
+                            <span class="file-name">hiten1.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">hiten1</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Holding a Cup Of Coffee Pose (TI)</div>
+                            <span class="file-name">HoldingACupofCoffee.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">HoldingACupofCoffee</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Style of HOPA Games - landscapes & scenery concept art in style of video games (hoppagames)</div>
+                            <span class="file-name">hoppagames.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">hoppagames</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Inkpunk768</div>
+                            <span class="file-name">InkPunk768.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 2.0 768</span></td>
+                        <td><div class="effect-text">汎用の InkPunk スタイル、ほぼ何にでも適しています</div></td>
+                        <td><button class="trigger-badge">InkPunk768</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">aisa girl</div>
+                            <span class="file-name">jinyu.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">jinyu</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Juggernaut Negative Embedding</div>
+                            <span class="file-name">JuggernautNegative-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">私のネガティブエンベディングの最初のリリース。</div></td>
+                        <td><button class="trigger-badge">JuggernautNegative</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Tachibana Kanade 立華 かなで (angel beats)</div>
+                            <span class="file-name">kanade.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">約 100 枚の画像を使用してトレーニングされました。トリガーワードはファイル名だけにする必要があります。</div></td>
+                        <td><button class="trigger-badge">kanade</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">[kbxll]Hidero Horibe style 堀部秀郎</div>
+                            <span class="file-name">kbxll.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">kbxll</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Khyle Style TI</div>
+                            <span class="file-name">khyle-28200.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">khyle-28200</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Easy Photorealism v1.0</div>
+                            <span class="file-name">kkw-ph1.bin</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">V1,0私のモデルでトレーニングされました。</div></td>
+                        <td><button class="trigger-badge">kkw-ph1</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">All Checkpoint Skin Detail</div>
+                            <span class="file-name">kkw-skin-det.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">V1.0初期リリース</div></td>
+                        <td><button class="trigger-badge">kkw-skin-det</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Low Angle View</div>
+                            <span class="file-name">lowangleview-3000.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">lowangleview-3000</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Lucy Edgerunners Embedding</div>
+                            <span class="file-name">lucy_kushinadaV2.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">188 データセット 5000 ステップでトレーニング</div></td>
+                        <td><button class="trigger-badge">lucy_kushinadaV2</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Hentai Manga Style Concept</div>
+                            <span class="file-name">MangaHentaiStyleConceptv2.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">バージョン 2.パネルの生成が簡単になりました。 NSFWほど重くないので、変形が少なくなります。まだ完璧ではありませんが、以前よりは良くなりました。この埋め込みは txt2img のみで使用することを想定していません。最良の結果を得るには、編集を行う必要があります。達成できる編集結果を示す 4 つの画像があります。これは、txt2img -&gt; から移行することを意味します。 [img2img -&gt;インペイント -&gt; photoshop] =repeat.画像例:理由はわかりませんが、何らかの理由で画像生成データがすべて失われています。データは s ですらない</div></td>
+                        <td><button class="trigger-badge">MangaHentaiStyleConceptv2</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Re:Zero Meili Portroute Embed</div>
+                            <span class="file-name">meili20s.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.4</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">meili20s</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Mikasa Ackerman (Attack on Titan)</div>
+                            <span class="file-name">mikasa_ackerman.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">mikasa_ackerman</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Misaka Mikoto (Toaru Kagaku no Railgun)</div>
+                            <span class="file-name">misaka_mikoto.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">misaka_mikoto</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">NegativeDynamics</div>
+                            <span class="file-name">NegativeDynamics-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">NegativeDynamics はボディ ノーマライザーであり、画像を改善し、追加のシーン コンテキストを追加し、キャラクターに焦点を当てます。</div></td>
+                        <td><button class="trigger-badge">NegativeDynamics</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">negative_hand Negative Embedding</div>
+                            <span class="file-name">negative_hand-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">～最初のアップロード～</div></td>
+                        <td><button class="trigger-badge">negative_hand</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">NGH // Negative Embedding</div>
+                            <span class="file-name">NGH.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">NGH</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">NGNG00 // Negative Embedding</div>
+                            <span class="file-name">ngng00.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">ngng00</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Deep Negative V1.x</div>
+                            <span class="file-name">ng_deepnegative_v1_75t.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">否定的なプロンプトに入れてください</div></td>
+                        <td><button class="trigger-badge">ng_deepnegative_v1_75t</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Deep Negative V1.x</div>
+                            <span class="file-name">ng_deepnegative_v1_75t.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">否定的なプロンプトに入れてください</div></td>
+                        <td><button class="trigger-badge">ng_deepnegative_v1_75t</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">SCG Embedding Toolkit for Version 1.5 Models - A collection of tools and helpers from my personal kit</div>
+                            <span class="file-name">No512-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">No512 は、表示されすぎて良好な出力を台無しにする傾向のあるものを削除するという私の試みです。メガネ、マスク、帽子、ネックレス、そして輝きを思い浮かべてください。私の経験では、この内容を再度プロンプト表示することは問題なく実行できます。これにより、SD がランダムにこの内容を単独でスローする傾向が軽減されます。  その範囲は限られており、最新のモデルのほとんどは煩わしさを回避するのに十分優れていますが、それでもその目的は果たします。 YMMV</div></td>
+                        <td><button class="trigger-badge">No512</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">NVJOB Image Filter Textual Inversion</div>
+                            <span class="file-name">nvjobfc.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">nvjobfc</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Old-Fashioned Diffusion</div>
+                            <span class="file-name">olfn.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">200 枚の画像データセットで 6250 ステップまでトレーニングされました。</div></td>
+                        <td><button class="trigger-badge">olfn</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Pastel Style TI</div>
+                            <span class="file-name">pastel_style.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">～最初のアップロード～</div></td>
+                        <td><button class="trigger-badge">pastel_style</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">pixel art - SD2</div>
+                            <span class="file-name">pixelart-1.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 2.0 768</span></td>
+                        <td><div class="effect-text">最も一般的なもの。通常、適切なピクセルを提供し、プロンプトを非常によく読み取り、「古い学校」ではありません。 img2imgの「ピクセル化処理」に使用されます。</div></td>
+                        <td><button class="trigger-badge">pixelart-1</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">PlanIt! a documentation embedding</div>
+                            <span class="file-name">PlanIt.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">PlanIt</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Power Girl TI</div>
+                            <span class="file-name">powergirl-8100.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">powergirl-8100</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Pure Eros Face</div>
+                            <span class="file-name">pureerosface_v1.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">トレーニング構成: 初期化テキスト: オルチャンの顔、kpop アイドルトークンごとのベクトル数: 1lr: 0.05:10、0.02:20、0.01:60、0.005:200、0.002:500、0.001:3000、0.0005(手動でいくつか選択したため、ここでは完全な lr 式ではありません)トレーニング中にブランチとして繰り返しましたが、完全には記録していません...ここではほんの一部です)バッチサイズ: 10画像: 100+ 画像 (クローズアップポートレートの女の子の顔)サイズ: 512x512ステップ: 1000</div></td>
+                        <td><button class="trigger-badge">pureerosface_v1</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Monster Girl Encyclopedia (MGE) - Raiju, Shoggoth, Anubis</div>
+                            <span class="file-name">ra1ju.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">アニメチェックポイントの好み。脚には毛皮がありません。背面ビューなし。500 ステップ、クリップ スキップ 2。</div></td>
+                        <td><button class="trigger-badge">ra1ju</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Negative Embedding for Realistic Vision v2.0</div>
+                            <span class="file-name">realisticvision-negative-embedding.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">5230 枚の 512x768 画像で 5342 ステップのトレーニングを行いました (停止を押すのが少し遅すぎました)。  基本的なトレーニング パラメーターは 0.005 の基本学習率、バッチ サイズ 1、1 grad、CosingAnnealingWarmupRestarts スケジューラーは 500 ステップ サイクルでアクティブ化され、高度な adamW パラメーター オプションはアクティブ化されましたが、それ以外の点には触れませんでした。  キャプションは作成または使用されず、style.txt がプロンプト テンプレート ファイルとして使用されました。  xformers をオフにすることにしたため、1 つのバッチを実行しました。カードに使えるのは 1 512x76 のバッチ サイズだけでした。</div></td>
+                        <td><button class="trigger-badge">realisticvision-negative-embedding</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Reiq style TI</div>
+                            <span class="file-name">reiq-37400.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">reiq-37400</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Rem (Re:Zero)</div>
+                            <span class="file-name">rem_rezero.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">rem_rezero</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">RFKTR's Bontrex v1.5</div>
+                            <span class="file-name">rfktr_bontrex-150.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">さらにトレーニングした結果、「bontrex」はさらに「bontrexy」になりました。</div></td>
+                        <td><button class="trigger-badge">rfktr_bontrex-150</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">RFKTR's Black and White Manga</div>
+                            <span class="file-name">rfktr_bwmnga.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">rfktr_bwmnga</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">RFKTR's Plastic Style</div>
+                            <span class="file-name">RFKTR_plastic.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">RFKTR_plastic</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">rMadaNegative4 (SD 1.5)</div>
+                            <span class="file-name">rmadanegative4_sd15-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">rmadanegative4_sd15</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Nico Robin TI</div>
+                            <span class="file-name">robin_v2_1600.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">robin_v2_1600</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Kuchiki Rukia TI</div>
+                            <span class="file-name">rukia.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">rukia</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Ruri Nobody</div>
+                            <span class="file-name">rurinobodysd15.bin</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">rurinobodysd15</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Sailor moon</div>
+                            <span class="file-name">sailormoon.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">sailormoon</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">sakimi-style</div>
+                            <span class="file-name">sakimi-style.bin</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">sakimi-style</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Oekaki negative TI</div>
+                            <span class="file-name">sd1-failed-oekaki.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">sd1-failed-oekaki</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">SimpleNegative | Negative TI</div>
+                            <span class="file-name">SimpleNegativeV3.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">書き込みが増えて破綻が増えたかもしれない</div></td>
+                        <td><button class="trigger-badge">SimpleNegativeV3</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">SimpleNegative | Negative TI</div>
+                            <span class="file-name">SimpleNegative_AnimeV1.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">アニメ調になりますIt will be in an animated style.</div></td>
+                        <td><button class="trigger-badge">SimpleNegative_AnimeV1</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Space Style TI</div>
+                            <span class="file-name">space_style.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">～最初のアップロード～</div></td>
+                        <td><button class="trigger-badge">space_style</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Speedoru style TI</div>
+                            <span class="file-name">speedo-39600.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">speedo-39600</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Bridal Style</div>
+                            <span class="file-name">style-bridal.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">style-bridal</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Empire Style</div>
+                            <span class="file-name">style-empire.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">style-empire</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Glorious Style</div>
+                            <span class="file-name">Style-Glorious.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">Style-Glorious</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Goblin Style</div>
+                            <span class="file-name">Style-Goblinmode.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">Style-Goblinmode</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Hamunaptra Style</div>
+                            <span class="file-name">style-hamunaptra.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">style-hamunaptra</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Style-Info: An embedding for infographic style art</div>
+                            <span class="file-name">Style-Info.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">Style-Info</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Moana Style</div>
+                            <span class="file-name">Style-Moana.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">Style-Moana</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Style Nebula Magic</div>
+                            <span class="file-name">style-nebmagic.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">style-nebmagic</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Style Paint Magic</div>
+                            <span class="file-name">style-paintmagic.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">style-paintmagic</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Floral Style</div>
+                            <span class="file-name">Style-Petal.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">Style-Petal</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Psycho Style</div>
+                            <span class="file-name">style-psycho.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text"></div></td>
+                        <td><button class="trigger-badge">style-psycho</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Renaissance Style</div>
+                            <span class="file-name">Style-Renaissance.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">Style-Renaissance</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Style Rust Magic</div>
+                            <span class="file-name">style-rustmagic.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">style-rustmagic</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Style Sylva Magic</div>
+                            <span class="file-name">style-sylvamagic.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">style-sylvamagic</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Cinematic Tools</div>
+                            <span class="file-name">Style-Volumetric.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">Style-Volumetric</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Tongues of Ex-Girlfriends(rich variety and faithful face)前女友们的舌头</div>
+                            <span class="file-name">suckhertonguealexzuov4.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">suckhertonguealexzuov4</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">SXZ Lady Jaina Proudmoore</div>
+                            <span class="file-name">sxz-jaina-v2.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">より適切なデータセット、より多くのトレーニングステップ。したがって、より多くの制御を提供する必要があります。</div></td>
+                        <td><button class="trigger-badge">sxz-jaina-v2</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Takagi-san TI</div>
+                            <span class="file-name">takagiC-8500.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">takagiC-8500</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">female tattoo</div>
+                            <span class="file-name">tatoogirl.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">tatoogirl</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Kobo Kanaeru - TI</div>
+                            <span class="file-name">ti-emb_kobo-kanaeru.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">ti-emb_kobo-kanaeru</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Tifa Lockhart (Final Fantasy VII Remake) TI</div>
+                            <span class="file-name">tifa_4900.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">tifa_4900</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">UlukInkSketch2</div>
+                            <span class="file-name">UlukInkSketch2.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 2.0 768</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">UlukInkSketch2</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Unspeakable Horrors (Negative prompt)</div>
+                            <span class="file-name">Unspeakable-Horrors-Composition-4v.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">ひどい色の組み合わせ、構成、照明を使用した約 100 枚の画像をトレーニングしました。 4 つのベクトルでも非常に効率的であることが判明しました。また、雨などのいくつかのことを好まないようです。このような場合は、強度を高める必要があるかもしれません。それでも、ぼやけた、醜い、モーション ブラーなどの否定的なプロンプトを使用する必要があります。</div></td>
+                        <td><button class="trigger-badge"></button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">USSR style (embedding)</div>
+                            <span class="file-name">ussr.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">トークン20個</div></td>
+                        <td><button class="trigger-badge">ussr</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">veryBadImageNegative</div>
+                            <span class="file-name">verybadimagenegative_v1.3.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">verybadimagenegative_v1.3</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">VintageMap</div>
+                            <span class="file-name">vintagemap_f.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">vintagemap_f</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">vray-render SD2</div>
+                            <span class="file-name">vray-render.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 2.0 768</span></td>
+                        <td><div class="effect-text">画像 44 枚、768x768、バッチ サイズ 4、勾配累積 11、ベクトル - 6、ステップ 500</div></td>
+                        <td><button class="trigger-badge">vray-render</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">MisonoMika/聖園ミカ TI+LORA Anime/Realistic Blue archive</div>
+                            <span class="file-name">weihua.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">64 個のベクトルを使用してナイで訓練します。</div></td>
+                        <td><button class="trigger-badge">weihua</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Yamato TI</div>
+                            <span class="file-name">yamato_5000.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">yamato_5000</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Yui Hirasawa (K-On)</div>
+                            <span class="file-name">yui_hirasawa.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">yui_hirasawa</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Traditional Chinese painting</div>
+                            <span class="file-name">_shuimo_.bin</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">初期バージョン</div></td>
+                        <td><button class="trigger-badge">&lt;shuimo&gt;</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">崩坏星穹铁道-白露/bailu/Honkai Star Rail</div>
+                            <span class="file-name">白露.pt</span>
+                        </td>
+                        <td><span class="model-tag">SD 1.5</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge"></button></td>
+                    </tr>
+                
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <a href="../../index_en.html" class="back-btn"><i class="fas fa-chevron-left"></i></a>
+
+    <script src="../../../script.js"></script>
+    <script>
+        document.querySelectorAll('.trigger-badge').forEach(button => {
+            button.onclick = function() {
+                const text = this.innerText;
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalText = text;
+                    this.innerText = 'COPIED!';
+                    setTimeout(() => {
+                        this.innerText = originalText;
+                    }, 1000);
+                });
+            };
+        });
+    </script>
+</body>
+</html>

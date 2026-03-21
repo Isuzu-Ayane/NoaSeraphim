@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&family=Nunito:wght@400;800&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -30,6 +30,7 @@
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
+            padding-top: 60px; /* Spacer for fixed nav */
         }
 
         /* Decorative Background Illustration */
@@ -182,6 +183,7 @@
             border-radius: 4px;
             display: inline-block;
             margin-top: 4px;
+            word-break: break-all;
         }
 
         .trigger-badge {
@@ -196,6 +198,9 @@
             transition: all 0.2s;
             border: 2px solid white;
             box-shadow: 0 4px 10px rgba(58, 123, 213, 0.2);
+            border-style: none; /* overrides browser default button border if badge is a button */
+            text-align: left;
+            word-break: break-all;
         }
 
         .trigger-badge:hover {
@@ -218,6 +223,7 @@
             color: var(--primary-cyan);
             border: 1px solid var(--primary-cyan);
             font-weight: 800;
+            display: inline-block;
         }
 
         @media (max-width: 768px) {
@@ -252,577 +258,601 @@
     </style>
 </head>
 <body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Language Toggle -->
+    <div style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
+        <a href="pony_en.html"
+            style="background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border: 2px solid white; color: var(--primary-cyan); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; transition: background 0.3s, transform 0.2s; display: inline-block; box-shadow: 0 4px 10px rgba(58, 123, 213, 0.1);">
+            <i class="fas fa-globe"></i> English
+        </a>
+    </div>
+
+    <nav class="glass-panel centered-nav" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 999; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border-bottom: 2px solid white; display: flex; justify-content: center; align-items: center; padding: 10px 0; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
+        <ul style="display: flex; list-style: none; gap: 20px; margin: 0; padding: 0;">
+            
+            <li><a href="../../../index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">HOME</a></li>
+            <li><a href="../../../ai-guide/index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">AI-GUIDE</a></li>
+            <li><a href="../../../models/index.html" style="color: var(--accent-blue); text-decoration: none; font-weight: bold;">MODELS</a></li>
+            <li><a href="../../../Tools/index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">TOOLS</a></li>
+            <li><a href="../../../creative/index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">GALLERY</a></li>
+        
+        </ul>
+    </nav>
+
     <div class="container">
         <nav class="breadcrumb">
-            <li><a href="../../../index.html">Home</a></li>
-            <li><a href="../../index.html">Models</a></li>
-            <li><a href="../index.html">Embeddings</a></li>
+            
+            <li><a href="../../../index.html">Top</a></li>
+            <li><a href="../../../models/index.html">Models</a></li>
+            <li><a href="../../index.html">Embeddings</a></li>
             <li>Pony Diffusion</li>
+            
         </nav>
 
         <div class="header-panel">
             <h1 class="bounce-text">Pony Diffusion Embeddings</h1>
-            <p style="color: var(--text-muted);">AI画像生成の品質を劇的に向上させる、Pony Diffusion向けのおすすめEmbeddings一覧です。</p>
+            <p style="color: var(--text-muted);">Pony Diffusionモデル特化のEmbeddings集です。独自のタグ学習を最適化し品質を底上げします。</p>
         </div>
 
         <div class="nav-grid">
-            <a href="sd15.html" class="nav-item ">SD 1.5</a>
-            <a href="sdxl.html" class="nav-item ">SDXL</a>
-            <a href="pony.html" class="nav-item active">Pony</a>
-            <a href="illustrious.html" class="nav-item ">Illustrious</a>
-            <a href="others.html" class="nav-item ">Others</a>
+            <a href="sd15.html" class="nav-item ">Stable Diffusion 1.5</a>
+<a href="sdxl.html" class="nav-item ">SDXL 1.0</a>
+<a href="pony.html" class="nav-item active">Pony Diffusion</a>
+<a href="illustrious.html" class="nav-item ">Illustrious XL</a>
+<a href="others.html" class="nav-item ">Other Models</a>
+
         </div>
 
         <div class="table-container">
             <table>
                 <thead>
                     <tr>
-                        <th>名前 / ファイル</th>
-                        <th>モデル</th>
-                        <th>効果 / 特徴</th>
-                        <th>トリガーワード</th>
+                        <th>名前 / ファイル</th><th>モデル</th><th>効果 / 特徴</th><th>トリガーワード</th>
                     </tr>
                 </thead>
                 <tbody>
-                    
                     <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Pony XL Enhancer Tools - 4kPhoto_PDXL</div>
                             <span class="file-name">4kPhoto_PDXL.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">Ponyモデルで4K写真のような高解像度・高精細な実写風の質感を出すためのポジティブEmbeddingです。</div></td>
                         <td><button class="trigger-badge">4kPhoto_PDXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Gothic scenery</div>
                             <span class="file-name">4lch3my_l4b.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">ゴシック様式の風景や、ダークファンタジー風の建築描写を強化する背景特化Embeddingです。</div></td>
                         <td><button class="trigger-badge">4lch3my_l4b</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Pony Concept Embeddings - AniPnyXLQual</div>
                             <span class="file-name">AniPnyXLQual.pt</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">アニメにさらなる品質を与えるはずですが、やはり埋め込みは「機能していると感じたら」のようなものです - しかし、これらはあなたの PDXL プロンプトに害を及ぼすものではありません、これらは互換性があります:D</div></td>
+                        <td><div class="effect-text">Pony XLモデル向けに、アニメ絵の線画や塗りのクオリティを底上げする汎用ポジティブEmbedding。</div></td>
                         <td><button class="trigger-badge">AniPnyXLQual</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Anya Forger (Teen)</div>
                             <span class="file-name">Anya Forger.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">『SPY×FAMILY』のアーニャ・フォージャー（成長した10代の姿）を描写するためのキャラクターEmbeddingです。</div></td>
                         <td><button class="trigger-badge">Anya Forger</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Asui Tsuyu</div>
                             <span class="file-name">Asui Tsuyu.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
-                        <td><button class="trigger-badge"> Asui Tsuyu</button></td>
+                        <td><div class="effect-text">『僕のヒーローアカデミア』の蛙吹梅雨を描写するためのキャラクターEmbeddingです。</div></td>
+                        <td><button class="trigger-badge">Asui Tsuyu</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">boring_SDXL: Enhance Images Stylistically AND Topically for Pony Diffusion V6</div>
                             <span class="file-name">boring_sdxl_v1.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">単調になりがちなPony v6の構図や被写体を、スタイリッシュかつ主題に沿って魅力的に引き上げる汎用Embedding。</div></td>
                         <td><button class="trigger-badge">boring_sdxl_v1</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Comic Aesthetic Positive & Negative Embedding Set PonyXL - ComiAesthPXL</div>
                             <span class="file-name">ComiAesthPXL.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">これはまだ難しいと思うかもしれませんが、これは機能しますが、印刷されたコミックの雰囲気を出すために色を平らにすることができます。</div></td>
+                        <td><div class="effect-text">色合いをフラットにして、印刷されたアメコミや古典的な漫画のような雰囲気を演出するスタイル系Embedding。</div></td>
                         <td><button class="trigger-badge">ComiAesthPXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Comic Style PDXL Embeddings - CoverPic</div>
                             <span class="file-name">CoverPicPDXL.pt</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">雑誌の表紙やコミックスのカバーイラストのような、洗練されたレイアウト・構図になりやすくなるスタイルEmbedding。</div></td>
                         <td><button class="trigger-badge">CoverPicPDXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Kid Safe Pony</div>
                             <span class="file-name">CSPNY1.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">改良されましたが、スタイルの変更はありません。</div></td>
+                        <td><div class="effect-text">Ponyモデルを使用する際、子供に不適切なNSFW描写を強力にブロックしつつスタイルを保つセーフティ用Embedding。</div></td>
                         <td><button class="trigger-badge">CSPNY1</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">CyberRealistic Positive (Pony)</div>
                             <span class="file-name">CyberRealisticPony_POSV1.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">すべての Realistic Pony チェックポイントと互換性があります。サンプル イメージ: Cyber​​Realistic Pony V8.5</div></td>
+                        <td><div class="effect-text">CyberRealisticなどの実写系Ponyモデルで、より写真に近いリアルな質感を出すためのポジティブEmbedding。</div></td>
                         <td><button class="trigger-badge">CyberRealisticPony_POSV1</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">CyberRealistic Negative - Pony v1.0</div>
                             <span class="file-name">CyberRealistic_Negative_PONY-neg.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">ポニーバージョン(V1)</div></td>
+                        <td><div class="effect-text">実写系Ponyモデルの生成物から、アニメっぽさや不自然なCG感を消すためのネガティブEmbedding。(v1用)</div></td>
                         <td><button class="trigger-badge">CyberRealistic_Negative_PONY</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">CyberRealistic Negative - Pony v2.0</div>
                             <span class="file-name">CyberRealistic_Negative_PONY_V2-neg.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">Cyber​​Realistic Pony v9 向けに特別に設計されていますが、もちろん Realistic Pony のどのバージョンでも動作します。</div></td>
+                        <td><div class="effect-text">同じく実写系Ponyモデル特化の強力なネガティブEmbedding。(v2用)</div></td>
                         <td><button class="trigger-badge">CyberRealistic_Negative_PONY_V2</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Deep Negative Pony</div>
                             <span class="file-name">deep_negative_pony.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">Ponyモデルの構図破綻、歪み、解剖学的なエラー（奇形）などを幅広く効果的に防ぐ定番のネガティブEmbedding。</div></td>
                         <td><button class="trigger-badge">deep_negative_pony</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Pony XL Lighting Tools - DskOtrn_PnyXL (Pickle)</div>
                             <span class="file-name">DskOtrn_PnyXL.pt</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">ネオンライン、vaporwave テーマ。ピクルス Tensor、safetensor を使用してください。</div></td>
+                        <td><div class="effect-text">ネオン輝く夜の街や、レトロフューチャーな80sアウトラン / Vaporwaveスタイルのライティングを追加します。</div></td>
                         <td><button class="trigger-badge">DskOtrn_PnyXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Pony XL Lighting Tools - DskOtrn_PnyXL (Safe)</div>
                             <span class="file-name">DskOtrn_PnyXL.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">DskOtrn_PnyXL - セーフテンサー エディション</div></td>
+                        <td><div class="effect-text">ネオン輝く夜の街や、レトロフューチャーな80sアウトラン / Vaporwaveスタイルのライティングを追加します。</div></td>
                         <td><button class="trigger-badge">DskOtrn_PnyXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Miqo'te Embedding Set Female & Male Portraits Pony XL</div>
                             <span class="file-name">FemMiq_PDXL.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">『FF14』のミコッテ（猫耳種族）を綺麗に描写・生成するためのキャラクター/種族特化Embedding。</div></td>
                         <td><button class="trigger-badge">FemMiq_PDXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Character & Meme Concept Embeddings PDXL - FlwrBoy_PonyXL</div>
                             <span class="file-name">FlwrBoy_PonyXL.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">花や植物に囲まれた、中性的で繊細な美青年（フラワーボーイ）の描写を強化するコンセプトEmbedding。</div></td>
                         <td><button class="trigger-badge">FlwrBoy_PonyXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">g0thOutfit</div>
                             <span class="file-name">g0thOutfit.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">キャラクターにダークでスタイリッシュなゴス（ゴシック）系ファッションを高確率で着せる衣装特化Embedding。</div></td>
                         <td><button class="trigger-badge">g0thOutfit</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Goth Moon Embedding (PDXL) - GothMnPDXL-Safetensors</div>
                             <span class="file-name">GothMnPDXL.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">ゴシック・パンクの要素を持つ、三日月やダークな夜の背景を追加し、ゴスシーンを強調する背景・スタイル用。</div></td>
                         <td><button class="trigger-badge">GothMnPDXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Goth Moon Embedding (PDXL) - GothPnkMnPDXL</div>
                             <span class="file-name">GothPnkMnPDXL.pt</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">ゴシック・パンクの要素を持つ、三日月やダークな夜の背景を追加し、ゴスシーンを強調する背景・スタイル用。</div></td>
                         <td><button class="trigger-badge">GothPnkMnPDXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Goth Moon Embedding (PDXL) - GothPnkMnPDXL-Safetensors</div>
                             <span class="file-name">GothPnkMnPDXL.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">ゴシック・パンクの要素を持つ、三日月やダークな夜の背景を追加し、ゴスシーンを強調する背景・スタイル用。</div></td>
                         <td><button class="trigger-badge">GothPnkMnPDXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Pony XL Lighting Tools - GradientBYP_PDXL</div>
                             <span class="file-name">GradientBYP_PDXL.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">背景やライティングに、美しく滑らかなグラデーションカラーの演出を追加するライティング特化Embedding。</div></td>
                         <td><button class="trigger-badge">GradientBYP_PDXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">HDA_Animalize_CatGirl</div>
                             <span class="file-name">HDA_Animalize_CatGirl.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">キャラクターをネコミミや尻尾の生えた猫娘（キャットガール）化するための概念追加Embedding。</div></td>
                         <td><button class="trigger-badge">HDA_Animalize_CatGirl</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">HDA_BreastExpansionXL (Request)</div>
                             <span class="file-name">HDA_BreastExpansionXL.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">キャラクターの胸のサイズを過剰に大きくする（Expansion）ためのNSFW/フェティッシュ系コンセプトEmbedding。</div></td>
                         <td><button class="trigger-badge">HDA_BreastExpansionXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">HDA_GhoticDress_XL</div>
                             <span class="file-name">HDA_GhoticDress_XL.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">表情はデフォルトで「無表情」に設定されています</div></td>
+                        <td><div class="effect-text">精巧でフリル豊かなゴスロリドレスを着せることができます。（※デフォルトで無表情になりやすい傾向あり）</div></td>
                         <td><button class="trigger-badge">HDA_GhoticDress_XL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">HDA_RibbedClothXL</div>
                             <span class="file-name">HDA_RibbedClothXL.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">服のテクスチャを、体にぴったりフィットする「リブ編み（縦線入りの布地）」に変更する衣装質感Embedding。</div></td>
                         <td><button class="trigger-badge">HDA_RibbedClothXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">✨ Lazy Embeddings for ALL illustrious NoobAI Pony SDXL models LazyPositive LazyNegative (Positive and Negative plus more!)</div>
                             <span class="file-name">lazydn.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">LazyシリーズのPony向け。「Day/Night(昼夜)」の表現などを最適化、もしくは不要な要素を整理する品質コントロール用。</div></td>
                         <td><button class="trigger-badge">lazydn</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">✨ Lazy Embeddings for ALL illustrious NoobAI Pony SDXL models LazyPositive LazyNegative (Positive and Negative plus more!)</div>
                             <span class="file-name">lazyup.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">Lazyシリーズの強力なアップスケーラー（品質向上）ポジティブEmbedding。指定するだけで全体的な描き込みと画質が飛躍的に向上します。</div></td>
                         <td><button class="trigger-badge">lazyup</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">✨ Lazy Embeddings for ALL illustrious NoobAI Pony SDXL models LazyPositive LazyNegative (Positive and Negative plus more!)</div>
                             <span class="file-name">lazyup7.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">Lazyシリーズの強力なアップスケーラー（品質向上）ポジティブEmbedding。指定するだけで全体的な描き込みと画質が飛躍的に向上します。</div></td>
                         <td><button class="trigger-badge">lazyup7</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">✨ Lazy Embeddings for ALL illustrious NoobAI Pony SDXL models LazyPositive LazyNegative (Positive and Negative plus more!)</div>
                             <span class="file-name">lazyxxx.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">ポニーモデルにはlazyxxxを使用します。xxx評価のコンテンツをブロックするにはマイナスに入力し、強制するにはプラスに入力します。</div></td>
+                        <td><div class="effect-text">NSFWやR-18（XXX）要素の描画を調整するEmbedding。ネガティブに入れると強力にブロックし、ポジティブで強制できます。</div></td>
                         <td><button class="trigger-badge">lazyxxx</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Manga Helpers PDXL - MangaDetailPnyXL</div>
                             <span class="file-name">MangaDetailPnyXL.pt</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">これをどのように適用するかはあなた次第です。</div></td>
+                        <td><div class="effect-text">イラストに漫画のようなスクリーントーンや緻密なペン入れのディテールを追加する画風コントロールEmbedding。</div></td>
                         <td><button class="trigger-badge">MangaDetailPnyXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Manga Helpers PDXL - MangakaPnyXL</div>
                             <span class="file-name">MangakaPnyXL.pt</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">詳細よりもアニメーションが多くなる可能性があります。</div></td>
+                        <td><div class="effect-text">背景や線画を「漫画家が描いたような」白黒のコミックスタイル・アニメ調へと強力に寄せる画風Embedding。</div></td>
                         <td><button class="trigger-badge">MangakaPnyXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Manga Helpers PDXL - MangakaPnyXL-Safe</div>
                             <span class="file-name">MangakaPnyXL.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">背景や線画を「漫画家が描いたような」白黒のコミックスタイル・アニメ調へと強力に寄せる画風Embedding。</div></td>
                         <td><button class="trigger-badge">MangakaPnyXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Consistent Character PDXL Embedding Set - Maycein</div>
                             <span class="file-name">Maycein_PDXL.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">メイセインは、典型的なビートルジュースにインスピレーションを得たシンプルなスタイルをスポーツしています xD - 彼女はあなたにジャズの手を与え、プレッツェルに変わりたいと考えています。警告: フロントのルアンは、スーツの特定のシャツを組み込むことを完全に忘れていました - フェイアのモデルでは、彼女がとても胸が大きいためおそらくそうなるでしょう (フェイアではなくメイス -- スタッフについてコメントしません。それは私の仕事ではありません xD) -- スーツの色を変えなければ喜んで彼女のシャツを半分引きちぎり、シャツを与えません。</div></td>
+                        <td><div class="effect-text">特定のオリジナルキャラクター（ビートルジュース風のMaycein）を呼び出します。一部服装の出力癖が含まれています。</div></td>
                         <td><button class="trigger-badge">Maycein_PDXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Character & Meme Concept Embeddings PDXL - MCDs PICKLETENSOR</div>
                             <span class="file-name">McDsWorkerScenPDXL.pt</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">McDsWorkerScenPDXL ピクルテンソル</div></td>
+                        <td><div class="effect-text">マクドナルドのようなファストフード店の制服や、店内の背景シーンを再現するためのコンセプトEmbedding。</div></td>
                         <td><button class="trigger-badge">McDsWorkerScenPDXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Negative Embeds for Pony XL - N0R3AL_PDXL</div>
                             <span class="file-name">N0R3AL_PDXL.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">N0R3AL_PDXL にはダブル クリップ エクストラがありますが、それがどのように機能するかわからないので、メイン クリップを取得するだけです。これはネガティブ プロンプト セクションに記載されます。</div></td>
+                        <td><div class="effect-text">Ponyモデルで不要な実写感（リアリズム）や3Dっぽさを取り除き、アニメ調を保つためのネガティブEmbedding。</div></td>
                         <td><button class="trigger-badge">N0R3AL_PDXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Negative Hands</div>
                             <span class="file-name">NEGATIVE_HANDS.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">手の描画エラー（指が多い、少ない、関節がおかしい等）をピンポイントで修正・抑制する手特化の定番ネガティブEmbedding。</div></td>
                         <td><button class="trigger-badge">NEGATIVE_HANDS</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">PonyXL Negative for DHXL - Dead Horse Project Resources</div>
                             <span class="file-name">NegPDXL-DHP.pt</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">全体的な構図の崩れや背景のノイズ、よくある描写エラーを抑える汎用ネガティブEmbedding。</div></td>
                         <td><button class="trigger-badge">NegPDXL-DHP</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">PonyXL Negative for DHXL - Dead Horse Project Resources</div>
                             <span class="file-name">NegPDXL-DHP.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">全体的な構図の崩れや背景のノイズ、よくある描写エラーを抑える汎用ネガティブEmbedding。</div></td>
                         <td><button class="trigger-badge">NegPDXL-DHP</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Pastel Hairs</div>
                             <span class="file-name">PastelOrange2.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">キャラクターの髪色を、柔らかく美しいパステルオレンジのグラデーションに染め上げる色彩特化Embedding。</div></td>
                         <td><button class="trigger-badge">PastelOrange2</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Negative Embeds for Pony XL - PDXLneg-NoAniPny SAFE</div>
                             <span class="file-name">PDXLneg-NoAniPny_-neg.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">PDXLneg-NoAniPny の Safetensors エディション</div></td>
+                        <td><div class="effect-text">アニメ塗りを避け、Ponyモデルの中により実写やセミリアルな質感を残したい時に使用するネガティブEmbedding。</div></td>
                         <td><button class="trigger-badge">PDXLneg-NoAniPny_</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Desi Espresso - PDXL - Text Embedding/ Textual Inversion (Experimental)</div>
                             <span class="file-name">PDXLTI_dgespresso.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">エスプレッソのように濃厚で深みのある色合いや、褐色の肌色を美しく表現するカラーパレット系Embedding。</div></td>
                         <td><button class="trigger-badge">PDXLTI_dgespresso</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Desi Mocha PDXL - Text Embedding/ Textual Inversion</div>
                             <span class="file-name">PDXLTI_dgmocha.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">モカコーヒーのような、温かみのあるブラウン調の色合いや日焼け肌の表現に特化した色彩・質感Embedding。</div></td>
                         <td><button class="trigger-badge">PDXLTI_dgmocha</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Character & Meme Concept Embeddings PDXL - Hair Buns</div>
                             <span class="file-name">PDXL_DblBunGrl.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">これは単におだんごヘアのコンセプトではなく、正しく行えば髪/顔とアクセサリーを提供するはずです。</div></td>
+                        <td><div class="effect-text">キャラクターの髪型を「おだんごツインテール」にし、それに合う顔立ちやアクセサリーも調整するコンセプトEmbedding。</div></td>
                         <td><button class="trigger-badge">PDXL_DblBunGrl</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Character & Meme Concept Embeddings PDXL - Statuesque</div>
                             <span class="file-name">PDXL_StatueGLD.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">被写体を「黄金の彫像（ゴールドスタチュー）」に変えるなど、特殊な質感・素材変化を起こすEmbedding。</div></td>
                         <td><button class="trigger-badge">PDXL_StatueGLD</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Comic Style PDXL Embeddings - PnyCmicXLPOS</div>
                             <span class="file-name">PnyCmicXLPOS.pt</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">PonyXLでのイラストを、より彩度の高いアメリカンコミック風のスタイルにするためのポジティブEmbedding。</div></td>
                         <td><button class="trigger-badge">PnyCmicXLPOS</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Comic Style PDXL Embeddings - PnyCmicXLPOS-Safetensors</div>
                             <span class="file-name">PnyCmicXLPOS.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">セーフテンサー</div></td>
+                        <td><div class="effect-text">PonyXLでのイラストを、より彩度の高いアメリカンコミック風のスタイルにするためのポジティブEmbedding。</div></td>
                         <td><button class="trigger-badge">PnyCmicXLPOS</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Negative Embeds for Pony XL - PnyXLno3dRLNeg Safetensor</div>
                             <span class="file-name">PnyXLno3dRLNeg_.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">これは PnyXLno3dRLNeg のセーフテンサー バージョンです。PnyXLno3dRLNeg-neg を実行しないでください。PnyXLno3dRLNeg_ がアクティベーション タグであるだけです。 _ が入ったのは、自動変換するためにファイル名を PT から bin に変更するときにアンダースコアが使用されたためです -- Mac XD で使用しているときは私だと思ってください</div></td>
+                        <td><div class="effect-text">Ponyモデル特有の「安っぽい3D感」や「不自然なリアル加工」を消し去るための強力なネガティブEmbedding。</div></td>
                         <td><button class="trigger-badge">PnyXLno3dRLNeg_</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">PonyScores</div>
                             <span class="file-name">PonyScores.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">「score_9、score_8_up、score_7_up、score_6_up、score_5_up、score_4_up」を統合しました</div></td>
+                        <td><div class="effect-text">Pony特有の品質タグ「score_9, score_8_up...」などを一つにまとめ、短いプロンプトで最高品質を呼び出せるようにした便利系Embedding。</div></td>
                         <td><button class="trigger-badge">PonyScores</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Pony Concept Embeddings - PopArtPDXL</div>
                             <span class="file-name">PopArtPDXL.pt</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">アンディ・ウォーホル風のポップアート、レトロな網点カラーデザインなどを適用するアートスタイル系Embedding。</div></td>
                         <td><button class="trigger-badge">PopArtPDXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Pure Eros Face XL</div>
                             <span class="file-name">pureerosface_xl.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">キャラクターの顔立ちを、色気のある魅力的で美しい表情・骨格（Pure Eros）に整える顔特化型のEmbedding。</div></td>
                         <td><button class="trigger-badge">pureerosface_xl</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Christmas Embeddings (XL, Pony, Illustrious) - PXLGloria</div>
                             <span class="file-name">PXLGloria.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">Excelsis Deo の歌詞の Gloria ですが、代わりにさまざまな髪の色のひよこが生成され、おそらくクリスマスのイヤリングが付けられています。</div></td>
+                        <td><div class="effect-text">クリスマスをテーマにした華やかな演出（赤と緑の色合い、クリスマス衣装、イヤリングなど）を付与するコンセプトEmbedding。</div></td>
                         <td><button class="trigger-badge">PXLGloria</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Pony XL Score with Realism Enhancers</div>
                             <span class="file-name">Score_PnyReal.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">PonyのScore（品質）タグに実写系の表現エンハンサーを組み合わせ、リアル調で高品質な出力を得るためのEmbedding。</div></td>
                         <td><button class="trigger-badge">Score_PnyReal</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Negative Embeds for Pony XL - SFWPnyNegXL</div>
                             <span class="file-name">SFWPnyNegXL.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">Ponyモデルでの露出や暴力的・アダルトな表現を徹底的に排除し、安全機能（SFW）を高めるネガティブEmbedding。</div></td>
                         <td><button class="trigger-badge">SFWPnyNegXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Negative Embeds for Pony XL - SFWPnyNegXL</div>
                             <span class="file-name">SFWPnyNegXL_-neg.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">Ponyモデルでの露出や暴力的・アダルトな表現を徹底的に排除し、安全機能（SFW）を高めるネガティブEmbedding。</div></td>
                         <td><button class="trigger-badge">SFWPnyNegXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">unaestheticXL | Negative TI</div>
                             <span class="file-name">unaestheticXL_3x3-neg.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">画像の粗、構図の悪さ、色合いの濁りなど見栄えを損なう「Unaesthetic」な要素を徹底的に弾くネガティブEmbedding。</div></td>
                         <td><button class="trigger-badge">unaestheticXL_3x3</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Unsafe PonyXL</div>
                             <span class="file-name">UnsafeNeg_PDXL-neg.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">NSFW生成時に邪魔になるノイズや不自然な描画エラーを防ぎ、アダルト画像生成のクオリティを上げるためのネガティブEmbedding。</div></td>
                         <td><button class="trigger-badge">UnsafeNeg_PDXL</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Uraraka Ochako (Commission)</div>
                             <span class="file-name">Uraraka Ochako.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">『僕のヒーローアカデミア』の麗日お茶子を描写するためのキャラクター特化Embedding。</div></td>
                         <td><button class="trigger-badge">Uraraka Ochako</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Pony PDXL Negative Embeddings</div>
                             <span class="file-name">zPDXL3.safetensors</span>
                         </td>
                         <td><span class="model-tag">Pony</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">汎用のネガティブEmbeddingとして、画像全体の細かなアーティファクトや崩れを防ぎ、クリアな画質を維持する役割を持ちます。</div></td>
                         <td><button class="trigger-badge">zPDXL3</button></td>
                     </tr>
+                
                 </tbody>
             </table>
         </div>
     </div>
 
-    <a href="../index.html" class="back-btn"><i class="fas fa-chevron-left"></i></a>
+    <a href="../../index.html" class="back-btn"><i class="fas fa-chevron-left"></i></a>
 
+    <script src="../../../script.js"></script>
     <script>
         document.querySelectorAll('.trigger-badge').forEach(button => {
             button.onclick = function() {

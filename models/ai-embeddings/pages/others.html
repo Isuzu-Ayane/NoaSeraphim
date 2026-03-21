@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Other Models (SD 1.4 / 2.x) - Embeddings List | Noa AI Labs</title>
+    <title>Other Models - Embeddings List | Noa AI Labs</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&family=Nunito:wght@400;800&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -30,6 +30,7 @@
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
+            padding-top: 60px; /* Spacer for fixed nav */
         }
 
         /* Decorative Background Illustration */
@@ -182,6 +183,7 @@
             border-radius: 4px;
             display: inline-block;
             margin-top: 4px;
+            word-break: break-all;
         }
 
         .trigger-badge {
@@ -196,6 +198,9 @@
             transition: all 0.2s;
             border: 2px solid white;
             box-shadow: 0 4px 10px rgba(58, 123, 213, 0.2);
+            border-style: none; /* overrides browser default button border if badge is a button */
+            text-align: left;
+            word-break: break-all;
         }
 
         .trigger-badge:hover {
@@ -218,6 +223,7 @@
             color: var(--primary-cyan);
             border: 1px solid var(--primary-cyan);
             font-weight: 800;
+            display: inline-block;
         }
 
         @media (max-width: 768px) {
@@ -252,193 +258,181 @@
     </style>
 </head>
 <body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Language Toggle -->
+    <div style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
+        <a href="others_en.html"
+            style="background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border: 2px solid white; color: var(--primary-cyan); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; transition: background 0.3s, transform 0.2s; display: inline-block; box-shadow: 0 4px 10px rgba(58, 123, 213, 0.1);">
+            <i class="fas fa-globe"></i> English
+        </a>
+    </div>
+
+    <nav class="glass-panel centered-nav" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 999; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border-bottom: 2px solid white; display: flex; justify-content: center; align-items: center; padding: 10px 0; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
+        <ul style="display: flex; list-style: none; gap: 20px; margin: 0; padding: 0;">
+            
+            <li><a href="../../../index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">HOME</a></li>
+            <li><a href="../../../ai-guide/index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">AI-GUIDE</a></li>
+            <li><a href="../../../models/index.html" style="color: var(--accent-blue); text-decoration: none; font-weight: bold;">MODELS</a></li>
+            <li><a href="../../../Tools/index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">TOOLS</a></li>
+            <li><a href="../../../creative/index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">GALLERY</a></li>
+        
+        </ul>
+    </nav>
+
     <div class="container">
         <nav class="breadcrumb">
-            <li><a href="../../../index.html">Home</a></li>
-            <li><a href="../../index.html">Models</a></li>
-            <li><a href="../index.html">Embeddings</a></li>
-            <li>Other Models (SD 1.4 / 2.x)</li>
+            
+            <li><a href="../../../index.html">Top</a></li>
+            <li><a href="../../../models/index.html">Models</a></li>
+            <li><a href="../../index.html">Embeddings</a></li>
+            <li>Other Models</li>
+            
         </nav>
 
         <div class="header-panel">
-            <h1 class="bounce-text">Other Models (SD 1.4 / 2.x) Embeddings</h1>
-            <p style="color: var(--text-muted);">AI画像生成の品質を劇的に向上させる、Other Models (SD 1.4 / 2.x)向けのおすすめEmbeddings一覧です。</p>
+            <h1 class="bounce-text">Other Models Embeddings</h1>
+            <p style="color: var(--text-muted);">その他のベースモデル（SD 1.4, 2.Xなど）や特定用途のEmbeddings一覧です。</p>
         </div>
 
         <div class="nav-grid">
-            <a href="sd15.html" class="nav-item ">SD 1.5</a>
-            <a href="sdxl.html" class="nav-item ">SDXL</a>
-            <a href="pony.html" class="nav-item ">Pony</a>
-            <a href="illustrious.html" class="nav-item ">Illustrious</a>
-            <a href="others.html" class="nav-item active">Others</a>
+            <a href="sd15.html" class="nav-item ">Stable Diffusion 1.5</a>
+<a href="sdxl.html" class="nav-item ">SDXL 1.0</a>
+<a href="pony.html" class="nav-item ">Pony Diffusion</a>
+<a href="illustrious.html" class="nav-item ">Illustrious XL</a>
+<a href="others.html" class="nav-item active">Other Models</a>
+
         </div>
 
         <div class="table-container">
             <table>
                 <thead>
                     <tr>
-                        <th>名前 / ファイル</th>
-                        <th>モデル</th>
-                        <th>効果 / 特徴</th>
-                        <th>トリガーワード</th>
+                        <th>名前 / ファイル</th><th>モデル</th><th>効果 / 特徴</th><th>トリガーワード</th>
                     </tr>
                 </thead>
                 <tbody>
-                    
                     <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">supercha-neg</div>
                             <span class="file-name">1girl-neg.pt</span>
                         </td>
                         <td><span class="model-tag">Other</span></td>
-                        <td><div class="effect-text">パート1</div></td>
+                        <td><div class="effect-text">ネガティブ埋め込みは、AI画像生成時に望ましくない特徴やアーティファクトを抑制し、品質向上を図ります。supercha-neg は、特に手や顔の歪みを防止するために訓練された高度なネガティブ埋め込みです。</div></td>
                         <td><button class="trigger-badge">1girl</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Expomech</div>
                             <span class="file-name">a photo of expomech.pt</span>
                         </td>
                         <td><span class="model-tag">Other</span></td>
-                        <td><div class="effect-text">埋め込みが追加されました</div></td>
+                        <td><div class="effect-text">自動車部品やメカニック要素に関連する特定のスタイルを追加します。モーターショーや整備工場のような、ハイテクでメカニカルな雰囲気を画像に付与する効果があります。</div></td>
                         <td><button class="trigger-badge">a photo of expomech</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Useful Quality Embeddings</div>
                             <span class="file-name">aid210.pt</span>
                         </td>
                         <td><span class="model-tag">Other</span></td>
-                        <td><div class="effect-text">Anime Illust Diffusion v2.10 専用のネガティブ テキスト埋め込み。しかし、他のモデルにも同じことが当てはまります。 ａｉｄ２１０はａｉｄ２９１に比べて補正効果は弱めですが、ベースモールド本来のスタイルを過度に損なうことなく様式化に適しています。柔らかな光と影、そして太い輪郭線をもたらします。 AIDV2.10 を使用している場合は、aid210 の方が適しています。アクションの範囲: 明瞭度の向上、アーティファクト ノイズの除去、線の歪みの修正、わずかな美化 ベクトルの数: 16 ベクトルの強度: 0.05 短所: 人間の構造や手にあまり役に立たない Anime Illust Diffusion v2.10 専用のネガティブ テキスト埋め込み。しかし、他のモデルにも同じことが当てはまります。 ａｉｄ２１０はａｉｄ２９１に比べて補正効果は弱めですが、ベースモデル本来のスタイルを損ねすぎず、様式化に適しています。柔らかく光をもたらします</div></td>
+                        <td><div class="effect-text">Anime Illust Diffusion v2.10向けに設計されたネガティブ埋め込みですが、他のモデルでも有効です。<br>
+ベースモデルのスタイルを過度に損なうことなく画像品質を向上させます。主な効果として、柔らかな光と影の追加、輪郭線（ブラシストローク）の強調、画像の鮮明化、アーティファクトやノイズの除去、線の歪み補正、顔の微修正などが挙げられます。<br>
+同様の埋め込み「aid291」と比較して補正効果が優しく、自然な仕上がりが期待できます。</div></td>
                         <td><button class="trigger-badge">aid210</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Akai Riot Style TI</div>
                             <span class="file-name">akai-4v.pt</span>
                         </td>
                         <td><span class="model-tag">Other</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">特定のイラストレーターやアートスタイル（Akai Riot風）を再現するためのスタイル埋め込みです。プロンプトにトリガーワードを含めることで、生成画像全体の色使い、線画のタッチ、キャラクターの雰囲気などをそのスタイルに寄せることができます。</div></td>
                         <td><button class="trigger-badge">akai-4v</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Araizumi Rui - Textual Inversion</div>
                             <span class="file-name">araizumi rui.pt</span>
                         </td>
                         <td><span class="model-tag">Other</span></td>
-                        <td><div class="effect-text">NAI モデルでトレーニング済み</div></td>
+                        <td><div class="effect-text">イラストレーター・あらいずみるい氏（代表作『スレイヤーズ』）のアートスタイルを再現するためのスタイル埋め込みです。NAIモデルでトレーニングされており、プロンプトにトリガーワードを含めることで、同氏特有のキャラクターデザインや彩色の雰囲気を画像に反映させることができます。</div></td>
                         <td><button class="trigger-badge">araizumi rui</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Bad-Hands-5</div>
                             <span class="file-name">bad-hands-5.pt</span>
                         </td>
                         <td><span class="model-tag">Other</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">AI画像生成で頻発する「手の崩れ」（指の数がおかしい、関節が不自然など）を修正・軽減することに特化したネガティブ埋め込みです。ネガティブプロンプトに指定することで、より自然で解剖学的に正確な手を描画しやすくなります。キャラクターイラストやポートレート生成で重宝されます。</div></td>
                         <td><button class="trigger-badge"></button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">badhandv4</div>
                             <span class="file-name">badhandv4.pt</span>
                         </td>
                         <td><span class="model-tag">Other</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">AI画像生成で生じやすい「手の描写の破綻」を改善するためのネガティブテキスト埋め込みです。画像全体の芸術的なスタイルや背景への影響を最小限に抑えつつ、手の品質を向上させるよう設計されています。高いCFGスケール（11以上など）で使用するとより効果的で、他のネガティブ埋め込みとの併用も可能です。</div></td>
                         <td><button class="trigger-badge">badhandv4</button></td>
                     </tr>
-                    <tr>
-                        <td>
-                            <div style="font-weight: bold; margin-bottom: 5px;">badquality - Negative Embedding for WD1.5 (~ beta 2)</div>
-                            <span class="file-name">badquality.pt</span>
-                        </td>
-                        <td><span class="model-tag">SD 2.1 768</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
-                        <td><button class="trigger-badge">badquality</button></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="font-weight: bold; margin-bottom: 5px;">cartoonish_doll</div>
-                            <span class="file-name">cartoonish_doll.pt</span>
-                        </td>
-                        <td><span class="model-tag">SD 2.1</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
-                        <td><button class="trigger-badge">cartoonish_doll</button></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="font-weight: bold; margin-bottom: 5px;">Double Exposure for SD 2.x</div>
-                            <span class="file-name">dblx.pt</span>
-                        </td>
-                        <td><span class="model-tag">SD 2.1</span></td>
-                        <td><div class="effect-text"></div></td>
-                        <td><button class="trigger-badge">dblx</button></td>
-                    </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Devmgf style TI (busty and muscular bodies)</div>
                             <span class="file-name">devmgf-8500.pt</span>
                         </td>
                         <td><span class="model-tag">Other</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">「Devmgfスタイル」と呼ばれる、筋肉質で豊満な体型（busty and muscular bodies）の女性キャラクターを生成することに特化したスタイル埋め込みです。プロンプトに組み込むことで、解剖学的に強調されたマッシブなボディラインをイラストに付与することができます。</div></td>
                         <td><button class="trigger-badge">devmgf-8500</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Gan Yu 甘雨 [Genshin_Impact 原神]</div>
                             <span class="file-name">ganyu_c.pt</span>
                         </td>
                         <td><span class="model-tag">Other</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">ゲーム『原神（Genshin Impact）』のキャラクター「甘雨（かんう）」を生成するためのキャラクター埋め込みです。プロンプトにトリガーワードを含めることで、彼女の特徴的な外観や衣装を画像に反映させることができます。</div></td>
                         <td><button class="trigger-badge">ganyu_c</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Hana Uzaki TI</div>
                             <span class="file-name">hana_uzaki.pt</span>
                         </td>
                         <td><span class="model-tag">Other</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">アニメ『宇崎ちゃんは遊びたい！』のヒロイン「宇崎花（うざき はな）」を生成するためのキャラクター埋め込みです。プロンプトにトリガーワードを含めることで、彼女の特徴的なショートヘアや表情、服装などを画像に反映させることができます。</div></td>
                         <td><button class="trigger-badge">hana_uzaki</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Henreader - Textual Inversion</div>
                             <span class="file-name">henreader.pt</span>
                         </td>
                         <td><span class="model-tag">Other</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">アーティスト「Henreader」の画風を学習したスタイル埋め込みです。プロンプトにトリガーワードを含めることで、同氏特有のキャラクターの描画スタイル（特徴的な目の描き方、肉付きの良い体型表現など）や彩色のタッチを生成画像に反映させることができます。NAI（NovelAI）モデルをベースにトレーニングされています。</div></td>
                         <td><button class="trigger-badge">henreader</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Ikumi Mito (Food Wars!) TI</div>
                             <span class="file-name">ikumi_mito.pt</span>
                         </td>
                         <td><span class="model-tag">Other</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">アニメ・マンガ『食戟のソーマ』のキャラクター「水戸郁魅（みと いくみ）」を生成するためのキャラクター埋め込みです。プロンプトにトリガーワードを含めることで、彼女の特徴的な褐色の肌、ブロンドヘア、ワイルドな衣装などを画像に反映させることができます。</div></td>
                         <td><button class="trigger-badge">ikumi_mito</button></td>
                     </tr>
-                    <tr>
-                        <td>
-                            <div style="font-weight: bold; margin-bottom: 5px;">Inkpunk768</div>
-                            <span class="file-name">InkPunk768.pt</span>
-                        </td>
-                        <td><span class="model-tag">SD 2.0 768</span></td>
-                        <td><div class="effect-text">汎用の InkPunk スタイル、ほぼ何にでも適しています</div></td>
-                        <td><button class="trigger-badge">InkPunk768</button></td>
-                    </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Kaguya TI</div>
                             <span class="file-name">kaguya_9.pt</span>
                         </td>
                         <td><span class="model-tag">Other</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">アニメ『かぐや様は告らせたい～天才たちの恋愛頭脳戦～』のヒロイン「四宮かぐや（しのみや かぐや）」を生成するためのキャラクター埋め込みです。プロンプトにトリガーワードを含めることで、彼女の特徴的な髪型や表情、秀知院学園の制服などを画像に反映させることができます。</div></td>
                         <td><button class="trigger-badge">kaguya_9</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Konpeto - Textual Inversion</div>
                             <span class="file-name">Konpeto.pt</span>
@@ -447,16 +441,16 @@
                         <td><div class="effect-text">総エポック/ステップ数は比較的少ないですが、次のエポック (およびそれ以降) は柔軟性が低すぎました。</div></td>
                         <td><button class="trigger-badge">Konpeto</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Tsukasa Kotobuki - Textual Inversion</div>
                             <span class="file-name">kotobuki.pt</span>
                         </td>
                         <td><span class="model-tag">Other</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><div class="effect-text">イラストレーター・キャラクターデザイナーである「ことぶきつかさ（Tsukasa Kotobuki）」氏の画風を学習したスタイル埋め込みです。プロンプトにトリガーワードを含めることで、氏の代表作（『セイバーマリオネット』シリーズなど）に見られるような、90年代アニメ風の独特なキャラクターデザインや目の描き方、線のタッチを生成画像に反映させることができます。</div></td>
                         <td><button class="trigger-badge">kotobuki</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Lucy Heartfilia (TI)</div>
                             <span class="file-name">lucy4k-5000.pt</span>
@@ -465,7 +459,7 @@
                         <td><div class="effect-text">効果の記載なし</div></td>
                         <td><button class="trigger-badge">lucy4k-5000</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Musctonk style</div>
                             <span class="file-name">musctonk-8100.pt</span>
@@ -474,7 +468,7 @@
                         <td><div class="effect-text">効果の記載なし</div></td>
                         <td><button class="trigger-badge">musctonk-8100</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Nagatoro Hayase (TI)</div>
                             <span class="file-name">nagatoro-5000.pt</span>
@@ -483,7 +477,7 @@
                         <td><div class="effect-text">効果の記載なし</div></td>
                         <td><button class="trigger-badge">nagatoro-5000</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Ninomae Ina’nis (hololive) TI</div>
                             <span class="file-name">ninoina.pt</span>
@@ -492,7 +486,7 @@
                         <td><div class="effect-text">初期バージョン</div></td>
                         <td><button class="trigger-badge">ninoina</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">nncursed | Negative embedding for 2FSV</div>
                             <span class="file-name">nncursedV0-neg.pt</span>
@@ -501,16 +495,7 @@
                         <td><div class="effect-text">基本バージョン</div></td>
                         <td><button class="trigger-badge">nncursedV0</button></td>
                     </tr>
-                    <tr>
-                        <td>
-                            <div style="font-weight: bold; margin-bottom: 5px;">pixel art - SD2</div>
-                            <span class="file-name">pixelart-1.pt</span>
-                        </td>
-                        <td><span class="model-tag">SD 2.0 768</span></td>
-                        <td><div class="effect-text">最も一般的なもの。通常、適切なピクセルを提供し、プロンプトを非常によく読み取り、「古い学校」ではありません。 img2imgの「ピクセル化処理」に使用されます。</div></td>
-                        <td><button class="trigger-badge">pixelart-1</button></td>
-                    </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Roxy migurdia TI</div>
                             <span class="file-name">roxy-migurdia.pt</span>
@@ -519,7 +504,7 @@
                         <td><div class="effect-text">この TI は Waifu 拡散サーバーからのものです: https://discord.gg/touhouai これは私のモデルではありません。オリジナルの作成者を見てサポートするにはサーバーにアクセスしてください。</div></td>
                         <td><button class="trigger-badge">roxy-migurdia</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">SpeedL00ver style TI (thickness and muscles)</div>
                             <span class="file-name">speedl00ver-8000.pt</span>
@@ -528,7 +513,7 @@
                         <td><div class="effect-text">効果の記載なし</div></td>
                         <td><button class="trigger-badge">speedl00ver-8000</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Sylphiette (Adult) Jobless Reincarnation/Mushoku Tensei</div>
                             <span class="file-name">sylphiette.pt</span>
@@ -537,25 +522,7 @@
                         <td><div class="effect-text">効果の記載なし</div></td>
                         <td><button class="trigger-badge">sylphiette</button></td>
                     </tr>
-                    <tr>
-                        <td>
-                            <div style="font-weight: bold; margin-bottom: 5px;">UlukInkSketch2</div>
-                            <span class="file-name">UlukInkSketch2.pt</span>
-                        </td>
-                        <td><span class="model-tag">SD 2.0 768</span></td>
-                        <td><div class="effect-text">効果の記載なし</div></td>
-                        <td><button class="trigger-badge">UlukInkSketch2</button></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="font-weight: bold; margin-bottom: 5px;">vray-render SD2</div>
-                            <span class="file-name">vray-render.pt</span>
-                        </td>
-                        <td><span class="model-tag">SD 2.0 768</span></td>
-                        <td><div class="effect-text">画像 44 枚、768x768、バッチ サイズ 4、勾配累積 11、ベクトル - 6、ステップ 500</div></td>
-                        <td><button class="trigger-badge">vray-render</button></td>
-                    </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Nel / Nelliel Tu Odelschwanck (Bleach)</div>
                             <span class="file-name">vslinx_nel.pt</span>
@@ -564,7 +531,7 @@
                         <td><div class="effect-text">効果の記載なし</div></td>
                         <td><button class="trigger-badge">vslinx_nel</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Inoue Orihime (Bleach)</div>
                             <span class="file-name">vslinx_orihime_inoue.pt</span>
@@ -573,7 +540,7 @@
                         <td><div class="effect-text">効果の記載なし</div></td>
                         <td><button class="trigger-badge">vslinx_orihime_inoue</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Rukia Kuchiki (Bleach)</div>
                             <span class="file-name">vslinx_rukia.pt</span>
@@ -582,7 +549,7 @@
                         <td><div class="effect-text">効果の記載なし</div></td>
                         <td><button class="trigger-badge">vslinx_rukia</button></td>
                     </tr>
-                    <tr>
+                <tr>
                         <td>
                             <div style="font-weight: bold; margin-bottom: 5px;">Zero Two TI</div>
                             <span class="file-name">zerotwoo.pt</span>
@@ -591,13 +558,15 @@
                         <td><div class="effect-text">効果の記載なし</div></td>
                         <td><button class="trigger-badge">zerotwoo</button></td>
                     </tr>
+                
                 </tbody>
             </table>
         </div>
     </div>
 
-    <a href="../index.html" class="back-btn"><i class="fas fa-chevron-left"></i></a>
+    <a href="../../index.html" class="back-btn"><i class="fas fa-chevron-left"></i></a>
 
+    <script src="../../../script.js"></script>
     <script>
         document.querySelectorAll('.trigger-badge').forEach(button => {
             button.onclick = function() {

@@ -330,6 +330,83 @@
                 </div>
             </div>
 
+            <!-- Checkpoint Summary Table -->
+            <div style="background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2); margin-bottom: 40px; padding: 25px; font-size: 0.95rem; overflow-x: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                <h3 style="margin-top: 0; color: var(--accent); border-bottom: 1px dashed rgba(56, 189, 248, 0.3); padding-bottom: 10px; margin-bottom: 20px;"><i class="fas fa-list-alt"></i> Model Types & Features</h3>
+                <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                    <thead>
+                        <tr style="background: var(--gradient); color: white;">
+                            <th style="padding: 12px; border-radius: 8px 0 0 0; white-space: nowrap;">Model Type (Count)</th>
+                            <th style="padding: 12px;">Specifications (Architecture/Features)</th>
+                            <th style="padding: 12px;">Practical Review (Strengths/Usage)</th>
+                            <th style="padding: 12px; border-radius: 0 8px 0 0; white-space: nowrap;">Anime Style Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody style="background: rgba(15, 23, 42, 0.4);">
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 12px; font-weight: bold; color: var(--accent); white-space: nowrap;">Illustrious (111)</td>
+                            <td style="padding: 12px;">Latest architecture specialized in anime/illustration. Extremely excellent at prompt control using Danbooru tags.</td>
+                            <td style="padding: 12px;">One of the optimal solutions for anime generation right now. Easy to express delicate lines and transparent coloring, and precise control by tags allows stable output of high-quality illustrations exactly as intended.</td>
+                            <td style="padding: 12px; color: #fbbf24; font-weight: bold; white-space: nowrap;">★★★★★<br><span style="color: var(--text-muted); font-size: 0.8rem; font-weight: normal;">(Very High)</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.2);">
+                            <td style="padding: 12px; font-weight: bold; color: var(--accent); white-space: nowrap;">NoobAI (15)</td>
+                            <td style="padding: 12px;">Powerful tag-control based anime-specialized model with a structure similar to Illustrious.</td>
+                            <td style="padding: 12px;">An excellent model similar to the Illustrious series. Highly flexible in composition, and when prompts and settings mesh well, the hand-drawn atmosphere and quality are top-tier.</td>
+                            <td style="padding: 12px; color: #fbbf24; font-weight: bold; white-space: nowrap;">★★★★★<br><span style="color: var(--text-muted); font-size: 0.8rem; font-weight: normal;">(Very High)</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 12px; font-weight: bold; color: var(--accent); white-space: nowrap;">Flux.1 D (33)</td>
+                            <td style="padding: 12px;">Massive latest model (Dev version) with 12B (12 billion) parameters. Has extremely high language understanding capabilities.</td>
+                            <td style="padding: 12px;">Its astonishing prompt understanding is its greatest strength. It accurately follows complex outfit and background specifications, but since it's not specialized in anime, prompt ingenuity is needed to bring out transparency and specific art styles.</td>
+                            <td style="padding: 12px; color: #fbbf24; font-weight: bold; white-space: nowrap;">★★★★☆<br><span style="color: var(--text-muted); font-size: 0.8rem; font-weight: normal;">(Max Potential)</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.2);">
+                            <td style="padding: 12px; font-weight: bold; color: var(--accent); white-space: nowrap;">Anima (4)</td>
+                            <td style="padding: 12px;">Anime-specialized SDXL model adjusted based on Animagine XL, etc.</td>
+                            <td style="padding: 12px;">Has a stable feel that can be called the royal road of anime coloring. It's an easy-to-handle, honors-student type model because it stably outputs character features (hair color, eye color, etc.) without breaking them.</td>
+                            <td style="padding: 12px; color: #fbbf24; font-weight: bold; white-space: nowrap;">★★★★☆<br><span style="color: var(--text-muted); font-size: 0.8rem; font-weight: normal;">(Stable)</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 12px; font-weight: bold; color: var(--accent); white-space: nowrap;">Pony (86)</td>
+                            <td style="padding: 12px;">SDXL base. Features powerful quality and art style control using unique score tags (score_9_up, etc.).</td>
+                            <td style="padding: 12px;">Flexibility in composition/movement and responsiveness to specifications are outstanding. However, it tends to have a unique art style (so-called "Pony face"), so maintaining a delicate art style requires combined use with LoRAs or prompt adjustments.</td>
+                            <td style="padding: 12px; color: #fbbf24; font-weight: bold; white-space: nowrap;">★★★☆☆<br><span style="color: var(--text-muted); font-size: 0.8rem; font-weight: normal;">(Dynamic/Versatile)</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.2);">
+                            <td style="padding: 12px; font-weight: bold; color: var(--accent); white-space: nowrap;">Flux.1 Kontext / Krea / S (7)</td>
+                            <td style="padding: 12px;">Derivative versions of Flux.1, or high-speed generation versions with reduced steps (Schnell, etc.).</td>
+                            <td style="padding: 12px;">While inheriting the intelligence of the Dev version, they are lightweight or specialized for specific uses, making them ideal for quick brainstorming or composition test generation (preview purposes).</td>
+                            <td style="padding: 12px; color: #fbbf24; font-weight: bold; white-space: nowrap;">★★★★☆<br><span style="color: var(--text-muted); font-size: 0.8rem; font-weight: normal;">(Fast & Smart)</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 12px; font-weight: bold; color: var(--accent); white-space: nowrap;">SDXL 1.0 (102)</td>
+                            <td style="padding: 12px;">Current generation basic base model, standardized for 1024x1024 resolution.</td>
+                            <td style="padding: 12px;">Rarely used alone to generate high-quality anime illustrations; primarily serves as the "base" (foundation) for creating excellent derivative anime models like Pony and Animagine.</td>
+                            <td style="padding: 12px; color: #fbbf24; font-weight: bold; white-space: nowrap;">★★☆☆☆<br><span style="color: var(--text-muted); font-size: 0.8rem; font-weight: normal;">(Base Foundation)</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.2);">
+                            <td style="padding: 12px; font-weight: bold; color: var(--accent); white-space: nowrap;">SD 1.5 / Hyper (16)</td>
+                            <td style="padding: 12px;">Previous generation standard model based on 512x512. Hyper is ultra-high-speed generation version.</td>
+                            <td style="padding: 12px;">Has limits in image quality and resolution compared to current latest models (SDXL, Illustrious, etc.), but still comes in handy when you want to utilize the rich past assets of masterpiece LoRAs.</td>
+                            <td style="padding: 12px; color: #fbbf24; font-weight: bold; white-space: nowrap;">★★☆☆☆<br><span style="color: var(--text-muted); font-size: 0.8rem; font-weight: normal;">(For Past Assets)</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 12px; font-weight: bold; color: var(--accent); white-space: nowrap;">ZImageBase / Turbo (4)</td>
+                            <td style="padding: 12px;">Base models optimized for high-speed generation (Turbo) and specific processing.</td>
+                            <td style="padding: 12px;">Convenient when generation speed is the top priority, or when building/testing workflows. However, it yields detailed drawing and gradient expression to other high-quality models.</td>
+                            <td style="padding: 12px; color: #fbbf24; font-weight: bold; white-space: nowrap;">★★★☆☆<br><span style="color: var(--text-muted); font-size: 0.8rem; font-weight: normal;">(Focus on Speed)</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.2);">
+                            <td style="padding: 12px; font-weight: bold; color: var(--accent); white-space: nowrap;">Unknown / Other (60)</td>
+                            <td style="padding: 12px;">Models that could not be automatically classified from metadata, or special-purpose models.</td>
+                            <td style="padding: 12px;">May include models specialized for unusual uses or minor derivative models. An experimental group of models where you might unexpectedly find a hidden gem.</td>
+                            <td style="padding: 12px; color: #fbbf24; font-weight: bold; white-space: nowrap;">Unmeasurable<br><span style="color: var(--text-muted); font-size: 0.8rem; font-weight: normal;">(For Experiment)</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <div class="gallery-container">
                 <div id="checkpoints-gallery-root">
                     <!-- Images will be injected here automatically by the JavaScript below -->

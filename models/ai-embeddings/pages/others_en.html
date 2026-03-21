@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Other Models - Embeddings List | Noa AI Labs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&family=Nunito:wght@400;800&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-cyan: #3a7bd5;
+            --secondary-cyan: #00d2ff;
+            --accent-blue: #0284c7;
+            --bg-light: #e0f2fe;
+            --bg-card: rgba(255, 255, 255, 0.7);
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            color: var(--text-dark);
+            background-attachment: fixed;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            padding-top: 60px; /* Spacer for fixed nav */
+        }
+
+        /* Decorative Background Illustration */
+        body::before {
+            content: "";
+            position: fixed;
+            bottom: -5%;
+            right: -5%;
+            width: 40%;
+            height: 60%;
+            background-image: url('../../../web_image/image_00001_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: bottom right;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 10%;
+            left: -5%;
+            width: 30%;
+            height: 50%;
+            background-image: url('../../../web_image/image_00002_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: top left;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -1;
+            filter: scaleX(-1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-panel {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 30px;
+            border: 3px solid white;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(58, 123, 213, 0.15);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--secondary-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            gap: 10px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb a { color: var(--accent-blue); text-decoration: none; font-weight: bold; }
+        .breadcrumb li::after { content: '>'; margin-left: 10px; color: var(--text-muted); }
+        .breadcrumb li:last-child::after { content: ''; }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .nav-item {
+            background: rgba(255,255,255,0.6);
+            padding: 12px;
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--accent-blue);
+            font-weight: 800;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid white;
+            font-size: 0.9rem;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: var(--primary-cyan);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(58, 123, 213, 0.3);
+        }
+
+        .table-container {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            border: 3px solid white;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background: rgba(58, 123, 213, 0.1);
+            padding: 20px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid white;
+            color: var(--primary-cyan);
+        }
+
+        td {
+            padding: 18px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+            vertical-align: middle;
+            font-size: 0.95rem;
+        }
+
+        tr:hover td {
+            background: rgba(255,255,255,0.4);
+        }
+
+        .file-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.5);
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 4px;
+            word-break: break-all;
+        }
+
+        .trigger-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--secondary-cyan));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid white;
+            box-shadow: 0 4px 10px rgba(58, 123, 213, 0.2);
+            border-style: none; /* overrides browser default button border if badge is a button */
+            text-align: left;
+            word-break: break-all;
+        }
+
+        .trigger-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(58, 123, 213, 0.4);
+        }
+
+        .effect-text {
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .model-tag {
+            font-size: 0.7rem;
+            background: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            color: var(--primary-cyan);
+            border: 1px solid var(--primary-cyan);
+            font-weight: 800;
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3) {
+                display: none;
+            }
+            h1 { font-size: 1.8rem; }
+        }
+
+        /* Back button */
+        .back-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-cyan);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+        .back-btn:hover {
+            transform: scale(1.1) rotate(-10deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Language Toggle -->
+    <div style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
+        <a href="others.html"
+            style="background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border: 2px solid white; color: var(--primary-cyan); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; transition: background 0.3s, transform 0.2s; display: inline-block; box-shadow: 0 4px 10px rgba(58, 123, 213, 0.1);">
+            <i class="fas fa-globe"></i> 日本語
+        </a>
+    </div>
+
+    <nav class="glass-panel centered-nav" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 999; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border-bottom: 2px solid white; display: flex; justify-content: center; align-items: center; padding: 10px 0; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
+        <ul style="display: flex; list-style: none; gap: 20px; margin: 0; padding: 0;">
+            
+            <li><a href="../../../index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">HOME</a></li>
+            <li><a href="../../../ai-guide/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">AI-GUIDE</a></li>
+            <li><a href="../../../models/index_en.html" style="color: var(--accent-blue); text-decoration: none; font-weight: bold;">MODELS</a></li>
+            <li><a href="../../../Tools/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">TOOLS</a></li>
+            <li><a href="../../../creative/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">GALLERY</a></li>
+        
+        </ul>
+    </nav>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            
+            <li><a href="../../../index_en.html">Home</a></li>
+            <li><a href="../../../models/index_en.html">Models</a></li>
+            <li><a href="../../index_en.html">Embeddings</a></li>
+            <li>Other Models</li>
+            
+        </nav>
+
+        <div class="header-panel">
+            <h1 class="bounce-text">Other Models Embeddings</h1>
+            <p style="color: var(--text-muted);">A list of embeddings for other base models (SD 1.4, 2.X, etc.) and specific purposes.</p>
+        </div>
+
+        <div class="nav-grid">
+            <a href="sd15_en.html" class="nav-item ">Stable Diffusion 1.5</a>
+<a href="sdxl_en.html" class="nav-item ">SDXL 1.0</a>
+<a href="pony_en.html" class="nav-item ">Pony Diffusion</a>
+<a href="illustrious_en.html" class="nav-item ">Illustrious XL</a>
+<a href="others_en.html" class="nav-item active">Other Models</a>
+
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name / File</th><th>Model</th><th>Effects / Description</th><th>Trigger Word</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">supercha-neg</div>
+                            <span class="file-name">1girl-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">Negative embeddings suppress undesirable features and artifacts during AI image generation to improve quality. supercha-neg is an advanced negative embedding specifically trained to prevent distortions, particularly in hands and faces.</div></td>
+                        <td><button class="trigger-badge">1girl</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Expomech</div>
+                            <span class="file-name">a photo of expomech.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">Adds a specific style or elements related to automotive parts and mechanics. It infuses images with a high-tech, mechanical atmosphere reminiscent of a motor show or a garage.</div></td>
+                        <td><button class="trigger-badge">a photo of expomech</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Useful Quality Embeddings</div>
+                            <span class="file-name">aid210.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">A negative embedding designed for Anime Illust Diffusion v2.10, but effective with other models as well.<br>
+It improves image quality without excessively compromising the base model's original style. Key effects include adding soft light and shadow, emphasizing contour lines (brush strokes), improving sharpness, removing artifacts and noise, correcting line distortion, and slightly beautifying faces.<br>
+Compared to the similar embedding 'aid291', it has a gentler correction effect, resulting in a more natural finish.</div></td>
+                        <td><button class="trigger-badge">aid210</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Akai Riot Style TI</div>
+                            <span class="file-name">akai-4v.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">A style embedding designed to replicate a specific illustrator or art style (Akai Riot style). By including the trigger word in your prompt, you can steer the overall color palette, line art, and character atmosphere towards this specific style.</div></td>
+                        <td><button class="trigger-badge">akai-4v</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Araizumi Rui - Textual Inversion</div>
+                            <span class="file-name">araizumi rui.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">A style embedding designed to replicate the art style of illustrator Rui Araizumi (known for 'Slayers'). Trained on the NAI model, including the trigger word in the prompt allows you to reflect their distinct character design and coloring atmosphere in the generated images.</div></td>
+                        <td><button class="trigger-badge">araizumi rui</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Bad-Hands-5</div>
+                            <span class="file-name">bad-hands-5.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">A negative embedding specifically designed to fix and reduce common "hand deformations" in AI image generation (e.g., incorrect number of fingers, unnatural joints). By specifying this in the negative prompt, it becomes easier to render more natural and anatomically correct hands. Highly valued for character illustrations and portrait generation.</div></td>
+                        <td><button class="trigger-badge"></button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">badhandv4</div>
+                            <span class="file-name">badhandv4.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">A negative text embedding developed to fix common issues with hand rendering in AI image generation. It is designed to improve hand quality while minimizing the impact on the overall artistic style and background of the image. It is more effective when used with a high CFG scale (e.g., 11 or higher) and can be used in combination with other negative embeddings.</div></td>
+                        <td><button class="trigger-badge">badhandv4</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Devmgf style TI (busty and muscular bodies)</div>
+                            <span class="file-name">devmgf-8500.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">A style embedding specializing in generating female characters with a "Devmgf style" body type, characterized by being busty and muscular. By including the trigger word in the prompt, you can add an anatomically emphasized, massive body line to your illustrations.</div></td>
+                        <td><button class="trigger-badge">devmgf-8500</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Gan Yu 甘雨 [Genshin_Impact 原神]</div>
+                            <span class="file-name">ganyu_c.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">A character embedding designed to generate the character 'Gan Yu' from the game 'Genshin Impact'. Including the trigger word in your prompt allows you to reflect her distinct appearance and outfit in the generated images.</div></td>
+                        <td><button class="trigger-badge">ganyu_c</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Hana Uzaki TI</div>
+                            <span class="file-name">hana_uzaki.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">A character embedding designed to generate 'Hana Uzaki', the heroine from the anime 'Uzaki-chan Wants to Hang Out!'. Including the trigger word in your prompt allows you to reflect her distinct short hair, expressions, and clothing in the generated images.</div></td>
+                        <td><button class="trigger-badge">hana_uzaki</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Henreader - Textual Inversion</div>
+                            <span class="file-name">henreader.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">henreader</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Ikumi Mito (Food Wars!) TI</div>
+                            <span class="file-name">ikumi_mito.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">A character embedding designed to generate 'Ikumi Mito' from the anime/manga 'Food Wars! (Shokugeki no Soma)'. By including the trigger word in your prompt, you can reflect her distinct dark skin, blonde hair, and wild outfits in the generated images.</div></td>
+                        <td><button class="trigger-badge">ikumi_mito</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Kaguya TI</div>
+                            <span class="file-name">kaguya_9.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">A character embedding designed to generate 'Shinomiya Kaguya', the heroine from the anime 'Kaguya-sama: Love Is War'. Including the trigger word in your prompt allows you to reflect her characteristic hairstyle, expressions, and the Shuchiin Academy uniform in the generated images.</div></td>
+                        <td><button class="trigger-badge">kaguya_9</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Konpeto - Textual Inversion</div>
+                            <span class="file-name">Konpeto.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">総エポック/ステップ数は比較的少ないですが、次のエポック (およびそれ以降) は柔軟性が低すぎました。</div></td>
+                        <td><button class="trigger-badge">Konpeto</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Tsukasa Kotobuki - Textual Inversion</div>
+                            <span class="file-name">kotobuki.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">kotobuki</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Lucy Heartfilia (TI)</div>
+                            <span class="file-name">lucy4k-5000.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">lucy4k-5000</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Musctonk style</div>
+                            <span class="file-name">musctonk-8100.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">musctonk-8100</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Nagatoro Hayase (TI)</div>
+                            <span class="file-name">nagatoro-5000.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">nagatoro-5000</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Ninomae Ina’nis (hololive) TI</div>
+                            <span class="file-name">ninoina.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">初期バージョン</div></td>
+                        <td><button class="trigger-badge">ninoina</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">nncursed | Negative embedding for 2FSV</div>
+                            <span class="file-name">nncursedV0-neg.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">基本バージョン</div></td>
+                        <td><button class="trigger-badge">nncursedV0</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Roxy migurdia TI</div>
+                            <span class="file-name">roxy-migurdia.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">この TI は Waifu 拡散サーバーからのものです: https://discord.gg/touhouai これは私のモデルではありません。オリジナルの作成者を見てサポートするにはサーバーにアクセスしてください。</div></td>
+                        <td><button class="trigger-badge">roxy-migurdia</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">SpeedL00ver style TI (thickness and muscles)</div>
+                            <span class="file-name">speedl00ver-8000.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">speedl00ver-8000</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Sylphiette (Adult) Jobless Reincarnation/Mushoku Tensei</div>
+                            <span class="file-name">sylphiette.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">sylphiette</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Nel / Nelliel Tu Odelschwanck (Bleach)</div>
+                            <span class="file-name">vslinx_nel.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">vslinx_nel</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Inoue Orihime (Bleach)</div>
+                            <span class="file-name">vslinx_orihime_inoue.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">vslinx_orihime_inoue</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Rukia Kuchiki (Bleach)</div>
+                            <span class="file-name">vslinx_rukia.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">vslinx_rukia</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Zero Two TI</div>
+                            <span class="file-name">zerotwoo.pt</span>
+                        </td>
+                        <td><span class="model-tag">Other</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">zerotwoo</button></td>
+                    </tr>
+                
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <a href="../../index_en.html" class="back-btn"><i class="fas fa-chevron-left"></i></a>
+
+    <script src="../../../script.js"></script>
+    <script>
+        document.querySelectorAll('.trigger-badge').forEach(button => {
+            button.onclick = function() {
+                const text = this.innerText;
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalText = text;
+                    this.innerText = 'COPIED!';
+                    setTimeout(() => {
+                        this.innerText = originalText;
+                    }, 1000);
+                });
+            };
+        });
+    </script>
+</body>
+</html>

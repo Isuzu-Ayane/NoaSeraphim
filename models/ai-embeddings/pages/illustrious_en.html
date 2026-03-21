@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Illustrious XL - Embeddings List | Noa AI Labs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&family=Nunito:wght@400;800&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-cyan: #3a7bd5;
+            --secondary-cyan: #00d2ff;
+            --accent-blue: #0284c7;
+            --bg-light: #e0f2fe;
+            --bg-card: rgba(255, 255, 255, 0.7);
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            color: var(--text-dark);
+            background-attachment: fixed;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            padding-top: 60px; /* Spacer for fixed nav */
+        }
+
+        /* Decorative Background Illustration */
+        body::before {
+            content: "";
+            position: fixed;
+            bottom: -5%;
+            right: -5%;
+            width: 40%;
+            height: 60%;
+            background-image: url('../../../web_image/image_00001_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: bottom right;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 10%;
+            left: -5%;
+            width: 30%;
+            height: 50%;
+            background-image: url('../../../web_image/image_00002_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: top left;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -1;
+            filter: scaleX(-1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-panel {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 30px;
+            border: 3px solid white;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(58, 123, 213, 0.15);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--secondary-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            gap: 10px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb a { color: var(--accent-blue); text-decoration: none; font-weight: bold; }
+        .breadcrumb li::after { content: '>'; margin-left: 10px; color: var(--text-muted); }
+        .breadcrumb li:last-child::after { content: ''; }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .nav-item {
+            background: rgba(255,255,255,0.6);
+            padding: 12px;
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--accent-blue);
+            font-weight: 800;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid white;
+            font-size: 0.9rem;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: var(--primary-cyan);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(58, 123, 213, 0.3);
+        }
+
+        .table-container {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            border: 3px solid white;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background: rgba(58, 123, 213, 0.1);
+            padding: 20px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid white;
+            color: var(--primary-cyan);
+        }
+
+        td {
+            padding: 18px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+            vertical-align: middle;
+            font-size: 0.95rem;
+        }
+
+        tr:hover td {
+            background: rgba(255,255,255,0.4);
+        }
+
+        .file-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.5);
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 4px;
+            word-break: break-all;
+        }
+
+        .trigger-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--secondary-cyan));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid white;
+            box-shadow: 0 4px 10px rgba(58, 123, 213, 0.2);
+            border-style: none; /* overrides browser default button border if badge is a button */
+            text-align: left;
+            word-break: break-all;
+        }
+
+        .trigger-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(58, 123, 213, 0.4);
+        }
+
+        .effect-text {
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .model-tag {
+            font-size: 0.7rem;
+            background: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            color: var(--primary-cyan);
+            border: 1px solid var(--primary-cyan);
+            font-weight: 800;
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3) {
+                display: none;
+            }
+            h1 { font-size: 1.8rem; }
+        }
+
+        /* Back button */
+        .back-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-cyan);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+        .back-btn:hover {
+            transform: scale(1.1) rotate(-10deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Language Toggle -->
+    <div style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
+        <a href="illustrious.html"
+            style="background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border: 2px solid white; color: var(--primary-cyan); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; transition: background 0.3s, transform 0.2s; display: inline-block; box-shadow: 0 4px 10px rgba(58, 123, 213, 0.1);">
+            <i class="fas fa-globe"></i> 日本語
+        </a>
+    </div>
+
+    <nav class="glass-panel centered-nav" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 999; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border-bottom: 2px solid white; display: flex; justify-content: center; align-items: center; padding: 10px 0; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
+        <ul style="display: flex; list-style: none; gap: 20px; margin: 0; padding: 0;">
+            
+            <li><a href="../../../index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">HOME</a></li>
+            <li><a href="../../../ai-guide/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">AI-GUIDE</a></li>
+            <li><a href="../../../models/index_en.html" style="color: var(--accent-blue); text-decoration: none; font-weight: bold;">MODELS</a></li>
+            <li><a href="../../../Tools/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">TOOLS</a></li>
+            <li><a href="../../../creative/index_en.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">GALLERY</a></li>
+        
+        </ul>
+    </nav>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            
+            <li><a href="../../../index_en.html">Home</a></li>
+            <li><a href="../../../models/index_en.html">Models</a></li>
+            <li><a href="../../index_en.html">Embeddings</a></li>
+            <li>Illustrious XL</li>
+            
+        </nav>
+
+        <div class="header-panel">
+            <h1 class="bounce-text">Illustrious XL Embeddings</h1>
+            <p style="color: var(--text-muted);">Embeddings for the latest Illustrious XL models. Highly effective for increasing fine details.</p>
+        </div>
+
+        <div class="nav-grid">
+            <a href="sd15_en.html" class="nav-item ">Stable Diffusion 1.5</a>
+<a href="sdxl_en.html" class="nav-item ">SDXL 1.0</a>
+<a href="pony_en.html" class="nav-item ">Pony Diffusion</a>
+<a href="illustrious_en.html" class="nav-item active">Illustrious XL</a>
+<a href="others_en.html" class="nav-item ">Other Models</a>
+
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name / File</th><th>Model</th><th>Effects / Description</th><th>Trigger Word</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Illustrious Embeddings - Lighting & Textures</div>
+                            <span class="file-name">AestheticILLS_Styler.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">Illustrious</span></td>
+                        <td><div class="effect-text">より光沢があり、おそらくより蒸気の波状になりますか？</div></td>
+                        <td><button class="trigger-badge">AestheticILLS_Styler</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Astolfo Embedding | Fate ⚔</div>
+                            <span class="file-name">astolfo_1.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">Illustrious</span></td>
+                        <td><div class="effect-text">追加 IL_AstolfoUniformComfyUIastolfo \(fate\)、アストルフォ \(制服コーディネート\) \(fate\)、fate \(series\)、1boy、牙、紫の目、目の間の髪、ピンクの髪、長い髪、縞模様の髪、白髪、髪の摂取量、一重の三つ編み、ヘアリボン、ヘアリボン、黒のリボン、ダークブルーのセーター、セーターベスト、パンスト、グレーのスカート、プリーツスカート、についてテスト済みのみを追加しました。学生服, ミニスカート, 白いシャツ, 赤い蝶ネクタイ, 縞模様の蝶ネクタイ</div></td>
+                        <td><button class="trigger-badge">astolfo \(fate\), astolfo \(uniform coordinate\) \(fate\), fate \(series\), 1boy, fang, purple eyes, hair between eyes, pink hair, long hair, streaked hair, white hair, hair intakes, single braid, hair bow, hair ribbon, black bow, dark blue sweater, sweater vest, pantyhose, grey skirt, pleated skirt, school uniform, miniskirt, white shirt, red bowtie, striped bowtie</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">IllusXL Negative Embeddings</div>
+                            <span class="file-name">BadDigitalHandsNeg.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">Illustrious</span></td>
+                        <td><div class="effect-text">結果はさまざまですが、イラストリアスもそのような場合があります。</div></td>
+                        <td><button class="trigger-badge">BadDigitalHandsNeg</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Illustrious Positive / Negative</div>
+                            <span class="file-name">illustrious_positive_v1.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">Illustrious</span></td>
+                        <td><div class="effect-text">V1</div></td>
+                        <td><button class="trigger-badge">illustrious_positive_v1</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">✅🖼️ Positive illustrious Embedding by alex</div>
+                            <span class="file-name">ILXLpos.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">Illustrious</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">ILXLpos</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">✨ Lazy Embeddings for ALL illustrious NoobAI Pony SDXL models LazyPositive LazyNegative (Positive and Negative plus more!)</div>
+                            <span class="file-name">lazyhand.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">Illustrious</span></td>
+                        <td><div class="effect-text">オンサイト生成に関する色の問題を修正しました。オンサイト生成で色の問題が発生する場合は、lazyneg を最後に置きます。これはオンサイト生成のみであることに注意してください。ローカル生成には問題ありません。トークンが削減されます。</div></td>
+                        <td><button class="trigger-badge">lazyhand</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">✨ Lazy Embeddings for ALL illustrious NoobAI Pony SDXL models LazyPositive LazyNegative (Positive and Negative plus more!)</div>
+                            <span class="file-name">lazyloli.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">Illustrious</span></td>
+                        <td><div class="effect-text">ネガティブプロンプトで使用すると、キャラクターをより成熟させ、ロリをブロックできます。</div></td>
+                        <td><button class="trigger-badge">lazyloli</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">✨ Lazy Embeddings for ALL illustrious NoobAI Pony SDXL models LazyPositive LazyNegative (Positive and Negative plus more!)</div>
+                            <span class="file-name">lazympos.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">Illustrious</span></td>
+                        <td><div class="effect-text">追加された Lazympos は、Pony を含むすべてのモデルで機能します。新しい lora が期待どおりに動作しない場合にのみ、lazypos を Lazympos に置き換えてください。 M はミニマムの略なので、これは lora が壊れないように最小限のポジティブなプロンプトを追加することを意味します。 Pony ユーザーの場合は、最高の品質を得るために Lazyup と Lazympos を使用してください。</div></td>
+                        <td><button class="trigger-badge">lazympos</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">✨ Lazy Embeddings for ALL illustrious NoobAI Pony SDXL models LazyPositive LazyNegative (Positive and Negative plus more!)</div>
+                            <span class="file-name">lazyneg.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">Illustrious</span></td>
+                        <td><div class="effect-text">モデルにあまり影響を与えなかった照明タグとディテール タグを削除しました。NoobAI 用に最適化されたタグ。 Civitai のほとんどのモデルは基本的に NoobAI モデルであるため、「イラストリアス」モデルでは問題なく動作します。JANKU v4 用に最適化されています。まだチェックしていない場合は、チェックしてください。オンサイト生成サポートを備えた素晴らしい NSFW および SFW アニメ モデル!オンサイト生成の人はこれをお読みください (更新): オンサイト生成に Lazyneg v3 を使用している人のために、生成の色を台無しにするバグがあります。 3 のような低い CFG を使用します。</div></td>
+                        <td><button class="trigger-badge">lazyneg</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">✨ Lazy Embeddings for ALL illustrious NoobAI Pony SDXL models LazyPositive LazyNegative (Positive and Negative plus more!)</div>
+                            <span class="file-name">lazynsfw.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">Illustrious</span></td>
+                        <td><div class="effect-text">必要に応じて、lazynsfw を正または負で使用してください。</div></td>
+                        <td><button class="trigger-badge">lazynsfw</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">✨ Lazy Embeddings for ALL illustrious NoobAI Pony SDXL models LazyPositive LazyNegative (Positive and Negative plus more!)</div>
+                            <span class="file-name">lazypos.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">Illustrious</span></td>
+                        <td><div class="effect-text">タグを更新しました: 低ディテール関連タグ、高品質タグ、削除された照明関連タグ。品質タグが増え、ライティング関連タグがなくなった、lazympos の改良版です。JANKU v4.0 でより良く動作し、lazympos を使用する必要がなくなりました。手を修正する必要がある場合は、lazyhand を使用するとより良く動作します。</div></td>
+                        <td><button class="trigger-badge">lazypos</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">✨ Lazy Embeddings for ALL illustrious NoobAI Pony SDXL models LazyPositive LazyNegative (Positive and Negative plus more!)</div>
+                            <span class="file-name">lazyreal.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">Illustrious</span></td>
+                        <td><div class="effect-text">リアリズム/アニメ: アニメ出力のみが必要な場合は、lazyreal を否定的に使用します。肯定的に言えば、現実的な人物の出力が必要な場合です。</div></td>
+                        <td><button class="trigger-badge">lazyreal</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">✨ Lazy Embeddings for ALL illustrious NoobAI Pony SDXL models LazyPositive LazyNegative (Positive and Negative plus more!)</div>
+                            <span class="file-name">lazywet.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">Illustrious</span></td>
+                        <td><div class="effect-text">濡れた肌を除去し、肌のテカリを抑えるには、lazyweet をマイナスにします。</div></td>
+                        <td><button class="trigger-badge">lazywet</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Lolita fashion - IL/Pony/XL</div>
+                            <span class="file-name">ltfashion.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">Illustrious</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">ltfashion</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">❌🖼️ Negative illustrious Embedding by alex - neghand</div>
+                            <span class="file-name">neghand.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">Illustrious</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">neghand</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">SimplePositiveXL</div>
+                            <span class="file-name">SimplePositiveXLv3.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">Illustrious</span></td>
+                        <td><div class="effect-text">It was trained by Illustriou2.0.https://huggingface.co/OnomaAIResearch/Illustrious-XL-v2.0Each individual should adjust the intensity and order.強度や順番は各自調整してください。久々に投稿しようとしたらいろいろついてたお試し、5日待てば解禁される？されなかったら手動で解除します</div></td>
+                        <td><button class="trigger-badge">SimplePositiveXLv3</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Smooth Embeddings</div>
+                            <span class="file-name">SmoothNegative_Hands-neg.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">Illustrious</span></td>
+                        <td><div class="effect-text">手のネガティブ埋め込み</div></td>
+                        <td><button class="trigger-badge">SmoothNegative_Hands</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Solo Femboy IL0.1 Embedding</div>
+                            <span class="file-name">solo-femboy-IL0.1.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">Illustrious</span></td>
+                        <td><div class="effect-text">素晴らしい XL v0.1 用に作成され、微調整が施されています</div></td>
+                        <td><button class="trigger-badge">solo-femboy-IL0.1</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Stable Yogis Illustrious Positives</div>
+                            <span class="file-name">Stable_Yogis_Illustrious_Positives.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">Illustrious</span></td>
+                        <td><div class="effect-text">Illustrious XL のポジティブ埋め込み。プロンプト セクションで使用し、プロンプトの先頭に置いてください。リアリズム、詳細、より優れた解剖学により画像を強化し、ノイズを減らします。この埋め込みをプロンプト セクションで使用します。この埋め込みには、ここからダウンロードできる別の部分があります。リンク限定特典やユニークなリソースへの早期アクセスを得るには、私の Patreon に参加してください。カスタム Lora やモデルについて話し合うには、お気軽に Discord に接続してください。</div></td>
+                        <td><button class="trigger-badge">Stable_Yogis_Illustrious_Positives</button></td>
+                    </tr>
+                <tr>
+                        <td>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Stable Yogis PDXL Positives</div>
+                            <span class="file-name">Stable_Yogis_Realism_Positives_V1.safetensors</span>
+                        </td>
+                        <td><span class="model-tag">Illustrious</span></td>
+                        <td><div class="effect-text">効果の記載なし</div></td>
+                        <td><button class="trigger-badge">Stable_Yogis_Realism_Positives_V1</button></td>
+                    </tr>
+                
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <a href="../../index_en.html" class="back-btn"><i class="fas fa-chevron-left"></i></a>
+
+    <script src="../../../script.js"></script>
+    <script>
+        document.querySelectorAll('.trigger-badge').forEach(button => {
+            button.onclick = function() {
+                const text = this.innerText;
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalText = text;
+                    this.innerText = 'COPIED!';
+                    setTimeout(() => {
+                        this.innerText = originalText;
+                    }, 1000);
+                });
+            };
+        });
+    </script>
+</body>
+</html>
