@@ -1,0 +1,15 @@
+# 依存関係（ネットから落とせるで不要だて）
+node_modules/
+/dist-tauri/
+
+# ビルド生成物（重いし、ソースから作れるもんで不要だて）
+target/
+src-tauri/target/
+
+# ★ここが命！★ 個人設定（絶対に公開させんよ！）
+settings.ini
+*.ini
+
+# OSが勝手に作るゴミファイル
+.DS_Store
+Thumbs.db

@@ -1,0 +1,443 @@
+/*
+ * プログラムの概要説明: アプリケーション全体のスタイル定義。メニューバーと2カラムのレイアウト設計。
+ * プロジェクトの責任範囲に関する注記: NoaSeraphimは本プログラムの動作について一切の責任を負いません。
+ * 初回作成年月日: 2026-03-16
+ * 更新履歴:
+ * 2026-03-25: 上部メニューバー領域(top-menubar)の追加およびメインワークスペースの2カラム適応化を実施。
+ * 2026-03-25: テキスト入力エリアを4行固定表示に最適化。
+ * プロジェクトの権利表示: (C) NoaSeraphim
+ * 利用範囲に関する制限事項: 非商用利用に限る
+ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* アプリケーション全体の標準フォントおよび背景動作を定義します。 */
+body {
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f4f7f6;
+  /* コンテンツのオーバーフローによる全体スクロールを防止します。 */
+  overflow: hidden;
+}
+
+/* 2026-03-25 コメントアウト：以前の3カラム横並びコンテナは構造変更により不要となりました。
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+*/
+
+/* ウィンドウ全体を縦方向のフレックスコンテナとして定義し、ヘッダと本体を分離します。 */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* --- 上部メニューバー --- */
+/* アプリ最上部に固定されるヘッダー領域です。左右の要素をスペース均等で配置します。 */
+.top-menubar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 10px 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  /* 計算時の基準となる絶対高さを指定します。 */
+  height: 60px;
+}
+
+/* メニュー内の左側・右側の要素群をフレックス制御で整列させます。 */
+.menu-left,
+.menu-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* アプリケーション名のタイポグラフィと装飾効果を定義します。 */
+.app-brand {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #00e5ff;
+  margin-right: 20px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* メニューバー上に配置される各種操作ボタンの共通スタイルです。 */
+.menu-btn,
+.mode-btn {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 6px;
+  background: #f0f0f0;
+  color: #555;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* ホバー状態でのフィードバック効果です。 */
+.menu-btn:hover,
+.mode-btn:hover {
+  background: #e0e0e0;
+}
+
+/* トグル式ボタンにおける「アクティブ状態」の視覚的強調表現です。 */
+.mode-btn.active {
+  background: #00e5ff;
+  color: white;
+}
+
+/* 特定の機能ボタンを目立たせるための補助的ハイライト表現です。 */
+.menu-btn.highlight {
+  border: 1px dashed #00e5ff;
+  background: rgba(0, 229, 255, 0.1);
+  color: #0099cc;
+}
+
+/* モデル選択用プルダウンの幅と外観を制御します。 */
+.menu-select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: white;
+  min-width: 200px;
+}
+
+/* --- メインワークスペース（2カラム構成） --- */
+/* メニューバーの下部から画面下端までを占有する動的コンテナです。 */
+.main-workspace {
+  display: flex;
+  flex-grow: 1;
+  /* 100vhからヘッダ高を減算してジャストフィットさせます。 */
+  height: calc(100vh - 60px);
+  overflow: hidden;
+}
+
+/* 共通のパネルスタイルです。 */
+.panel {
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- 左カラム：エクスプローラ --- */
+/* ディレクトリ構造を表示する固定幅の左側パネルです。 */
+#explorer-panel {
+  width: 280px;
+  background: rgba(255, 255, 255, 0.9);
+  border-right: 1px solid #e0e0e0;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+/* ツリー構造内の各ノード要素のホバーと省略表現を定義します。 */
+.explorer-entry {
+  cursor: pointer;
+  padding: 4px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.9rem;
+  border-radius: 4px;
+}
+
+/* ノードホバー時とアイコンの付与を定義します。 */
+.explorer-entry:hover {
+  background-color: rgba(0, 229, 255, 0.15);
+}
+
+.explorer-entry.directory::before {
+  content: "📁 ";
+}
+
+.explorer-entry.file::before {
+  content: "📄 ";
+}
+
+/* --- 右カラム：チャットワークスペース --- */
+/* 画面右側の広大な領域を占有する主要対話用コンテナです。 */
+.chat-workspace {
+  flex-grow: 1;
+  padding: 15px;
+  background-color: transparent;
+}
+
+/* 過去の対話履歴をスクロール表示するメインログボックスです。 */
+.chat-box {
+  flex-grow: 1;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* 各メッセージバブルの余白、ワードラップ、及び影効果を適用します。 */
+.message {
+  padding: 12px 18px;
+  border-radius: 12px;
+  margin: 8px 0;
+  max-width: 85%;
+  word-wrap: break-word;
+  line-height: 1.5;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  font-size: 0.95rem;
+}
+
+/* --- 入力エリア --- */
+/* テキストエリアと送信ボタンを囲むフロート風のボトムコンテナです。 */
+.input-area-wrapper {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 要素のベースラインを揃え、ボタンとテキストエリアを密着させます。 */
+.input-area {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+/* ユーザー入力用テキストエリア。JSと連動して動的に高さが変動します。 */
+textarea#user-input {
+  flex-grow: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: 1rem;
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s;
+  /* 2026-03-25 年月日コメントアウト min-height: 45px; */
+  /* 2026-03-25 年月日コメントアウト max-height: 200px; */
+  height: 6em;
+  /* 4行分の入力を一律に確保する固定アフィン写像的アプローチ */
+  line-height: 1.5;
+  /* 1.5 * 4 = 6em の幾何学的計算 */
+  overflow-y: auto;
+}
+
+/* フォーカス時の強調表示スタイルです。 */
+textarea#user-input:focus {
+  border-color: #00e5ff;
+}
+
+/* 添付ボタンの形状と余白調整です。 */
+.attach-btn {
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+/* 送信ボタンの固定高と強調カラーを定義します。 */
+.send-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #00e5ff;
+  color: white;
+  font-weight: bold;
+  height: 45px;
+}
+
+/* ボタンのホバーおよびアクティブ状態の視覚的フィードバックです。 */
+.send-btn:hover {
+  background-color: #00b8cc;
+}
+
+/* --- 進捗表示ステータスバー --- */
+/* AIの思考プロセスを表示するためのオーバーレイ用ボックスです。 */
+#status-bar-container {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px 12px;
+  margin-top: 10px;
+  height: 3.5em;
+  overflow-y: auto;
+  font-size: 0.85em;
+  color: #333;
+  display: none;
+}
+
+/* --- コンテキストメニューとモーダル（共通） --- */
+.context-menu {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  z-index: 1000;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.context-menu-item {
+  padding: 8px 15px;
+  cursor: pointer;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.context-menu-item:hover {
+  background-color: #00e5ff;
+  color: #fff;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  backdrop-filter: blur(3px);
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 450px;
+  max-width: 90%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.modal-content h3 {
+  color: #333;
+  text-align: center;
+  font-size: 1.3rem;
+  margin-bottom: 5px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+#btn-close {
+  background-color: #888;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#btn-save {
+  background-color: #00e5ff;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.preview-container {
+  height: 120px;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9;
+  overflow: hidden;
+}
+
+.preview-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- プラン承認UI --- */
+.plan-box {
+  background-color: #ffffff;
+  border: 2px solid #00e5ff;
+  border-radius: 10px;
+  padding: 18px;
+  margin-top: 12px;
+  box-shadow: 0 4px 12px rgba(0, 229, 255, 0.15);
+}
+
+.plan-title {
+  color: #0099cc;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 8px;
+}
+
+.task-list {
+  margin: 15px 0;
+  padding-left: 25px;
+  color: #444;
+}
+
+.task-item {
+  margin-bottom: 8px;
+}
+
+.plan-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+
+.btn-approve {
+  background-color: #28a745;
+  box-shadow: 0 2px 5px rgba(40, 167, 69, 0.3);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-approve:hover {
+  background-color: #218838;
+}
+
+.btn-reject {
+  background-color: #dc3545;
+  box-shadow: 0 2px 5px rgba(220, 53, 69, 0.3);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-reject:hover {
+  background-color: #c82333;
+}
