@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitemap | サイトマップ - Noa AI Labs</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Noa AI Labsのサイトマップです。Stable DiffusionやComfyUIによる画像生成、生成AIのローカル環境設定、localLLM（ローカルLLM）、チェックポイント、LoRAなどのAI技術モデルやガイドをご案内します。">
+    <meta name="keywords" content="画像生成, Stable Diffusion, 生成AI, ComfyUI, ローカルLLM, localLLM, チェックポイント, LoRA, サイトマップ, Sitemap">
+    
+    <link
+        href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&family=Nunito:wght@400;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background-color: #f0f9ff;
+            font-family: 'Inter', 'M PLUS Rounded 1c', sans-serif;
+        }
+        
+        .sitemap-container {
+            max-width: 900px;
+            margin: 100px auto 50px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
+        }
+        .sitemap-title {
+            color: #3a7bd5;
+            border-bottom: 2px solid rgba(58, 123, 213, 0.3);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+            display: flex;
+            align-items: center;
+        }
+        .sitemap-title i {
+            margin-right: 15px;
+            font-size: 1.8rem;
+        }
+        .sitemap-desc {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #0f172a;
+        }
+        .seo-keywords {
+            font-weight: bold;
+            color: #0284c7;
+            background: rgba(2, 132, 199, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .sitemap-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sitemap-list li {
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+        }
+        .sitemap-list a {
+            color: #1e293b;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            padding: 12px 18px;
+            background: rgba(58, 123, 213, 0.03);
+            border: 1px solid rgba(58, 123, 213, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .sitemap-list a:hover {
+            color: #3a7bd5;
+            background: rgba(58, 123, 213, 0.08);
+            transform: translateX(5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .sitemap-list a i {
+            margin-right: 15px;
+            color: #3a7bd5;
+            width: 25px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        
+        .sitemap-category {
+            margin-top: 45px;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            color: #334155;
+            font-weight: 800;
+            border-left: 4px solid #3a7bd5;
+            padding-left: 12px;
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            bottom: -5%;
+            left: -5%;
+            width: 30%;
+            height: 50%;
+            background-image: url('web_image/image_00030_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: bottom left;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <nav class="glass-panel centered-nav" style="position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(58, 123, 213, 0.1); display: flex; justify-content: center; align-items: center; padding: 10px 0;">
+        <ul style="display: flex; list-style: none; gap: 20px; margin: 0; padding: 0;">
+            <li><a href="./index.html" style="color: #3a7bd5; text-decoration: none; font-weight: bold;">HOME</a></li>
+            <li><a href="./ai-guide/index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">AI-GUIDE</a></li>
+            <li><a href="./models/index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">MODELS</a></li>
+            <li><a href="./Tools/index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">TOOLS</a></li>
+            <li><a href="./creative/index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">GALLERY</a></li>
+        </ul>
+    </nav>
+
+    <div class="sitemap-container">
+        <h1 class="sitemap-title"><i class="fas fa-sitemap"></i> サイトマップ / Sitemap</h1>
+        
+        <p class="sitemap-desc">
+            当サイトは、ローカルPC環境での<span class="seo-keywords">生成AI</span>（<span class="seo-keywords">Stable Diffusion</span> / <span class="seo-keywords">ComfyUI</span>）を用いた<span class="seo-keywords">画像生成</span>と、<span class="seo-keywords">localLLM</span>によるPC自動化の可能性を追求する個人研究ブログです。<br><br>
+            RTX搭載PCでの環境構築手順から、SDXLや<span class="seo-keywords">LoRA</span>を用いた高品質な2Dアニメ調出力のノウハウ、最新の日本語LLMを活用したRAGシステムの構築、そしてCheckpoint比較検証データなど、エンジニア視点での実践的な技術情報を包括的に公開しています。<br><br>
+            AI画像生成の「線画の繊細さ」や「透明感のある彩色」に拘るクリエイターや、完全ローカル環境でAIエージェントを動かしたいユーザーのための、ディープな知見をお届けします。
+        </p>
+
+        <h2 class="sitemap-category">メインページ</h2>
+        <ul class="sitemap-list">
+            <li><a href="./index.html"><i class="fas fa-home"></i> Home（トップページ）</a></li>
+            <li><a href="./ai-guide/index.html"><i class="fas fa-book-open"></i> AI-Guide（初心者・導入向けガイド）</a></li>
+            <li><a href="./models/index.html"><i class="fas fa-cube"></i> Models（各種モデルのディレクトリ）</a></li>
+            <li><a href="./Tools/index.html"><i class="fas fa-tools"></i> Tools（ローカルAIアプリ・専用ツール）</a></li>
+            <li><a href="./creative/index.html"><i class="fas fa-image"></i> Gallery（画像生成AIの作品ギャラリー）</a></li>
+        </ul>
+
+        <h2 class="sitemap-category">AI画像生成ガイド & 設定</h2>
+        <ul class="sitemap-list">
+            <li style="margin-bottom: 20px;">
+                <a href="./ai-guide/sd-install/index.html"><i class="fas fa-download"></i> Stable Diffusion インストールガイド</a>
+                <div style="font-size: 0.85rem; color: #475569; margin: 8px 0 0 15px;">画像生成するには？こちらが最適です。PCへの画像生成（画像生成AI）のインストールに困ったら、まずはこちらの手順をご覧ください。</div>
+            </li>
+            <li style="margin-bottom: 20px;">
+                <a href="./ai-guide/comfyui-install/index.html"><i class="fas fa-project-diagram"></i> ComfyUI インストール・ワークフロー</a>
+                <div style="font-size: 0.85rem; color: #475569; margin: 8px 0 0 15px;">ComfyUIのインストールの仕方や初期設定を解説。ComfyUIのインストールに困ったら、こちらのガイドを参考にしてください。</div>
+            </li>
+            <li style="margin-bottom: 20px;">
+                <a href="./ai-guide/local-llm-install/index.html"><i class="fas fa-brain"></i> ローカルLLM (localLLM) 導入ガイド</a>
+                <div style="font-size: 0.85rem; color: #475569; margin: 8px 0 0 15px;">ローカルLLMってなに？という疑問にお答えします。PC上で安全・快適にチャットAIを動かすためのLocalLLM入門ガイドです。</div>
+            </li>
+            <li style="margin-bottom: 20px;">
+                <a href="./ai-guide/ai-specs/index.html"><i class="fas fa-desktop"></i> 推奨PCスペック・環境設定</a>
+            </li>
+        </ul>
+
+        <h2 class="sitemap-category">モデル・拡張機能</h2>
+        <ul class="sitemap-list">
+            <li style="margin-bottom: 20px;">
+                <a href="./models/ai-checkpoints/index.html"><i class="fas fa-database"></i> チェックポイント（Checkpoint）モデル一覧・比較</a>
+                <div style="font-size: 0.85rem; color: #475569; margin: 8px 0 0 15px;">チェックポイントってなに？チェックポイントってどれ使えばいいの？そんな疑問を解決します。アニメ風チェックポイントのおすすめや、詳細なチェックポイント評価・比較一覧を掲載しています。</div>
+            </li>
+            <li style="margin-bottom: 20px;">
+                <a href="./models/ai-lora/loras.html"><i class="fas fa-paint-brush"></i> LoRA（スタイル・キャラクターモデル）一覧</a>
+                <div style="font-size: 0.85rem; color: #475569; margin: 8px 0 0 15px;">LoRAってなに？LoRAの画風は？LoRAって何に対応しているの？といった疑問を解決。様々なキャラクターモデルやスタイルの適応方法をカテゴリー別に解説します。</div>
+            </li>
+            <li style="margin-bottom: 20px;">
+                <a href="./models/ai-embeddings/index.html"><i class="fas fa-magic"></i> Embeddings (EasyNegative等) 一覧</a>
+                <div style="font-size: 0.85rem; color: #475569; margin: 8px 0 0 15px;">画像生成のプロンプトを楽にするには？画像生成の簡略化方法を大公開します。Embeddings（EasyNegative等）によるプロンプトを簡単にするテクニック集です。</div>
+            </li>
+            <li style="margin-bottom: 20px;">
+                <a href="./models/ai-vae/index.html"><i class="fas fa-palette"></i> VAE リファレンス・色調補正ツール</a>
+                <div style="font-size: 0.85rem; color: #475569; margin: 8px 0 0 15px;">VAEって何？VAEを使うと何か変わるの？という疑問を解決します。画像の色調補正や透明感を劇的に改善するVAEの詳細なリファレンスです。</div>
+            </li>
+        </ul>
+        
+        <h2 class="sitemap-category">拡張アプリケーション</h2>
+        <ul class="sitemap-list">
+            <li><a href="./Tools/index.html"><i class="fas fa-robot"></i> Nao Local System V2 (Gemini API搭載ローカルアシスタント)</a></li>
+            <li><a href="./Tools/Nao_system_V1/index.html"><i class="fas fa-comment-dots"></i> Nao Local System (旧バージョン)</a></li>
+        </ul>
+    </div>
+
+    <footer style="text-align: center; padding: 40px; color: #475569; font-size: 0.9rem;">
+        <p style="margin-bottom: 25px; opacity: 0.8; font-size: 0.85rem;">Stable Diffusion | ComfyUI | 生成AI | 画像生成 | ローカルLLM | localLLM | チェックポイント | LoRA</p>
+        <p>&copy; 2026 Noa AI Labs. All rights reserved.</p>
+        <p style="margin-top: 15px;"><a href="./index.html" style="color: #3a7bd5; text-decoration: none; font-weight: bold;">ホームに戻る</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

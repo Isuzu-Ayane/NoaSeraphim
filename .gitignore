@@ -1,0 +1,8 @@
+# Google Drive の一時フォルダを除外
+.tmp.driveupload/
+
+# ビルド時のゴミや設定ファイル（必要に応じて）
+/target/
+/node_modules/
+/dist/
+.env
