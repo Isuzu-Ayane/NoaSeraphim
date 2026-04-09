@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Stable DiffusionおすすめCheckpointモデル比較・出力サンプルギャラリー</title>
+<meta content="Stable Diffusionの高品質な画像生成に欠かせない、おすすめCheckpointモデル（ベースモデル）の出力結果を徹底比較。アニメ系から実写・リアル系まで、各モデルの得意なジャンルやファイル容量、ダウンロード先リンクをまとめています。" name="description"/>
+<meta content="Stable Diffusion, Checkpoint, おすすめ, モデル, 比較, AI画像生成, Checkpoints" name="keywords"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../../../styles.css" rel="stylesheet"/>
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Stable DiffusionおすすめCheckpointモデル比較ギャラリー",
+      "description": "Stable Diffusionの高品質な画像生成に欠かせない、おすすめCheckpointモデル（ベースモデル）の出力結果を徹底比較。",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ホーム",
+          "item": "https://noaailabs.com/"
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "name": "MODELS",
+          "item": "https://noaailabs.com/models/ai-checkpoints/index.html"
+        }]
+      }
+    }
+    </script>
+<style>
+        :root {
+            --bg-light: #f0f9ff;
+            --bg-card: rgba(255, 255, 255, 0.7);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --accent: #3a7bd5;
+            --accent-glow: rgba(58, 123, 213, 0.2);
+            --gradient: linear-gradient(135deg, #3a7bd5, #00d2ff);
+        }
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg-light);
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            color: var(--text-main);
+            line-height: 1.6;
+            background-attachment: fixed;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            bottom: -5%;
+            right: -5%;
+            width: 35%;
+            height: 55%;
+            background-image: url('../../web_image/image_00019_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: bottom right;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 10%;
+            left: -5%;
+            width: 25%;
+            height: 45%;
+            background-image: url('../../web_image/image_00020_.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: top left;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .header-title {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+        .header-title h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Category Nav */
+        .category-nav {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 40px;
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .category-nav a {
+            padding: 14px 20px;
+            border-radius: 12px;
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: #3b82f6;
+            font-size: 1.1rem;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 800;
+            transition: all 0.2s;
+        }
+        .category-nav a:hover {
+            background: rgba(56, 189, 248, 0.3);
+        }
+
+        /* Checkpoint Single Card Layout (Vertical) */
+        .category-section {
+            margin-bottom: 60px;
+        }
+        .category-section h2 {
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .cp-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .cp-card {
+            display: flex;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .cp-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+        .cp-image {
+            width: 350px;
+            min-width: 350px;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .cp-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.4s;
+        }
+        .cp-card:hover .cp-image img {
+            transform: scale(1.05);
+        }
+        .cp-info {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .cp-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #3b82f6;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+            margin: 0 0 15px 0;
+            word-break: break-all;
+        }
+        .cp-detail {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .cp-detail strong {
+            min-width: 80px;
+        }
+        
+        .cp-description {
+            margin-top: 12px;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+            line-height: 1.5;
+        }
+        
+        .cp-actions {
+            margin-top: auto;
+            padding-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-dl { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+        .btn-dl:hover { filter: brightness(1.2); box-shadow: 0 4px 12px rgba(16,185,129,0.3); }
+        .btn-dl.disabled { background: #475569; pointer-events: none; opacity: 0.7; }
+        
+        .btn-google { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; }
+        .btn-google:hover { filter: brightness(1.2); box-shadow: 0 4px 12px rgba(59,130,246,0.3); }
+
+        .btn-lora { background: linear-gradient(135deg, #f43f5e, #be123c); color: white; }
+        .btn-lora:hover { filter: brightness(1.2); box-shadow: 0 4px 12px rgba(244,63,94,0.3); }
+
+        /* Modal styling */
+        .modal {
+            display: none; position: fixed; z-index: 1000;
+            padding-top: 50px; left: 0; top: 0; width: 100%; height: 100%;
+            overflow: auto; background-color: rgba(0, 0, 0, 0.9);
+        }
+        .modal-content {
+            margin: auto; display: block; width: 80%; max-width: 1000px;
+        }
+        .modal-close {
+            position: absolute; top: 15px; right: 35px; color: #f1f1f1;
+            font-size: 40px; font-weight: bold; cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .category-nav { grid-template-columns: repeat(2, 1fr); }
+            .cp-card { flex-direction: column; }
+            .cp-image { width: 100%; height: 300px; min-width: auto; }
+        }
+    </style>
+<style>
+.model-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+.model-grid-item {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+}
+.model-grid-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    border-color: rgba(56, 189, 248, 0.4);
+}
+.model-grid-image {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    background: #111;
+}
+.model-grid-info {
+    padding: 12px;
+}
+.model-grid-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #3b82f6;
+    margin-bottom: 5px;
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.model-grid-size {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+.cp-card-single {
+    display: flex;
+    flex-direction: row;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+@media (max-width: 768px) {
+    .cp-card-single { flex-direction: column; }
+}
+</style></head>
+<body>
+<nav class="glass-panel centered-nav" style="position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(255, 255, 255, 0.8); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(58, 123, 213, 0.1); display: flex; justify-content: center; align-items: center; padding: 10px 0;">
+<ul style="display: flex; list-style: none; gap: 20px; margin: 0; padding: 0;">
+<li><a href="../../../index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">HOME</a></li>
+<li><a href="../../../ai-guide/index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">AI-GUIDE</a></li>
+<li><a href="../../../models/index.html" style="color: var(--accent); text-decoration: none; font-weight: bold;">MODELS</a></li>
+<li><a href="../../../Tools/index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">TOOLS</a></li>
+<li><a href="../../../creative/index.html" style="color: var(--text-main); text-decoration: none; font-weight: bold;">GALLERY</a></li>
+</ul>
+</nav>
+<div style="height: 60px;"></div>
+<!-- Image Modal -->
+<div class="modal" id="imageModal">
+<span class="modal-close" id="modalClose">×</span>
+<img class="modal-content" id="modalImg"/>
+</div>
+<div class="header-title">
+<nav aria-label="breadcrumb" style="margin-bottom: 20px;">
+<ol style="display:flex; justify-content:center; list-style:none; padding:0; gap:8px; font-size:0.95rem; color:var(--text-muted);">
+<li><a href="../../../index.html" style="color:var(--accent); text-decoration:none;">ホーム</a> &gt; </li><li><a href="../index.html" style="color:var(--accent); text-decoration:none;">Checkpoints ギャラリー</a> &gt; </li>
+<li aria-current="page" style="color:var(--text-main);">aniease_v25</li>
+</ol>
+</nav>
+<h1>Stable Diffusion おすすめCheckpointモデル比較一覧</h1>
+<p style="color:var(--text-muted); font-size:1.1rem;">AI画像生成モデル（Checkpoints）の出力サンプルと分類情報</p>
+</div>
+<main class="container"><h2 style="margin-top:0;">aniease_v25</h2>
+<div class="cp-card-single">
+<div class="cp-image">
+<img alt="aniease_v25.safetensors" onclick="openModal(this.src)" onerror="this.onerror=null; this.src='../../../web_image/no_image.jpg';" src="../image_master/aniease_v25.preview.jpg"/>
+</div>
+<div class="cp-info">
+<div class="cp-title">aniease_v25</div>
+<div class="cp-detail"><strong><i class="fas fa-tag"></i> ジャンル:</strong> SDXL 1.0_Checkpoint</div>
+<div class="cp-detail"><strong><i class="fas fa-hdd"></i> 容量:</strong> 6,938,044,856 bytes</div>
+<div class="cp-detail"><strong><i class="fas fa-file"></i> ファイル:</strong> aniease_v25.safetensors</div>
+<div class="cp-description">
+                    次世代の標準仕様「SDXL」をベースに構成された「aniease_v25」。Stable DiffusionによるAI画像生成において、高いプロンプト理解力と安定した出力解像度を提供します。高画質なイラストレーションはもちろん、複雑な背景や陰影表現まで、幅広い表現に対応できる応用力の高いモデルです。
+                </div>
+<div class="cp-actions">
+<a class="btn btn-dl" href="https://civitai.com/models/292283" target="_blank"><i class="fas fa-download"></i> ダウンロード元</a>
+<a class="btn btn-google" href="https://www.google.com/search?q=aniease_v25+civitai" target="_blank"><i class="fab fa-google"></i> Google検索</a>
+<a class="btn btn-lora" href="../../../models/ai-lora/index.html"><i class="fas fa-magic"></i> 対応LoRA一覧へ</a>
+</div>
+</div>
+</div></main>
+<script>
+        function openModal(src) {
+            document.getElementById('imageModal').style.display = 'block';
+            document.getElementById('modalImg').src = src;
+        }
+        document.getElementById('modalClose').onclick = function() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+        window.onclick = function(e) {
+            if (e.target == document.getElementById('imageModal')) {
+                document.getElementById('imageModal').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
