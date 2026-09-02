@@ -116,6 +116,31 @@ for cat in sorted(counts.keys()):
     grid_sections_html.append(f'<a href="#{cat}">{cat} ({counts[cat]})</a>')
 grid_sections_html.append('</div>\n')
 
+# Build image master map once before processing models
+image_master_path = os.path.join(base_dir, 'image_master')
+all_imgs = os.listdir(image_master_path)
+img_exact_set = set(all_imgs)
+img_norm_map = {}
+for img in all_imgs:
+    if any(img.lower().endswith(ext) for ext in ['.jpg', '.png', '.jpeg']):
+        prefix = re.sub(r'\.preview\.(jpg|png|jpeg)$', '', img, flags=re.IGNORECASE)
+        prefix = re.sub(r'\.(jpg|png|jpeg)$', '', prefix, flags=re.IGNORECASE)
+        img_norm_map[img] = re.sub(r'[^a-zA-Z0-9]', '', prefix).lower()
+
+def find_preview_image(m_title):
+    norm_title = re.sub(r'[^a-zA-Z0-9]', '', m_title).lower()
+    for ext in ['.preview.jpg', '.preview.png', '.preview.jpeg']:
+        if (m_title + ext) in img_exact_set:
+            return m_title + ext
+    for img_file, norm_img in img_norm_map.items():
+        if norm_title == norm_img:
+            return img_file
+    if len(norm_title) >= 5:
+        for img_file, norm_img in img_norm_map.items():
+            if len(norm_img) >= 5 and (norm_title in norm_img or norm_img in norm_title):
+                return img_file
+    return m_title + '.preview.jpg'
+
 for cat in sorted(models_by_category.keys()):
     grid_sections_html.append(f'<div class="category-section" id="{cat}">')
     grid_sections_html.append(f'  <h2><i class="fas fa-cube"></i> {cat}</h2>')
@@ -130,9 +155,7 @@ for cat in sorted(models_by_category.keys()):
         page_name = f"{safe_t}.html"
         page_path = os.path.join(pages_dir, page_name)
         
-        preview_img = title + '.preview.jpg'
-        if os.path.exists(os.path.join(base_dir, 'image_master', title + '.preview.png')):
-            preview_img = title + '.preview.png'
+        preview_img = find_preview_image(title)
             
         desc = descriptions.get(title)
         if not desc:

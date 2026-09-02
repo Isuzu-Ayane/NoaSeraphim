@@ -1,0 +1,256 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"><meta name="resource-type" content="document">
+<title>Search > v55106 | HSuki</title><meta name="robots" content="noindex, nofollow"><link rel="icon" type="image/png" sizes="32x32" href="/theme/favico/favicon-32x32.png"><meta name="theme-color" content="#303030">
+<link rel="stylesheet" href="https://www.h-suki.com/theme/fonts.css?version=117">
+<link rel="stylesheet" href="https://hsksrv.ovh/assets/css/framework.css?version=117">
+<link rel="stylesheet" href="https://www.h-suki.com/theme/hsuki.css?version=117">
+<link rel="stylesheet" href="https://www.h-suki.com/theme/hsuki_js.css?version=117">
+<link rel="stylesheet" href="https://hsksrv.ovh/assets/css/theme_dark.css?version=117">
+<link rel="stylesheet" href="https://www.h-suki.com/theme/theme_dark_alt.css?version=117">
+</head>
+<body id="head">
+<header id="header-site" class="header-sticky">
+
+<div id="header-b1"><div class="wrap-site"><div id="header-b1-grid">
+<div class="header-b1-grid-logo"><a class="wrap-link" href="https://www.h-suki.com/en/" title="HSuki"><span class="hide">HSuki</span></a></div>
+<div class="header-b1-grid-search"><div class="header-search-box">
+<form id="header-search" method="GET" action="https://www.h-suki.com/en/search">
+<div class="header-search-flex">
+<div class="header-search-b1">
+	<select class="header-search-select" name="stype">
+	<option value="searchTitle">Title</option><option value="searchStudio">Studios</option><option value="searchVndb">VNDB</option><option value="searchRid">Release ID</option>
+	</select>	
+</div>
+<div class="header-search-b2">
+	<input class="header-search-input" autocomplete="off" id="search-live-q" type="text" name="sq" placeholder="SEARCH"> 	
+</div>
+<div class="header-search-b3 flex-full-center">
+	<button type="button" class="close-search icon-cancel sc-btn-hide" id="close-search" onclick="switchBlock('#header-search-results');resetForm('#header-search','#search-live-q')"></button>	
+	<button class="sc-btn-submit"><i class="icon-search"></i></button>	
+</div>
+
+</div>
+<div class="hide"><input type="hidden" name="lang" id="lang" value="en">
+</div>
+</form>
+</div></div>
+<div class="header-b1-grid-actions">	
+	<div class="header-actions-box">
+	<a id="header-settings-btn" onclick="switchTabs('.header-tabs','#header-settings','.header-actions-box');return false;"><i class="icon-cog" aria-hidden="true"></i></a>
+	<a id="header-profile-btn" onclick="switchTabs('.header-tabs','#header-profile','.header-actions-box');return false;"><i class="icon-user" aria-hidden="true"></i></a>
+	<a id="header-search-btn" onclick="addClassHeader();return false;"><i class="icon-search" aria-hidden="true"></i></a>
+	<a href="https://www.h-suki.com/en/contact" title="Contact"><i class="icon-mail " aria-hidden="true"></i></a>
+	<a href="https://www.h-suki.com/en/games/16602" title="Random title"><i class="icon-random" aria-hidden="true"></i><span class="hide">Random title</span></a>
+		<a onclick="jumpTo('head');return false;"><i aria-hidden="true" class="icon-arrow-up"></i></a>
+	</div>		
+</div>
+</div>
+<div class="header-tabs">
+<div id="header-settings" class="tabs-div hide">
+<div class="flex-full-center action-header-wrap">
+<a class="button-link" href="https://www.h-suki.com/fr/recherche" title="English"><img src="/theme/flags/flag_fr.gif" alt="English"><span>Français</span></a>
+<a class="button-link" href="https://www.h-suki.com/en/search?theme=light"><i class="icon-theme" aria-hidden="true"></i> Theme</a>
+</div>
+<div class="close-menu-header"><a onclick="switchBlock('#header-settings');return false;" class="size-text-l2" title="Close"><i class="c-main-1 icon-cancel" aria-hidden="true"></i>Close</a></div>
+</div><div id="header-profile" class="tabs-div hide">
+<div class="action-header-wrap">
+<form method="POST" action="/forum/ucp.php?mode=login">
+<div class="flex-full-center wrap-action">
+<div class="flex-full-center wrap-action-input">
+<label><i class="icon-user" aria-hidden="true"></i></label>
+<input type="text" name="username" autocomplete="on" class="textS5" placeholder="Username" />
+</div>
+<div class="flex-full-center wrap-action-input">
+<label><i class="icon-key" aria-hidden="true"></i></label>
+<input type="password" name="password" autocomplete="on" class="textS5" placeholder="Password" />
+</div>
+<button class="btn" type="submit" name="login">Login</button>
+</div>
+<div class="flex-full-center wrap-action-links">
+<a class="btn-unreg unreg" href="https://www.h-suki.com/en/login?action=register"><span><i class="icon-plus-squared"></i> Create an account</span></a>
+<a class="btn-unreg pwd" href="https://www.h-suki.com/en/login?action=passwordreset"><span><i class="icon-key"></i> Forgot your password?</span></a>
+</div>
+<div class="hide">
+<input type="hidden" name="autologin" value="true">
+<input type="hidden" name="redirect" value="https://www.h-suki.com/en/search?stype=searchRid&sq=v55106" />
+<input type="hidden" name="form_token" value="2695207584e447fd13d0e359ac0b219939b7020e">
+<input type="hidden" name="sid" value="699aaf531f0af69b355b00a556d4af8d">
+<input type="hidden" name="creation_time" value="1776830390">
+</div>
+</form></div>
+<div class="close-menu-header"><a onclick="switchBlock('#header-profile');return false;" class="size-text-l2" title="Close"><i class="c-main-1 icon-cancel" aria-hidden="true"></i>Close</a></div>
+</div><div id="header-search-results" class="tabs-div hide">
+<div class="action-header-wrap"><div id="suggestions"></div></div>
+<div class="close-menu-header"><a onclick="switchBlock('#header-search-results');resetForm('#header-search','#search-live-q');return false;" class="size-text-l2" title="Close"><i class="c-main-1 icon-cancel" aria-hidden="true"></i>Close</a></div>
+</div></div>
+</div></div><div id="header-b2"><div class="wrap-site"><nav id="header-menu" class="header-fixed">
+<a id="menuControl" onclick="headerMenuControl();return false;" title="Menu"><span><i id="iconDropMenu" class="icon-down-open" aria-hidden="true"></i> <span class='value'>Menu</span></span></a>
+<a class="" href="https://www.h-suki.com/en/" title="HSuki"><i aria-hidden="true" class="icon-home"></i></a>
+
+
+
+
+
+<a class=' ' href="https://www.h-suki.com/en/games" title="Games"><i aria-hidden="true" class="icon-gamepad"></i> <span class='value'>Games</span></a>
+<a class=' ' href="https://www.h-suki.com/en/animes" title="Animes"><i aria-hidden="true" class="icon-video"></i> <span class='value'>Animes</span></a>
+<a class=' ' href="https://www.h-suki.com/en/studios" title="Studios"><i aria-hidden="true" class="icon-group"></i> <span class='value'>Studios</span></a>
+<a class=' ' href="https://www.h-suki.com/en/vndb" title="VNDB"><i aria-hidden="true" class="icon-vndb"></i> <span class='value'>VNDB</span></a>
+<a class=' header-menu-links  menumain-hide' href="https://www.h-suki.com/en/help" title="Help"><i aria-hidden="true" class="icon-life-bouy"></i> <span class='value'>Help</span></a>
+<a class=' ' href="https://www.h-suki.com/en/hsuki" title="HSuki"><i aria-hidden="true" class="icon-hsk"></i> <span class='value'>HSuki</span></a>
+</nav></div></div>
+</header><main><div id="main">
+<div id="main-breadcrumbs"><div class="wrap-site"><div id="breadcrumbs">
+<nav><ul id="ariane-ul" vocab="https://schema.org/" typeof="BreadcrumbList">
+  <li property="itemListElement" typeof="ListItem">
+	<a href="https://www.h-suki.com/en/" property="item" typeof="WebPage">
+	  <span property="name"><i class="icon-home" aria-hidden="true"></i> Home</span>
+	</a><meta property="position" content="1">
+  </li>
+  	<li><a typeof="WebPage" href="https://www.h-suki.com/en/search">Search</a><meta property="position" content="2"></li>
+   
+  <li><span>v55106</span><meta property="position" content="3"></li></ul></nav>
+</div></div></div>
+<div id="main-title"><div class="wrap-site"><div class="main-h1-block"><h1>
+<i class="icon-search"></i>Search</h1></div></div></div>
+<div id="main-content"><div class="wrap-site">
+
+<div id="main-grid-no-nav">
+<div id="main-grid-content"  class="font-3 text-site-medium">
+
+
+
+<section id="content-search">
+
+<div class="card-content card-content-dark card-content-ptop">
+<h3 class="flex-add-center block-marg-t0"><i class="icon-search cmain1"></i> Search rules <button class="btn btn-pink" onclick="displayBlock('#searchinfobox')">Display</button></h3>
+<div class="hide block-dark div-size-t2 block-marg-t10" id="searchinfobox"><h4>Basic rules</h4><ul>
+<li><strong>Minimum character:</strong> 1</li>
+<li><strong>Maximum results displayed:</strong> 60</li>
+</ul>
+<h4>Search format</h4>
+<ul>
+<li><strong>Japanese title:</strong></li>
+<li>ゴーストスイーパー由美～霊魔の逆襲～</li>
+<li><strong>Occidental title:</strong></li>
+<li>Ghost Sweeper Yumi</li>
+<li><strong>Filename:</strong> </li>
+<li>hs3351_GHOSWEEPYUM</li>
+<li><strong>VNDB (by selecting the filter VNDB):</strong></li>
+<li>9129 (don't type the 'v') or japanese/occidental title</li>
+<li><strong>Strict search:</strong></li>
+<li>The words order is important &gt; <strong>Ghost Sweeper Yumi</strong> will display the result</li>
+<li><strong>Word search:</strong> </li>
+<li>Each word will be searched, that means you can type <strong>Ghost Yumi</strong></li>
+</ul></div>
+<div>
+<form method='GET' action='https://www.h-suki.com/en/search' id="search-frm" class="form-full form-dark div-size-t2"><fieldset>
+<h4>Enter your search here</h4>
+<input autocomplete="off" type="text" name="sq" placeholder="Enter a title, vndb id, filename..." value="v55106" />
+
+<h4>Filters</h4>
+<div class="flex-full-center">
+<select class="classic-select" name="cat" placeholder="All categories">
+<option value="all" >All categories</option>
+<option value="1" >Games</option>
+<option value="2" >Animes</option>
+</select>
+<select class="classic-select" name="stype">
+<option value="searchTitle" >Title</option>
+<option value="searchStudio" >Studios</option>
+<option value="searchVndb" >VNDB</option>
+<option value="searchRid" selected="selected">Release ID</option>
+</select>
+<select class="classic-select" name="smode">
+<option value="1" selected="selected">Strict search</option>
+<option value="2" >Word search</option>
+</select>
+</div>
+<div class="valid-form-t1"><button class="btn btn-green" type="submit"><i class="icon-search"></i> <span>Search</span></button>
+<button onclick="submitreset()" type="button" class="btn btn-red"><i class="icon-cancel"></i> <span>Reset</span></button>
+</div>
+</fieldset></form>
+</div>
+</div>
+
+<div class="card-content card-content-ptop">
+<div class="info-box block-orange">
+<span class="icon"><i class="icon-cancel"></i></span><div class="text">There is no result to display.</div>
+</div>
+</div>
+
+</section>
+</div>
+</div>
+
+</div></div>
+
+</div></main>
+<footer id="footer"><div class="footer-b1"><div class="wrap-site">
+<div class="back-top"><a onclick="jumpTo('head');return false;"><i class="icon-arrow-up" aria-hidden="true"></i></a></div>
+<div class="footer-b1-grid">
+<div class="footer-left">
+	<div class="footer-title">Site</div>
+	<div class="footer-links"><a href="https://www.h-suki.com/en/" title="Accueil"><i class="icon-home"></i>Accueil</a>
+<a href="https://www.h-suki.com/en/help" title="Help"><i class="icon-life-bouy"></i>Help</a>
+<a href="https://www.h-suki.com/en/hsuki" title="HSuki"><i class="icon-hsk"></i>HSuki</a>
+<a href="https://www.h-suki.com/forum" title="Forum"><i class="icon-chat"></i>Forum</a>
+	<a href="https://www.h-suki.com/en/login?action=register" title="Forum"><i class="icon-user"></i> Create an account</a>	</div>
+	<div class="footer-title">Categories</div>
+	<div class="footer-links bg-1"><a href="https://www.h-suki.com/en/games" title="Games"><i class="icon-gamepad"></i>Games</a>
+<a href="https://www.h-suki.com/en/animes" title="Animes"><i class="icon-video"></i>Animes</a>
+</div>
+	<div class="footer-title">Studios</div>
+	<div class="footer-links"><a href="https://www.h-suki.com/en/studios/games" title="Games developers"><i class="icon-gamepad"></i>Games developers</a>
+<a href="https://www.h-suki.com/en/studios/animes" title="Anime producers"><i class="icon-video"></i>Anime producers</a>
+<a href="https://www.h-suki.com/en/studios/translation" title="Translation groups"><i class="icon-video"></i>Translation groups</a>
+</div>
+</div>
+<div class="footer-right">
+	<div class="footer-title">Contact</div>
+	<div class="footer-links bg-1"><a href="https://www.h-suki.com/en/contact" title="Mail"><i class="icon-mail"></i>Mail</a>
+<a href="https://www.h-suki.com/en/contact/chat" title="Contact chat"><i class="icon-chat"></i>Contact chat</a>
+</div>
+	<div class="footer-title">RSS</div>
+	<div class="footer-links"><a href="https://www.h-suki.com/extfiles/rss_HSK_games_English.xml" title="RSS Games"><i class="icon-rss"></i>RSS Games</a>
+<a href="https://www.h-suki.com/extfiles/rss_HSK_animes_English.xml" title="RSS Animes"><i class="icon-rss"></i>RSS Animes</a>
+</div>
+</div>
+</div>
+</div></div>
+<div class="footer-b2"><div class="wrap-site">
+<div class="copyright text-center">
+<span class="main-cl-1">HSuki</span> v13.0 © 2010 - 2026 | <span class="main-cl-1">xgrab</span>
+</div>
+</div></div><div class="hide"><script>
+urlScript="https:\/\/www.h-suki.com\/theme\/assets\/";
+var search_select_file = '_input_search.load_ajax.php';
+var btn_expand = "Expand";
+var btn_reduce = "Reduce";
+var textcopy = "Links copied to the clipboard";
+var pendingt=500;
+</script><script src="https://hsksrv.ovh/assets/js/jquery.min.js?version=111"></script>
+<link rel="stylesheet" href="https://hsksrv.ovh/assets/js/fancybox.min.css?version=111"><script src="https://hsksrv.ovh/assets/js/fancybox.min.js?version=111"></script>
+<script src="https://www.h-suki.com/theme/assets/scripts/w_search_header_updt.js?version=111"></script>
+<script src="https://www.h-suki.com/theme/assets/scripts/w_base_script.js?version=111"></script>
+<script src="https://hsksrv.ovh/assets/js/selectize.min.js?version=111"></script>
+<link rel="stylesheet" href="https://hsksrv.ovh/assets/js/selectize.default.min.css?version=111">
+<script>$('.classic-select').each(function () {
+    $(this).selectize({normalize: true,persist: false,showEmptyOptionInDropdown:false});
+});
+$('.classic-select-null').each(function () {
+    $(this).selectize({normalize: true,persist: false,items:null});
+});
+$('.classic-select-rem').each(function () {
+    $(this).selectize({plugins: ['remove_button'],normalize: true,persist: false});
+});
+$('.classic-select-clr').each(function () {
+    $(this).selectize({plugins: ['clear_button'],normalize: true,persist: false});
+});1</script>
+<link rel="stylesheet" href="https://www.h-suki.com/theme/theme_dark_js.css?version=117">
+
+
+</div>
+</footer><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"76b0b8191c2b411a85305bdcfdf0ba12","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
